@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessments.Web", "Assessments.Web\Assessments.Web.csproj", "{9D7AD847-DBF7-40D3-981C-13CCF229EE53}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessments.Mapping", "Assessments.Mapping\Assessments.Mapping.csproj", "{27BFFD0F-B02F-4DC9-B409-691342F0CFC0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessments.Shared", "Assessments.Shared\Assessments.Shared.csproj", "{F43215CE-7F68-4FBB-A51E-2736F490912F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessments.Transformation", "Assessments.Transformation\Assessments.Transformation.csproj", "{A2B663AA-0357-46BD-BF7B-19C50DCF95B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{5ABC60EC-61F1-4433-888B-46DEB60B2464}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		azure-pipelines-dev.yml = azure-pipelines-dev.yml
+		azure-pipelines-prod.yml = azure-pipelines-prod.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessments.Tests", "Assessments.Tests\Assessments.Tests.csproj", "{A268EDE0-4060-42E3-90AD-E97558A410E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessments.Data", "Assessments.Data\Assessments.Data.csproj", "{2B7D3328-8C3A-40ED-9932-66B07374394B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessments.Transformation.Tests", "Assessments.Transformation.Tests\Assessments.Transformation.Tests.csproj", "{14703783-E9F4-43DD-93AB-E400C69028EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D7AD847-DBF7-40D3-981C-13CCF229EE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7AD847-DBF7-40D3-981C-13CCF229EE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7AD847-DBF7-40D3-981C-13CCF229EE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7AD847-DBF7-40D3-981C-13CCF229EE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27BFFD0F-B02F-4DC9-B409-691342F0CFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27BFFD0F-B02F-4DC9-B409-691342F0CFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27BFFD0F-B02F-4DC9-B409-691342F0CFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27BFFD0F-B02F-4DC9-B409-691342F0CFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43215CE-7F68-4FBB-A51E-2736F490912F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43215CE-7F68-4FBB-A51E-2736F490912F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43215CE-7F68-4FBB-A51E-2736F490912F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43215CE-7F68-4FBB-A51E-2736F490912F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2B663AA-0357-46BD-BF7B-19C50DCF95B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B663AA-0357-46BD-BF7B-19C50DCF95B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B663AA-0357-46BD-BF7B-19C50DCF95B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B663AA-0357-46BD-BF7B-19C50DCF95B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A268EDE0-4060-42E3-90AD-E97558A410E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A268EDE0-4060-42E3-90AD-E97558A410E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A268EDE0-4060-42E3-90AD-E97558A410E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A268EDE0-4060-42E3-90AD-E97558A410E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7D3328-8C3A-40ED-9932-66B07374394B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7D3328-8C3A-40ED-9932-66B07374394B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7D3328-8C3A-40ED-9932-66B07374394B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7D3328-8C3A-40ED-9932-66B07374394B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14703783-E9F4-43DD-93AB-E400C69028EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14703783-E9F4-43DD-93AB-E400C69028EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14703783-E9F4-43DD-93AB-E400C69028EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14703783-E9F4-43DD-93AB-E400C69028EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A2FDC22-2339-438F-8175-603BF5C7BAAB}
+		RESX_NeutralResourcesLanguage = nb
+		RESX_AutoApplyExistingTranslations = True
+		RESX_PrefixTranslations = True
+		RESX_MoveToResources = {"Items":[{"Extensions":".cs,.vb","Patterns":"$Namespace.$File.$Key|$File.$Key|StringResourceKey.$Key|$Namespace.StringResourceKey.$Key|nameof($File.$Key), ResourceType = typeof($File)|ErrorMessageResourceType = typeof($File), ErrorMessageResourceName = nameof($File.$Key)"},{"Extensions":".cshtml,.vbhtml","Patterns":"Localizer[\"$Key\"]|LocalizerShared[\"$Key\"]|@$Namespace.$File.$Key|@$File.$Key|@StringResourceKey.$Key|@$Namespace.StringResourceKey.$Key"},{"Extensions":".cpp,.c,.hxx,.h","Patterns":"$File::$Key"},{"Extensions":".aspx,.ascx","Patterns":"<%$ Resources:$File,$Key %>|<%= $File.$Key %>|<%= $Namespace.$File.$Key %>"},{"Extensions":".xaml","Patterns":"\"{x:Static properties:$File.$Key}\""},{"Extensions":".ts","Patterns":"resources.$Key"},{"Extensions":".html","Patterns":"{{ resources.$Key }}"}]}
+		RESX_Rules = {"EnabledRules":["StringFormat","WhiteSpaceLead","WhiteSpaceTail","PunctuationLead","PunctuationTail"]}
+	EndGlobalSection
+EndGlobal

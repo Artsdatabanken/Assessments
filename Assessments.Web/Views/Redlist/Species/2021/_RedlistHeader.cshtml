@@ -1,0 +1,13 @@
+﻿@{
+    PageMenuViewModel pageMenuViewModel = new PageMenuViewModel
+    {
+        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
+        PageMenuContentId = Constants.RedlistSpecies2021PageMenuContentId,
+        PageMenuExpandButtonText = Constants.RedlistSpecies2021PageManuExpandButtonText,
+        PageMenuHeaderText = Constants.RedlistSpecies2021PageMenuHeaderText
+    };
+}
+
+<div class="title_header">
+    <partial name="/Views/Shared/_PageMenu.cshtml" model="pageMenuViewModel" />
+</div>

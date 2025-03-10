@@ -1,0 +1,34 @@
+@model AlienSpeciesListViewModel
+@using X.PagedList.Extensions
+
+<div id="viewselector" class="viewselector @Model.View">
+    @if (Model.View == "stat")
+    {
+        <partial name="/Views/AlienSpecies/2023/ListPartials/_Graphs.cshtml" />
+    }
+    else
+    {
+        var results = Model.Results.Select(x => new ListViewViewModel.Result
+        {
+            EvaluationContext = x.EvaluationContext.ToString(),
+            Category = x.Category.DisplayName(),
+            CategoryShort = x.Category.ToString(),
+            Id = x.Id,
+            IsDoorKnocker = x.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.DoorKnocker,
+            HasEffectWithoutReproduction = x.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.EffectWithoutReproduction,
+            ScientificNameFormatted = x.ScientificName.ScientificNameFormatted,
+            SpeciesGroup = x.SpeciesGroup.DisplayName(),
+            SpeciesGroupIconUrl = AlienSpeciesHelpers.GetSpeciesGroup(x.SpeciesGroup.DisplayName())?.ImageUrl,
+            VernacularName = x.VernacularName
+        });
+
+        var listViewViewModel = new ListViewViewModel()
+        {
+            AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023,
+            NoResultString =  Constants.AlienSpecies2023NoListViewResults,
+            Results = results,
+            View = Model.View
+        };
+        <partial name="/Views/Shared/_ListView.cshtml" model="listViewViewModel" />
+    }
+</div>

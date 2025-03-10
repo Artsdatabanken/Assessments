@@ -1,0 +1,104 @@
+@model AlienSpeciesListViewModel
+@using static Assessments.Web.Infrastructure.Helpers
+@using Assessments.Mapping.AlienSpecies.Model.Enums
+
+@{
+    var categories = Model.Statistics.RiskCategories.Data;
+    var invasionPotential = new BarChart()
+    {
+        Data = Model.Statistics.DecisiveCriteria.Data.Take(2).ToList(),
+        MaxValue = Model.Statistics.DecisiveCriteria.MaxValue
+    };
+    var ecologicalEffect = new BarChart()
+    {
+        Data = Model.Statistics.DecisiveCriteria.Data.Skip(2).ToList(),
+        MaxValue = Model.Statistics.DecisiveCriteria.MaxValue
+    };
+}
+
+<div class="page_section graphs">
+    <p>@Constants.FigureMainText</p>
+
+    <h3>Antall vurderinger per risikokategori</h3>
+    <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartVertical.cshtml" model="Model.Statistics.RiskCategories" />
+    <p>@Constants.figureCategoryStart <i>@(categories.First().Name.ToLowerInvariant())</i> @(categories.First().NameShort) til <i>@(categories.Last().Name.ToLowerInvariant())</i> @(categories.Last().NameShort). Utvalget ditt omfatter @Helpers.GetBarChartTotal(categories).ToString("N0") vurderinger, hvorav @Helpers.GetBarChartHighRisk(categories).ToString("N0") @Constants.figureCategoryMiddle @AlienSpeciesAssessment2023Category.HI.DisplayName().ToLowerInvariant(), eller en @AlienSpeciesAssessment2023Category.SE.DisplayName().ToLowerInvariant() @Constants.figureCategoryEnd.</p>
+
+    <hr>
+
+    <h3>@Constants.riskMatrixFigureHeader</h3>
+    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskMatrixFigure.cshtml" />
+    <p>@Html.Raw(Constants.riskMatrixFigureText) Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.RiskCategories.Data) vurderinger.</p>
+
+    <hr>
+
+    <h3>Antall vurderinger per artsgruppe</h3>
+    <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="Model.Statistics.SpeciesGroups"/>
+    <p>Antall vurderinger i hver artsgruppe. Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.SpeciesGroups.Data) vurderinger.</p>
+
+    <hr>
+
+    <h3>@Constants.decisiveCriteriaFigureHeader</h3>
+    <div class="bar-chart-decisive-criteria bar-chart-sub-chart">
+        <div class="bar-chart-info-box bar-chart-info-box-1"><p>Invasjons-potensial</p></div>
+        <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="invasionPotential" />
+    </div>
+    <div class="bar-chart-decisive-criteria bar-chart-sub-chart">
+        <div class="bar-chart-info-box bar-chart-info-box-2"><p>@Constants.yAxisLabel</p></div>
+        <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="ecologicalEffect" />
+    </div>
+    <p>@Html.Raw(@Constants.decisiveCriteriaFigureText1) @Helpers.GetBarChartTotal(categories).ToString("N0") @Constants.decisiveCriteriaFigureText2 @Helpers.GetBarChartTotal(Model.Statistics.DecisiveCriteria.Data).ToString("N0") @Constants.decisiveCriteriaFigureText3@categories.FirstOrDefault(x => x.NameShort == "NK").Count @Html.Raw(@Constants.decisiveCriteriaFigureText4)</p>
+
+    <hr>
+
+    <h3>@Constants.natureTypesEffectsHeader</h3>
+    <h4>@Constants.natureTypesEffectsFigureHeader1</h4>
+    <div class="bar-chart-major-nature-types">
+        <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="Model.Statistics.MajorNatureTypesEffect" />
+    </div>
+    <p>@Constants.natureTypesEffectsText1 Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.SpeciesGroups.Data) vurderinger.</p>
+
+    <h4>@Constants.natureTypesEffectsFigureHeader2</h4>
+    <div class="bar-chart-double-column">
+        @for (var i = 0; i < Model.Statistics.NatureTypesEffect.Count; i++)
+        {
+            <div class="bar-chart-nature-types bar-chart-sub-chart">
+                <div class="bar-chart-info-box">@Model.Statistics.NatureTypesEffect[i].Name</div>
+                <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="Model.Statistics.NatureTypesEffect[i]" />
+            </div>
+        }
+    </div>
+    <p>@Constants.natureTypesEffectsText2 Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.SpeciesGroups.Data) vurderinger og totalt @Model.Statistics.NatureTypesEffect.SelectMany(x => x.Data).Sum(x => x.Count) observasjoner i sjeldne eller truede naturtyper.</p>
+
+    <hr>
+
+    <h3>@Constants.spreadWaysHeader</h3>
+    <h4>@Constants.spreadWaysFigureHeader1</h4>
+    <div class="bar-chart-major-spread-ways">
+        <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="Model.Statistics.SpreadWays" />
+    </div>
+    <p>@Constants.spreadWaysFigureText1 Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.SpeciesGroups.Data) vurderinger.</p>
+
+    <h4>@Constants.spreadWaysFigureHeader2</h4>
+    <div class="bar-chart-double-column">
+        @for(var i = 0; i < Model.Statistics.SpreadWaysIntroduction.Count; i++)
+        {
+            <div class="bar-chart-spread-ways bar-chart-sub-chart">
+                <div class="bar-chart-info-box bar-chart-info-box-spread-ways-@i">@Model.Statistics.SpreadWaysIntroduction[i].Name</div>
+                <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="Model.Statistics.SpreadWaysIntroduction[i]" />
+            </div>
+        }
+    </div>
+    <p>@Constants.spreadWaysFigureText2 Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.SpeciesGroups.Data) vurderinger.</p>
+
+    <hr>
+
+    <h3>@Constants.establishmentClassHeader</h3>
+    @for (var i = 0; i < Model.Statistics.EstablishmentClass.Count; i++)
+    {
+        <div class="bar-chart-sub-chart bar-chart-establishment-class">
+            <div class="bar-chart-info-box bar-chart-info-box-establishment-class-@i"><p>@Model.Statistics.EstablishmentClass[i].Name</p></div>
+            <partial name="/Views/AlienSpecies/2023/ListPartials/_BarChartHorizontal.cshtml" model="Model.Statistics.EstablishmentClass[i]" />
+        </div>
+    }
+    <p>@Html.Raw(Constants.establishmentClassFigureText) Utvalget ditt omfatter @Helpers.GetBarChartTotal(Model.Statistics.SpeciesGroups.Data) vurderinger.</p>
+</div>

@@ -1,0 +1,198 @@
+@model RL2021ViewModel
+@using static Assessments.Web.Infrastructure.Helpers
+
+
+@{
+
+    // Calculating max and total values for use in graph drawing
+    int category_total = Model.Statistics.Categories.Sum(x => x.Value); // #of assesments with a category
+    int category_max = Model.Statistics.Categories.Values.DefaultIfEmpty(0).Max();
+
+    int criteria_max = Model.Statistics.Criteria.Values.DefaultIfEmpty(0).Max();
+
+    int habitat_max = Model.Statistics.Habitat.Values.DefaultIfEmpty(0).Max();
+
+    int region_max = Model.Statistics.Region.Values.DefaultIfEmpty(0).Max();
+
+    int impact_max = Model.Statistics.ImpactFactors.Values.DefaultIfEmpty(0).Max();
+
+
+
+    // OVERALL STATS - TODO. WHile waiting - use category, as it should be consistent with nr of assesments
+    int total = category_total;
+
+
+    // Obtaining the proper order and amount of items in case there are things with 0 or null values
+    Dictionary<string, object> category = ViewBag.categories.ToObject<Dictionary<string, object>>();
+
+    Dictionary<string, object> criteria = ViewBag.kriterier.ToObject<Dictionary<string, object>>();
+
+    Dictionary<string, Dictionary<string, object>> habitat = ViewBag.habitat.ToObject<Dictionary<string, Dictionary<string, object>>>();
+
+
+
+
+
+}
+
+@functions{
+    string percentage(float max, float now)
+    {
+        if (max == 0)
+        {
+            return "0";
+        }
+        string calculated = (now / max * 100).ToString("0.00");
+
+        calculated = calculated.Replace(",", ".");
+        return calculated + "%";
+    }
+}
+
+@functions{
+    string average(float utvalg, float verdi)
+    {
+        if (utvalg == 0)
+        {
+            return "0";
+        }
+        string calculated = (verdi / utvalg).ToString("0.00");
+
+        calculated = calculated.Replace(",", ".");
+        return calculated;
+    }
+}
+
+@functions{
+    int getNumber(string dictkey, Dictionary<string, int> chosenlist)
+    {
+
+        if (chosenlist.ContainsKey(dictkey))
+        {
+            return chosenlist[dictkey];
+        }
+
+        return 0;
+
+    }
+
+
+    // DESCRIPTION
+    void categoryDescription(string category)
+    {
+        if (!string.IsNullOrEmpty(category) && category.Length > 0)
+        {
+            if (@ViewBag.categories.ContainsKey(category))
+            {
+                string final_string = @ViewBag.categories[category]["presentationstring"];
+                //final_string = final_string.ToLower();
+                // No idea why hyphens won't hyphenate one specific word only... 
+                <span class="stat_subtitle">@final_string</span>
+                }
+            }
+        }
+}
+
+
+<div class="page_section graphs">
+
+    <h3>@ViewBag.glossary["statistics"]["category"]["title"]</h3>
+
+
+    <ul class="graph color_graph">
+        @foreach (var key in category.Keys)
+        {
+            <li class="statelement">
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator @key" style="height:@percentage(@category_max, @getNumber(@key, @Model.Statistics.Categories))">
+                        <span class="percent">@getNumber(@key, @Model.Statistics.Categories)</span>
+                        
+                    </div>
+                </div>
+                <span class="statbox">
+                    @key 
+                </span>
+                @{categoryDescription(key);}
+            </li>
+        }
+    </ul>
+    <p>@ViewBag.glossary["statistics"]["category"]["description"] @FormatNumeric(category_total.ToString()).</p>
+
+    <h3>@ViewBag.glossary["statistics"]["criteria"]["title"]</h3>
+    <div class="graph greyscale">
+        @foreach (string key in criteria.Keys)
+        {
+            <div class="statelement">
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator @key" style="height:@percentage(@criteria_max, @getNumber(@key,@Model.Statistics.Criteria))">
+                        <span class="percent">@getNumber(@key, @Model.Statistics.Criteria)</span>
+                    </div>
+                </div>
+                <span class="statbox @key">
+                    @key
+                </span>
+
+            </div>
+        }
+    </div>
+    <p>@ViewBag.glossary["statistics"]["criteria"]["description"]</p>
+
+    <h3>@ViewBag.glossary["statistics"]["habitat"]["title"]</h3>
+    <div class="down_graph greyscale">
+        @foreach (string key in habitat.Keys)
+        {
+
+            <div class="statelement">
+                <span class="statbox @key">
+                    @habitat[@key]["shortname"]
+                </span>
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator @key" style="width:@percentage(@habitat_max, @getNumber(@key,@Model.Statistics.Habitat))">
+                        <span class="percent">@getNumber(@key, @Model.Statistics.Habitat)</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <p>@ViewBag.glossary["statistics"]["habitat"]["description"]</p>
+
+    <h3>@ViewBag.glossary["statistics"]["region"]["title"]</h3>
+    <div class="down_graph greyscale">
+        @foreach (string key in Model.Statistics.Region.Keys)
+        {
+            <div class="statelement">
+                <span class="statbox @key">
+                    @key
+                </span>
+
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator @key" style="width: @percentage(region_max, @getNumber(@key, @Model.Statistics.Region))">
+                        <span class="percent">@getNumber(@key, @Model.Statistics.Region)</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <p>@ViewBag.glossary["statistics"]["region"]["description"]</p>
+
+    <h3>@ViewBag.glossary["statistics"]["impactfactor"]["title"]</h3>
+    <div class="down_graph greyscale">
+        @foreach (string key in Model.Statistics.ImpactFactors.Keys)
+        {
+            <div class="statelement">
+                <span class="statbox @key">
+                    @key
+                </span>
+
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator @key" style="width:@percentage(impact_max, @getNumber(@key,@Model.Statistics.ImpactFactors))">
+                        <span class="percent">@getNumber(@key, @Model.Statistics.ImpactFactors)</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <p>@ViewBag.glossary["statistics"]["impactfactor"]["description"]</p>
+
+
+</div>

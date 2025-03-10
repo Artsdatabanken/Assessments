@@ -6,7 +6,7 @@ I tilegg funksjonalitet for å publisere dynamicProperties til taxonAPi. TaxonAP
 ## Connectionstrings
 
 Brukes for tilgang til Azure storage account og databaser.
-Legges til som [user secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows) i prosjektet. 
+Legges til som [user secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets) i prosjektet. 
 
 Oversikt over nøkler:
 

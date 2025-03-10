@@ -28,7 +28,9 @@ namespace Assessments.Transformation
             if (string.IsNullOrEmpty(connectionString))
                 throw new Exception("ConnectionStrings:Rodliste2020 (app secret) mangler");
 
-            var optionsBuilder = new DbContextOptionsBuilder<Rodliste2020Context>().UseSqlServer(connectionString);
+            var optionsBuilder = new DbContextOptionsBuilder<Rodliste2020Context>()
+                .UseSqlServer(connectionString, sqlServerOptions => sqlServerOptions.CommandTimeout(120));
+
             _dbContext = new Rodliste2020Context(optionsBuilder.Options);
 
             if (!await _dbContext.Database.CanConnectAsync())

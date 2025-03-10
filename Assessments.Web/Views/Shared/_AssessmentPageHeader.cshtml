@@ -1,0 +1,58 @@
+﻿@model AssessmentPageHeaderViewModel
+@using Assessments.Mapping.AlienSpecies.Model.Enums
+
+@{
+    var hasSvalbardStyle =Model.AssessmentArea == "Svalbard";
+    var showAssessedTogether = Model.ConnectedTaxons != null && Model.ConnectedTaxons.Length != 0;
+
+    var isNr = Model.Category == AlienSpeciesAssessment2023Category.NR;
+
+    var ingressViewModel = new IngressViewModel()
+    {
+        AlienSpeciesCategory = Model.AlienSpeciesCategory,
+        Category = Model.Category,
+        EvaluationContext = Model.EvaluationContext,
+        ListName = Constants.AlienSpecies2023PageMenuHeaderText,
+        ParentAssessmentId = Model.ParentAssessmentId,
+        SpeciesStatus = Model.SpeciesStatus,
+        Status = Model.SpeciesStatus.DisplayName(),
+        TaxonRank = Model.ScientificNameRank,
+        ScientificName = Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023 ? Model.ScientificName.ScientificName : ""
+    };
+}
+
+<div class="page-header">
+    <partial name="/Views/Shared/_ScientificName.cshtml" model="Model.ScientificNameViewModel" />
+    <partial name="/Views/Shared/_SpeciesGroup.cshtml" model="Model.SpeciesGroupViewModel" />
+    <div is-visible="showAssessedTogether">
+        <br>
+        <p>
+            Vurderes sammen med @for (var i = 0; i < Model.ConnectedTaxons.Length; i++)
+            {
+                if (i + 1 == Model.ConnectedTaxons.Length)
+                {
+                    <span><a asp-action="Detail" asp-route-id="@Model.ConnectedTaxons[i].AssessmentId">@Html.Raw(Model.ConnectedTaxons[i].ScientificNameFormatted)</a>.</span>
+                }
+                else if (i + 2 == Model.ConnectedTaxons.Length)
+                {
+                    <span><a asp-action="Detail" asp-route-id="@Model.ConnectedTaxons[i].AssessmentId">@Html.Raw(Model.ConnectedTaxons[i].ScientificNameFormatted)</a> og </span>
+                }
+                else
+                {
+                    <span><a asp-action="Detail" asp-route-id="@Model.ConnectedTaxons[i].AssessmentId">@Html.Raw(Model.ConnectedTaxons[i].ScientificNameFormatted)</a>, </span>
+                }
+            }
+        </p>
+    </div>
+    <span>Gjelder for  </span>
+    <span class="@(hasSvalbardStyle ? "svalbard-heading" : string.Empty)">
+        @Model.AssessmentArea.
+        </span>
+</div>
+
+<div is-visible="!isNr && Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023">
+    <partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel" />
+</div>
+
+
+<hr>

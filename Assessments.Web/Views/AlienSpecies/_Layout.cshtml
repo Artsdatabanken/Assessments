@@ -1,0 +1,73 @@
+﻿@{
+    HeaderViewModel headerViewModel = new HeaderViewModel()
+    {
+        Title = Constants.AlienSpecies2023PageMenuHeaderText,
+        TitleShort = Constants.AlienSpecies2023PageMenuHeaderTextShort
+    };
+}
+
+<!DOCTYPE html>
+<html lang="nb">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Artsdatabanken</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
+    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/style-reset.css">
+    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/layout.css">
+    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/compiled-css/header.css">
+    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/compiled-css/footer.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/graphs.css">
+    <link rel="stylesheet" href="~/css/listview.css">
+    <link rel="stylesheet" href="~/css/assessment.css">
+    <link rel="stylesheet" href="~/css/categorybar.css">
+    <link rel="stylesheet" href="~/css/filter.css">
+    <link rel="stylesheet" href="~/css/search.css">
+    <link rel="stylesheet" href="~/css/toggleSwitch.css">
+    <link rel="stylesheet" href="~/css/tabs.css">
+    <link rel="stylesheet" href="~/css/bnw.css">
+    <link rel="stylesheet" href="~/css/alienSpecies.css">
+    <link rel="stylesheet" href="~/css/riskMatrix.css">
+    <link rel="stylesheet" href="~/css/feedbackForm.css">
+    <link rel="stylesheet" href="~/css/buttons-and-chips.css">
+    <link rel="stylesheet" href="~/css/accordions.css">
+    <link rel="stylesheet" href="~/css/map.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
+    <script src="~/js/cookies.js"></script>    
+    <meta name="description" content="Norske fremmedartslister viser hvilken økologisk risiko fremmede arter kan utgjøre for naturmangfoldet i Norge. Fremmedartslistene er utarbeidet av Artsdatabanken i samarbeid med fageksperter. ">
+</head>
+
+<body>
+    <div id="bodywrap" class="alien-species">
+        <partial name="/Views/Shared/_PageTopBar.cshtml" />
+        <partial name="/Views/AlienSpecies/2023/_AlienSpeciesHeader.cshtml" model="@headerViewModel" />
+        <div class="main">
+            <div class="main-content width-adjuster">
+                <environment exclude="Production">
+                    <vc:culture-picker />
+                </environment>
+                @RenderBody()
+                <script src="~/js/site.js"></script>
+                <script src="~/js/accordions.js" async></script>
+                <script src="~/js/filter.js" async></script>
+                <script src="~/js/search.js" async></script>
+                <script src="~/js/toggleSwitch.js" async></script>
+                <script src="~/js/toggleStatView.js" async></script>
+                <script src="~/js/assessmentTabs.js" async></script>
+                <script src="~/js/themes.js" async></script>
+                <script src="~/js/tableCollapse.js" async></script>
+                <script src="~/js/tableOfContents.js" async></script>
+                <script src="~/js/speciesImages.js" async></script>
+                <script src="https://design.artsdatabanken.no/script/compiled-js/footer.js" async></script>
+                <script src="https://design.artsdatabanken.no/script/compiled-js/header.js" async></script>
+                @await RenderSectionAsync("Scripts", required: false)
+            </div>
+        </div>
+        <partial name="/Views/Shared/_PageFooter.cshtml" />
+    </div>
+</body>
+</html>

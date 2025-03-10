@@ -1,0 +1,32 @@
+﻿@using Assessments.Shared.Options
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.Extensions.Options
+@model CitationForAssessmentViewModel
+@inject IOptions<ApplicationOptions> Options
+
+@{
+    var downloadDate = $"Nedlastet {DateTime.Now.ToShortDateString()}";
+    var firstpublished = Helpers.GetPublishedDate(Model.AssessmentYear, Model.YearPreviousAssessment, Model.FirstPublished);
+    var revisiondate = Helpers.GetRevisionDate(Model.RevisionDate, firstpublished);
+    var date = firstpublished;
+    if (!string.IsNullOrWhiteSpace(Model.RevisionReason))
+    {
+        date = revisiondate;
+    }
+    var url = new Uri(Options.Value.BaseUrl, Context.Request.GetEncodedPathAndQuery().Split('?', '#')[0]).ToString();
+}
+
+@if (!string.IsNullOrEmpty(Model.ExpertGroupMembers))
+{
+    <div class="page_section_header" is-visible="Model.HasBackToTopLink" id="@nameof(Constants.HeadingsNo.Citation)">
+        <h2>@Constants.HeadingsNo.Citation</h2>
+    </div>
+    <h2 is-visible="!Model.HasBackToTopLink">@Constants.HeadingsNo.Citation</h2>
+    <p class="citation">
+        @Model.ExpertGroupMembers
+        (@date).
+        @Html.Raw(Model.AssessmentName)
+        @Model.PublicationText
+        @url. @downloadDate
+    </p>
+}

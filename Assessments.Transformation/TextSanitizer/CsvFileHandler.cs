@@ -17,7 +17,7 @@ namespace Assessments.Transformation.TextSanitizer
         /// <param name="basePath">The path to the file, including trailing slash</param>
         /// <param name="file">The name of the file itself</param>
         /// <returns></returns>
-        internal static IEnumerable<dynamic>? ReadFile(byte[] file)
+        internal static IEnumerable<dynamic> ReadFile(byte[] file)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Assessments.Transformation.TextSanitizer
                 writer.Close();
                 return bytes;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return Array.Empty<byte>();
             }

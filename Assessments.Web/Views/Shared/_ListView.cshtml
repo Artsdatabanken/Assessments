@@ -1,0 +1,75 @@
+@model ListViewViewModel
+
+@{
+    var doorknockerClass = "door_knocker";
+}
+
+<ul class="@Model.AssessmentType.ToString().ToLowerInvariant() main_list_view" id="@Model.AssessmentType.ToString()">
+    <li class="listheader @( Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023 ? doorknockerClass : string.Empty )" id="listheader">
+        <span></span>
+        <span class="list_cell">Artsnavn</span>
+        <span class="list_cell">Populærnavn</span>
+        <span is-visible="Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023" class="mobile_hide list_doorknocker"></span>
+        <span class="list_cell">Kategori</span>
+    </li>
+
+    @if (Model.Results?.Count > 0)
+    {
+        @foreach (var item in Model.Results)
+        {
+            var showIsDoorKnockerOrHasEffectWithoutReproduction = @Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023 && (item.IsDoorKnocker || item.HasEffectWithoutReproduction);
+
+            <li class="list @item.SpeciesGroup.ToLower() @item.EvaluationContext @( Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023 ? doorknockerClass : string.Empty )">
+                <a asp-action="Detail" asp-route-id="@item.Id">
+                    <div class="svalbarcontainer">
+                        <span class="svalbard">Svalbard</span>
+                    </div>
+
+                    <div class="element_icon list_cell">
+                        @if (!string.IsNullOrEmpty(item.SpeciesGroup))
+                        {
+                            <img src="@item.SpeciesGroupIconUrl" onerror="this.style.display = 'none';"  alt="@item.SpeciesGroup">
+                            <span class="speciesgroup_name">@item.SpeciesGroup.ToLowerInvariant()</span>
+                        }
+                    </div>
+
+                    <span class="element_species">
+                        <span class="element_scientific_name list_cell">@Html.Raw(item.ScientificNameFormatted)</span>
+                        <span class="element_popular_name list_cell">@item.VernacularName</span>
+                    </span>
+
+                    <span is-visible="Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023" class="mobile_hide list_doorknocker">
+                        <span is-visible="showIsDoorKnockerOrHasEffectWithoutReproduction">
+                            <span class="material-symbols-outlined">
+                                door_open
+                            </span>
+                            <span>dørstokkart</span>
+                        </span>
+                    </span>
+
+                    <span class="list_cell categoryname capitalized">
+                        @if (!string.IsNullOrEmpty(item.Category))
+                        {
+                            @item.Category
+                            <span class="degrees">@Helpers.FindDegrees(item.CategoryShort, false)</span>
+                        }
+                    </span>
+
+                    <span class="list_cell categorytag">
+                        <span class="@item.CategoryShort[..2] category_tag">
+                            <span class="category_tag_label">@item.CategoryShort</span>
+                        </span>
+                    </span>
+                </a>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="no_results mobile_padding">@Model.NoResultString</li>
+    }
+</ul>
+
+<div class="mobile_padding">
+    <partial name="/Views/Shared/_Paginator.cshtml" />
+</div>

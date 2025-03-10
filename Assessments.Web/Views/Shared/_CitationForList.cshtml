@@ -1,0 +1,17 @@
+﻿@using Assessments.Shared.Options
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.Extensions.Options
+@model CitationForListViewModel
+@inject IOptions<ApplicationOptions> Options
+
+@{
+    var downloadDate = $"Nedlastet {DateTime.Now.ToShortDateString()}";
+    var url = new Uri(Options.Value.BaseUrl, Context.Request.GetEncodedPathAndQuery().Split('?', '#')[0]).ToString();
+}
+
+<div class="mobile_padding">
+    <h2>Sitering</h2>
+    <p class="citation">
+        @url. @downloadDate
+    </p>
+</div>

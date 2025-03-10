@@ -1,0 +1,18 @@
+﻿@model ScientificNameViewModel
+@using static Assessments.Web.Infrastructure.Helpers
+
+@{
+    string GetPopularName()
+    {
+        if (Model.ShowAssessmentOf)
+            return Model.PopularName;
+        return char.ToUpper(Model.PopularName[0]) + Model.PopularName.Substring(1);
+    }
+}
+
+<h1>
+    <span is-visible="Model.ShowAssessmentOf" class="small-heading-part">Vurdering av </span>
+    <span is-visible="!string.IsNullOrEmpty(Model.PopularName)">@GetPopularName()</span>
+    <span>@Html.Raw(Model.ScientificNameFormatted ? Model.ScientificName : FormatScientificNameElement(Model.ScientificName))
+    @Model.ScientificNameAuthor</span>
+</h1>

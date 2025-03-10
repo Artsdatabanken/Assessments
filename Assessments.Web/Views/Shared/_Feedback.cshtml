@@ -1,0 +1,172 @@
+﻿@model FeedbackFormViewModel
+
+@using Assessments.Data
+@using Assessments.Web.Controllers
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.EntityFrameworkCore
+
+@inject AssessmentsDbContext DbContext
+
+@{
+    var feedbackMessage = TempData["feedback"] != null;
+    var validationCode = string.Empty;
+    var validationCodeQuerystring = Context.Request.Query["guid"];
+    var returnUrl = Context.Request.GetEncodedPathAndQuery();
+
+    const string validationCookieName = FeedbackController.ValidationCookieName;
+
+    if (!string.IsNullOrEmpty(validationCodeQuerystring) && Guid.TryParse(validationCodeQuerystring, out _))
+    {
+        validationCode = validationCodeQuerystring;
+    }
+    else
+    {
+        var validationCodeCookie = Context.Request.Cookies[validationCookieName];
+
+        if (!string.IsNullOrEmpty(validationCodeCookie) && Guid.TryParse(validationCodeCookie, out _))
+        {
+            validationCode = validationCodeCookie;
+        }
+        else
+        {
+            Context.Response.Cookies.Delete(validationCookieName);
+        }
+    }
+
+    var emailIsValid = false;
+    var validationCodeIsInvalid = false;
+
+    if (!string.IsNullOrEmpty(validationCode))
+    {
+        var emailValidation = await DbContext.EmailValidations.AsNoTracking().FirstOrDefaultAsync(x => x.Guid == new Guid(validationCode));
+
+        if (emailValidation != null)
+        {
+            emailIsValid = true;
+
+            Model.FullName = emailValidation.FullName;
+            Model.Email = emailValidation.Email;
+
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddMonths(1)
+            };
+
+            if (Context.Request.Host.ToUriComponent().StartsWith("www.artsdatabanken.no"))
+            {
+                cookieOptions.Domain = "artsdatabanken.no";
+            }
+
+            Context.Response.Cookies.Append(validationCookieName, emailValidation.Guid.ToString(), cookieOptions);
+        }
+        else
+        {
+            validationCodeIsInvalid = true;
+            Context.Response.Cookies.Delete(validationCookieName);
+        }
+    }
+}
+
+<div class="feedback_form_container">
+
+<div class="page_section_header" id="Feedback" is-visible="Model.HasBackToTopLink">
+    <h2>Tilbakemelding</h2>
+</div>
+<h2 id="Feedback" is-visible="!Model.HasBackToTopLink">Tilbakemelding</h2>
+
+@if (validationCodeIsInvalid)
+{
+    <p>Lenken for validering av e-post er ugyldig.</p>
+}
+else if (feedbackMessage)
+{
+    <p>@TempData["feedback"].ToString()</p>
+}
+else if (emailIsValid)
+{
+    <p>
+       Din e-post er verifisert, nå kan du legge inn tilbakemelding.
+    </p>
+    <div class="page_section">
+            <form id="js-feedback-form" asp-controller="Feedback" asp-action="AddFeedback" asp-route-returnurl="@returnUrl" asp-route-code="@validationCode" class="feedback_form" method="post" enctype="multipart/form-data" novalidate>
+            <div class="feedback_form_input_field">
+                <label asp-for="FullName"></label><br>
+                <input asp-for="FullName" readonly="readonly">
+            </div>
+            <div class="feedback_form_input_field">
+                <label asp-for="Email"></label><br>
+                <input asp-for="Email" readonly="readonly">
+            </div>
+            <div class="feedback_form_input_field">
+                <label asp-for="Comment"></label><br>
+                <textarea asp-for="Comment" rows="5"></textarea>
+                <span asp-validation-for="Comment"></span>
+            </div>
+            <div class="feedback_form_input_field">
+                <label asp-for="FormFiles"></label><br>
+                <input asp-for="FormFiles" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" multiple="true">
+                <span asp-validation-for="FormFiles"></span>
+            </div>
+            <div class="feedback_form_input_field">
+                <input asp-for="Terms"><label asp-for="Terms"></label> <a asp-action="Terms" asp-controller="Feedback" target="_blank">Se vilkårene her</a> <span asp-validation-for="Terms"></span>
+            </div>
+            <input asp-for="AssessmentId" type="hidden">
+            <input asp-for="Year" type="hidden">
+            <input asp-for="ExpertGroup" type="hidden">
+            <input asp-for="Type" type="hidden">
+            <button class="primary" type="submit">Send inn skjema</button>
+                <a asp-controller="Feedback" asp-action="ForgetValidation" asp-route-code="@validationCode" asp-route-returnurl="@returnUrl" onclick="return confirm('Er du sikker?')">Glem meg (sletter e-postadressen)</a>
+        </form>
+    </div>
+}
+else
+{
+    <p>
+        Registrer navn og e-postadresse for å få tilsendt en gyldig lenke for å sende tilbakemelding.
+    </p>
+
+    <div class="page_section">
+            <form id="js-feedback-form" asp-controller="Feedback" asp-action="ValidateEmail" asp-route-returnurl="@returnUrl" method="post" enctype="multipart/form-data" class="feedback_form" novalidate>
+            <div class="feedback_form_input_field">
+                <label asp-for="FullName"></label><br>
+                <input asp-for="FullName">
+                <span asp-validation-for="FullName"></span>
+            </div>
+            <div class="feedback_form_input_field">
+                <label asp-for="Email"></label><br>
+                <input asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="feedback_form_input_field">
+                <input asp-for="Terms"><label asp-for="Terms"></label> <a asp-action="Terms" asp-controller="Feedback" target="_blank">Se vilkårene her</a> <span asp-validation-for="Terms"></span>
+            </div>
+            <button class="primary" type="submit">Registrer e-postadresse</button>
+        </form>
+    </div>
+}
+</div>
+
+<script src="~/js/lib/jquery.slim.min.js"></script>
+<script src="~/js/lib/jquery.validate.min.js"></script>
+<script src="~/js/lib/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(function () {
+        var defaultRangeValidator = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            if (element.type === 'checkbox') {
+                return element.checked;
+            } else {
+                return defaultRangeValidator.call(this, value, element, param);
+            }
+        }
+        
+        $("#js-feedback-form").submit(function () {         
+            if ($(this).valid()) {
+                $(this).find(":submit").attr("disabled", true).text("Behandler skjema..");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,24 @@
+﻿@model ControlButtonsViewModel
+
+@{
+    string GetViewClass(string element, string value)
+    {
+        if (String.IsNullOrEmpty(element) && value == "list")
+        {
+            return "class=active";
+        }
+        return element == value ? "class=active" : String.Empty;
+    }
+}
+
+<button id="list_view_button" @GetViewClass(Model.View, "list") type="submit" name="View" value="list">
+    <span class="material-icons">list</span> Liste
+</button>
+@*
+    <button @GetViewClass(Model.View, "grid") type="submit" @ViewCheck("View", Model.View, "grid") class="hideonmobile">
+        <span class="material-icons">grid_on</span> Grid
+    </button>*@
+
+<button id="stat_view_button" @GetViewClass(Model.View, "stat") type="submit" name="View" value="stat">
+    <span class="material-icons">bar_chart</span> Figurer
+</button>

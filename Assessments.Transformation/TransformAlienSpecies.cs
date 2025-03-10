@@ -283,7 +283,9 @@ namespace Assessments.Transformation
             if (string.IsNullOrEmpty(connectionString))
                 throw new Exception("ConnectionStrings:Fab4 (app secret) mangler");
 
-            var optionsBuilder = new DbContextOptionsBuilder<Fab4Context>().UseSqlServer(connectionString);
+            var optionsBuilder = new DbContextOptionsBuilder<Fab4Context>()
+                .UseSqlServer(connectionString, sqlServerOptions => sqlServerOptions.CommandTimeout(120));
+
             _dbContext = new Fab4Context(optionsBuilder.Options);
 
             if (!await _dbContext.Database.CanConnectAsync())

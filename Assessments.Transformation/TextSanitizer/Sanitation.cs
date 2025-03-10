@@ -40,7 +40,7 @@ namespace Assessments.Transformation.TextSanitizer
                             recordDict[fieldName] = replaceWith;
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         break;
                     }

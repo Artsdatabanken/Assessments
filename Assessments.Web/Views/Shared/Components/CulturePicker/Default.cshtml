@@ -1,0 +1,31 @@
+﻿@using System.Web
+@model Assessments.Web.Views.Shared.Components.CulturePicker.CulturePickerModel
+@inject IViewLocalizer Localizer
+
+@{
+    var queryString = HttpUtility.ParseQueryString(Context.Request.QueryString.ToUriComponent());
+    var queryStringItems = queryString.AllKeys.SelectMany(queryString.GetValues, (k, v) => new { key = k, value = v }).Where(x => !x.key.Equals("culture", StringComparison.OrdinalIgnoreCase));
+}
+
+<div class="language-selector">
+    <form action="@Context.Request.QueryString.ToUriComponent()">
+        <label for="culture-picker">
+            @Localizer["choose-language"]
+        </label>
+        <select id="culture-picker" name="culture" onchange="this.parentElement.submit();">
+            @foreach (var culture in Model.SupportedCultures)
+            {
+                <option value="@culture.Name" selected="@(Model.CurrentUICulture.Name == culture.Name)">
+                    @culture.DisplayName@(culture.NativeName == culture.DisplayName ? string.Empty : $" - {culture.NativeName}")
+                </option>
+            }
+        </select>
+        @foreach (var item in queryStringItems) // legger til parametere fra url når man bytter språk
+        {
+            <input name="@item.key" value="@item.value" type="hidden" />
+        }
+    </form>
+    <em is-visible="!CookiesHelper.UserAcceptedCookies(Context)">
+        @Localizer["must-accept-cookies"]
+    </em>
+</div>
