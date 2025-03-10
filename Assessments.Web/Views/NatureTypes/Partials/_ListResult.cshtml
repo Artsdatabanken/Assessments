@@ -1,0 +1,16 @@
+﻿@using Assessments.Web.Infrastructure.NatureTypes
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model X.PagedList.IPagedList<RodlisteNaturtyper.Data.Models.Assessment>
+
+<partial name="Partials/_ListResultCount" model="Model" />
+
+<ul>
+    @foreach (var assessment in Model)
+    {
+        <li>
+            @assessment.Id <a asp-action="Detail" asp-route-id="@assessment.Id" asp-route-returnUrl="@Context.Request.QueryString">
+                @assessment.Name @assessment.Category @assessment.Category.GetDescription()
+            </a>
+        </li>
+    }
+</ul>

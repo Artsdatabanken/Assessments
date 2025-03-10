@@ -1,0 +1,18 @@
+﻿@using Assessments.Web.Infrastructure.NatureTypes
+@model RodlisteNaturtyper.Data.Models.Assessment
+
+@{
+    var homeUrl = Url.Action("List", "NatureTypes") + Context.Request.Query["returnUrl"];
+}
+
+<div class="breadcrumbs">
+    <ol>
+        <li class="in-breadcrumb">
+            <a href="@homeUrl">@NatureTypesConstants.Title</a>
+            <span class="breadcrumbdivider">&gt; </span>
+        </li>
+        <li class="in-breadcrumb currentcrumb">
+            @Model.Name
+        </li>
+    </ol>
+</div>

@@ -1,4 +1,4 @@
-﻿@model FeedbackFormViewModel
+﻿@model FeedbackViewModel
 
 @using Assessments.Data
 @using Assessments.Web.Controllers
@@ -54,11 +54,6 @@
                 Expires = DateTime.Now.AddMonths(1)
             };
 
-            if (Context.Request.Host.ToUriComponent().StartsWith("www.artsdatabanken.no"))
-            {
-                cookieOptions.Domain = "artsdatabanken.no";
-            }
-
             Context.Response.Cookies.Append(validationCookieName, emailValidation.Guid.ToString(), cookieOptions);
         }
         else
@@ -113,6 +108,7 @@ else if (emailIsValid)
                 <input asp-for="Terms"><label asp-for="Terms"></label> <a asp-action="Terms" asp-controller="Feedback" target="_blank">Se vilkårene her</a> <span asp-validation-for="Terms"></span>
             </div>
             <input asp-for="AssessmentId" type="hidden">
+            <input asp-for="AssessmentName" type="hidden">
             <input asp-for="Year" type="hidden">
             <input asp-for="ExpertGroup" type="hidden">
             <input asp-for="Type" type="hidden">

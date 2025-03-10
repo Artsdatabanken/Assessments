@@ -1,0 +1,26 @@
+﻿@using Assessments.Web.Models.NatureTypes
+@using RodlisteNaturtyper.Data.Models.Enums
+@model NatureTypesListViewModel
+@{
+    var hasFilter = Context.Request.Query.Select(x => x.Value).Any(x => !string.IsNullOrEmpty(x));
+}
+
+<form method="get">
+    <label asp-for="Name">Søk</label>
+    <input asp-for="Name" type="text" />
+    @foreach (var item in Enum.GetValues<Category>())
+    {
+        <label>
+            <input type="checkbox" value="@item" name="@nameof(Model.Category)" @(Model.Category.Any(x => x == item) ? "checked" : "") /> @item
+        </label>
+    }
+    <button type="submit">
+        <span class="material-symbols-outlined">
+            search
+        </span>
+        <span>Søk</span>
+    </button>
+</form>
+<div is-visible="@hasFilter">
+    <a asp-action="List">nullstill filter</a>
+</div>

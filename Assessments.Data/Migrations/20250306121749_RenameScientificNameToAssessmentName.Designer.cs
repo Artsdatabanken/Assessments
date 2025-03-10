@@ -4,6 +4,7 @@ using Assessments.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assessments.Data.Migrations
 {
     [DbContext(typeof(AssessmentsDbContext))]
-    partial class AssessmentsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250306121749_RenameScientificNameToAssessmentName")]
+    partial class RenameScientificNameToAssessmentName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

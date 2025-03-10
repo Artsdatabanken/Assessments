@@ -1,0 +1,38 @@
+﻿@using Assessments.Web.Infrastructure.NatureTypes
+@using Assessments.Web.Models.NatureTypes
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model NatureTypesDetailViewModel
+
+@{
+    var assessment = Model.Assessment;
+    ViewBag.Title = $"{NatureTypesConstants.Title} {assessment.Name}";
+}
+
+<partial name="Partials/_Breadcrumb" for="Assessment" />
+
+<div class="pagecontainer">
+    <partial name="/Views/Shared/_PageMenuHistorical.cshtml" />
+    <div class="content-placer bigmid">
+        <div class="mid-content">
+            <div class="page-header">
+                <h1>
+                    @assessment.Name
+                </h1>
+                <p class="ingress">
+                    @Html.Raw(assessment.DescriptionHtml)
+                </p>
+            </div>
+            <ul>
+                <li>Id: @assessment.Id</li>
+                <li>Navn: @assessment.Name</li>
+                <li>Populærnavn: @assessment.PopularName</li>
+                <li>Kategori med beskrivelse: @assessment.Category @assessment.Category.GetDescription()</li>
+                <li>Endelig kategori og kriterium: @assessment.CriteriaSummary</li>
+                <li>Kortkode: @assessment.ShortCode</li>
+                <li>Langkode med lenke : <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.LongCode</a></li>
+                <li>Ekspertkomitée: @assessment.Committee.Name</li>
+            </ul>
+            <partial name="_Feedback" model="Model.FeedbackViewModel" />
+        </div>
+    </div>
+</div>

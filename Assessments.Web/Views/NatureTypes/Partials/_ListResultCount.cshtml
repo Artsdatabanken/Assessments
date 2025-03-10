@@ -1,0 +1,14 @@
+﻿@model X.PagedList.IPagedList<RodlisteNaturtyper.Data.Models.Assessment>
+
+@if (Model.TotalItemCount <= Model.PageSize)
+{
+    <text>
+        @Model.Count @(Model.TotalItemCount == 1 ? "resultat" : "resultater")
+    </text>
+}
+else
+{
+    <text>
+        @($"Viser {Model.FirstItemOnPage} til {Model.LastItemOnPage} av {Model.TotalItemCount:N0} resultater")
+    </text>
+}

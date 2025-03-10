@@ -11,8 +11,8 @@ namespace Assessments.Data.Models
 
         public int AssessmentId { get; set; }
 
-        [MaxLength(200)]
-        public string ScientificName { get; set; }
+        [MaxLength(250)]
+        public string AssessmentName { get; set; }
 
         public int Year { get; set; }
 
@@ -36,6 +36,7 @@ namespace Assessments.Data.Models
 
     public enum FeedbackType
     {
-        AlienSpecies = 0
+        AlienSpecies = 0,
+        NatureTypes = 1
     }
 }
