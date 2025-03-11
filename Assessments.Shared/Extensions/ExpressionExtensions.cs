@@ -1,8 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
-namespace Assessments.Web.Infrastructure.NatureTypes;
+namespace Assessments.Shared.Extensions;
 
-public static class ExpressionHelpers
+public static class ExpressionExtensions
 {
     public static Expression<Func<T, bool>> Combine<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
     {

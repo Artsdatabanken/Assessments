@@ -34,7 +34,7 @@ namespace Assessments.Web.Infrastructure
             _environment = environment;
             _configuration = configuration;
             _appCache = appCache;
-            _appCache.DefaultCachePolicy.DefaultCacheDurationSeconds = 86400; // 24 hours
+            _appCache.DefaultCachePolicy.DefaultCacheDurationSeconds = TimeSpan.FromDays(1).Seconds;
         }
 
         public Task<IQueryable<T>> GetData<T>(string name)

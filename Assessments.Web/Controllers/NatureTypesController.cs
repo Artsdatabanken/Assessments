@@ -1,13 +1,12 @@
 ﻿using System.Linq.Expressions;
 using Assessments.Data.Models;
-using Assessments.Shared.Options;
+using Assessments.Shared.Extensions;
+using Assessments.Shared.Interfaces;
 using Assessments.Web.Infrastructure;
-using Assessments.Web.Infrastructure.NatureTypes;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
-using Default;
+using Assessments.Web.Models.NatureTypes.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 using X.PagedList.Extensions;
@@ -16,16 +15,8 @@ namespace Assessments.Web.Controllers;
 
 [NotReadyForProduction]
 [Route("naturtyper")]
-public class NatureTypesController : BaseController<NatureTypesController>
+public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
-    private readonly Container _context;
-
-    public NatureTypesController(IOptions<ApplicationOptions> options)
-    {
-        _context = new Container(options.Value.NatureTypes.ODataUrl);
-        _context.BuildingRequest += (_, e) => e.Headers.Add("X-API-KEY", options.Value.NatureTypes.ODataApiKey);
-    }
-
     public IActionResult Home()
     {
         return View();
@@ -34,24 +25,36 @@ public class NatureTypesController : BaseController<NatureTypesController>
     [Route("2025")]
     public IActionResult List(NatureTypesListViewModelParameters parameters, int? page)
     {
-        IQueryable<Assessment> assessments = _context.Assessments;
-
+        var assessments = repository.GetAssessments();
+        
         if (!string.IsNullOrEmpty(parameters.Name))
             assessments = assessments.Where(x => x.Name.Contains(parameters.Name) || x.ShortCode == parameters.Name);
 
         if (parameters.Category.Count != 0)
         {
-            var categories = parameters.Category.Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionHelpers.Combine(current, c => c.Category == category));
+            var categories = parameters.Category.Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.Combine(current, c => c.Category == category));
 
             if (categories != null)
                 assessments = assessments.Where(categories);
         }
 
+        if (parameters.Committee.Count != 0)
+            assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
+
+        assessments = parameters.SortBy switch
+        {
+            SortByEnum.Category => assessments.OrderBy(x => x.Category),
+            SortByEnum.Committee => assessments.OrderBy(x => x.Committee.Name),
+            _ => assessments.OrderBy(x => x.Name)
+        };
+
         var pagedList = assessments.ToPagedList(page ?? 1, DefaultPageSize);
 
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
-            Category = parameters.Category.Count != 0 ? parameters.Category : []
+            Category = parameters.Category,
+            Committee = parameters.Committee,
+            Committees = repository.GetCommittees()
         };
 
         return View(viewModel);
@@ -60,13 +63,16 @@ public class NatureTypesController : BaseController<NatureTypesController>
     [Route("2025/{id:int}")]
     public IActionResult Detail(int id)
     {
-        var assessment = _context.Assessments.Expand(x => x.Committee).FirstOrDefault(c => c.Id == id);
+        var assessment = repository.GetAssessment(id);
 
         if (assessment == null)
             return NotFound();
 
+        var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
+
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
+            Citation = committeeUsers.GetCitation(assessment.Committee.Name),
             FeedbackViewModel = new FeedbackViewModel
             {
                 AssessmentId = assessment.Id,

@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Assessments.Data;
+using Assessments.Shared;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Infrastructure.Middleware;
@@ -62,7 +63,7 @@ builder.Services.AddDbContext<AssessmentsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure());
 });
 
-builder.Services.AddLazyCache();
+builder.Services.AddCoreApplication();
 
 builder.Services.AddSingleton<DataRepository>();
 
@@ -154,7 +155,7 @@ app.UseRobotsTxt();
 
 ExportHelper.Setup();
 
-// TODO: legge til innstilling om man skal jobbe med databasen lokalt?
+// TODO: legge til en innstilling om man skal jobbe med databasen lokalt?
 if (!app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();

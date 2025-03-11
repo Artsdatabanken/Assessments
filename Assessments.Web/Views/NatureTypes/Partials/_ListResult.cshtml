@@ -1,5 +1,4 @@
-﻿@using Assessments.Web.Infrastructure.NatureTypes
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model X.PagedList.IPagedList<RodlisteNaturtyper.Data.Models.Assessment>
 
 <partial name="Partials/_ListResultCount" model="Model" />
@@ -9,8 +8,9 @@
     {
         <li>
             @assessment.Id <a asp-action="Detail" asp-route-id="@assessment.Id" asp-route-returnUrl="@Context.Request.QueryString">
-                @assessment.Name @assessment.Category @assessment.Category.GetDescription()
+                @assessment.Name 
             </a>
+            @assessment.Category @assessment.Category.GetDescription() @assessment.Committee.Name
         </li>
     }
 </ul>

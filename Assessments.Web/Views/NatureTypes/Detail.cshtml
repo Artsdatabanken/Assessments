@@ -1,4 +1,4 @@
-﻿@using Assessments.Web.Infrastructure.NatureTypes
+﻿@using Assessments.Shared.Constants
 @using Assessments.Web.Models.NatureTypes
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model NatureTypesDetailViewModel
@@ -31,6 +31,7 @@
                 <li>Kortkode: @assessment.ShortCode</li>
                 <li>Langkode med lenke : <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.LongCode</a></li>
                 <li>Ekspertkomitée: @assessment.Committee.Name</li>
+                <li>Sitering: @Model.Citation</li>
             </ul>
             <partial name="_Feedback" model="Model.FeedbackViewModel" />
         </div>

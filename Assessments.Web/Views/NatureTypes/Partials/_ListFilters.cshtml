@@ -1,4 +1,5 @@
 ﻿@using Assessments.Web.Models.NatureTypes
+@using Assessments.Web.Models.NatureTypes.Enums
 @using RodlisteNaturtyper.Data.Models.Enums
 @model NatureTypesListViewModel
 @{
@@ -8,12 +9,27 @@
 <form method="get">
     <label asp-for="Name">Søk</label>
     <input asp-for="Name" type="text" />
+    <br/>
     @foreach (var item in Enum.GetValues<Category>())
     {
         <label>
             <input type="checkbox" value="@item" name="@nameof(Model.Category)" @(Model.Category.Any(x => x == item) ? "checked" : "") /> @item
         </label>
     }
+    <br/>
+    @foreach (var item in Model.Committees)
+    {
+        <label>
+            <input type="checkbox" value="@item.Name" name="@nameof(Model.Committee)" @(Model.Committee.Any(x => x == item.Name) ? "checked" : "") /> @item.Name
+        </label>
+    }
+    <br/>
+    <label asp-for="SortBy"></label>
+    <select asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByEnum>()" onchange="this.form.submit();">
+    </select>
+    
+    <br/>
+
     <button type="submit">
         <span class="material-symbols-outlined">
             search

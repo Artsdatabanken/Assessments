@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 06.03.2025 10:38:46
+// Generation date: 11.03.2025 11:44:28
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -934,35 +934,35 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnLockedByChanged();
     }
     /// <summary>
-    /// There are no comments for CommitteeSingle in the schema.
+    /// There are no comments for RegionSingle in the schema.
     /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("CommitteeSingle")]
-    public partial class CommitteeSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Committee>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("RegionSingle")]
+    public partial class RegionSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Region>
     {
         /// <summary>
-        /// Initialize a new CommitteeSingle object.
+        /// Initialize a new RegionSingle object.
         /// </summary>
-        public CommitteeSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+        public RegionSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
             : base(context, path) {}
 
         /// <summary>
-        /// Initialize a new CommitteeSingle object.
+        /// Initialize a new RegionSingle object.
         /// </summary>
-        public CommitteeSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+        public RegionSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
             : base(context, path, isComposable) {}
 
         /// <summary>
-        /// Initialize a new CommitteeSingle object.
+        /// Initialize a new RegionSingle object.
         /// </summary>
-        public CommitteeSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<Committee> query)
+        public RegionSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<Region> query)
             : base(query) {}
 
         /// <summary>
-        /// There are no comments for Users in the schema.
+        /// There are no comments for Assessments in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("users")]
-        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser> Users
+        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
         {
             get
             {
@@ -970,38 +970,42 @@ namespace RodlisteNaturtyper.Data.Models
                 {
                     throw new global::System.NotSupportedException("The previous function is not composable.");
                 }
-                if ((this._Users == null))
+                if ((this._Assessments == null))
                 {
-                    this._Users = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser>(GetPath("users"));
+                    this._Assessments = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.Assessment>(GetPath("assessments"));
                 }
-                return this._Users;
+                return this._Assessments;
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser> _Users;
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments;
     }
     /// <summary>
-    /// There are no comments for Committee in the schema.
+    /// There are no comments for Region in the schema.
     /// </summary>
     /// <KeyProperties>
     /// Id
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("id")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("Committee")]
-    public partial class Committee : global::Microsoft.OData.Client.BaseEntityType
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Region")]
+    public partial class Region : global::Microsoft.OData.Client.BaseEntityType
     {
         /// <summary>
-        /// Create a new Committee object.
+        /// Create a new Region object.
         /// </summary>
         /// <param name="ID">Initial value of Id.</param>
         /// <param name="name">Initial value of Name.</param>
+        /// <param name="shortName">Initial value of ShortName.</param>
+        /// <param name="sortOrder">Initial value of SortOrder.</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        public static Committee CreateCommittee(int ID, string name)
+        public static Region CreateRegion(int ID, string name, string shortName, int sortOrder)
         {
-            Committee committee = new Committee();
-            committee.Id = ID;
-            committee.Name = name;
-            return committee;
+            Region region = new Region();
+            region.Id = ID;
+            region.Name = name;
+            region.ShortName = shortName;
+            region.SortOrder = sortOrder;
+            return region;
         }
         /// <summary>
         /// There are no comments for Property Id in the schema.
@@ -1050,49 +1054,73 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
         /// <summary>
-        /// There are no comments for Property UserCommittees in the schema.
+        /// There are no comments for Property ShortName in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("userCommittees")]
-        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> UserCommittees
+        [global::Microsoft.OData.Client.OriginalNameAttribute("shortName")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "ShortName is required.")]
+        public virtual string ShortName
         {
             get
             {
-                return this._UserCommittees;
+                return this._ShortName;
             }
             set
             {
-                this.OnUserCommitteesChanging(value);
-                this._UserCommittees = value;
-                this.OnUserCommitteesChanged();
+                this.OnShortNameChanging(value);
+                this._ShortName = value;
+                this.OnShortNameChanged();
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _UserCommittees = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser>();
-        partial void OnUserCommitteesChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> value);
-        partial void OnUserCommitteesChanged();
+        private string _ShortName;
+        partial void OnShortNameChanging(string value);
+        partial void OnShortNameChanged();
         /// <summary>
-        /// There are no comments for Property Users in the schema.
+        /// There are no comments for Property SortOrder in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("users")]
-        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser> Users
+        [global::Microsoft.OData.Client.OriginalNameAttribute("sortOrder")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "SortOrder is required.")]
+        public virtual int SortOrder
         {
             get
             {
-                return this._Users;
+                return this._SortOrder;
             }
             set
             {
-                this.OnUsersChanging(value);
-                this._Users = value;
-                this.OnUsersChanged();
+                this.OnSortOrderChanging(value);
+                this._SortOrder = value;
+                this.OnSortOrderChanged();
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser> _Users = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser>();
-        partial void OnUsersChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser> value);
-        partial void OnUsersChanged();
+        private int _SortOrder;
+        partial void OnSortOrderChanging(int value);
+        partial void OnSortOrderChanged();
+        /// <summary>
+        /// There are no comments for Property Assessments in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
+        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
+        {
+            get
+            {
+                return this._Assessments;
+            }
+            set
+            {
+                this.OnAssessmentsChanging(value);
+                this._Assessments = value;
+                this.OnAssessmentsChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment>();
+        partial void OnAssessmentsChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> value);
+        partial void OnAssessmentsChanged();
     }
     /// <summary>
     /// There are no comments for ApplicationUserSingle in the schema.
@@ -1140,6 +1168,28 @@ namespace RodlisteNaturtyper.Data.Models
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> _Committees;
+        /// <summary>
+        /// There are no comments for CommitteeUsers in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("committeeUsers")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> CommitteeUsers
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._CommitteeUsers == null))
+                {
+                    this._CommitteeUsers = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser>(GetPath("committeeUsers"));
+                }
+                return this._CommitteeUsers;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _CommitteeUsers;
     }
     /// <summary>
     /// There are no comments for ApplicationUser in the schema.
@@ -1426,27 +1476,27 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnModifiedOnChanging(global::System.Nullable<global::System.DateTimeOffset> value);
         partial void OnModifiedOnChanged();
         /// <summary>
-        /// There are no comments for Property CommitteeUsers in the schema.
+        /// There are no comments for Property FullName in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("committeeUsers")]
-        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> CommitteeUsers
+        [global::Microsoft.OData.Client.OriginalNameAttribute("fullName")]
+        public virtual string FullName
         {
             get
             {
-                return this._CommitteeUsers;
+                return this._FullName;
             }
             set
             {
-                this.OnCommitteeUsersChanging(value);
-                this._CommitteeUsers = value;
-                this.OnCommitteeUsersChanged();
+                this.OnFullNameChanging(value);
+                this._FullName = value;
+                this.OnFullNameChanged();
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _CommitteeUsers = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser>();
-        partial void OnCommitteeUsersChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> value);
-        partial void OnCommitteeUsersChanged();
+        private string _FullName;
+        partial void OnFullNameChanging(string value);
+        partial void OnFullNameChanged();
         /// <summary>
         /// There are no comments for Property Id in the schema.
         /// </summary>
@@ -1805,23 +1855,302 @@ namespace RodlisteNaturtyper.Data.Models
         private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Committee> _Committees = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Committee>();
         partial void OnCommitteesChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Committee> value);
         partial void OnCommitteesChanged();
+        /// <summary>
+        /// There are no comments for Property CommitteeUsers in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("committeeUsers")]
+        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> CommitteeUsers
+        {
+            get
+            {
+                return this._CommitteeUsers;
+            }
+            set
+            {
+                this.OnCommitteeUsersChanging(value);
+                this._CommitteeUsers = value;
+                this.OnCommitteeUsersChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _CommitteeUsers = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser>();
+        partial void OnCommitteeUsersChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> value);
+        partial void OnCommitteeUsersChanged();
+    }
+    /// <summary>
+    /// There are no comments for CommitteeSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CommitteeSingle")]
+    public partial class CommitteeSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Committee>
+    {
+        /// <summary>
+        /// Initialize a new CommitteeSingle object.
+        /// </summary>
+        public CommitteeSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new CommitteeSingle object.
+        /// </summary>
+        public CommitteeSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new CommitteeSingle object.
+        /// </summary>
+        public CommitteeSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<Committee> query)
+            : base(query) {}
+
+        /// <summary>
+        /// There are no comments for Users in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("users")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser> Users
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._Users == null))
+                {
+                    this._Users = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser>(GetPath("users"));
+                }
+                return this._Users;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser> _Users;
+        /// <summary>
+        /// There are no comments for UserCommittees in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("userCommittees")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> UserCommittees
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._UserCommittees == null))
+                {
+                    this._UserCommittees = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser>(GetPath("userCommittees"));
+                }
+                return this._UserCommittees;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _UserCommittees;
+    }
+    /// <summary>
+    /// There are no comments for Committee in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("id")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Committee")]
+    public partial class Committee : global::Microsoft.OData.Client.BaseEntityType
+    {
+        /// <summary>
+        /// Create a new Committee object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        /// <param name="name">Initial value of Name.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public static Committee CreateCommittee(int ID, string name)
+        {
+            Committee committee = new Committee();
+            committee.Id = ID;
+            committee.Name = name;
+            return committee;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("id")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Id is required.")]
+        public virtual int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property Name in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("name")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Name is required.")]
+        public virtual string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// There are no comments for Property Users in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("users")]
+        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser> Users
+        {
+            get
+            {
+                return this._Users;
+            }
+            set
+            {
+                this.OnUsersChanging(value);
+                this._Users = value;
+                this.OnUsersChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser> _Users = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser>();
+        partial void OnUsersChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.ApplicationUser> value);
+        partial void OnUsersChanged();
+        /// <summary>
+        /// There are no comments for Property UserCommittees in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("userCommittees")]
+        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> UserCommittees
+        {
+            get
+            {
+                return this._UserCommittees;
+            }
+            set
+            {
+                this.OnUserCommitteesChanging(value);
+                this._UserCommittees = value;
+                this.OnUserCommitteesChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _UserCommittees = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser>();
+        partial void OnUserCommitteesChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.CommitteeUser> value);
+        partial void OnUserCommitteesChanged();
+    }
+    /// <summary>
+    /// There are no comments for CommitteeUserSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CommitteeUserSingle")]
+    public partial class CommitteeUserSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<CommitteeUser>
+    {
+        /// <summary>
+        /// Initialize a new CommitteeUserSingle object.
+        /// </summary>
+        public CommitteeUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new CommitteeUserSingle object.
+        /// </summary>
+        public CommitteeUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new CommitteeUserSingle object.
+        /// </summary>
+        public CommitteeUserSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<CommitteeUser> query)
+            : base(query) {}
+
+        /// <summary>
+        /// There are no comments for Committee in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("committee")]
+        public virtual global::RodlisteNaturtyper.Data.Models.CommitteeSingle Committee
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._Committee == null))
+                {
+                    this._Committee = new global::RodlisteNaturtyper.Data.Models.CommitteeSingle(this.Context, GetPath("committee"));
+                }
+                return this._Committee;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.CommitteeSingle _Committee;
+        /// <summary>
+        /// There are no comments for User in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("user")]
+        public virtual global::RodlisteNaturtyper.Data.Models.ApplicationUserSingle User
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._User == null))
+                {
+                    this._User = new global::RodlisteNaturtyper.Data.Models.ApplicationUserSingle(this.Context, GetPath("user"));
+                }
+                return this._User;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.ApplicationUserSingle _User;
     }
     /// <summary>
     /// There are no comments for CommitteeUser in the schema.
     /// </summary>
+    /// <KeyProperties>
+    /// CommitteeId
+    /// UserId
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("committeeId", "userId")]
     [global::Microsoft.OData.Client.OriginalNameAttribute("CommitteeUser")]
-    public partial class CommitteeUser
+    public partial class CommitteeUser : global::Microsoft.OData.Client.BaseEntityType
     {
         /// <summary>
         /// Create a new CommitteeUser object.
         /// </summary>
-        /// <param name="committeeId">Initial value of CommitteeId.</param>
+        /// <param name="userId">Initial value of UserId.</param>
         /// <param name="level">Initial value of Level.</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        public static CommitteeUser CreateCommitteeUser(int committeeId, global::RodlisteNaturtyper.Data.Models.Enums.CommitteeLevel level)
+        public static CommitteeUser CreateCommitteeUser(string userId, global::RodlisteNaturtyper.Data.Models.Enums.CommitteeLevel level)
         {
             CommitteeUser committeeUser = new CommitteeUser();
-            committeeUser.CommitteeId = committeeId;
+            committeeUser.UserId = userId;
             committeeUser.Level = level;
             return committeeUser;
         }
@@ -1830,8 +2159,7 @@ namespace RodlisteNaturtyper.Data.Models
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         [global::Microsoft.OData.Client.OriginalNameAttribute("committeeId")]
-        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "CommitteeId is required.")]
-        public virtual int CommitteeId
+        public virtual global::System.Nullable<int> CommitteeId
         {
             get
             {
@@ -1845,14 +2173,15 @@ namespace RodlisteNaturtyper.Data.Models
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private int _CommitteeId;
-        partial void OnCommitteeIdChanging(int value);
+        private global::System.Nullable<int> _CommitteeId;
+        partial void OnCommitteeIdChanging(global::System.Nullable<int> value);
         partial void OnCommitteeIdChanged();
         /// <summary>
         /// There are no comments for Property UserId in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         [global::Microsoft.OData.Client.OriginalNameAttribute("userId")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "UserId is required.")]
         public virtual string UserId
         {
             get
@@ -3293,195 +3622,6 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnAssessmentChanged();
     }
     /// <summary>
-    /// There are no comments for RegionSingle in the schema.
-    /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("RegionSingle")]
-    public partial class RegionSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Region>
-    {
-        /// <summary>
-        /// Initialize a new RegionSingle object.
-        /// </summary>
-        public RegionSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
-            : base(context, path) {}
-
-        /// <summary>
-        /// Initialize a new RegionSingle object.
-        /// </summary>
-        public RegionSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
-            : base(context, path, isComposable) {}
-
-        /// <summary>
-        /// Initialize a new RegionSingle object.
-        /// </summary>
-        public RegionSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<Region> query)
-            : base(query) {}
-
-        /// <summary>
-        /// There are no comments for Assessments in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
-        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
-        {
-            get
-            {
-                if (!this.IsComposable)
-                {
-                    throw new global::System.NotSupportedException("The previous function is not composable.");
-                }
-                if ((this._Assessments == null))
-                {
-                    this._Assessments = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.Assessment>(GetPath("assessments"));
-                }
-                return this._Assessments;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments;
-    }
-    /// <summary>
-    /// There are no comments for Region in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::Microsoft.OData.Client.Key("id")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("Region")]
-    public partial class Region : global::Microsoft.OData.Client.BaseEntityType
-    {
-        /// <summary>
-        /// Create a new Region object.
-        /// </summary>
-        /// <param name="ID">Initial value of Id.</param>
-        /// <param name="name">Initial value of Name.</param>
-        /// <param name="shortName">Initial value of ShortName.</param>
-        /// <param name="sortOrder">Initial value of SortOrder.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        public static Region CreateRegion(int ID, string name, string shortName, int sortOrder)
-        {
-            Region region = new Region();
-            region.Id = ID;
-            region.Name = name;
-            region.ShortName = shortName;
-            region.SortOrder = sortOrder;
-            return region;
-        }
-        /// <summary>
-        /// There are no comments for Property Id in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("id")]
-        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Id is required.")]
-        public virtual int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// There are no comments for Property Name in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("name")]
-        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Name is required.")]
-        public virtual string Name
-        {
-            get
-            {
-                return this._Name;
-            }
-            set
-            {
-                this.OnNameChanging(value);
-                this._Name = value;
-                this.OnNameChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private string _Name;
-        partial void OnNameChanging(string value);
-        partial void OnNameChanged();
-        /// <summary>
-        /// There are no comments for Property ShortName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("shortName")]
-        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "ShortName is required.")]
-        public virtual string ShortName
-        {
-            get
-            {
-                return this._ShortName;
-            }
-            set
-            {
-                this.OnShortNameChanging(value);
-                this._ShortName = value;
-                this.OnShortNameChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private string _ShortName;
-        partial void OnShortNameChanging(string value);
-        partial void OnShortNameChanged();
-        /// <summary>
-        /// There are no comments for Property SortOrder in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("sortOrder")]
-        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "SortOrder is required.")]
-        public virtual int SortOrder
-        {
-            get
-            {
-                return this._SortOrder;
-            }
-            set
-            {
-                this.OnSortOrderChanging(value);
-                this._SortOrder = value;
-                this.OnSortOrderChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private int _SortOrder;
-        partial void OnSortOrderChanging(int value);
-        partial void OnSortOrderChanged();
-        /// <summary>
-        /// There are no comments for Property Assessments in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
-        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
-        {
-            get
-            {
-                return this._Assessments;
-            }
-            set
-            {
-                this.OnAssessmentsChanging(value);
-                this._Assessments = value;
-                this.OnAssessmentsChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment>();
-        partial void OnAssessmentsChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> value);
-        partial void OnAssessmentsChanged();
-    }
-    /// <summary>
     /// There are no comments for ReferenceSingle in the schema.
     /// </summary>
     [global::Microsoft.OData.Client.OriginalNameAttribute("ReferenceSingle")]
@@ -4665,27 +4805,27 @@ namespace RodlisteNaturtyper.Data.Models
             return new global::RodlisteNaturtyper.Data.Models.AssessmentSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
-        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Committee as global::RodlisteNaturtyper.Data.Models.CommitteeSingle specified by key from an entity set
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Region as global::RodlisteNaturtyper.Data.Models.RegionSingle specified by key from an entity set
         /// </summary>
         /// <param name="_source">source entity set</param>
         /// <param name="_keys">dictionary with the names and values of keys</param>
-        public static global::RodlisteNaturtyper.Data.Models.CommitteeSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
+        public static global::RodlisteNaturtyper.Data.Models.RegionSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Region> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
         {
-            return new global::RodlisteNaturtyper.Data.Models.CommitteeSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+            return new global::RodlisteNaturtyper.Data.Models.RegionSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
-        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Committee as global::RodlisteNaturtyper.Data.Models.CommitteeSingle specified by key from an entity set
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Region as global::RodlisteNaturtyper.Data.Models.RegionSingle specified by key from an entity set
         /// </summary>
         /// <param name="_source">source entity set</param>
         /// <param name="id">The value of id</param>
-        public static global::RodlisteNaturtyper.Data.Models.CommitteeSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> _source,
+        public static global::RodlisteNaturtyper.Data.Models.RegionSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Region> _source,
             int id)
         {
             global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
             {
                 { "id", id }
             };
-            return new global::RodlisteNaturtyper.Data.Models.CommitteeSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+            return new global::RodlisteNaturtyper.Data.Models.RegionSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
         /// Get an entity of type global::RodlisteNaturtyper.Data.Models.ApplicationUser as global::RodlisteNaturtyper.Data.Models.ApplicationUserSingle specified by key from an entity set
@@ -4709,6 +4849,55 @@ namespace RodlisteNaturtyper.Data.Models
                 { "id", id }
             };
             return new global::RodlisteNaturtyper.Data.Models.ApplicationUserSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Committee as global::RodlisteNaturtyper.Data.Models.CommitteeSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="_keys">dictionary with the names and values of keys</param>
+        public static global::RodlisteNaturtyper.Data.Models.CommitteeSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
+        {
+            return new global::RodlisteNaturtyper.Data.Models.CommitteeSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Committee as global::RodlisteNaturtyper.Data.Models.CommitteeSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="id">The value of id</param>
+        public static global::RodlisteNaturtyper.Data.Models.CommitteeSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> _source,
+            int id)
+        {
+            global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "id", id }
+            };
+            return new global::RodlisteNaturtyper.Data.Models.CommitteeSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CommitteeUser as global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="_keys">dictionary with the names and values of keys</param>
+        public static global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
+        {
+            return new global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CommitteeUser as global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="committeeId">The value of committeeId</param>
+        /// <param name="userId">The value of userId</param>
+        public static global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _source,
+            global::System.Nullable<int> committeeId, 
+            string userId)
+        {
+            global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "committeeId", committeeId }, 
+                { "userId", userId }
+            };
+            return new global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
         /// Get an entity of type global::RodlisteNaturtyper.Data.Models.AssessmentAreaInformation as global::RodlisteNaturtyper.Data.Models.AssessmentAreaInformationSingle specified by key from an entity set
@@ -4755,29 +4944,6 @@ namespace RodlisteNaturtyper.Data.Models
                 { "id", id }
             };
             return new global::RodlisteNaturtyper.Data.Models.AssessmentCriteriaInformationSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Region as global::RodlisteNaturtyper.Data.Models.RegionSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="_source">source entity set</param>
-        /// <param name="_keys">dictionary with the names and values of keys</param>
-        public static global::RodlisteNaturtyper.Data.Models.RegionSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Region> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
-        {
-            return new global::RodlisteNaturtyper.Data.Models.RegionSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Region as global::RodlisteNaturtyper.Data.Models.RegionSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="_source">source entity set</param>
-        /// <param name="id">The value of id</param>
-        public static global::RodlisteNaturtyper.Data.Models.RegionSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Region> _source,
-            int id)
-        {
-            global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
-            {
-                { "id", id }
-            };
-            return new global::RodlisteNaturtyper.Data.Models.RegionSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
         /// Get an entity of type global::RodlisteNaturtyper.Data.Models.Reference as global::RodlisteNaturtyper.Data.Models.ReferenceSingle specified by key from an entity set
@@ -5173,12 +5339,116 @@ namespace Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments;
         /// <summary>
+        /// There are no comments for Regions in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Regions")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Region> Regions
+        {
+            get
+            {
+                if ((this._Regions == null))
+                {
+                    this._Regions = base.CreateQuery<global::RodlisteNaturtyper.Data.Models.Region>("Regions");
+                }
+                return this._Regions;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Region> _Regions;
+        /// <summary>
+        /// There are no comments for Users in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Users")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser> Users
+        {
+            get
+            {
+                if ((this._Users == null))
+                {
+                    this._Users = base.CreateQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser>("Users");
+                }
+                return this._Users;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.ApplicationUser> _Users;
+        /// <summary>
+        /// There are no comments for Committees in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Committees")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> Committees
+        {
+            get
+            {
+                if ((this._Committees == null))
+                {
+                    this._Committees = base.CreateQuery<global::RodlisteNaturtyper.Data.Models.Committee>("Committees");
+                }
+                return this._Committees;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Committee> _Committees;
+        /// <summary>
+        /// There are no comments for CommitteeUsers in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CommitteeUsers")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> CommitteeUsers
+        {
+            get
+            {
+                if ((this._CommitteeUsers == null))
+                {
+                    this._CommitteeUsers = base.CreateQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser>("CommitteeUsers");
+                }
+                return this._CommitteeUsers;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _CommitteeUsers;
+        /// <summary>
         /// There are no comments for Assessments in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         public virtual void AddToAssessments(global::RodlisteNaturtyper.Data.Models.Assessment assessment)
         {
             base.AddObject("Assessments", assessment);
+        }
+        /// <summary>
+        /// There are no comments for Regions in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public virtual void AddToRegions(global::RodlisteNaturtyper.Data.Models.Region region)
+        {
+            base.AddObject("Regions", region);
+        }
+        /// <summary>
+        /// There are no comments for Users in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public virtual void AddToUsers(global::RodlisteNaturtyper.Data.Models.ApplicationUser applicationUser)
+        {
+            base.AddObject("Users", applicationUser);
+        }
+        /// <summary>
+        /// There are no comments for Committees in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public virtual void AddToCommittees(global::RodlisteNaturtyper.Data.Models.Committee committee)
+        {
+            base.AddObject("Committees", committee);
+        }
+        /// <summary>
+        /// There are no comments for CommitteeUsers in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public virtual void AddToCommitteeUsers(global::RodlisteNaturtyper.Data.Models.CommitteeUser committeeUser)
+        {
+            base.AddObject("CommitteeUsers", committeeUser);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private abstract class GeneratedEdmModel
