@@ -8,7 +8,7 @@ namespace Assessments.Shared;
 
 public static class SharedModule
 {
-    public static void AddCoreApplication(this IServiceCollection services)
+    public static void AddSharedModule(this IServiceCollection services)
     {
         services.AddLazyCache(_ => {
             var cache = new CachingService(CachingService.DefaultCacheProvider)

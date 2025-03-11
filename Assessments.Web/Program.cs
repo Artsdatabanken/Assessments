@@ -63,7 +63,7 @@ builder.Services.AddDbContext<AssessmentsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure());
 });
 
-builder.Services.AddCoreApplication();
+builder.Services.AddSharedModule();
 
 builder.Services.AddSingleton<DataRepository>();
 

@@ -1,8 +1,10 @@
-﻿using System.Linq.Expressions;
+﻿using System.Drawing;
+using System.Linq.Expressions;
 using Assessments.Data.Models;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Interfaces;
 using Assessments.Web.Infrastructure;
+using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
 using Assessments.Web.Models.NatureTypes.Enums;
@@ -41,6 +43,12 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         if (parameters.Committee.Count != 0)
             assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
 
+        if (parameters.Region.Count != 0)
+            assessments = assessments.Where(x => x.Regions.Any(x => parameters.Region.ToArray().Contains(x.Id)));
+
+        if (parameters.Area != null)
+            assessments = assessments.Where(x => x.Region == parameters.Area);
+
         assessments = parameters.SortBy switch
         {
             SortByEnum.Category => assessments.OrderBy(x => x.Category),
@@ -49,12 +57,14 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         };
 
         var pagedList = assessments.ToPagedList(page ?? 1, DefaultPageSize);
-
+        
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
             Category = parameters.Category,
             Committee = parameters.Committee,
-            Committees = repository.GetCommittees()
+            Region = parameters.Region,
+            Committees = repository.GetCommittees(),
+            Regions = repository.GetRegions()
         };
 
         return View(viewModel);

@@ -14,4 +14,6 @@ public interface INatureTypesRepository
     List<Committee> GetCommittees();
 
     List<CommitteeUserDto> GetCommitteeUsers();
+
+    List<Region> GetRegions();
 }

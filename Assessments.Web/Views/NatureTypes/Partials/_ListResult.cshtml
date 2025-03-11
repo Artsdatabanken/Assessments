@@ -7,10 +7,10 @@
     @foreach (var assessment in Model)
     {
         <li>
-            @assessment.Id <a asp-action="Detail" asp-route-id="@assessment.Id" asp-route-returnUrl="@Context.Request.QueryString">
+            @assessment.Id <a asp-action="Detail" asp-route-id="@assessment.Id">
                 @assessment.Name 
             </a>
-            @assessment.Category @assessment.Category.GetDescription() @assessment.Committee.Name
+            @assessment.Category @assessment.Category.GetDescription() @assessment.Committee.Name @assessment.Region.ToString()
         </li>
     }
 </ul>

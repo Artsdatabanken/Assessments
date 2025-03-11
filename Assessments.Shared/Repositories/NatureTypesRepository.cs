@@ -26,10 +26,14 @@ public class NatureTypesRepository : INatureTypesRepository
     }
 
     public IQueryable<Assessment> GetAssessments() => _context.Assessments.Expand(x => x.Committee);
-
+    
     public Assessment GetAssessment(int id)
     {
-        return _context.Assessments.Expand(x => x.Committee).FirstOrDefault(c => c.Id == id);
+        return _context.Assessments
+            .Expand(x => x.Committee)
+            .Expand(x => x.Regions)
+            .Expand(x => x.References)
+            .FirstOrDefault(c => c.Id == id);
     }
 
     public List<Committee> GetCommittees()
@@ -48,5 +52,10 @@ public class NatureTypesRepository : INatureTypesRepository
             UserFirstName = x.User.FirstName,
             UserCitationName = x.User.CitationName
         }).ToList());
+    }
+
+    public List<Region> GetRegions()
+    {
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _context.Regions.OrderBy(x => x.SortOrder).ToList());
     }
 }
