@@ -1,0 +1,122 @@
+﻿@model SpeciesAssessment2021
+
+@{
+    // Add region if missing (region occurrence for the region "Jan Mayen" is sometimes absent while other regions always have data)
+    if (Model.RegionOccurrences.All(x => x.Fylke != "Jan Mayen"))
+        Model.RegionOccurrences.Add(new SpeciesAssessment2021RegionOccurrence { Fylke = "Jan Mayen", State = 2 });
+
+    // There seems to be no automatic sorting into different lists from the api and models per now
+    // Thus added a quick check if the elements exist.
+    // This used to be a big table which was difficult to read on mobile platforms.
+    // This may not be an optimal solution, but it is more universal than a checkbox that sometimes is included and sometimes not.
+
+    var has_element = string.Empty;
+    bool has_only_none = true;
+    foreach (var element in Model.RegionOccurrences)
+    {
+        has_element += element.State;
+        if(element.State != 2)
+        {
+            has_only_none = false;
+        }
+    }
+
+    void area(string class2, string title)
+    {
+        <i>
+            <span class="indicator @class2">
+                <span class="indicatorcontent sea @class2"></span>
+                <span class="indicatorcontent @class2"></span>
+            </span>
+            <span>@title</span>
+        </i>
+    }
+}
+
+@if (!Model.Category.Contains("LC") &&
+     !Model.Category.Contains("NA") &&
+     !Model.Category.Contains("NE") ||
+      !string.IsNullOrEmpty(has_element) && !has_only_none)
+{ // No content would imply it exists nowhere or is recorded nowhere
+<div class="geographic_facts">
+    <h3> @ViewBag.glossary["region"]["tagline"]</h3>
+    @{string description = ViewBag.glossary["region"]["description"];}
+    @Html.Raw(Helpers.FixSpeciesLevel(description, Model.TaxonRank))
+
+    <h3>Geografisk distribusjon</h3>
+
+    <div class="region_distributions @Model.AssessmentArea">
+        @if (Model.AssessmentArea == "N")
+        {
+            <ul class="regionlist">
+                <li class="region_list_header">
+                    <b>Region</b>
+                    <span class="indicator"></span>
+                    <b>Forekomst</b>
+                </li>
+                @foreach (var region in Model.RegionOccurrences.OrderBy(x => Helpers.SortedRegions().IndexOf(x.Fylke)).Reverse())
+                {
+                    <li class="region">
+                        <p>@region.Fylke</p>
+                        <span class="area">
+                            @if (region.State == 0)
+                            {
+                                area("known", "Kjent");
+                            }
+                            else if (region.State == 1)
+                            {
+                                area("presumed", "Antatt");
+                            }
+                            else if (region.State == 2)
+                            {
+                                area("none", "Ingen");
+                            }
+                            else if (region.State == 3)
+                            {
+                                area("presumed_extinct", "Antatt Utdødd");
+                            }
+                            else if (region.State == 4)
+                            {
+                                area("extinct", "Utdødd");
+                            }
+                        </span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <ul class="regionlist legend">
+
+                <li class="region">
+                    @{area("known", "Kjent");}
+                </li>
+                <li class="region">
+                    @{area("presumed", "Antatt");}
+                </li>
+                <li class="region">
+                    @{area("none", "Ingen");}
+                </li>
+                <li class="region">
+                    @{area("presumed_extinct", "Antatt Utdødd");}
+                </li>
+                <li class="region">
+                    @{area("extinct", "Utdødd");}
+                </li>
+
+            </ul>
+        }
+        <div class="map @Model.AssessmentArea">
+            @if (Model.AssessmentArea == "S")
+            {
+                <partial name="/Views/Species/2021/Assessment/partials/_MapSvalbard.cshtml" />
+            }
+            else
+            {
+                <partial name="/Views/Species/2021/Assessment/partials/_Map.cshtml" />
+            }
+        </div>
+    </div>
+
+</div>
+}

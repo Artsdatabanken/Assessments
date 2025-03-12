@@ -1,0 +1,34 @@
+﻿@model SpeciesAssessment2021
+
+@{
+    bool hasDetails()
+    {
+        bool hasPopulationSize = false;
+        bool hasGenerationLength = false;
+
+        if (Helpers.IsNotEmpty(Model.ProportionOfMaxPopulation) ||
+        Helpers.IsNotEmpty(Model.PercentageEuropeanPopulation) ||
+        Helpers.IsNotEmpty(Model.PercentageGlobalPopulation))
+        {
+            hasPopulationSize = true;
+        }
+        if (Helpers.IsNotEmpty(Model.GenerationLength))
+        {
+            hasGenerationLength = true;
+        }
+
+        if (hasPopulationSize || hasGenerationLength)
+        { // If both are true, it will always be true regardless of check
+            return true;
+        }
+        return false;
+    }
+}
+
+@if (hasDetails()) {
+<div class="page_section">
+    <h2> Detaljer</h2>
+    <partial name="/Views/Species/2021/Assessment/partials/_PopulationProportions.cshtml" />
+    <partial name="/Views/Species/2021/Assessment/partials/_GenerationLength.cshtml" />
+</div>
+}

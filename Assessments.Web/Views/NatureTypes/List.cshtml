@@ -1,12 +1,19 @@
 ﻿@using Assessments.Shared.Constants
 @using Assessments.Shared.Options
 @using Assessments.Web.Models.NatureTypes
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using Microsoft.Extensions.Options
+@using X.PagedList.Extensions
 @inject IOptions<ApplicationOptions> Options
 @model NatureTypesListViewModel
 
 @{
     ViewBag.Title = NatureTypesConstants.Title;
+
+    var listViewViewModel = new ListViewViewModel
+    {
+        Results = Model.Assessments.Select(x => new ListViewViewModel.Result())
+    };
 }
 
 <div class="pagecontainer">
@@ -26,9 +33,15 @@
             </div>
             <div class="main_list_view">
                 <div class="listwrapper">
-                    <partial name="Partials/_ListFilters" model="Model" />
-                    <partial name="Partials/_ListResult" for="Assessments" />
-                    <partial name="Partials/_Pagination" for="Assessments" is-visible="Model.Assessments.PageCount > 1" />
+                    <div class="filtercontainer">
+                        <partial name="Shared/_ListFilters" model="Model" />
+                    </div>
+                    <div id="viewselector" class="viewselector">
+                        <partial name="Shared/_ListResult" for="Assessments" />
+                        <div class="mobile_padding">
+                            <partial name="/Views/Shared/_Paginator.cshtml" model="listViewViewModel" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
     <button class="button tertiary" onclick="expandParent(this, 'expand')">Sidemeny </button>
     <ul>
         <li>
-            <a class="menuheaderlink redlist" asp-controller="Redlist" asp-action="RodlisteForArter">
+            <a class="menuheaderlink redlist" asp-controller="Species" asp-action="RodlisteForArter">
                 <h3>
                     <span>@ViewData["Rødlista"] for arter</span>
                     <span class="material-icons pad-top">keyboard_arrow_right</span>
@@ -15,7 +15,7 @@
             </a>
         </li>
         <li>
-            <a asp-controller="Redlist" asp-action="Index2021" asp-route-Area="N">
+            <a asp-controller="Species" asp-action="Index" asp-route-Area="N">
                 <span>@ViewData["Rødlista"] 2021 </span>
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>

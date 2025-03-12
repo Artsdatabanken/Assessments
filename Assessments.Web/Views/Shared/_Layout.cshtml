@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/css/accordions.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    @await RenderSectionAsync("Styles", required: false)
     <environment exclude="Development">
         <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
     </environment>
@@ -25,7 +26,6 @@
 
 <body>
     <partial name="/Views/Shared/_PageTopBar.cshtml" />
-    @await RenderSectionAsync("RedlistHeader", required: false)
     <div class="main">
         <div class="main-content width-adjuster">
             @RenderBody()

@@ -1,0 +1,38 @@
+@model SpeciesViewModel
+@using Assessments.Web.Models.Species
+@using X.PagedList.Extensions
+@using static Assessments.Web.Infrastructure.Helpers
+
+<div id="viewselector" class="viewselector @Model.View">
+
+    @if (Model.View == "stat")
+    {
+        <partial name="/Views/Species/2021/List/partials/_Graphs.cshtml" />
+    }
+    else
+    {
+        Dictionary<string, Dictionary<string, string>> speciesgroup = ViewBag.speciesgroup.ToObject<Dictionary<string, Dictionary<string, string>>>();
+
+        var results = Model.Redlist2021Results.Select(x => new ListViewViewModel.Result
+        {
+            EvaluationContext = x.AssessmentArea,
+            Category = ViewBag.categories[x.Category[..2]]["presentationstring"],
+            CategoryShort = x.Category,
+            Id = x.Id,
+            ScientificNameFormatted = FormatScientificNameElement(x.ScientificName),
+            SpeciesGroup = x.SpeciesGroup,
+            SpeciesGroupIconUrl = speciesgroup[x.SpeciesGroup]["image"],
+            VernacularName = x.PopularName
+        });
+
+        var listViewViewModel = new ListViewViewModel
+        {
+            AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
+            NoResultString = ViewBag.glossary["oneliners"]["noResults"],
+            Results = results,
+            View = Model.View
+        };
+
+        <partial name="/Views/Shared/_ListView.cshtml" model="listViewViewModel" />
+    }
+</div>
