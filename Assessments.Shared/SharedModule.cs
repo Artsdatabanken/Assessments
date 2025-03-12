@@ -15,12 +15,12 @@ public static class SharedModule
             {
                 DefaultCachePolicy =
                 {
-                    DefaultCacheDurationSeconds = (int) TimeSpan.FromHours(1).TotalSeconds
+                    DefaultCacheDurationSeconds = (int) TimeSpan.FromDays(1).TotalSeconds
                 }
             };
             return cache;
         });
 
-        services.AddSingleton<INatureTypesRepository, NatureTypesRepository>();
+        services.AddScoped<INatureTypesRepository, NatureTypesRepository>();
     }
 }

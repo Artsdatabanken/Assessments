@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.Interfaces;
@@ -19,8 +18,6 @@ public class NatureTypesRepository : INatureTypesRepository
     public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache)
     {
         _appCache = appCache;
-        _appCache.DefaultCachePolicy.DefaultCacheDurationSeconds = TimeSpan.FromHours(1).Seconds;
-
         _context = new Container(options.Value.NatureTypes.ODataUrl);
         _context.BuildingRequest += (_, e) => e.Headers.Add("X-API-KEY", options.Value.NatureTypes.ODataApiKey);
     }

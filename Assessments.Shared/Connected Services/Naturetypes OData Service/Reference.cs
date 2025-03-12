@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 11.03.2025 11:44:28
+// Generation date: 11.03.2025 19:22:06
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
