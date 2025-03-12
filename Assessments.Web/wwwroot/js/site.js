@@ -96,3 +96,14 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+const toggleDropdown = (button) => {
+    const headerMenu = document.getElementById("dropdown-header-menu");
+    const isOpen = headerMenu.style.display === "block";
+    if (isOpen) {
+        headerMenu.style.display = "none";
+        button.setAttribute("aria-expanded", "false");
+    } else {
+        headerMenu.style.display = "block";
+        button.setAttribute("aria-expanded", "true");
+    }
+}

@@ -71,8 +71,6 @@ builder.Services.AddSingleton<AttachmentRepository>();
 
 builder.Services.AddTransient<ExpertCommitteeMemberService>();
 
-builder.Services.AddHttpClient<ArtsdatabankenApiService>();
-
 builder.Services.AddHttpClient<ArtskartApiService>();
 
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(Constants.AssessmentsMappingAssembly));

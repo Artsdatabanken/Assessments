@@ -26,7 +26,9 @@
     <link rel="stylesheet" href="~/css/accordions.css">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
+    <environment exclude="Development">
+        <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
+    </environment>
     <script src="~/js/cookies.js"></script>   
     <meta name="description" content="Norsk rødliste for arter 2021 er en oversikt over arter som har risiko for å dø ut fra Norge. Rødlista er utarbeidet av Artsdatabanken i samarbeid med fageksperter. ">
 </head>
@@ -46,13 +48,11 @@
                 <script src="~/js/accordions.js" async></script>
                 <script src="~/js/assessmentTabs.js" async></script>
                 <script src="~/js/themes.js" async></script>   
-                <script src="https://design.artsdatabanken.no/script/compiled-js/footer.js" async></script>
-                <script src="https://design.artsdatabanken.no/script/compiled-js/header.js" async></script>
                 <script src="~/js/speciesImages.js" async></script>
                 @await RenderSectionAsync("Scripts", required: false)
             </div>
         </div>
-        <partial name="/Views/Shared/_PageFooter.cshtml" />
+        <vc:footer />
     </div>
 </body>
 </html>

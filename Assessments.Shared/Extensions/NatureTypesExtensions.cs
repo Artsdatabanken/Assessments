@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assessments.Shared.Constants;
+﻿using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes;
 using RodlisteNaturtyper.Data.Models.Enums;
 

@@ -1,4 +1,19 @@
-﻿<header class="adb-header">
+﻿@using Assessments.Shared.DTOs.Drupal
+@using Assessments.Shared.DTOs.Drupal.Enums
+@using Assessments.Shared.Interfaces
+@inject IDrupalRepository DrupalRepository
+
+@{
+    var content = await DrupalRepository.ContentByType(ContentModelType.HeaderMenu);
+    List<RecordResponseDto> records = [];
+
+    if (content != null)
+    {
+        records = content.Records?.ToList() ?? [];
+    }
+}
+
+<header class="adb-header">
     <a href="https://artsdatabanken.no" class="adb-header-logo">
         <img class="default-logo" alt="Artsdatabanken-logo" src="https://design.artsdatabanken.no/icons/adb-logo/Artsdatabanken_Logo-CMYK-H-Colour@2x.png">
         <img class="darktheme-logo" alt="Artsdatabanken-logo" src="https://mobil.artsobservasjoner.no/assets/logo/Artsdatabanken_Logo_White.svg">
@@ -62,6 +77,41 @@
                 </ul>
             </div>
         </div>
-        <nav class="header-menu-line" id="adb-headermenu"></nav>
+        <nav is-visible="records.Count != 0" class="header-menu-line" id="adb-headermenu">
+            <button type="button" onclick="toggleDropdown(this)" id="toggle-dropdown-button" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                Meny
+                <span class="material-icons">expand_more</span>
+            </button>
+            <div class="dropdown-menu header-mega-menu hide" id="dropdown-header-menu">
+                <ul class="adb-dropdown-box">
+                    @foreach (var menu in records)
+                    {
+                        <li class="dropdown-list">
+                            <span class="dropdown-list-title">@menu.Values.First()</span>
+                            <ul>
+                                @foreach (var item in menu.References)
+                                {
+                                    <li>
+                                        <a class="header-mega-link-element" href="@(item.Records.FirstOrDefault(x => string.IsNullOrEmpty(x.Label))?.Values?.FirstOrDefault() ?? $"https://artsdatabanken.no{item.Url}" )">
+                                            <div class="header-mega-link-text">
+                                                <b class="header-site-name">
+                                                    @(!string.IsNullOrEmpty(item.Heading) ? item.Heading : item.Title)
+                                                </b>
+                                                <p class="header-site-description">
+                                                    @(item.Records.FirstOrDefault(x => x.Label == "MenuInfoText")?.Values.FirstOrDefault())
+                                                </p>
+                                            </div>
+                                            <div class="contain-the-icon">
+                                                <span class="material-icons">chevron_right</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
     </div>
 </header>

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assessments.Shared.DTOs.NatureTypes;
+﻿using Assessments.Shared.DTOs.NatureTypes;
 using RodlisteNaturtyper.Data.Models;
 
 namespace Assessments.Shared.Interfaces;

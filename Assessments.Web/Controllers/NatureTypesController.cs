@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Assessments.Data.Models;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Interfaces;
 using Assessments.Web.Infrastructure;
-using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
 using Assessments.Web.Models.NatureTypes.Enums;
@@ -44,7 +42,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
             assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
 
         if (parameters.Region.Count != 0)
-            assessments = assessments.Where(x => x.Regions.Any(x => parameters.Region.ToArray().Contains(x.Id)));
+            assessments = assessments.Where(x => x.Regions.Any(y => parameters.Region.ToArray().Contains(y.Id)));
 
         if (parameters.Area != null)
             assessments = assessments.Where(x => x.Region == parameters.Area);

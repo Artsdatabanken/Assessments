@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Options;
 
 namespace Assessments.Shared.Options;
@@ -20,13 +19,4 @@ public class ApplicationOptions // configured in appsettings.*.json
     [Required]
     [ValidateObjectMembers]
     public NatureTypesOptions NatureTypes { get; set; }
-}
-
-public class NatureTypesOptions
-{
-    [Required] 
-    public Uri ODataUrl { get; set; }
-
-    [Required] 
-    public string ODataApiKey { get; set; }
 }

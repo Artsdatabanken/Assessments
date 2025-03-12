@@ -1,42 +1,41 @@
-﻿@using Assessments.Web.Infrastructure.Services
+﻿@using Assessments.Shared.Interfaces
 @using Assessments.Web.Infrastructure.Enums
-@inject ArtsdatabankenApiService _artsdatabankenApiService
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IDrupalRepository DrupalRepository
 
 @model PageMenuViewModel
 
+@{
+    var menuItems = await GetMenuItems(Model.PageMenuContentId);
+    var subMenuItems = await GetMenuItems(Model.PageMenuSubContentId);
+
+    var isRedlist2021 = Model.AssessmentType == AssessmentType.RedlistSpecies2021;
+    var isAlienSpecies2023 = Model.AssessmentType == AssessmentType.AlienSpecies2023;
+}
+
 @functions {
+
     private async Task<List<KeyValuePair<string, string>>> GetMenuItems(int menuId)
     {
-        List<KeyValuePair<string, string>> menuItems = new List<KeyValuePair<string, string>>();
-        if (menuId > 0)
+        var menuItems = new List<KeyValuePair<string, string>>();
+
+        if (menuId <= 0) 
+            return menuItems;
+
+        var content = await DrupalRepository.ContentById(menuId);
+
+        if (content != null)
         {
-            var content =
-                await _artsdatabankenApiService.Get<ArtsdatabankenApiContent>($"Content/{menuId}");
-            if (content != null)
-            {
-                menuItems = content.References
-                    .Select(x => new KeyValuePair<string, string>(x.Heading, $"https://artsdatabanken.no{x.Url}")).ToList();
-            }
+            menuItems = content.References.Select(x => new KeyValuePair<string, string>(x.Heading, $"https://artsdatabanken.no{x.Url}")).ToList();
         }
 
         return menuItems;
     }
 }
 
-
-@{
-    var menuItems = await GetMenuItems(Model.PageMenuContentId);
-    var subMenuItems =  await GetMenuItems(Model.PageMenuSubContentId);
-
-    var isRedlist2021 = Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021;
-    var isAlienSpecies2023 = Model.AssessmentType == Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023;
-}
-
 <div class="sidebarmenu">
     <button class="button tertiary" onclick="expandParent(this, 'expand')">@Model.PageMenuExpandButtonText</button>
-    
     <ul>
-        @*lenker fra cms/drupal via api*@
         <li>
             <a is-visible="isRedlist2021" class="menuheaderlink" asp-controller="Redlist" asp-action="Index2021">
                 <h3>
@@ -63,24 +62,24 @@
                     @if (subMenuItems.Any())
                     {
                         <ul class="submenu-list">
-                        @foreach (var (subKey, subValue) in subMenuItems)
-                        {
-                            <li>
-                                <a href="@subValue">
-                                    <span>@subKey </span>
-                                    <span class="material-icons">keyboard_arrow_right</span>
-                                </a>
-                            </li>
-                        }
-                        </ul>                        
+                            @foreach (var (subKey, subValue) in subMenuItems)
+                            {
+                                <li>
+                                    <a href="@subValue">
+                                        <span>@subKey </span>
+                                        <span class="material-icons">keyboard_arrow_right</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
                     }
                 }
                 else
                 {
-                <a href="@value">
-                    <span>@key </span>
-                    <span class="material-icons">keyboard_arrow_right</span>
-                </a>
+                    <a href="@value">
+                        <span>@key </span>
+                        <span class="material-icons">keyboard_arrow_right</span>
+                    </a>
                 }
             </li>
         }
@@ -95,10 +94,10 @@
     function expandParent(element, className) {
         if (element.parentElement.classList.contains(className)) {
             element.parentElement.classList.remove(className);
-            element.classList.remove("active")
+            element.classList.remove("active");
         } else {
             element.parentElement.classList.add(className);
-            element.classList.add("active")
+            element.classList.add("active");
         }
     }
 </script>

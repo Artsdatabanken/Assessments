@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assessments.Shared.DTOs.NatureTypes;
+﻿using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.Interfaces;
 using Assessments.Shared.Options;
 using Default;
