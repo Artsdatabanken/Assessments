@@ -1,6 +1,7 @@
 ﻿using Assessments.Shared.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Reflection;
 
 namespace Assessments.Web.Controllers.Api;
 
@@ -11,8 +12,7 @@ public class TestController(IWebHostEnvironment environment, IOptions<Applicatio
     [HttpGet]
     public IActionResult Test()
     {
-        var file = Path.Combine(environment.ContentRootPath, "appsettings.json");
-        var buildTime = System.IO.File.GetLastWriteTime(file);
+        var buildTime = System.IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);
 
         return Ok($"Hello from {environment.EnvironmentName}, baseUrl: {options.Value.BaseUrl}, buildTime: {buildTime:F}");
     }
