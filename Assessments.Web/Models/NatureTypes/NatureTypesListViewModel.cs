@@ -11,6 +11,8 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
     public List<Committee> Committees { get; set; }
 
     public List<Region> Regions { get; set; }
+
+    public ListViewViewModel ListViewViewModel { get; set; }
 }
 
 public record NatureTypesListViewModelParameters

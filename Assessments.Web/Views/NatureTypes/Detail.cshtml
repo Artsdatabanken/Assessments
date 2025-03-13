@@ -1,6 +1,5 @@
 ﻿@using Assessments.Shared.Constants
 @using Assessments.Web.Models.NatureTypes
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model NatureTypesDetailViewModel
 
 @{
@@ -32,7 +31,7 @@
                 <li>
                     Langkode med lenke : <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.LongCode</a>
                 </li>
-                <li>
+                <li is-visible="!string.IsNullOrEmpty(assessment.PopularName)">
                     Populærnavn: @assessment.PopularName
                 </li>
                 <li>
@@ -45,7 +44,7 @@
                 <li>
                     Område: @assessment.Region.ToString()
                 </li>
-                <li>
+                <li is-visible="assessment.Regions.Count != 0">
                     <h3>Regioner</h3>
                     @assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
                 </li>

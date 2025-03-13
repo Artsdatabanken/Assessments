@@ -62,7 +62,8 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
             Committee = parameters.Committee,
             Region = parameters.Region,
             Committees = repository.GetCommittees(),
-            Regions = repository.GetRegions()
+            Regions = repository.GetRegions(),
+            ListViewViewModel = new ListViewViewModel { Results = pagedList.Select(_ => new ListViewViewModel.Result())}
         };
 
         return View(viewModel);
