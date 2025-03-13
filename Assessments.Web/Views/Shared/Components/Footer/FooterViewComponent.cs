@@ -12,13 +12,13 @@ public class FooterViewComponent(IDrupalRepository drupalRepository) : ViewCompo
         var someContent = await drupalRepository.ContentByType(ContentModelType.FooterSome);
         var footerLinks = await drupalRepository.ContentByType(ContentModelType.FooterLinks);
         
-        var footerModel = new FooterModel
+        var viewModel = new FooterModel
         {
             Body = mainContent?.Body,
             Some = someContent?.Body,
             Links = footerLinks?.Records?.SelectMany(x => x.References).ToList() ?? []
         };
 
-        return View("Footer", footerModel);
+        return View("Footer", viewModel);
     }
 }

@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="~/css/accordions.css">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <environment exclude="Development">
+    <environment include="Production">
         <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
     </environment>
     <script src="~/js/cookies.js"></script>   
@@ -35,7 +35,7 @@
 
 <body>
     <div id="bodywrap">
-        <partial name="/Views/Shared/_PageTopBar.cshtml" />
+        <vc:top-bar />
         <partial name="/Views/Species/2021/_RedlistHeader.cshtml" />
         <div class="main">
             <div class="main-content width-adjuster">

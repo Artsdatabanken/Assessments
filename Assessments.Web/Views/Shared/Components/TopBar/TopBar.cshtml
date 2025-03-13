@@ -1,17 +1,4 @@
-﻿@using Assessments.Shared.DTOs.Drupal
-@using Assessments.Shared.DTOs.Drupal.Enums
-@using Assessments.Shared.Interfaces
-@inject IDrupalRepository DrupalRepository
-
-@{
-    var content = await DrupalRepository.ContentByType(ContentModelType.HeaderMenu);
-    List<RecordResponseDto> records = [];
-
-    if (content != null)
-    {
-        records = content.Records?.ToList() ?? [];
-    }
-}
+﻿@model Assessments.Web.Views.Shared.Components.TopBar.TopBarModel
 
 <header class="adb-header">
     <a href="https://artsdatabanken.no" class="adb-header-logo">
@@ -77,14 +64,14 @@
                 </ul>
             </div>
         </div>
-        <nav is-visible="records.Count != 0" class="header-menu-line" id="adb-headermenu">
+        <nav is-visible="Model.Records.Count != 0" class="header-menu-line" id="adb-headermenu">
             <button type="button" onclick="toggleDropdown(this)" id="toggle-dropdown-button" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
                 Meny
                 <span class="material-icons">expand_more</span>
             </button>
             <div class="dropdown-menu header-mega-menu hide" id="dropdown-header-menu">
                 <ul class="adb-dropdown-box">
-                    @foreach (var menu in records)
+                    @foreach (var menu in Model.Records)
                     {
                         <li class="dropdown-list">
                             <span class="dropdown-list-title">@menu.Values.First()</span>

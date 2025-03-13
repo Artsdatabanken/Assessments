@@ -1,42 +1,39 @@
 ﻿@model Assessments.Web.Views.Shared.Components.Footer.FooterModel
 
-@if (Model != null)
-{
-    <footer class="adb-footer">
-        <div class="top">
-            <div>
-                <div class="adb-beak-wrapper">
-                    <div class="adb-beak"></div>
-                    <div></div>
-                </div>
+<footer class="adb-footer">
+    <div class="top">
+        <div>
+            <div class="adb-beak-wrapper">
+                <div class="adb-beak"></div>
                 <div></div>
             </div>
-            <div class="center"></div>
             <div></div>
         </div>
-        <div class="middle">
-            <div></div>
-            <div class="center">
-                @Html.Raw(Model.Body)
-            </div>
-            <div class="some-container">
-                @Html.Raw(Model.Some)
-            </div>
+        <div class="center"></div>
+        <div></div>
+    </div>
+    <div class="middle">
+        <div></div>
+        <div class="center">
+            @Html.Raw(Model.Body)
         </div>
-        <div class="bottom">
-            <div class="center">
-                <nav class="footer-wrapper">
-                    <ul class="footer-list">
-                        @foreach (var link in Model.Links)
-                        {
-                            <li>
-                                <a href="@link.Url">@link.Title</a>
-                            </li>
-                        }
-                    </ul>
-                </nav>
-            </div>
-            <div></div>
+        <div class="some-container">
+            @Html.Raw(Model.Some)
         </div>
-    </footer>
-}
+    </div>
+    <div class="bottom">
+        <div class="center">
+            <nav class="footer-wrapper">
+                <ul class="footer-list">
+                    @foreach (var link in Model.Links)
+                    {
+                        <li>
+                            <a href="@link.Url">@link.Title</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+        <div></div>
+    </div>
+</footer>
