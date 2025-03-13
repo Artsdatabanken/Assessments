@@ -3,6 +3,7 @@ using Assessments.Mapping.AlienSpecies.Model;
 using Assessments.Mapping.AlienSpecies.Model.Enums;
 using Assessments.Mapping.AlienSpecies.Source;
 using X.PagedList;
+using Assessments.Web.Models.AlienSpecies;
 
 namespace Assessments.Web.Models
 {

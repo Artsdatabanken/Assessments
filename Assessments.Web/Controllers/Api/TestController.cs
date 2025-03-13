@@ -12,8 +12,8 @@ public class TestController(IWebHostEnvironment environment, IOptions<Applicatio
     [HttpGet]
     public IActionResult Test()
     {
-        var buildTime = System.IO.File.GetLastWriteTimeUtc(Assembly.GetExecutingAssembly().Location).ToLocalTime();
-        
+        var buildTime = System.IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);
+
         return Ok($"Hello from {environment.EnvironmentName}, baseUrl: {options.Value.BaseUrl}, buildTime: {buildTime:F}");
     }
 }

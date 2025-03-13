@@ -1,7 +1,7 @@
-﻿using Assessments.Web.Models;
-using Assessments.Mapping.AlienSpecies.Model;
+﻿using Assessments.Mapping.AlienSpecies.Model;
 using Assessments.Mapping.AlienSpecies.Model.Enums;
 using Assessments.Shared.Helpers;
+using Assessments.Web.Models.AlienSpecies;
 
 namespace Assessments.Web.Infrastructure.AlienSpecies
 {

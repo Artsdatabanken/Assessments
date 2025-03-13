@@ -2,6 +2,7 @@
 using Assessments.Mapping.AlienSpecies.Model;
 using Assessments.Mapping.AlienSpecies.Model.Enums;
 using Assessments.Shared.Helpers;
+using Assessments.Web.Models.AlienSpecies;
 
 namespace Assessments.Web.Infrastructure.AlienSpecies
 {
@@ -17,9 +18,9 @@ namespace Assessments.Web.Infrastructure.AlienSpecies
             _unfilteredQuery = unfilteredQuery;
         }
 
-        public AlienSpeciesStatistics2023 GetStatistics()
+        public AlienSpeciesStatisticsViewModel GetStatistics()
         {
-            var statistics = new AlienSpeciesStatistics2023();
+            var statistics = new AlienSpeciesStatisticsViewModel();
 
             statistics.DecisiveCriteria = this.GetDecisiveCriteria();
             statistics.RiskCategories = this.GetRiskCategories();

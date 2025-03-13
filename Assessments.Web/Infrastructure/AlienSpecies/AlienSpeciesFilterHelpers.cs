@@ -1,4 +1,4 @@
-﻿using Assessments.Web.Models;
+﻿using Assessments.Web.Models.AlienSpecies;
 using static Assessments.Web.Infrastructure.FilterHelpers;
 
 namespace Assessments.Web.Infrastructure.AlienSpecies

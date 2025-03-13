@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] - Artsdatabanken</title>
+    <link rel="icon" href="~/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
     <link rel="stylesheet" href="https://design.artsdatabanken.no/style/style-reset.css">
     <link rel="stylesheet" href="https://design.artsdatabanken.no/style/layout.css">
@@ -16,26 +17,27 @@
     <link rel="stylesheet" href="~/css/accordions.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
-    <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
+    @await RenderSectionAsync("Styles", required: false)
+    <environment include="Production">
+        <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
+    </environment>
     <script src="~/js/cookies.js"></script>
 </head>
 
 <body>
-    <partial name="/Views/Shared/_PageTopBar.cshtml" />
-    @await RenderSectionAsync("RedlistHeader", required: false)
+    <vc:top-bar />
     <div class="main">
         <div class="main-content width-adjuster">
             @RenderBody()
             <script src="~/js/site.js"></script>
+            <script src="~/js/topbar.js"></script>
             <script src="~/js/filter.js" async></script>
             <script src="~/js/accordions.js" async></script>
             <script src="~/js/toggleSwitch.js" async></script>
             <script src="~/js/themes.js" async></script>
-            <script src="https://design.artsdatabanken.no/script/compiled-js/footer.js" async></script>
-            <script src="https://design.artsdatabanken.no/script/compiled-js/header.js" async></script>
             @await RenderSectionAsync("Scripts", required: false)
         </div>
     </div>
-    <partial name="/Views/Shared/_PageFooter.cshtml" />
+    <vc:footer />
 </body>
 </html>

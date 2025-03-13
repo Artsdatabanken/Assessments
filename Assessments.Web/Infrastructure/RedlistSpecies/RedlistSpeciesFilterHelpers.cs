@@ -1,11 +1,12 @@
-using Assessments.Web.Models;
+using Assessments.Web.Models.AlienSpecies;
+using Assessments.Web.Models.Species;
 using static Assessments.Web.Infrastructure.FilterHelpers;
 
 namespace Assessments.Web.Infrastructure.RedlistSpecies
 {
     public static class RedlistSpeciesFilterHelpers
     {
-        public static string GetActiveFilters(string filterType, RL2021ViewModel Model)
+        public static string GetActiveFilters(string filterType, SpeciesViewModel Model)
         {
             switch (filterType)
             {
@@ -111,7 +112,7 @@ namespace Assessments.Web.Infrastructure.RedlistSpecies
             return String.Empty;
         }
 
-        public static string GetActiveSelection(RL2021ViewModel Model)
+        public static string GetActiveSelection(SpeciesViewModel Model)
         {
             if (!string.IsNullOrEmpty(Model.Name))
             {
@@ -120,7 +121,7 @@ namespace Assessments.Web.Infrastructure.RedlistSpecies
             return string.Empty;
         }
 
-        public static int GetActiveSelectionCount(RL2021ViewModel Model)
+        public static int GetActiveSelectionCount(SpeciesViewModel Model)
         {
             int count = 0;
             count += Model.Area.Length;
@@ -137,7 +138,7 @@ namespace Assessments.Web.Infrastructure.RedlistSpecies
             return count;
         }
 
-        public static string[] GetActiveSelectionElement(RL2021ViewModel Model)
+        public static string[] GetActiveSelectionElement(SpeciesViewModel Model)
         {
             var selectionlist = Model.Area;
             selectionlist = selectionlist.Concat(Model.Category).ToArray();

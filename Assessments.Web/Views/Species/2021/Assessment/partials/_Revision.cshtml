@@ -1,0 +1,25 @@
+﻿@model SpeciesAssessment2021
+@using Microsoft.AspNetCore.Http.Extensions
+@if (Model.Revisions != null && Model.Revisions.Any())
+{
+
+    <h3>Tidligere versjoner</h3>
+    <p>
+        Utdaterte versjoner med en tidligere publiseringsdato kan sees på følgende lenker:
+    </p>
+    foreach (var revision in Model.Revisions)
+    {
+        <span class="material-icons" style="float:left; padding:10px;">
+            history
+        </span>
+        <p class="citation">
+            @revision.RevisionDate.ToShortDateString(),
+            versjon @revision.Revision <br>
+            <a href="@Context.Request.GetEncodedUrl()/@revision.Revision">@Context.Request.GetEncodedUrl()/@revision.Revision</a>
+        </p>
+    }
+}
+else if (ViewBag.revisionid != null)
+{
+    <partial name="/Views/Species/2021/Assessment/partials/_Archived.cshtml" />
+}
