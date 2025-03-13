@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Assessments.Data;
+using Assessments.Shared;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Infrastructure.Middleware;
@@ -62,7 +63,7 @@ builder.Services.AddDbContext<AssessmentsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure());
 });
 
-builder.Services.AddLazyCache();
+builder.Services.AddSharedModule();
 
 builder.Services.AddSingleton<DataRepository>();
 
@@ -70,17 +71,17 @@ builder.Services.AddSingleton<AttachmentRepository>();
 
 builder.Services.AddTransient<ExpertCommitteeMemberService>();
 
-builder.Services.AddHttpClient<ArtsdatabankenApiService>();
-
 builder.Services.AddHttpClient<ArtskartApiService>();
 
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(Constants.AssessmentsMappingAssembly));
 
 builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
 
-builder.Services.AddSendGrid(options => { options.ApiKey = builder.Configuration["SendGridApiKey"]; });
+var applicationOptions = builder.Configuration.GetSection(nameof(ApplicationOptions));
 
-builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection(nameof(ApplicationOptions)));
+builder.Services.AddOptions<ApplicationOptions>().Bind(applicationOptions).ValidateDataAnnotations().ValidateOnStart();
+
+builder.Services.AddSendGrid(options => { options.ApiKey = applicationOptions.Get<ApplicationOptions>().SendGridApiKey; });
 
 if (!builder.Environment.IsDevelopment())
 {
@@ -93,8 +94,10 @@ else
 
 builder.Services.AddStaticRobotsTxt(options =>
 {
-    if (!builder.Environment.IsProduction())
-        options.DenyAll();
+    options.DenyAll(); // TODO: endre når nye sider er tatt i bruk
+
+    //if (!builder.Environment.IsProduction())
+    //    options.DenyAll();
 
     return options;
 });
@@ -150,6 +153,7 @@ app.UseRobotsTxt();
 
 ExportHelper.Setup();
 
+// TODO: legge til en innstilling om man skal jobbe med databasen lokalt?
 if (!app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();

@@ -38,21 +38,4 @@
             })
         </div>
     </div>
-
-@*    @Html.PagedListPager(Model.Results, page => Context.Request.QueryString.AddParameters(new { Page = page }), new PagedListRenderOptions
-    {
-        PageClasses = new[] { "page-link" },
-        UlElementClasses = new[] { "pagination" },
-        LiElementClasses = new[] { "page-item" },
-        LinkToPreviousPageFormat = "forrige",
-        LinkToNextPageFormat = "neste",
-        LinkToLastPageFormat = "siste",
-        LinkToFirstPageFormat = "start",
-        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
-        DisplayLinkToLastPage = PagedListDisplayMode.Never,
-        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-        DisplayLinkToNextPage = PagedListDisplayMode.Always,
-        DisplayLinkToIndividualPages = false,
-        DisplayItemSliceAndTotal = true
-    })*@
 }

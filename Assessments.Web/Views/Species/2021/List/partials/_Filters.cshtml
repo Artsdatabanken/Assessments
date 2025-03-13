@@ -1,0 +1,248 @@
+@using System.Linq;
+@using Assessments.Web.Models.Species
+@model SpeciesViewModel;
+
+@{
+    var allAreas = RedlistAreas.RedlistSpecies2021Areas;
+    var allCategories = RedlistCategories.RedlistSpecies2021Categories;
+    var allCriterias = RedlistCriteria.RedlistSpecies2021Criteria;
+    var allEuroPop = RedlistEuropeanPopulation.RedlistSpecies2021EuropeanPopulation;
+    var allRegions = RedlistRegions.RedlistSpecies2021Regions;
+    var allHabitats = RedlistHabitats.RedlistSpecies2021Habitats;
+    var allTaxonRanks = RedlistTaxonRank.RedlistSpecies2021Habitats;
+    var allSpeciesGroups = RedlistSpeciesGroups.RedlistSpecies2021SpeciesGroups;
+    var allPresumedExtinct = PresumedExtinct.RedlistSpecies2021PresumedExtinct;
+
+    var startHit = Model.Redlist2021Results?.PageNumber * 25 - 24 ?? 0;
+    var endHit = startHit + Model.Redlist2021Results?.Count - 1 ?? 0;
+    var totalCount = Model.Redlist2021Results?.TotalItemCount.ToString("N0") ?? string.Empty;
+
+    var controlButtonsViewModel = new ControlButtonsViewModel
+    {
+        View = Model.View, 
+        ItemCount = Model.Redlist2021Results?.TotalItemCount ?? 0
+    };
+}
+
+@functions{
+    void InputTag(string id, string className, string name, string[] elements, string value)
+    {
+        if (id == "remember_scroll")
+        {
+            foreach (var item in elements)
+                if (item.Contains("scroll_"))
+                    value = item.Replace("scroll_", "");
+        }
+        id = id.Replace(" ", "_");
+        <input id="@id" type="checkbox" class="@className" name=@name value="@value" @(elements.Contains(value) ? " checked=checked" : String.Empty)>
+    }
+
+    void InputTag(string name, string[] elements, string value)
+    {
+        InputTag(value, "submitOnclick", name, elements, value);
+    }
+
+    void MakeCheckBoxLi(string value, string label, string name, string[] model, string labelClassName, string inputClassName)
+    {
+        string id = value.Replace(" ", "_");
+        <li class="checkbox">
+            <label for="@id" class="@labelClassName">
+                @{
+                    InputTag(value, $"{inputClassName} submitOnclick", name, model, value);
+                }
+                <span class="label_text">@label</span>
+            </label>
+        </li>
+    }
+
+    void MakeFilterElement(string buttonText, string filterName, string buttonname)
+    {
+        string action = $"show_{filterName.ToLower()}";
+        string id = $"list_header_{filterName.ToLower()}";
+
+        InputTag(action, "collapse_checkbox", "IsCheck", Model.IsCheck, filterName);
+        <button name="@buttonname" class="list_header" id="@id" onclick="collapse('@action')" type="button">
+            @buttonText
+            <span class="filternumber">@RedlistSpeciesFilterHelpers.GetActiveFilters(filterName, Model)</span>
+        </button>
+    }
+
+    void MakeFilterGroup(string filterName, string modelName, bool isSubGroup, string[] filterModel, FilterHelpers.FilterAndMetaData filterItems, string buttonText, string buttonName, string outerClassName)
+    {
+        string className = isSubGroup ? $"filter_subgroup filter_{filterName.ToLower()}" : $"filter_{filterName.ToLower()}";
+
+        <li class="filter_group">
+            @{
+                MakeFilterElement(buttonText, filterName, buttonName);
+            }
+            <div class=@className>
+                @{
+                    if (!string.IsNullOrEmpty(filterItems.FilterDescription))
+                    {
+                        <div class="filter_info_text">@filterItems.FilterDescription</div>
+                    }
+                }
+                <ul>
+                    @{
+                        string label;
+                        string value;
+                        string markAllClassName = "mark_all";
+
+                        if (filterItems.Filters.Length > 4)
+                            MakeCheckBoxLi(filterName, "Merk alle", modelName, filterModel, markAllClassName, outerClassName);
+
+                        foreach (var el in filterItems.Filters)
+                        {
+                            value = el.NameShort;
+                            label = (filterName == nameof(Model.Category) && value != "RED" && value != "END") ? $"{el.NameShort} - {el.Description}" : el.Name;
+                            string extraOuterClassName = $"{outerClassName} {filterName}_input";
+                            if (el.SubGroup != null)
+                            {
+                                MakeFilterGroup(el.NameShort, modelName, true, filterModel, el.SubGroup, el.Name, $"{el.Name}filtre", extraOuterClassName);
+                            }
+                            else
+                            {
+                                MakeCheckBoxLi(value, label, modelName, filterModel, string.Empty, extraOuterClassName);
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </li>
+    }
+
+    void MakeFilterGroup(string filterName, string[] filterModel, FilterHelpers.FilterAndMetaData filterItems)
+    {
+        MakeFilterGroup(filterName, filterName, false, filterModel, filterItems, filterItems.FilterButtonText, filterItems.FilterButtonName, string.Empty);
+    }
+
+    void RenderChip(string buttontext, string filterValue)
+    {
+        <li class="chips">
+            <span class="chips-text">@buttontext</span>
+            <button class="text-button chips-close-button btn icon-button" onclick="submitClickedElement('@filterValue')" type="submit">
+                <span class="material-icons ">close</span>
+            </button>
+        </li>
+    }
+
+    void MakeFilterChips(string[] filterModel, FilterHelpers.FilterItem[] filterItems)
+    {
+        foreach (var filter in filterModel)
+        {
+            string buttonText = RedlistSpeciesFilterHelpers.GetChipText(filter, filterItems);
+            if (!string.IsNullOrEmpty(buttonText))
+                RenderChip(buttonText, filter);
+        }
+    }
+}
+
+<!--- # of hits in search and their corresponding filter-chips -->
+<div class="empty_filters">
+    <p class="hit_count_text">
+        <span class="searchstring">
+            @if (RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) != 0
+|| !string.IsNullOrEmpty(RedlistSpeciesFilterHelpers.GetActiveSelection(Model)))
+            {
+                <span>
+                    @if (!string.IsNullOrEmpty(RedlistSpeciesFilterHelpers.GetActiveSelection(Model)))
+                    {
+                        string searchstring = "Viser treff for " + '"' + RedlistSpeciesFilterHelpers.GetActiveSelection(Model) + '"';
+                        <span>@searchstring</span>
+                        <button class="button tinybutton tertiary search_related" name="remove_search" value="true">
+                            <span class="material-icons">close</span>Fjern søk
+                        </button>
+                    }
+                </span>
+                <div class="filterbox">
+                    <ul>
+                        @if (RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) > 0)
+                        {
+                            MakeFilterChips(Model.Area, allAreas.Filters);
+                            MakeFilterChips(Model.Category, allCategories.Filters);
+                            MakeFilterChips(Model.SpeciesGroups, allSpeciesGroups.Filters);
+                            MakeFilterChips(Model.TaxonRank, allTaxonRanks.Filters);
+                            MakeFilterChips(Model.Habitats, allHabitats.Filters);
+                            MakeFilterChips(Model.Regions, allRegions.Filters);
+                            MakeFilterChips(Model.EuroPop, allEuroPop.Filters);
+                            MakeFilterChips(Model.Criterias, allCriterias.Filters);
+                            MakeFilterChips(new string[]{ Model.PresumedExtinct.ToString()}, allPresumedExtinct.Filters);
+                            }
+                    </ul>
+                    @{
+                        string buttontext = RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) + " filter";
+                    }
+                    @if (RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) > 1)
+                    {
+                        buttontext.Replace("filter", "filtre");
+                        <button class="button tinybutton tertiary search_related" name="remove_filters" value="true">
+                            <span class="material-icons">close</span>Fjern alle filter
+                        </button>
+                    }        
+                </div>
+            }
+        </span>
+    </p>
+</div>
+
+<!-- CONTROL BUTTONS and toggles-->
+<div class="controls">
+    <span class="desktop_hide hit-counter">Viser treff @startHit - @endHit av @totalCount</span>
+    <span class="desktop_hide">Sorter etter: </span>
+    <div class="list_control_buttons">
+        <button class="adb-button toggle_filter only_mobile list_actions no_js ghost" id="open_filter" value="open_filters" name="Åpne filter" type="button" onclick="openFilters()">
+            @if (RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) != 0)
+            {
+                <span class="filternumber">@RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model)</span>
+            }
+            <span class="material-icons">filter_list</span>Filter
+        </button>
+
+        @if (Model.View != "stat")
+        {
+            <span class="mobile_hide hit-counter">Viser @startHit til @endHit av totalt @totalCount treff.</span>
+            <span class="mobile_hide">Sorter etter: </span>
+            <select asp-for="SortBy" id="sort_results" class="sort_by list_actions" onchange="this.form.submit()">
+                <option value="@nameof(SpeciesAssessment2021.ScientificName)">Artsnavn</option>
+                <option value="@nameof(SpeciesAssessment2021.PopularName)">Populærnavn</option>
+                <option value="@nameof(SpeciesAssessment2021.Category)">Kategori</option>
+                <option value="@nameof(SpeciesAssessment2021.SpeciesGroup)">Artsgruppe</option>
+            </select>
+        }
+    </div>
+    <partial name="/Views/Shared/_ControlButtons.cshtml" model="controlButtonsViewModel" />
+</div>
+
+<div class="listwrapper">
+    <div class="filtercontainer">
+        @{ InputTag("initial_check", "meta_checkbox", "Meta", Model.Meta, "Visited");}
+        @{ InputTag("remember_scroll", "meta_checkbox", "Meta", Model.Meta, "0");}
+        <!-- View controls -->
+        <div id="filters" class="filteX no_js hide_on_smallscreen">
+            <div id="filter_modal_background">
+                <div id="filters_scrollable" class="filter_background">
+                    <div class="filter_groups">
+                        <partial name="/Views/Shared/_FilterHeader.cshtml" />
+                        <div class="filter_scroll_area">
+                            <ul>
+                                @{
+                                    MakeFilterGroup(nameof(Model.Area), Model.Area, allAreas);
+                                    MakeFilterGroup(nameof(Model.Category), Model.Category, allCategories);
+                                    MakeFilterGroup(nameof(Model.TaxonRank), Model.TaxonRank, allTaxonRanks);
+                                    MakeFilterGroup(nameof(Model.SpeciesGroups), Model.SpeciesGroups, allSpeciesGroups);
+                                    MakeFilterGroup(nameof(Model.Habitats), Model.Habitats, allHabitats);
+                                    MakeFilterGroup(nameof(Model.Regions), Model.Regions, allRegions);
+                                    MakeFilterGroup(nameof(Model.EuroPop), Model.EuroPop, allEuroPop);
+                                    MakeFilterGroup(nameof(Model.Criterias), Model.Criterias, allCriterias);
+                                    MakeFilterGroup(nameof(Model.PresumedExtinct), new string[] { Model.PresumedExtinct.ToString() }, allPresumedExtinct);
+                                }
+                            </ul>
+                        </div>
+                        <partial name="/Views/Shared/_FilterMobileButtons.cshtml" view-data="ViewData" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="/Views/Species/2021/List/partials/_View.cshtml" />
+</div>

@@ -4,6 +4,7 @@ using Assessments.Mapping.RedlistSpecies;
 using Assessments.Shared.Helpers;
 using System.Collections.Specialized;
 using System.Globalization;
+using Assessments.Web.Models.Species;
 
 namespace Assessments.Web.Infrastructure
 {
@@ -100,17 +101,17 @@ namespace Assessments.Web.Infrastructure
 
         public static NameValueCollection RemoveFiltersFromQuery(NameValueCollection queryParams)
         {
-            queryParams.Remove(nameof(RL2021ViewModel.Area));
-            queryParams.Remove(nameof(RL2021ViewModel.Category));
-            queryParams.Remove(nameof(RL2021ViewModel.Criterias));
-            queryParams.Remove(nameof(RL2021ViewModel.EuroPop));
-            queryParams.Remove(nameof(RL2021ViewModel.Regions));
-            queryParams.Remove(nameof(RL2021ViewModel.Habitats));
-            queryParams.Remove(nameof(RL2021ViewModel.SpeciesGroups));
-            queryParams.Remove(nameof(RL2021ViewModel.TaxonRank));
-            queryParams.Remove(nameof(RL2021ViewModel.Redlisted));
-            queryParams.Remove(nameof(RL2021ViewModel.Endangered));
-            queryParams.Remove(nameof(RL2021ViewModel.PresumedExtinct));
+            queryParams.Remove(nameof(SpeciesViewModel.Area));
+            queryParams.Remove(nameof(SpeciesViewModel.Category));
+            queryParams.Remove(nameof(SpeciesViewModel.Criterias));
+            queryParams.Remove(nameof(SpeciesViewModel.EuroPop));
+            queryParams.Remove(nameof(SpeciesViewModel.Regions));
+            queryParams.Remove(nameof(SpeciesViewModel.Habitats));
+            queryParams.Remove(nameof(SpeciesViewModel.SpeciesGroups));
+            queryParams.Remove(nameof(SpeciesViewModel.TaxonRank));
+            queryParams.Remove(nameof(SpeciesViewModel.Redlisted));
+            queryParams.Remove(nameof(SpeciesViewModel.Endangered));
+            queryParams.Remove(nameof(SpeciesViewModel.PresumedExtinct));
             queryParams.Remove(Constants.SearchAndFilter.RemoveFilters);
 
             return queryParams;

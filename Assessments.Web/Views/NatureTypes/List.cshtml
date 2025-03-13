@@ -1,0 +1,42 @@
+﻿@using Assessments.Shared.Constants
+@using Assessments.Shared.Options
+@using Assessments.Web.Models.NatureTypes
+@using Microsoft.Extensions.Options
+@inject IOptions<ApplicationOptions> Options
+@model NatureTypesListViewModel
+
+@{
+    ViewBag.Title = NatureTypesConstants.Title;
+}
+
+<div class="pagecontainer">
+    <partial name="/Views/Shared/_PageMenuHistorical.cshtml" />
+    <div class="content-placer bigmid">
+        <div class="mid-content">
+            <div class="page-header">
+                <h1>
+                    @ViewBag.Title
+                </h1>
+                <environment exclude="Production">
+                    <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
+                </environment>
+                <p class="ingress">
+                    Norsk rødliste for naturtyper 2025 viser hvilke naturtype som har risiko for å gå tapt fra Norge. Rødlista er utarbeidet av Artsdatabanken i samarbeid med fageksperter.
+                </p>
+            </div>
+            <div class="main_list_view">
+                <div class="listwrapper">
+                    <div class="filtercontainer">
+                        <partial name="Shared/_ListFilters" model="Model" />
+                    </div>
+                    <div id="viewselector" class="viewselector">
+                        <partial name="Shared/_ListResult" for="Assessments" />
+                        <div class="mobile_padding">
+                            <partial name="/Views/Shared/_Paginator.cshtml" for="ListViewViewModel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
