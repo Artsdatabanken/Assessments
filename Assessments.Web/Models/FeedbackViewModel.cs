@@ -39,7 +39,4 @@ public class FeedbackViewModel
     public string ExpertGroup { get; set; }
 
     public FeedbackType Type { get; set; }
-
-    [Required(ErrorMessage = "{0} er påkrevd")] 
-    public bool HasBackToTopLink { get; set; }
 }

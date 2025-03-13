@@ -28,5 +28,4 @@ public record NatureTypesListViewModelParameters
 
     [Display(Name = "Område")]
     public AssessmentRegion? Area { get; set; }
-
 }
