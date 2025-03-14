@@ -28,10 +28,9 @@
     var AllSpreadWays = new SpreadWays().AlienSpecies2023SpreadWays();
     var AllTaxonRanks = new TaxonRank().AlienSpecies2023TaxonRanks();
 
-    ControlButtonsViewModel controlButtonsViewModel = new ControlButtonsViewModel
+    var controlButtonsViewModel = new ControlButtonsViewModel
     {
         View = Model.View,
-        ItemCount = Model.Results?.TotalItemCount ?? 0,
     };
 }
 

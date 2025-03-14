@@ -8,21 +8,15 @@ using Newtonsoft.Json.Linq;
 using System.Web;
 using X.PagedList.Extensions;
 using Assessments.Web.Models.Species;
+using LazyCache;
 
 namespace Assessments.Web.Controllers;
 
 [Route("rodlisteforarter")]
-public class SpeciesController(ArtskartApiService artskartApiService) : BaseController<SpeciesController>
+public class SpeciesController(ArtskartApiService artskartApiService, IAppCache appCache) : BaseController<SpeciesController>
 {
-    static SpeciesController()
-    {
-        ResourceCache = new Dictionary<string, JObject>();
-    }
-
     public IActionResult RodlisteForArter() => View("Home");
-
-    private static readonly Dictionary<string, JObject> ResourceCache;
-
+    
     [Route("2021")]
     public async Task<IActionResult> Index([FromQuery] SpeciesViewModel viewModel, int? page, bool export)
     {
@@ -435,17 +429,17 @@ public class SpeciesController(ArtskartApiService artskartApiService) : BaseCont
             viewModel.Statistics.ImpactFactors.Add(item.key, item.value);
         }
     }
-
-    private static async Task<JObject> GetResource(string resourcePath)
+    
+    private async Task<JObject> GetResource(string resourcePath)
     {
-#if (DEBUG == true)
-        if (ResourceCache.ContainsKey(resourcePath)) return ResourceCache[resourcePath];
-#endif
-        var json = await System.IO.File.ReadAllTextAsync(resourcePath);
-        var jObject = JObject.Parse(json);
-#if (DEBUG == true)
-        if (!ResourceCache.ContainsKey(resourcePath)) ResourceCache.Add(resourcePath, jObject);
-#endif
-        return jObject;
+        return await appCache.GetOrAddAsync($"{nameof(SpeciesController)}-{nameof(GetResource)}-{resourcePath}", () => Get(resourcePath));
+
+        static async Task<JObject> Get(string path)
+        {
+            var json = await System.IO.File.ReadAllTextAsync(path);
+            var jObject = JObject.Parse(json);
+
+            return jObject;
+        }
     }
 }

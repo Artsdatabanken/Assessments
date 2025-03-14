@@ -1,19 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Assessments.Web.Infrastructure.Enums
+namespace Assessments.Web.Infrastructure.Enums;
+
+public enum AssessmentType
 {
-    public enum AssessmentType
-    {
-        [Display(Name = "Fremmedartslista 2023")]
-        AlienSpecies2023,
+    [Display(Name = "Fremmedartslista 2023")]
+    AlienSpecies2023,
 
-        [Display(Name = "Rødlista for arter 2021")]
-        RedlistSpecies2021
-    }
+    [Display(Name = "Rødlista for arter 2021")]
+    RedlistSpecies2021,
 
-    public enum ListOrAssessmentView
-    {
-        Index,
-        Assessment
-    }
+    [Display(Name = "Rødlista for naturtyper 2025")] 
+    NatureTypes2025
+}
+
+public enum ListOrAssessmentView
+{
+    Index,
+    Assessment
 }

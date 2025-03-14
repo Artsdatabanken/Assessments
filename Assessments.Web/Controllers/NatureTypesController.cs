@@ -58,6 +58,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
+            Name = parameters.Name,
             Category = parameters.Category,
             Committee = parameters.Committee,
             Region = parameters.Region,

@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using Assessments.Data;
 using Assessments.Shared;
+using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Infrastructure.Middleware;
@@ -94,10 +95,8 @@ else
 
 builder.Services.AddStaticRobotsTxt(options =>
 {
-    options.DenyAll(); // TODO: endre når nye sider er tatt i bruk
-
-    //if (!builder.Environment.IsProduction())
-    //    options.DenyAll();
+    if (!builder.Environment.IsProduction())
+        options.DenyAll();
 
     return options;
 });

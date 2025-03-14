@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Assessments.Web.Models.NatureTypes.Enums;
+﻿using Assessments.Shared.Constants;
+using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Data.Models;
-using RodlisteNaturtyper.Data.Models.Enums;
 using X.PagedList;
 
 namespace Assessments.Web.Models.NatureTypes;
@@ -13,21 +12,28 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
     public List<Region> Regions { get; set; }
 
     public ListViewViewModel ListViewViewModel { get; set; }
-}
 
-public record NatureTypesListViewModelParameters
-{
-    public string Name { get; init; }
-
-    public List<Category> Category { get; init; } = [];
+    public PageMenuViewModel PageMenuViewModel => new()
+    {
+        PageMenuContentId = NatureTypesConstants.PageMenuContentId,
+        PageMenuExpandButtonText = NatureTypesConstants.Title2025,
+        AssessmentType = AssessmentType.NatureTypes2025
+    };
     
-    public List<string> Committee { get; set; } = [];
+    public PageHeaderViewModel PageHeaderViewModel => new()
+    {
+        HeaderText = NatureTypesConstants.Title2025,
+        // TODO: ikke vis publisert dato under innsynet for rødlista for naturtyper 2025
+        HeaderByline = NatureTypesConstants.HeaderByline
+    };
+    
+    public IntroductionViewModel IntroductionViewModel => new()
+    {
+        Introduction = NatureTypesConstants.Introduction
+    };
 
-    public List<int> Region { get; set; } = [];
-
-    [Display(Name = "Sorter på")]
-    public SortByEnum SortBy { get; set; } = SortByEnum.Name;
-
-    [Display(Name = "Område")]
-    public AssessmentRegion? Area { get; set; }
+    public CitationForListViewModel CitationForListViewModel => new()
+    {
+        CitationString = NatureTypesConstants.Citation
+    };
 }

@@ -1,0 +1,122 @@
+﻿@using Assessments.Web.Models.NatureTypes
+@using Assessments.Web.Models.NatureTypes.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using RodlisteNaturtyper.Data.Models.Enums
+@model NatureTypesListViewModel
+
+@{
+    var nonFilterQuerystringKeys = new List<string> { nameof(Model.Name), nameof(Model.SortBy), nameof(ListViewViewModel.View), "Page" };
+
+    var queryFiltersValues = Context.Request.Query.SelectMany(x => x.Value, (col, value) => new KeyValuePair<string, string>(col.Key, value)).Where(x => !nonFilterQuerystringKeys.Contains(x.Key) && !string.IsNullOrEmpty(x.Value)).ToList();
+
+    var hasFilterQuery = Context.Request.Query.Where(x => !nonFilterQuerystringKeys.Contains(x.Key)).Select(x => x.Value).Any(x => !string.IsNullOrEmpty(x));
+
+    var hasSearchQuery = !string.IsNullOrEmpty(Context.Request.Query[nameof(Model.Name)]);
+
+    var controlButtonsViewModel = new ControlButtonsViewModel();
+}
+
+<div class="empty_filters">
+    <p class="hit_count_text">
+        <div class="searchstring">
+            <span is-visible="hasSearchQuery">
+                <span>
+                    @($"Viser treff for \"{Model.Name}\"")
+                </span>
+                <a href="@Context.Request.QueryString.RemoveParameters([nameof(NatureTypesListViewModel.Name), nameof(Model.Name)])" class="button tinybutton tertiary search_related">
+                    <span class="material-icons">close</span>Fjern søk
+                </a>
+            </span>
+            <div class="filterbox">
+                <ul>
+                    @foreach (var filter in queryFiltersValues)
+                    {
+                        <li class="chips">
+                            <span class="chips-text">@filter.Value</span>
+                            <a href="@Context.Request.Query.RemoveQueryStringValue(filter.Key, filter.Value)" class="text-button chips-close-button btn icon-button">
+                                <span class="material-icons ">close</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <a is-visible="hasFilterQuery" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name)])" class="button tinybutton tertiary search_related">
+                    <span class="material-icons">close</span>Fjern alle filter
+                </a>
+            </div>
+
+        </div>
+    </p>
+</div>
+
+<div class="controls">
+    <span class="desktop_hide hit-counter">Viser treff @Model.Assessments.FirstItemOnPage - @Model.Assessments.LastItemOnPage av @Model.Assessments.TotalItemCount</span>
+    <span class="desktop_hide">Sorter etter: </span>
+    <div class="list_control_buttons">
+        <button class="adb-button toggle_filter only_mobile list_actions no_js ghost" id="open_filter" value="open_filters" name="Åpne filter" type="button" onclick="openFilters()">
+            <span is-visible="queryFiltersValues.Count != 0" class="filternumber">@queryFiltersValues.Count</span>
+            <span class="material-icons">filter_list</span>Filter
+        </button>
+        @if (Model.ListViewViewModel.View != "stat")
+        {
+            <span class="mobile_hide hit-counter">Viser @Model.Assessments.FirstItemOnPage til @Model.Assessments.LastItemOnPage av totalt @Model.Assessments.TotalItemCount treff.</span>
+            <span class="mobile_hide">Sorter etter: </span>
+            <select asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByEnum>()" id="sort_results" class="sort_by list_actions" onchange="this.form.submit();">
+            </select>
+        }
+    </div>
+    <partial name="/Views/Shared/_ControlButtons.cshtml" model="controlButtonsViewModel" />
+</div>
+
+<div class="listwrapper">
+    <div class="filtercontainer">
+        <div id="filters" class="filteX no_js hide_on_smallscreen">
+            <div id="filter_modal_background">
+                <div id="filters_scrollable" class="filter_background">
+                    <div class="filter_groups">
+                        <partial name="/Views/Shared/_FilterHeader.cshtml" />
+                        <div class="filter_scroll_area">
+                            <ul>
+                                <li>
+                                    @foreach (var item in Enum.GetValues<Category>())
+                                    {
+                                        <label>
+                                            <input type="checkbox" value="@item" name="@nameof(Model.Category)" @(Model.Category.Any(x => x == item) ? "checked" : "") /> @item
+                                        </label>
+                                    }
+                                </li>
+                                <li>
+                                    @foreach (var item in Model.Committees)
+                                    {
+                                        <label>
+                                            <input type="checkbox" value="@item.Name" name="@nameof(Model.Committee)" @(Model.Committee.Any(x => x == item.Name) ? "checked" : "") /> @item.Name
+                                        </label>
+                                    }
+                                </li>
+                                <li>
+                                    @foreach (var item in Model.Regions)
+                                    {
+                                        <label>
+                                            <input type="checkbox" value="@item.Id" name="@nameof(Model.Region)" @(Model.Region.Any(x => x == item.Id) ? "checked" : "") /> @item.Name
+                                        </label>
+                                    }
+                                </li>
+                                <li>
+                                    <label asp-for="Area"></label>
+                                    <select asp-for="Area" asp-items="Html.GetEnumSelectList<AssessmentRegion>()" onchange="this.form.submit();">
+                                        <option value="">Alle</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                        @* <partial name="/Views/Shared/_FilterMobileButtons.cshtml" view-data="ViewData" /> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <div id="viewselector" class="viewselector @Model.ListViewViewModel.View">
+        <partial name="_ListView.cshtml" />
+    </div>
+</div>

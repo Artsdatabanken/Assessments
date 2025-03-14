@@ -1,46 +1,53 @@
 ﻿@using Assessments.Shared.Constants
 
 @{
-    ViewBag.Title = "Rødlista for naturtyper";
+    Layout = "_Layout.cshtml";
+    ViewBag.Title = NatureTypesConstants.Title;
 }
 
-<div class="pagecontainer">
+@section PageMenu{
     <partial name="/Views/Shared/_PageMenuHistorical.cshtml" />
-    <div class="content-placer bigmid">
-        <div class="mid-content">
-            <div class="page-header">
-                <h1>
-                    @ViewBag.Title
-                </h1>
-                <p class="ingress">
-                    Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-                </p>
-            </div>
-            <div class="mobile_padding">
-                <h2>Gjeldende rødliste for naturtyper</h2>
+}
 
-                <p class="page_section">
-                    Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-                </p>
-                <p>
-                    <a asp-controller="NatureTypes" asp-action="List" class="button primary alien-species">
-                        @NatureTypesConstants.Title
-                        <span class="material-icons">keyboard_arrow_right</span>
-                    </a>
-                </p>
-                <h2>Alle rødlistene for naturtyper</h2>
-                <p class="page_section">
-                    <ul>
-                        
-                        <li>
-                            <a href="https://artsdatabanken.no/rodlistefornaturtyper" class="button secondary">
-                                <span>@ViewData["Title"] 2018</span>
-                                <span class="material-icons bigarrow">keyboard_arrow_right</span>
-                            </a>
-                        </li>
-                    </ul>
-                </p>
-            </div>
+<div class="content-placer bigmid">
+    <div class="mid-content">
+        <div class="page-header">
+            <h1>
+                @ViewBag.Title
+            </h1>
+            <p class="ingress">
+                Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            </p>
+        </div>
+        <div class="mobile_padding">
+            <h2>Gjeldende rødliste for naturtyper</h2>
+
+            <p class="page_section">
+                Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            </p>
+            <p>
+                <a asp-controller="NatureTypes" asp-action="List" class="button primary alien-species">
+                    @NatureTypesConstants.Title
+                    <span class="material-icons">keyboard_arrow_right</span>
+                </a>
+            </p>
+            <h2>Alle rødlistene for naturtyper</h2>
+            <p class="page_section">
+                <ul>
+                    <li>
+                        <a asp-controller="NatureTypes" asp-action="List" class="button secondary">
+                            <span>Rødlista for naturtyper 2025</span>
+                            <span class="material-icons bigarrow">keyboard_arrow_right</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://artsdatabanken.no/rodlistefornaturtyper" class="button secondary">
+                            <span>Rødlista for naturtyper 2018</span>
+                            <span class="material-icons bigarrow">keyboard_arrow_right</span>
+                        </a>
+                    </li>
+                </ul>
+            </p>
         </div>
     </div>
 </div>
