@@ -1,4 +1,6 @@
-﻿using Assessments.Web.Models.NatureTypes;
+﻿using Assessments.Shared.DTOs.NatureTypes.Enums;
+using Assessments.Shared.Helpers;
+using Assessments.Web.Models.NatureTypes;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 using static Assessments.Web.Infrastructure.FilterHelpers;
@@ -19,11 +21,23 @@ public static class NatureTypesFilterHelpers
             })],
     };
 
+    public static FilterAndMetaData Categories => new()
+    {
+        FilterButtonName = "kategorifiltre",
+        FilterButtonText = "Kategori",
+        Filters = [.. Enum.GetValues<NatureTypeCategoryDto>()
+            .Select(x => new FilterItem
+            {
+                NameShort = x.ToString(),
+                Name = x.DisplayName(),
+                Description = x.DisplayName()
+            })],
+    };
     public static FilterAndMetaData Regions(List<Region> modelRegions) =>
         new()
         {
-            FilterButtonName = "områdefiltre",
-            FilterButtonText = "Vurderingsområde",
+            FilterButtonName = "regionsfiltre",
+            FilterButtonText = "Regioner og havområder",
             Filters =
             [
                 .. modelRegions
@@ -40,6 +54,7 @@ public static class NatureTypesFilterHelpers
         var count = 0;
 
         count += model.Area.Length;
+        count += model.Category.Length;
         count += model.Region.Length;
 
         return count;

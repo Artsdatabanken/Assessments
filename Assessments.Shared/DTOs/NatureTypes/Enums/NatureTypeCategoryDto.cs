@@ -1,34 +1,40 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 // ReSharper disable InconsistentNaming
 
 namespace Assessments.Shared.DTOs.NatureTypes.Enums;
 
 public enum NatureTypeCategoryDto
 {
-    [Description("Gått tapt")]
+    [Display(Name = "gått tapt")]
     CO = 0,
 
-    [Description("Kritisk truet")]
+    [Display(Name = "kritisk truet")]
     CR = 1,
 
-    [Description("Sterkt truet")]
+    [Display(Name = "sterkt truet")]
     EN = 2,
 
-    [Description("Sårbar")]
+    [Display(Name = "sårbar")]
     VU = 3,
 
-    [Description("Nær truet")]
+    [Display(Name = "nær truet")]
     NT = 4,
 
-    [Description("Datamangel")]
+    [Display(Name = "datamangel")]
     DD = 5,
 
-    [Description("Uten risiko")]
+    [Display(Name = "uten risiko")]
     LC = 6,
 
-    [Description("Ikke egnet")]
+    [Display(Name = "ikke egnet")]
     NA = 7,
 
-    [Description("Ikke vurdert")]
-    NE = 8
+    [Display(Name = "ikke vurdert")]
+    NE = 8,
+
+    [Display(Name = "Merk alle *sett inn tekst")] // TODO: sett inn tekster for gruppering
+    RED = 9,
+
+    [Display(Name = "Marker alle *sett inn tekst")]
+    END = 10
 }

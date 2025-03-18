@@ -4,16 +4,7 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model NatureTypesListViewModel
 
-@{
-    var nonFilterQuerystringKeys = new List<string> { nameof(Model.Name), nameof(Model.SortBy), nameof(ListViewViewModel.View), "Page" };
-
-    //var queryFiltersValues = Context.Request.Query.SelectMany(x => x.Value, (col, value) => new KeyValuePair<string, string>(col.Key, value)).Where(x => !nonFilterQuerystringKeys.Contains(x.Key) && !string.IsNullOrEmpty(x.Value)).ToList();
-    
-    var hasSearchQuery = !string.IsNullOrEmpty(Context.Request.Query[nameof(Model.Name)]);
-}
-
 @functions {
-
     void InputTag(string id, string className, string name, string[] elements, string value)
     {
         if (id == "remember_scroll")
@@ -78,15 +69,17 @@
 
                         foreach (var el in filterItems.Filters)
                         {
-                            var value = el.Name;
+                            var value = el.NameShort;
+                            var label = filterName == nameof(Model.Category) && value != "RED" && value != "END" ? $"{el.NameShort} - {el.Description}" : el.Name;
                             var extraOuterClassName = $"{outerClassName} {filterName}_input";
+
                             if (el.SubGroup != null)
                             {
                                 MakeFilterGroup(el.NameShort, modelName, true, filterModel, el.SubGroup, el.Name, $"{el.Name}filtre", extraOuterClassName);
                             }
                             else
                             {
-                                MakeCheckBoxLi(value, el.Name, modelName, filterModel, string.Empty, extraOuterClassName);
+                                MakeCheckBoxLi(value, label, modelName, filterModel, string.Empty, extraOuterClassName);
                             }
                         }
                     }
@@ -119,14 +112,15 @@
                 RenderChip(buttonText, filter);
         }
     }
+
 }
 
 <div class="empty_filters">
     <p class="hit_count_text">
         <div class="searchstring">
-            <span is-visible="hasSearchQuery">
+            <span is-visible="!string.IsNullOrEmpty(Model.Name)">
                 <span>
-                    @($"Viser treff for \"{Model.Name}\"")
+                    @($"Viser treff for \"{Model.Name.Trim()}\"")
                 </span>
                 <a href="@Context.Request.QueryString.RemoveParameters([nameof(NatureTypesListViewModel.Name), nameof(Model.Name)])" class="button tinybutton tertiary search_related">
                     <span class="material-icons">close</span>Fjern søk
@@ -134,8 +128,10 @@
             </span>
             <div class="filterbox">
                 <ul>
-                    @{
+                    @if (NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 0)
+                    {
                         MakeFilterChips(Model.Area, NatureTypesFilterHelpers.Areas.Filters);
+                        MakeFilterChips(Model.Category, NatureTypesFilterHelpers.Categories.Filters);
                         MakeFilterChips(Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions).Filters);
                     }
                 </ul>
@@ -152,15 +148,18 @@
     <span class="desktop_hide">Sorter etter: </span>
     <div class="list_control_buttons">
         <button class="adb-button toggle_filter only_mobile list_actions no_js ghost" id="open_filter" value="open_filters" name="Åpne filter" type="button" onclick="openFilters()">
-            <span is-visible="NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 1" class="filternumber">@NatureTypesFilterHelpers.GetActiveSelectionCount(Model)</span>
+            @if (NatureTypesFilterHelpers.GetActiveSelectionCount(Model) != 0)
+            {
+                <span class="filternumber">@NatureTypesFilterHelpers.GetActiveSelectionCount(Model)</span>
+            }
             <span class="material-icons">filter_list</span>Filter
         </button>
+
         @if (Model.ListViewViewModel.View != "stat")
         {
             <span class="mobile_hide hit-counter">Viser @Model.Assessments.FirstItemOnPage til @Model.Assessments.LastItemOnPage av totalt @Model.Assessments.TotalItemCount treff.</span>
             <span class="mobile_hide">Sorter etter: </span>
-            <select asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByEnum>()" id="sort_results" class="sort_by list_actions" onchange="this.form.submit();">
-            </select>
+            <select asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByEnum>()" id="sort_results" class="sort_by list_actions" onchange="this.form.submit()"></select>
         }
     </div>
     <partial name="/Views/Shared/_ControlButtons.cshtml" for="ControlButtonsViewModel" />
@@ -183,11 +182,22 @@
                             <ul>
                                 @{
                                     MakeFilterGroup(nameof(Model.Area), Model.Area, NatureTypesFilterHelpers.Areas);
-                                }
-                                @{
+                                    MakeFilterGroup(nameof(Model.Category), Model.Category, NatureTypesFilterHelpers.Categories);
                                     MakeFilterGroup(nameof(Model.Region), Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions));
                                 }
                             </ul>
+                        </div>
+                        <div class="filters_bottom">
+                            <button class="close_filters" name="Lukk filtre" type="button" onclick="closeFilters()">
+                                Avslutt
+                                <span class="material-icons">close</span>
+                            </button>
+                            <button is-visible="false" class="hideonmobile adb-button ghost" type="submit" name="Export" value="true" formtarget="_blank">
+                                <span class="material-icons">file_download</span> Eksporter
+                            </button>
+                            <button id="submit_filters" name="Påfør filter" type="submit" class="submit_filters primary">
+                                <span class="material-icons">done</span> Påfør
+                            </button>
                         </div>
                     </div>
                 </div>

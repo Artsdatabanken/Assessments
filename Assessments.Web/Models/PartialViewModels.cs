@@ -98,11 +98,29 @@ namespace Assessments.Web.Models
 
     public class CitationForListViewModel
     {
+        public CitationForListViewModel()
+        {
+        }
+
+        public CitationForListViewModel(string citationString)
+        {
+            CitationString = citationString;
+        }
+
         public string CitationString { get; set; }
     }
 
     public class ControlButtonsViewModel
     {
+        public ControlButtonsViewModel()
+        {
+        }
+
+        public ControlButtonsViewModel(string view)
+        {
+            View = view;
+        }
+
         public string View { get; set; }
     }
 
@@ -350,6 +368,15 @@ namespace Assessments.Web.Models
 
     public class IntroductionViewModel
     {
+        public IntroductionViewModel()
+        {
+        }
+
+        public IntroductionViewModel(string introduction)
+        {
+            Introduction = introduction;
+        }
+
         public string Introduction { get; set; }
     }
 

@@ -1,20 +1,17 @@
 ﻿using Assessments.Shared.Constants;
 using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Data.Models;
-using RodlisteNaturtyper.Data.Models.Enums;
 using X.PagedList;
 
 namespace Assessments.Web.Models.NatureTypes;
 
-public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : NatureTypesListViewModelParameters
+public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : NatureTypesListParameters
 {
-    public List<string> Areas => Enum.GetValues<AssessmentRegion>().Select(x => x.ToString()).ToList();
+    public List<Committee> Committees { get; init; }
 
-    public List<Committee> Committees { get; set; }
+    public List<Region> Regions { get; init; }
 
-    public List<Region> Regions { get; set; }
-
-    public ListViewViewModel ListViewViewModel { get; set; }
+    public ListViewViewModel ListViewViewModel { get; init; }
 
     public PageMenuViewModel PageMenuViewModel => new()
     {
@@ -30,19 +27,9 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
         HeaderByline = NatureTypesConstants.HeaderByline
     };
     
-    public IntroductionViewModel IntroductionViewModel => new()
-    {
-        Introduction = NatureTypesConstants.Introduction
-    };
+    public IntroductionViewModel IntroductionViewModel => new(introduction: NatureTypesConstants.Introduction);
 
-    public CitationForListViewModel CitationForListViewModel => new()
-    {
-        CitationString = NatureTypesConstants.Citation
-    };
+    public CitationForListViewModel CitationForListViewModel => new(citationString: NatureTypesConstants.Citation);
 
-    public ControlButtonsViewModel ControlButtonsViewModel => new();
-
-    public string[] Meta { get; set; } = [];
-
-    public string[] IsCheck { get; set; } = [];
+    public ControlButtonsViewModel ControlButtonsViewModel => new(view: "list");
 }

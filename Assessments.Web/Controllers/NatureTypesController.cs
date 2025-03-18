@@ -25,21 +25,23 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
     }
 
     [Route("2025")]
-    public IActionResult List(NatureTypesListViewModelParameters parameters, int? page)
+    public IActionResult List(NatureTypesListParameters parameters, int? page)
     {
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
 
-        if (!string.IsNullOrEmpty(parameters.Name))
-            assessments = assessments.Where(x => x.Name.Contains(parameters.Name) || x.ShortCode == parameters.Name);
+        if (!string.IsNullOrEmpty(parameters.Name?.Trim()))
+        {
+            assessments = assessments.Where(x => x.Name.Contains(parameters.Name) || x.ShortCode == parameters.Name || x.LongCode == parameters.Name);
+        }
 
-        //if (parameters.Category.Count != 0)
-        //{
-        //    var categories = parameters.Category.Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.Combine(current, c => c.Category == category));
+        if (parameters.Category.Length != 0)
+        {
+            var categories = parameters.Category.ToEnumerable<Category>().Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.Combine(current, c => c.Category == category));
 
-        //    if (categories != null)
-        //        assessments = assessments.Where(categories);
-        //}
+            if (categories != null)
+                assessments = assessments.Where(categories);
+        }
 
         if (parameters.Committee.Length != 0)
             assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
@@ -75,8 +77,12 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
             Committee = parameters.Committee,
             Region = parameters.Region,
             Area = parameters.Area,
+            Meta = parameters.Meta,
+            IsCheck = parameters.IsCheck,
+
             Committees = repository.GetCommittees(),
             Regions = regions,
+
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
