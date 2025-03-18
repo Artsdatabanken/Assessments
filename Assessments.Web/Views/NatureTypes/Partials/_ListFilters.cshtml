@@ -1,8 +1,4 @@
-﻿@using Assessments.Web.Infrastructure.NatureTypes
-@using Assessments.Web.Models.NatureTypes
-@using Assessments.Web.Models.NatureTypes.Enums
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model NatureTypesListViewModel
+﻿@model NatureTypesListViewModel
 
 @functions {
     void InputTag(string id, string className, string name, string[] elements, string value)
@@ -204,7 +200,5 @@
             </div>
         </div>
     </div>
-    <div id="viewselector" class="viewselector @Model.ListViewViewModel.View">
-        <partial name="_ListView.cshtml" />
-    </div>
+    <partial name="_ListView.cshtml" />
 </div>

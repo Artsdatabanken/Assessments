@@ -1,8 +1,4 @@
-﻿@using Assessments.Shared.Constants
-@using Assessments.Shared.Options
-@using Assessments.Web.Models.NatureTypes
-@using Microsoft.Extensions.Options
-@inject IOptions<ApplicationOptions> Options
+﻿@inject IOptions<ApplicationOptions> Options
 @model NatureTypesListViewModel
 
 @{
@@ -29,8 +25,8 @@
             </div>
         </div>
         <form id="search_and_filter_form" method="get">
-            <partial name="Partials/_Search.cshtml" />
-            <partial name="Partials/_Filters.cshtml" />
+            <partial name="Partials/_ListSearch.cshtml" />
+            <partial name="Partials/_ListFilters.cshtml" />
         </form>
         <partial name="/Views/Shared/_CitationForList.cshtml" for="CitationForListViewModel" />
     </div>

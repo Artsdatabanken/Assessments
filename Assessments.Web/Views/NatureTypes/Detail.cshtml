@@ -1,14 +1,14 @@
-﻿@using Assessments.Shared.Constants
-@using Assessments.Shared.Options
-@using Assessments.Web.Models.NatureTypes
-@using Microsoft.Extensions.Options
-@inject IOptions<ApplicationOptions> Options
+﻿@inject IOptions<ApplicationOptions> Options
 @model NatureTypesDetailViewModel
 
 @{
     var assessment = Model.Assessment;
     ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
     Layout = "_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/assessment.css" />
 }
 
 @section Breadcrumb {

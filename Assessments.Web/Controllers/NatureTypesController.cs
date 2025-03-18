@@ -19,10 +19,7 @@ namespace Assessments.Web.Controllers;
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
-    public IActionResult Home()
-    {
-        return View();
-    }
+    public IActionResult Home() => View();
 
     [Route("2025")]
     public IActionResult List(NatureTypesListParameters parameters, int? page)
@@ -37,7 +34,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         if (parameters.Category.Length != 0)
         {
-            var categories = parameters.Category.ToEnumerable<Category>().Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.Combine(current, c => c.Category == category));
+            var categories = parameters.Category.ToEnumerable<Category>().Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.CombineOrElse(current, c => c.Category == category));
 
             if (categories != null)
                 assessments = assessments.Where(categories);
@@ -55,7 +52,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         if (parameters.Area.Length != 0)
         {
-            var assessmentRegions = parameters.Area.ToEnumerable<AssessmentRegion>().Aggregate<AssessmentRegion, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.Combine(current, c => c.Region == category));
+            var assessmentRegions = parameters.Area.ToEnumerable<AssessmentRegion>().Aggregate<AssessmentRegion, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.CombineOrElse(current, c => c.Region == category));
 
             if (assessmentRegions != null)
                 assessments = assessments.Where(assessmentRegions);
