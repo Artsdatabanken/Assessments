@@ -10,7 +10,8 @@ public static class NatureTypesConstants
     
     public const string Citation = "Artsdatabanken (*sett inn dato her). Norsk rødliste for naturtyper 2025.";
 
-    public const int PageMenuContentId = 258590; // drupal node id
+    // drupal node id TODO: justeres når tilgjengelig
+    public const int PageMenuContentId = 258590; 
 
     public const string HeaderByline = "Publisert: *sett inn dato her"; 
     

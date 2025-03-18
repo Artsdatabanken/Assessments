@@ -6,11 +6,11 @@ namespace Assessments.Web.Views.Shared.Components.Footer;
 
 public class FooterViewComponent(IDrupalRepository drupalRepository) : ViewComponent
 {
-    public async Task<IViewComponentResult> InvokeAsync()
+    public async Task<IViewComponentResult> InvokeAsync(CancellationToken cancellationToken)
     {
-        var mainContent = await drupalRepository.ContentByType(ContentModelType.FooterMain);
-        var someContent = await drupalRepository.ContentByType(ContentModelType.FooterSome);
-        var footerLinks = await drupalRepository.ContentByType(ContentModelType.FooterLinks);
+        var mainContent = await drupalRepository.ContentByType(ContentModelType.FooterMain, cancellationToken);
+        var someContent = await drupalRepository.ContentByType(ContentModelType.FooterSome, cancellationToken);
+        var footerLinks = await drupalRepository.ContentByType(ContentModelType.FooterLinks, cancellationToken);
         
         var viewModel = new FooterModel
         {

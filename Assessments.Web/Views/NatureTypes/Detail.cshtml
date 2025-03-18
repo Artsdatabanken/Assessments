@@ -1,5 +1,8 @@
 ﻿@using Assessments.Shared.Constants
+@using Assessments.Shared.Options
 @using Assessments.Web.Models.NatureTypes
+@using Microsoft.Extensions.Options
+@inject IOptions<ApplicationOptions> Options
 @model NatureTypesDetailViewModel
 
 @{
@@ -24,6 +27,9 @@
             <h1>
                 @assessment.Name
             </h1>
+            <environment exclude="Production">
+                <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
+            </environment>
             <p class="ingress">
                 @Html.Raw(assessment.DescriptionHtml)
             </p>

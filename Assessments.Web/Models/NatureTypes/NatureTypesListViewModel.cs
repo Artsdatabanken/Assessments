@@ -1,12 +1,15 @@
 ﻿using Assessments.Shared.Constants;
 using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Data.Models;
+using RodlisteNaturtyper.Data.Models.Enums;
 using X.PagedList;
 
 namespace Assessments.Web.Models.NatureTypes;
 
 public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : NatureTypesListViewModelParameters
 {
+    public List<string> Areas => Enum.GetValues<AssessmentRegion>().Select(x => x.ToString()).ToList();
+
     public List<Committee> Committees { get; set; }
 
     public List<Region> Regions { get; set; }
@@ -36,4 +39,10 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
     {
         CitationString = NatureTypesConstants.Citation
     };
+
+    public ControlButtonsViewModel ControlButtonsViewModel => new();
+
+    public string[] Meta { get; set; } = [];
+
+    public string[] IsCheck { get; set; } = [];
 }

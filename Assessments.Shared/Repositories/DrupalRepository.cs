@@ -23,7 +23,7 @@ public class DrupalRepository : IDrupalRepository
         _client.BaseAddress = new Uri("https://artsdatabanken.no/api/");
     }
 
-    public async Task<ContentRootResponseDto> ContentById(int id)
+    public async Task<ContentRootResponseDto> ContentById(int id, CancellationToken cancellationToken = default)
     {
         var cacheKey = $"{nameof(DrupalRepository)}-{nameof(ContentById)}-{id}";
         
@@ -33,12 +33,12 @@ public class DrupalRepository : IDrupalRepository
         {
             return await _cache.GetOrAddAsync(cacheKey, async () =>
             {
-                var response = await _client.GetAsync($"content/{id}");
+                var response = await _client.GetAsync($"content/{id}", cancellationToken);
 
                 responseStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
 
-                return await response.Content.ReadFromJsonAsync<ContentRootResponseDto>();
+                return await response.Content.ReadFromJsonAsync<ContentRootResponseDto>(cancellationToken: cancellationToken);
             });
         }
         catch (Exception ex)
@@ -50,18 +50,18 @@ public class DrupalRepository : IDrupalRepository
         }
     }
 
-    public Task<ContentRootResponseDto> ContentByType(ContentModelType modelType)
+    public Task<ContentRootResponseDto> ContentByType(ContentModelType modelType, CancellationToken cancellationToken = default)
     {
         var contentId = DrupalNodeIdMapping.FirstOrDefault(x => x.Key == modelType).Value;
 
         if (contentId == 0)
             throw new ArgumentOutOfRangeException($"{modelType}");
 
-        return ContentById(contentId);
+        return ContentById(contentId, cancellationToken);
     }
 
     // hardkodede node id'er som benyttes til forskjellig innhold
-    static Dictionary<ContentModelType, int> DrupalNodeIdMapping => new()
+    private static Dictionary<ContentModelType, int> DrupalNodeIdMapping => new()
     {
         { ContentModelType.HeaderMenu, 341039 }, // "Header meny - (ny grafisk profil 2023)"
         { ContentModelType.FooterMain, 342287 }, // "Footer hovedfelt - (ny grafisk profil 2023)"
