@@ -76,18 +76,34 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
             Area = parameters.Area,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
-
             Committees = repository.GetCommittees(),
             Regions = regions,
-
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
-                AssessmentType = AssessmentType.NatureTypes2025
+                AssessmentType = AssessmentType.NatureTypes2025,
+                View = parameters.View
             }
         };
 
+        if (!string.IsNullOrEmpty(parameters.View) && parameters.View.Equals("stat"))
+        {
+            viewModel.NatureTypesStatisticsViewModel = SetupStatisticsViewModel(assessments);
+        }
+
         return View(viewModel);
+    }
+
+    private static NatureTypesStatisticsViewModel SetupStatisticsViewModel(IQueryable<Assessment> assessments)
+    {
+        var viewModel = new NatureTypesStatisticsViewModel();
+        
+        foreach (var category in Enum.GetValues<Category>())
+        {
+            viewModel.Categories.Add(category, assessments.Count(x => x.Category == category));
+        }
+
+        return viewModel;
     }
 
     [Route("2025/{id:int}")]

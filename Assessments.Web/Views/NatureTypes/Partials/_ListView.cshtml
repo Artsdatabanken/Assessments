@@ -1,35 +1,42 @@
 ﻿@model NatureTypesListViewModel
 
 <div id="viewselector" class="viewselector @Model.ListViewViewModel.View">
-    <ul class="main_list_view" id="@AssessmentType.NatureTypes2025.ToString()">
-        <li class="listheader" id="listheader">
-            <span></span>
-            <span class="list_cell">Navn</span>
-            <span class="list_cell">Kategori</span>
-        </li>
+    @if (Model.ListViewViewModel.View == "stat")
+    {
+        <partial name="/Views/NatureTypes/Partials/_ListGraphs.cshtml" for="NatureTypesStatisticsViewModel" />
+    }
+    else
+    {
+        <ul class="main_list_view" id="@AssessmentType.NatureTypes2025.ToString()">
+            <li class="listheader" id="listheader">
+                <span></span>
+                <span class="list_cell">Navn</span>
+                <span class="list_cell">Kategori</span>
+            </li>
 
-        @if (Model.Assessments.Count > 0)
-        {
-            @foreach (var item in Model.Assessments)
+            @if (Model.Assessments.Count > 0)
             {
-                <li class="list">
-                    <a asp-action="Detail" asp-route-id="@item.Id">
-                        <span></span>
-                        <span class="list_cell">@item.Name</span>
-                        <span class="list_cell categoryname capitalized">
-                            @item.Category
-                        </span>
-                    </a>
-                </li>
+                @foreach (var item in Model.Assessments)
+                {
+                    <li class="list">
+                        <a asp-action="Detail" asp-route-id="@item.Id">
+                            <span></span>
+                            <span class="list_cell">@item.Name</span>
+                            <span class="list_cell categoryname capitalized">
+                                @item.Category
+                            </span>
+                        </a>
+                    </li>
+                }
             }
-        }
-        else
-        {
-            <li class="no_results mobile_padding">Kombinasjonen av søk og filter gir ingen treff</li>
-        }
-    </ul>
+            else
+            {
+                <li class="no_results mobile_padding">Kombinasjonen av søk og filter gir ingen treff</li>
+            }
+        </ul>
 
-    <div class="mobile_padding">
-        <partial name="/Views/Shared/_Paginator.cshtml" for="ListViewViewModel" />
-    </div>
+        <div class="mobile_padding">
+            <partial name="/Views/Shared/_Paginator.cshtml" for="ListViewViewModel" />
+        </div>
+    }
 </div>

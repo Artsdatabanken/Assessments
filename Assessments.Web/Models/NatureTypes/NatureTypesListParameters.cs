@@ -19,4 +19,6 @@ public record NatureTypesListParameters
     public string[] Meta { get; set; } = [];
 
     public string[] IsCheck { get; set; } = [];
+
+    public string View { get; set; }
 }

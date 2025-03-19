@@ -31,5 +31,5 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
 
     public CitationForListViewModel CitationForListViewModel => new(citationString: NatureTypesConstants.Citation);
 
-    public ControlButtonsViewModel ControlButtonsViewModel => new(view: "list");
+    public NatureTypesStatisticsViewModel NatureTypesStatisticsViewModel { get; set; }
 }
