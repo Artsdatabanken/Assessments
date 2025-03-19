@@ -8,9 +8,6 @@
 @{
     var menuItems = await GetMenuItems(Model.PageMenuContentId);
     var subMenuItems = await GetMenuItems(Model.PageMenuSubContentId);
-
-    var isRedlist2021 = Model.AssessmentType == AssessmentType.RedlistSpecies2021;
-    var isAlienSpecies2023 = Model.AssessmentType == AssessmentType.AlienSpecies2023;
 }
 
 @functions {
@@ -19,7 +16,7 @@
     {
         var menuItems = new List<KeyValuePair<string, string>>();
 
-        if (menuId <= 0) 
+        if (menuId <= 0)
             return menuItems;
 
         var content = await DrupalRepository.ContentById(menuId);
@@ -37,25 +34,43 @@
     <button class="button tertiary" onclick="expandParent(this, 'expand')">@Model.PageMenuExpandButtonText</button>
     <ul>
         <li>
-            <a is-visible="isRedlist2021" class="menuheaderlink" asp-controller="Species" asp-action="Index">
-                <h3>
-                    <span>@Model.PageMenuExpandButtonText</span>
-                    <span class="material-icons pad-top">keyboard_arrow_right</span>
-                </h3>
-            </a>
-            <a is-visible="isAlienSpecies2023" class="menuheaderlink" href="https://artsdatabanken.no/fremmedearter">
-                <h3>
-                    <span>@Model.PageMenuExpandButtonText</span>
-                    <span class="material-icons pad-top">keyboard_arrow_right</span>
-                </h3>
-            </a>
+            @switch (Model.AssessmentType)
+            {
+                case AssessmentType.AlienSpecies2023:
+                    <a class="menuheaderlink" href="https://artsdatabanken.no/fremmedearter">
+                        <h3>
+                            <span>@Model.PageMenuExpandButtonText</span>
+                            <span class="material-icons pad-top">keyboard_arrow_right</span>
+                        </h3>
+                    </a>
+                    break;
+                case AssessmentType.RedlistSpecies2021:
+                    <a class="menuheaderlink" asp-controller="Species" asp-action="Index">
+                        <h3>
+                            <span>@Model.PageMenuExpandButtonText</span>
+                            <span class="material-icons pad-top">keyboard_arrow_right</span>
+                        </h3>
+                    </a>
+                    break;
+                case AssessmentType.NatureTypes2025:
+                    <a class="menuheaderlink" asp-controller="NatureTypes" asp-action="List">
+                        <h3>
+                            <span>@Model.PageMenuExpandButtonText</span>
+                            <span class="material-icons pad-top">keyboard_arrow_right</span>
+                        </h3>
+                    </a>
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         </li>
+
         @foreach (var (key, value) in menuItems)
         {
             <li>
                 @if (key == "Fremmedartslista 2023")
                 {
-                    <a is-visible="isAlienSpecies2023" class="@(Model.ListOrAssessmentView == ListOrAssessmentView.Index ? "active-menuitem" : "")" asp-controller="AlienSpecies" asp-action="Index">
+                    <a class="@(Model.ListOrAssessmentView == ListOrAssessmentView.Index ? "active-menuitem" : "")" asp-controller="AlienSpecies" asp-action="Index">
                         <span>@key </span>
                         <span is-visible="Model.ListOrAssessmentView == ListOrAssessmentView.Assessment" class="material-icons">keyboard_arrow_right</span>
                     </a>

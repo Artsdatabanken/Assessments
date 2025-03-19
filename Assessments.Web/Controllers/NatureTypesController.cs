@@ -1,8 +1,10 @@
 ﻿using System.Linq.Expressions;
 using Assessments.Data.Models;
 using Assessments.Shared.Extensions;
+using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
 using Assessments.Web.Infrastructure;
+using Assessments.Web.Infrastructure.Enums;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
 using Assessments.Web.Models.NatureTypes.Enums;
@@ -17,35 +19,44 @@ namespace Assessments.Web.Controllers;
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
-    public IActionResult Home()
-    {
-        return View();
-    }
+    public IActionResult Home() => View();
 
     [Route("2025")]
-    public IActionResult List(NatureTypesListViewModelParameters parameters, int? page)
+    public IActionResult List(NatureTypesListParameters parameters, int? page)
     {
         var assessments = repository.GetAssessments();
-        
-        if (!string.IsNullOrEmpty(parameters.Name))
-            assessments = assessments.Where(x => x.Name.Contains(parameters.Name) || x.ShortCode == parameters.Name);
+        var regions = repository.GetRegions();
 
-        if (parameters.Category.Count != 0)
+        if (!string.IsNullOrEmpty(parameters.Name?.Trim()))
         {
-            var categories = parameters.Category.Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.Combine(current, c => c.Category == category));
+            assessments = assessments.Where(x => x.Name.Contains(parameters.Name) || x.ShortCode == parameters.Name || x.LongCode == parameters.Name);
+        }
+
+        if (parameters.Category.Length != 0)
+        {
+            var categories = parameters.Category.ToEnumerable<Category>().Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.CombineOrElse(current, c => c.Category == category));
 
             if (categories != null)
                 assessments = assessments.Where(categories);
         }
 
-        if (parameters.Committee.Count != 0)
+        if (parameters.Committee.Length != 0)
             assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
+        
+        if (parameters.Region.Length != 0)
+        {        
+            var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
-        if (parameters.Region.Count != 0)
-            assessments = assessments.Where(x => x.Regions.Any(y => parameters.Region.ToArray().Contains(y.Id)));
+            assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
+        }
 
-        if (parameters.Area != null)
-            assessments = assessments.Where(x => x.Region == parameters.Area);
+        if (parameters.Area.Length != 0)
+        {
+            var assessmentRegions = parameters.Area.ToEnumerable<AssessmentRegion>().Aggregate<AssessmentRegion, Expression<Func<Assessment, bool>>>(null, (current, category) => ExpressionExtensions.CombineOrElse(current, c => c.Region == category));
+
+            if (assessmentRegions != null)
+                assessments = assessments.Where(assessmentRegions);
+        }
 
         assessments = parameters.SortBy switch
         {
@@ -58,15 +69,41 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
+            Name = parameters.Name,
             Category = parameters.Category,
             Committee = parameters.Committee,
             Region = parameters.Region,
+            Area = parameters.Area,
+            Meta = parameters.Meta,
+            IsCheck = parameters.IsCheck,
             Committees = repository.GetCommittees(),
-            Regions = repository.GetRegions(),
-            ListViewViewModel = new ListViewViewModel { Results = pagedList.Select(_ => new ListViewViewModel.Result())}
+            Regions = regions,
+            ListViewViewModel = new ListViewViewModel
+            {
+                Results = pagedList.Select(_ => new ListViewViewModel.Result()),
+                AssessmentType = AssessmentType.NatureTypes2025,
+                View = parameters.View
+            }
         };
 
+        if (!string.IsNullOrEmpty(parameters.View) && parameters.View.Equals("stat"))
+        {
+            viewModel.NatureTypesStatisticsViewModel = SetupStatisticsViewModel(assessments);
+        }
+
         return View(viewModel);
+    }
+
+    private static NatureTypesStatisticsViewModel SetupStatisticsViewModel(IQueryable<Assessment> assessments)
+    {
+        var viewModel = new NatureTypesStatisticsViewModel();
+        
+        foreach (var category in Enum.GetValues<Category>())
+        {
+            viewModel.Categories.Add(category, assessments.Count(x => x.Category == category));
+        }
+
+        return viewModel;
     }
 
     [Route("2025/{id:int}")]

@@ -1,16 +1,23 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section Styles
 {
-   @*  <link rel="stylesheet" href="~/css/graphs.css">
+    <link rel="stylesheet" href="~/css/graphs.css">
     <link rel="stylesheet" href="~/css/listview.css">
-    <link rel="stylesheet" href="~/css/assessment.css">
     <link rel="stylesheet" href="~/css/categorybar.css">
     <link rel="stylesheet" href="~/css/filter.css">
     <link rel="stylesheet" href="~/css/search.css">
     <link rel="stylesheet" href="~/css/toggleSwitch.css">
-    <link rel="stylesheet" href="~/css/tabs.css"> *@
-    <link href="~/css/feedbackform.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/tabs.css">
+    <link rel="stylesheet" href="~/css/feedbackForm.css">
+    <link rel="stylesheet" href="~/css/map.css">
 }
-@RenderBody()
+@await RenderSectionAsync("Styles", required: false)
+
+@await RenderSectionAsync("Breadcrumb", required: false)
+<div class="pagecontainer">
+    @await RenderSectionAsync("PageMenu", required: true)
+    @RenderBody()
+</div>

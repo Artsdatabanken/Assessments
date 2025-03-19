@@ -1,0 +1,31 @@
+﻿@model NatureTypesStatisticsViewModel
+
+<div class="page_section graphs">
+
+    <h3>Antall vurderinger per kategori</h3>
+
+    <ul class="graph color_graph">
+        @{
+            var sum = Model.Categories.Sum(x => x.Value);
+        }
+        @foreach (var (key, value) in Model.Categories)
+        {
+            var percentage = (value / sum).ToString("0%");
+
+            <li class="statelement">
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator @key" style="height: @percentage">
+                        <span class="percent">@value</span>
+                    </div>
+                </div>
+                <span class="statbox">
+                    @key
+                </span>
+                <span class="stat_subtitle">
+                    @key.GetDescription()
+                </span>
+            </li>
+        }
+    </ul>
+
+</div>
