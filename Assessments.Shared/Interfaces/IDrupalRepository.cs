@@ -5,7 +5,7 @@ namespace Assessments.Shared.Interfaces;
 
 public interface IDrupalRepository
 {
-    Task<ContentRootResponseDto> ContentById(int id);
+    Task<ContentRootResponseDto> ContentById(int id, CancellationToken cancellationToken = default);
 
-    Task<ContentRootResponseDto> ContentByType(ContentModelType modelType);
+    Task<ContentRootResponseDto> ContentByType(ContentModelType modelType, CancellationToken cancellationToken = default);
 }

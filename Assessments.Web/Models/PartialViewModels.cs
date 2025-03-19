@@ -2,7 +2,6 @@ using Assessments.Web.Infrastructure.Enums;
 using Assessments.Mapping.AlienSpecies.Model;
 using Assessments.Mapping.AlienSpecies.Model.Enums;
 using Assessments.Mapping.AlienSpecies.Source;
-using X.PagedList;
 using Assessments.Web.Models.AlienSpecies;
 
 namespace Assessments.Web.Models
@@ -99,14 +98,30 @@ namespace Assessments.Web.Models
 
     public class CitationForListViewModel
     {
+        public CitationForListViewModel()
+        {
+        }
+
+        public CitationForListViewModel(string citationString)
+        {
+            CitationString = citationString;
+        }
+
         public string CitationString { get; set; }
     }
 
     public class ControlButtonsViewModel
     {
-        public string View { get; set; }
+        public ControlButtonsViewModel()
+        {
+        }
 
-        public int ItemCount { get; set; }
+        public ControlButtonsViewModel(string view)
+        {
+            View = view;
+        }
+
+        public string View { get; set; }
     }
 
     public class CriteriaExplanationViewModel
@@ -353,24 +368,16 @@ namespace Assessments.Web.Models
 
     public class IntroductionViewModel
     {
+        public IntroductionViewModel()
+        {
+        }
+
+        public IntroductionViewModel(string introduction)
+        {
+            Introduction = introduction;
+        }
+
         public string Introduction { get; set; }
-    }
-
-    public class PageMenuViewModel
-    {
-        public AssessmentType AssessmentType { get; set; }
-
-        public ListOrAssessmentView ListOrAssessmentView { get; set; }
-
-        public int PageMenuContentId { get; set; }
-
-        public int PageMenuSubContentId { get; set; }
-
-        public string PageMenuExpandButtonText { get; set; }
-
-        public string PageMenuHeaderText { get; set; }
-
-        public TableOfContentsViewModel TableOfContentsViewModel { get; set; }
     }
 
     public class ScientificNameViewModel
@@ -414,41 +421,5 @@ namespace Assessments.Web.Models
         public string SpeciesGroupImageUrl { get; set; }
 
         public string SpeciesGroupInfoUrl { get; set; }
-    }
-
-    public class ListViewViewModel
-    {
-        public class Result
-        {
-            public bool IsDoorKnocker { get; set; } = false;
-
-            public string EvaluationContext { get; set; }
-
-            public bool HasEffectWithoutReproduction { get; set; } = false;
-
-            public string Category { get; set; }
-
-            public string CategoryShort { get; set; }
-
-            public string Degrees { get; set; }
-
-            public int Id { get; set; }
-
-            public string ScientificNameFormatted { get; set; }
-
-            public string SpeciesGroup { get; set; }
-
-            public string SpeciesGroupIconUrl { get; set; }
-
-            public string VernacularName { get; set; }
-        }
-
-        public AssessmentType AssessmentType { get; set; }
-
-        public string NoResultString { get; set; }
-
-        public IPagedList<Result> Results { get; set; }
-
-        public string View { get; set; }
     }
 }

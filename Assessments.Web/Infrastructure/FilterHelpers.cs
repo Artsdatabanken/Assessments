@@ -12,7 +12,7 @@
             /// <summary>
             /// Describing the filter. This will show as info text when you open a filter.
             /// </summary>
-            public string FilterDescription { get; set; }
+            public string FilterDescription { get; set; } = string.Empty;
 
             /// <summary>
             /// A norwegian name for the button to open filters. Sub groups do not need this.

@@ -54,6 +54,21 @@ public static class Extensions
         };
     }
 
+    public static TEnum ConvertTo<TEnum>(this Enum source)
+    {
+        try
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), source.ToString(), ignoreCase: true);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new InvalidOperationException
+            (
+                $"Could not convert {source.GetType()} [{source}] to {typeof(TEnum)}", ex
+            );
+        }
+    }
+
     public static IEnumerable<T> ToEnumerable<T>(this IEnumerable<string> array)
     {
         return array.Where(c => Enum.IsDefined(typeof(T), c)).Select(a => (T) Enum.Parse(typeof(T), a));

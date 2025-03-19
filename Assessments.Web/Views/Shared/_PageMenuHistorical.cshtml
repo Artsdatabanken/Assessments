@@ -1,63 +1,84 @@
-﻿@{
-    ViewData["Fremmedartslista"] = "Fremmedartslista";
-    ViewData["Rødlista"] = "Rødlista";
-}
-
-<div class="sidebarmenu">
+﻿<div class="sidebarmenu">
     <button class="button tertiary" onclick="expandParent(this, 'expand')">Sidemeny </button>
     <ul>
         <li>
             <a class="menuheaderlink redlist" asp-controller="Species" asp-action="RodlisteForArter">
                 <h3>
-                    <span>@ViewData["Rødlista"] for arter</span>
+                    <span>Rødlista for arter</span>
                     <span class="material-icons pad-top">keyboard_arrow_right</span>
                 </h3>
             </a>
         </li>
         <li>
             <a asp-controller="Species" asp-action="Index" asp-route-Area="N">
-                <span>@ViewData["Rødlista"] 2021 </span>
+                <span>Rødlista 2021 </span>
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>
         </li>
-
         <li>
             <a href="https://artsdatabanken.no/Rodliste2015/sok">
-                <span>@ViewData["Rødlista"] 2015 </span>
+                <span>Rødlista 2015 </span>
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>
         </li>
-
         <li>
             <a href="http://www.artsportalen.artsdatabanken.no/">
-                <span>@ViewData["Rødlista"] 2010 </span>
+                <span>Rødlista 2010 </span>
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>
         </li>
 
         <li>
             <a href="https://artsdatabanken.no/Pages/201632/Norsk_roedliste_2006">
-                <span>@ViewData["Rødlista"] 2006 </span>
+                <span>Rødlista 2006 </span>
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>
         </li>
     </ul>
-    <ul>
-        <li>
-            <div class="menuheaderlink redlist">
-                <h3>
-                    <span>@ViewData["Rødlista"] for naturtyper</span>
-                </h3>
-            </div>
-        </li>
 
-        <li>
-            <a href="https://artsdatabanken.no/rodlistefornaturtyper">
-                <span>@ViewData["Rødlista"] 2018 </span>
-                <span class="material-icons">keyboard_arrow_right</span>
-            </a>
-        </li>
-    </ul>
+    @* TODO: endre meny etter lansering av rødlista for naturtyper 2025 *@
+    <environment exclude="Production">
+        <ul>
+            <li>
+                <a class="menuheaderlink" asp-controller="NatureTypes" asp-action="Home">
+                    <h3>
+                        <span>Rødlista for naturtyper</span>
+                        <span class="material-icons pad-top">keyboard_arrow_right</span>
+                    </h3>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="NatureTypes" asp-action="List">
+                    <span>Rødlista 2025</span>
+                    <span class="material-icons">keyboard_arrow_right</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://artsdatabanken.no/rodlistefornaturtyper">
+                    <span>Rødlista 2018 </span>
+                    <span class="material-icons">keyboard_arrow_right</span>
+                </a>
+            </li>
+        </ul>
+    </environment>
+    <environment include="Production">
+        <ul>
+            <li>
+                <div class="menuheaderlink redlist">
+                    <h3>
+                        <span>Rødlista for naturtyper</span>
+                    </h3>
+                </div>
+            </li>
+            <li>
+                <a href="https://artsdatabanken.no/rodlistefornaturtyper">
+                    <span>Rødlista 2018 </span>
+                    <span class="material-icons">keyboard_arrow_right</span>
+                </a>
+            </li>
+        </ul>
+    </environment>
+
     <ul>
         <li>
             <a class="menuheaderlink alien-species" asp-controller="AlienSpecies" asp-action="Home">
@@ -69,7 +90,7 @@
         </li>
         <li>
             <a asp-controller="AlienSpecies" asp-action="Index" asp-route-TaxonRank="AssessedAtSameRank">
-                <span>@ViewData["Fremmedartslista"] 2023</span>
+                <span>Fremmedartslista 2023</span>
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>
         </li>

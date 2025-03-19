@@ -1,0 +1,13 @@
+﻿@model Assessment
+
+<div class="breadcrumbs">
+    <ol>
+        <li class="in-breadcrumb">
+            <a asp-controller="NatureTypes" asp-action="List">@NatureTypesConstants.Title2025</a>
+            <span class="breadcrumbdivider">&gt; </span>
+        </li>
+        <li class="in-breadcrumb currentcrumb">
+            @Model.Name
+        </li>
+    </ol>
+</div>

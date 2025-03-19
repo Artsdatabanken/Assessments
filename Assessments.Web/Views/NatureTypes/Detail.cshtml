@@ -1,70 +1,82 @@
-﻿@using Assessments.Shared.Constants
-@using Assessments.Web.Models.NatureTypes
+﻿@inject IOptions<ApplicationOptions> Options
 @model NatureTypesDetailViewModel
 
 @{
     var assessment = Model.Assessment;
-    ViewBag.Title = $"{NatureTypesConstants.Title} {assessment.Name}";
+    ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
+    Layout = "_Layout.cshtml";
 }
 
-<partial name="Shared/_Breadcrumb" for="Assessment" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/assessment.css" />
+}
 
-<div class="pagecontainer">
-    <partial name="/Views/Shared/_PageMenuHistorical.cshtml" />
-    <div class="content-placer bigmid">
-        <div class="mid-content">
-            <div class="page-header">
-                <h1>
-                    @assessment.Name
-                </h1>
-                <p class="ingress">
-                    @Html.Raw(assessment.DescriptionHtml)
-                </p>
-            </div>
-            <ul>
-                <li>
-                    Id: @assessment.Id</li>
-                <li>Navn: @assessment.Name</li>
-                <li>
-                    Kortkode: @assessment.ShortCode
-                </li>
-                <li>
-                    Langkode med lenke : <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.LongCode</a>
-                </li>
-                <li is-visible="!string.IsNullOrEmpty(assessment.PopularName)">
-                    Populærnavn: @assessment.PopularName
-                </li>
-                <li>
-                    Kategori med beskrivelse: @assessment.Category @assessment.Category.GetDescription()
-                </li>
-                <li>Endelig kategori og kriterium: @assessment.CriteriaSummary</li>
-                <li>
-                    Ekspertkomitée: @assessment.Committee.Name
-                </li>
-                <li>
-                    Område: @assessment.Region.ToString()
-                </li>
-                <li is-visible="assessment.Regions.Count != 0">
-                    <h3>Regioner</h3>
-                    @assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
-                </li>
-                <li is-visible="assessment.References.Count != 0">
-                    <h3>Referanser</h3>
-                    <ol>
-                        @foreach (var reference in assessment.References)
-                        {
-                            <li>
-                                @reference.ReferencePresentation
-                            </li>
-                        }
-                    </ol>
-                </li>
-                <li>
-                    <h3>Sitering</h3>
-                    @Model.Citation
-                </li>
-            </ul>
-            <partial name="/Views/Feedback/_Feedback.cshtml" model="Model.FeedbackViewModel" />
+@section Breadcrumb {
+
+    <partial name="Partials/_Breadcrumb" for="Assessment" />
+}
+
+@section PageMenu {
+
+    <partial name="/Views/Shared/_PageMenu.cshtml" for="PageMenuViewModel" />
+}
+
+<div class="content-placer bigmid">
+    <div class="mid-content">
+        <div class="page-header">
+            <h1>
+                @assessment.Name
+            </h1>
+            <environment exclude="Production">
+                <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
+            </environment>
+            <p class="ingress">
+                @Html.Raw(assessment.DescriptionHtml)
+            </p>
         </div>
+        <ul>
+            <li>
+                Id: @assessment.Id</li>
+            <li>Navn: @assessment.Name</li>
+            <li>
+                Kortkode: @assessment.ShortCode
+            </li>
+            <li>
+                Langkode med lenke : <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.LongCode</a>
+            </li>
+            <li is-visible="!string.IsNullOrEmpty(assessment.PopularName)">
+                Populærnavn: @assessment.PopularName
+            </li>
+            <li>
+                Kategori med beskrivelse: @assessment.Category @assessment.Category.GetDescription()
+            </li>
+            <li>Endelig kategori og kriterium: @assessment.CriteriaSummary</li>
+            <li>
+                Ekspertkomitée: @assessment.Committee.Name
+            </li>
+            <li>
+                Område: @assessment.Region.ToString()
+            </li>
+            <li is-visible="assessment.Regions.Count != 0">
+                <h3>Regioner</h3>
+                @assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
+            </li>
+            <li is-visible="assessment.References.Count != 0">
+                <h3>Referanser</h3>
+                <ol>
+                    @foreach (var reference in assessment.References)
+                    {
+                        <li>
+                            @reference.ReferencePresentation
+                        </li>
+                    }
+                </ol>
+            </li>
+            <li>
+                <h3>Sitering</h3>
+                @Model.Citation
+            </li>
+        </ul>
+        <partial name="/Views/Feedback/_Feedback.cshtml" model="Model.FeedbackViewModel" />
     </div>
 </div>

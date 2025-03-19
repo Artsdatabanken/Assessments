@@ -4,7 +4,7 @@ namespace Assessments.Shared.Extensions;
 
 public static class ExpressionExtensions
 {
-    public static Expression<Func<T, bool>> Combine<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
+    public static Expression<Func<T, bool>> CombineOrElse<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
     {
         switch (left)
         {
