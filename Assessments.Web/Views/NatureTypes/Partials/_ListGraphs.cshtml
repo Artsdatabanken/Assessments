@@ -1,20 +1,23 @@
 ﻿@model NatureTypesStatisticsViewModel
 
+@{
+    static string Percentage(double sum, double value)
+    {
+        return sum != 0 ? $"{value / sum:0.0%}".Replace(",", ".") : "0";
+    }
+}
+
 <div class="page_section graphs">
-
     <h3>Antall vurderinger per kategori</h3>
-
     <ul class="graph color_graph">
         @{
             var sum = Model.Categories.Sum(x => x.Value);
         }
         @foreach (var (key, value) in Model.Categories)
         {
-            var percentage = (value / sum).ToString("0%");
-
             <li class="statelement">
                 <div class="heightbar_blank">
-                    <div class="heightbar_indicator @key" style="height: @percentage">
+                    <div class="heightbar_indicator @key" style="height:@Percentage(sum,value)">
                         <span class="percent">@value</span>
                     </div>
                 </div>
@@ -27,5 +30,4 @@
             </li>
         }
     </ul>
-
 </div>

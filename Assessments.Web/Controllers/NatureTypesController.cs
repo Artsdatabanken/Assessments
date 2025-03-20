@@ -22,7 +22,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
     public IActionResult Home() => View();
 
     [Route("2025")]
-    public IActionResult List(NatureTypesListParameters parameters, int? page)
+    public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page)
     {
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
@@ -88,19 +88,22 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         if (!string.IsNullOrEmpty(parameters.View) && parameters.View.Equals("stat"))
         {
-            viewModel.NatureTypesStatisticsViewModel = SetupStatisticsViewModel(assessments);
+            viewModel.NatureTypesStatisticsViewModel = await SetupStatisticsViewModel(assessments.ToString());
         }
 
         return View(viewModel);
     }
 
-    private static NatureTypesStatisticsViewModel SetupStatisticsViewModel(IQueryable<Assessment> assessments)
+    private async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(string queryUrl)
     {
+        var categoryStatistics = await repository.GetCategoryStatistics(new Uri(queryUrl));
+
         var viewModel = new NatureTypesStatisticsViewModel();
-        
+
         foreach (var category in Enum.GetValues<Category>())
         {
-            viewModel.Categories.Add(category, assessments.Count(x => x.Category == category));
+            var statistics = categoryStatistics.FirstOrDefault(x => x.Category == category.ToString());
+            viewModel.Categories.Add(category, statistics?.Count ?? 0);
         }
 
         return viewModel;
