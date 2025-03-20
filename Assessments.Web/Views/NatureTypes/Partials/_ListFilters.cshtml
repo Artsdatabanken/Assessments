@@ -131,7 +131,7 @@
                         MakeFilterChips(Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions).Filters);
                     }
                 </ul>
-                <a is-visible="NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 1" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name)])" class="button tinybutton tertiary search_related">
+                <a is-visible="NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 1" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name), nameof(Model.View)])" class="button tinybutton tertiary search_related">
                     <span class="material-icons">close</span>Fjern alle filter
                 </a>
             </div>
@@ -159,6 +159,9 @@
         }
     </div>
     <partial name="/Views/Shared/_ControlButtons.cshtml" model="new ControlButtonsViewModel { View = Model.ListViewViewModel.View }" />
+    
+    <input asp-for="View" value="stat" is-visible="@(Model.ListViewViewModel.View == "stat")" />
+    
 </div>
 
 <div class="listwrapper">

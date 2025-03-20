@@ -1,4 +1,5 @@
 ﻿using Assessments.Shared.DTOs.NatureTypes;
+using Assessments.Shared.DTOs.NatureTypes.Statistics;
 using RodlisteNaturtyper.Data.Models;
 
 namespace Assessments.Shared.Interfaces;
@@ -14,4 +15,6 @@ public interface INatureTypesRepository
     List<CommitteeUserDto> GetCommitteeUsers();
 
     List<Region> GetRegions();
+
+    Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default);
 }
