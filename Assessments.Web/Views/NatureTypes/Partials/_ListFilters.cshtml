@@ -159,9 +159,7 @@
         }
     </div>
     <partial name="/Views/Shared/_ControlButtons.cshtml" model="new ControlButtonsViewModel { View = Model.ListViewViewModel.View }" />
-    
-    <input asp-for="View" value="stat" is-visible="@(Model.ListViewViewModel.View == "stat")" />
-    
+    <input asp-for="View" value="stat" type="hidden" is-visible="@(Model.ListViewViewModel.View == "stat")" />
 </div>
 
 <div class="listwrapper">
