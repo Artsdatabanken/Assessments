@@ -1,5 +1,6 @@
 ﻿using Assessments.Shared.Constants;
 using Assessments.Web.Infrastructure.Enums;
+using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
 
 namespace Assessments.Web.Models.NatureTypes;
@@ -18,4 +19,6 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
     public List<Region> Regions { get; set; } = [];
 
     public CitationForAssessmentViewModel CitationForAssessmentViewModel { get; set; }
+    
+    public List<CodeItemViewModel> CodeItemViewModels { get; set; }
 }

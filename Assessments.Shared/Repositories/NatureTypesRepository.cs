@@ -10,6 +10,8 @@ using LazyCache;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OData.Client;
+using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
 
 namespace Assessments.Shared.Repositories;
@@ -48,6 +50,13 @@ public class NatureTypesRepository : INatureTypesRepository
             .Expand(x => x.Regions)
             .Expand(x => x.References)
             .FirstOrDefault(c => c.Id == id);
+    }
+
+    public List<CodeItemViewModel> GetAssessmentCodeItemViewModels(int id)
+    {
+        DataServiceQuerySingle<Assessment> assessment = _container.Assessments.ByKey(id);
+        
+        return [.. assessment.CodeItemViewModels()];
     }
 
     public List<Committee> GetCommittees()

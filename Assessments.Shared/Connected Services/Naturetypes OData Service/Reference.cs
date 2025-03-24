@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 24.03.2025 08:25:40
+// Generation date: 24.03.2025 13:19:35
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -5085,6 +5085,104 @@ namespace RodlisteNaturtyper.Data.Models
         }
     }
 }
+namespace RodlisteNaturtyper.Core.Models
+{
+    /// <summary>
+    /// There are no comments for CodeItemViewModel in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModel")]
+    public partial class CodeItemViewModel
+    {
+        /// <summary>
+        /// There are no comments for Property CodeItemDescription in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemDescription")]
+        public virtual string CodeItemDescription
+        {
+            get
+            {
+                return this._CodeItemDescription;
+            }
+            set
+            {
+                this.OnCodeItemDescriptionChanging(value);
+                this._CodeItemDescription = value;
+                this.OnCodeItemDescriptionChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _CodeItemDescription;
+        partial void OnCodeItemDescriptionChanging(string value);
+        partial void OnCodeItemDescriptionChanged();
+        /// <summary>
+        /// There are no comments for Property TimeOfIncident in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("timeOfIncident")]
+        public virtual string TimeOfIncident
+        {
+            get
+            {
+                return this._TimeOfIncident;
+            }
+            set
+            {
+                this.OnTimeOfIncidentChanging(value);
+                this._TimeOfIncident = value;
+                this.OnTimeOfIncidentChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _TimeOfIncident;
+        partial void OnTimeOfIncidentChanging(string value);
+        partial void OnTimeOfIncidentChanged();
+        /// <summary>
+        /// There are no comments for Property InfluenceFactor in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("influenceFactor")]
+        public virtual string InfluenceFactor
+        {
+            get
+            {
+                return this._InfluenceFactor;
+            }
+            set
+            {
+                this.OnInfluenceFactorChanging(value);
+                this._InfluenceFactor = value;
+                this.OnInfluenceFactorChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _InfluenceFactor;
+        partial void OnInfluenceFactorChanging(string value);
+        partial void OnInfluenceFactorChanged();
+        /// <summary>
+        /// There are no comments for Property Magnitude in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("magnitude")]
+        public virtual string Magnitude
+        {
+            get
+            {
+                return this._Magnitude;
+            }
+            set
+            {
+                this.OnMagnitudeChanging(value);
+                this._Magnitude = value;
+                this.OnMagnitudeChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _Magnitude;
+        partial void OnMagnitudeChanging(string value);
+        partial void OnMagnitudeChanged();
+    }
+}
 namespace RodlisteNaturtyper.Data.Models.Enums
 {
     /// <summary>
@@ -5093,11 +5191,11 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("AssessmentState")]
     public enum AssessmentState
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("notStarted")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NotStarted")]
         NotStarted = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("started")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Started")]
         Started = 1,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("completed")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Completed")]
         Completed = 2
     }
     /// <summary>
@@ -5106,24 +5204,24 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("Category")]
     public enum Category
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("co")]
-        Co = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("cr")]
-        Cr = 1,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("en")]
-        En = 2,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("vu")]
-        Vu = 3,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("nt")]
-        Nt = 4,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("dd")]
-        Dd = 5,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("lc")]
-        Lc = 6,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("na")]
-        Na = 7,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("ne")]
-        Ne = 8
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CO")]
+        CO = 0,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CR")]
+        CR = 1,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EN")]
+        EN = 2,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("VU")]
+        VU = 3,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NT")]
+        NT = 4,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DD")]
+        DD = 5,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("LC")]
+        LC = 6,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NA")]
+        NA = 7,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NE")]
+        NE = 8
     }
     /// <summary>
     /// There are no comments for CommitteeLevel in the schema.
@@ -5131,9 +5229,9 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("CommitteeLevel")]
     public enum CommitteeLevel
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("member")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Member")]
         Member = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("leader")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Leader")]
         Leader = 1
     }
     /// <summary>
@@ -5142,9 +5240,9 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("AssessmentRegion")]
     public enum AssessmentRegion
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("norge")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Norge")]
         Norge = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("svalbard")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Svalbard")]
         Svalbard = 1
     }
     /// <summary>
@@ -5153,18 +5251,18 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("CriteriaCategoryDirect")]
     public enum CriteriaCategoryDirect
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("none")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("None")]
         None = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("co")]
-        Co = 1,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("na")]
-        Na = 2,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("ne")]
-        Ne = 3,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("dd")]
-        Dd = 4,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("lc")]
-        Lc = 5
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CO")]
+        CO = 1,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NA")]
+        NA = 2,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NE")]
+        NE = 3,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DD")]
+        DD = 4,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("LC")]
+        LC = 5
     }
     /// <summary>
     /// There are no comments for CriteriaCategory in the schema.
@@ -5172,20 +5270,20 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("CriteriaCategory")]
     public enum CriteriaCategory
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("cr")]
-        Cr = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("en")]
-        En = 1,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("vu")]
-        Vu = 2,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("nt")]
-        Nt = 3,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("lc")]
-        Lc = 4,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("dd")]
-        Dd = 5,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("ne")]
-        Ne = 6
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CR")]
+        CR = 0,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EN")]
+        EN = 1,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("VU")]
+        VU = 2,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NT")]
+        NT = 3,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("LC")]
+        LC = 4,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DD")]
+        DD = 5,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NE")]
+        NE = 6
     }
     /// <summary>
     /// There are no comments for CriteriaCategoryChange in the schema.
@@ -5193,15 +5291,15 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("CriteriaCategoryChange")]
     public enum CriteriaCategoryChange
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("none")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("None")]
         None = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("area")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Area")]
         Area = 1,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("quality")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Quality")]
         Quality = 2,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("interactions")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Interactions")]
         Interactions = 3,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("probablyOngoingDecline")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ProbablyOngoingDecline")]
         ProbablyOngoingDecline = 4
     }
     /// <summary>
@@ -5210,9 +5308,9 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("CriteriaCategoryImpact")]
     public enum CriteriaCategoryImpact
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("none")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("None")]
         None = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("assumedOrKnown")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("AssumedOrKnown")]
         AssumedOrKnown = 1
     }
     /// <summary>
@@ -5221,12 +5319,12 @@ namespace RodlisteNaturtyper.Data.Models.Enums
     [global::Microsoft.OData.Client.OriginalNameAttribute("CriteriaCategoryThreatDefinedlocation")]
     public enum CriteriaCategoryThreatDefinedlocation
     {
-        [global::Microsoft.OData.Client.OriginalNameAttribute("none")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("None")]
         None = 0,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("vu")]
-        Vu = 1,
-        [global::Microsoft.OData.Client.OriginalNameAttribute("nt")]
-        Nt = 2
+        [global::Microsoft.OData.Client.OriginalNameAttribute("VU")]
+        VU = 1,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NT")]
+        NT = 2
     }
 }
 namespace Default
@@ -5273,6 +5371,11 @@ namespace Default
             {
                 return resolvedType;
             }
+            resolvedType = this.DefaultResolveType(typeName, "RodlisteNaturtyper.Core.Models", "RodlisteNaturtyper.Core.Models");
+            if ((resolvedType != null))
+            {
+                return resolvedType;
+            }
             resolvedType = this.DefaultResolveType(typeName, "RodlisteNaturtyper.Data.Models", "RodlisteNaturtyper.Data.Models");
             if ((resolvedType != null))
             {
@@ -5301,6 +5404,14 @@ namespace Default
                     return string.Concat("RodlisteNaturtyper.Data.Models.Enums.", originalNameAttribute.OriginalName);
                 }
                 return string.Concat("RodlisteNaturtyper.Data.Models.Enums.", clientType.Name);
+            }
+            if (clientType.Namespace.Equals("RodlisteNaturtyper.Core.Models", global::System.StringComparison.Ordinal))
+            {
+                if (originalNameAttribute != null)
+                {
+                    return string.Concat("RodlisteNaturtyper.Core.Models.", originalNameAttribute.OriginalName);
+                }
+                return string.Concat("RodlisteNaturtyper.Core.Models.", clientType.Name);
             }
             if (clientType.Namespace.Equals("RodlisteNaturtyper.Data.Models", global::System.StringComparison.Ordinal))
             {
@@ -5517,13 +5628,24 @@ namespace Default
                 }
             }
         }
+    }
+    /// <summary>
+    /// Class containing all extension methods
+    /// </summary>
+    public static class ExtensionMethods
+    {
         /// <summary>
-        /// There are no comments for GetSalary in the schema.
+        /// There are no comments for CodeItemViewModels in the schema.
         /// </summary>
-        [global::Microsoft.OData.Client.OriginalNameAttribute("GetSalary")]
-        public virtual global::Microsoft.OData.Client.DataServiceQuerySingle<string> GetSalary()
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModels")]
+        public static global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel> CodeItemViewModels(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::RodlisteNaturtyper.Data.Models.Assessment> _source)
         {
-            return this.CreateFunctionQuerySingle<string>("", "GetSalary", false);
+            if (!_source.IsComposable)
+            {
+                throw new global::System.NotSupportedException("The previous function is not composable.");
+            }
+
+            return _source.CreateFunctionQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel>("Default.CodeItemViewModels", false);
         }
     }
 }

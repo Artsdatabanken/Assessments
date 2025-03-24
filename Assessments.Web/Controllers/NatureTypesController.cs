@@ -104,9 +104,13 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
 
+        var codeItemViewModels = repository.GetAssessmentCodeItemViewModels(assessment.Id);
+
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
             Regions = repository.GetRegions(),
+
+            CodeItemViewModels = codeItemViewModels,
 
             FeedbackViewModel = new FeedbackViewModel
             {
