@@ -3,14 +3,16 @@
 <div id="viewselector" class="viewselector @Model.ListViewViewModel.View">
     @if (Model.ListViewViewModel.View == "stat")
     {
-        <partial name="/Views/NatureTypes/Partials/_ListGraphs.cshtml" for="NatureTypesStatisticsViewModel" />
+        <partial name="_Graphs.cshtml" for="NatureTypesStatisticsViewModel" />
     }
     else
     {
         <ul class="main_list_view" id="@AssessmentType.NatureTypes2025.ToString()">
+
             <li class="listheader" id="listheader">
                 <span></span>
-                <span class="list_cell">Navn</span>
+                <span class="list_cell">Naturtype</span>
+                <span class="list_cell">Populærnavn</span>
                 <span class="list_cell">Kategori</span>
             </li>
 
@@ -20,10 +22,18 @@
                 {
                     <li class="list">
                         <a asp-action="Detail" asp-route-id="@item.Id">
-                            <span></span>
-                            <span class="list_cell">@item.Name</span>
+                            <div class="element_icon list_cell"></div>
+                            <span class="element_species">
+                                <span class="list_cell">@item.Name</span>
+                                <span class="element_popular_name list_cell">@item.PopularName</span>
+                            </span>
                             <span class="list_cell categoryname capitalized">
-                                @item.Category
+                                @item.Category.GetDescription()
+                            </span>
+                            <span class="list_cell categorytag">
+                                <span class="@item.Category category_tag">
+                                    <span class="category_tag_label">@item.Category</span>
+                                </span>
                             </span>
                         </a>
                     </li>
@@ -34,7 +44,6 @@
                 <li class="no_results mobile_padding">Kombinasjonen av søk og filter gir ingen treff</li>
             }
         </ul>
-
         <div class="mobile_padding">
             <partial name="/Views/Shared/_Paginator.cshtml" for="ListViewViewModel" />
         </div>

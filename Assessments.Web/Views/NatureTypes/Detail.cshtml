@@ -36,7 +36,8 @@
         </div>
         <ul>
             <li>
-                Id: @assessment.Id</li>
+                Id: @assessment.Id
+            </li>
             <li>Navn: @assessment.Name</li>
             <li>
                 Kortkode: @assessment.ShortCode
@@ -58,8 +59,7 @@
                 Område: @assessment.Region.ToString()
             </li>
             <li is-visible="assessment.Regions.Count != 0">
-                <h3>Regioner</h3>
-                @assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
+                <partial name="Partials/Details/_Regions.cshtml" />
             </li>
             <li is-visible="assessment.References.Count != 0">
                 <h3>Referanser</h3>
@@ -72,11 +72,50 @@
                     }
                 </ol>
             </li>
-            <li>
-                <h3>Sitering</h3>
-                @Model.Citation
+            <li is-visible="Model.CodeItemViewModels.Count != 0">
+                <h3>Påvirkningsfaktorer</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Påvirkningsfaktor
+                            </th>
+                            <th>
+                                Tidspunkt
+                            </th>
+                            <th>
+                                Omfang
+                            </th>
+                            <th>
+                                Alvorlighetsgrad
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var codeItem in Model.CodeItemViewModels)
+                        {
+                            <tr>
+                                <td>
+                                    @codeItem.CodeItemDescription
+                                </td>
+                                <td>
+                                    @codeItem.TimeOfIncident
+                                </td>
+                                <td>
+                                    @codeItem.InfluenceFactor
+                                </td>
+                                <td>
+                                    @codeItem.Magnitude
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </li>
         </ul>
-        <partial name="/Views/Feedback/_Feedback.cshtml" model="Model.FeedbackViewModel" />
+
+        <partial name="/Views/Shared/_CitationForAssessment.cshtml" for="CitationForAssessmentViewModel" />
+
+        <partial name="/Views/Feedback/_Feedback.cshtml" for="FeedbackViewModel" />
     </div>
 </div>

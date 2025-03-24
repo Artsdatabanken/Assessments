@@ -1,8 +1,7 @@
-﻿@using Assessments.Shared.Options
-@using Microsoft.AspNetCore.Http.Extensions
+﻿@using Microsoft.AspNetCore.Http.Extensions
 @using Microsoft.Extensions.Options
-@model CitationForListViewModel
 @inject IOptions<ApplicationOptions> Options
+@model CitationForListViewModel
 
 @{
     var downloadDate = $"Nedlastet {DateTime.Now.ToShortDateString()}";
