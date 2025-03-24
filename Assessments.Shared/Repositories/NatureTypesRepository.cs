@@ -16,7 +16,7 @@ namespace Assessments.Shared.Repositories;
 
 public class NatureTypesRepository : INatureTypesRepository
 {
-    private readonly Container _context;
+    private readonly RodlisteNaturtyperContainer _container;
     private readonly IAppCache _appCache;
     private readonly HttpClient _client;
     private readonly ILogger<NatureTypesRepository> _logger;
@@ -29,21 +29,21 @@ public class NatureTypesRepository : INatureTypesRepository
         _logger = logger;
         _appCache = appCache;
         
-        _context = new Container(options.Value.NatureTypes.ODataUrl)
+        _container = new RodlisteNaturtyperContainer(options.Value.NatureTypes.ODataUrl)
         {
             HttpClientFactory = clientFactory
         };
-        _context.BuildingRequest += (_, e) => e.Headers.Add(xApiKey, apiKey);
+        _container.BuildingRequest += (_, e) => e.Headers.Add(xApiKey, apiKey);
 
         _client =  clientFactory.CreateClient(HttpClientConstants.NatureTypesRepositoryClient);
         _client.DefaultRequestHeaders.Add(xApiKey, apiKey);
     }
 
-    public IQueryable<Assessment> GetAssessments() => _context.Assessments.Expand(x => x.Committee);
+    public IQueryable<Assessment> GetAssessments() => _container.Assessments.Expand(x => x.Committee);
     
     public Assessment GetAssessment(int id)
     {
-        return _context.Assessments
+        return _container.Assessments
             .Expand(x => x.Committee)
             .Expand(x => x.Regions)
             .Expand(x => x.References)
@@ -52,12 +52,12 @@ public class NatureTypesRepository : INatureTypesRepository
 
     public List<Committee> GetCommittees()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommittees)}", () => _context.Committees.OrderBy(x => x.Name).ToList());
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommittees)}", () => _container.Committees.OrderBy(x => x.Name).ToList());
     }
 
     public List<CommitteeUserDto> GetCommitteeUsers()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => _context.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => _container.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
         {
             CommitteeId = (int)x.CommitteeId,
             CommitteeName = x.Committee.Name,
@@ -70,15 +70,13 @@ public class NatureTypesRepository : INatureTypesRepository
 
     public List<Region> GetRegions()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _context.Regions.OrderBy(x => x.SortOrder).ToList());
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _container.Regions.OrderBy(x => x.SortOrder).ToList());
     }
 
     public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)
     {
         var queryStrings = HttpUtility.ParseQueryString(new UriBuilder(uri).Query);
-        
         var filter = queryStrings["$filter"];
-
         var queryStringValue = "groupby((category), aggregate($count as count))";
 
         if (!string.IsNullOrEmpty(filter))
@@ -88,7 +86,7 @@ public class NatureTypesRepository : INatureTypesRepository
 
         var builder = new QueryBuilder { { "apply", queryStringValue } };
 
-        var response = await _client.GetAsync($"{_context.BaseUri}/Assessments{builder.ToQueryString()}", cancellationToken);
+        var response = await _client.GetAsync($"{_container.BaseUri}/Assessments{builder.ToQueryString()}", cancellationToken);
 
         try
         {

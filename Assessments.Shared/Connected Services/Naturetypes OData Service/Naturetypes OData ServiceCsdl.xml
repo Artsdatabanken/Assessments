@@ -238,65 +238,68 @@
     </Schema>
     <Schema Namespace="RodlisteNaturtyper.Data.Models.Enums" xmlns="http://docs.oasis-open.org/odata/ns/edm">
       <EnumType Name="AssessmentState">
-        <Member Name="NotStarted" Value="0" />
-        <Member Name="Started" Value="1" />
-        <Member Name="Completed" Value="2" />
+        <Member Name="notStarted" Value="0" />
+        <Member Name="started" Value="1" />
+        <Member Name="completed" Value="2" />
       </EnumType>
       <EnumType Name="Category">
-        <Member Name="CO" Value="0" />
-        <Member Name="CR" Value="1" />
-        <Member Name="EN" Value="2" />
-        <Member Name="VU" Value="3" />
-        <Member Name="NT" Value="4" />
-        <Member Name="DD" Value="5" />
-        <Member Name="LC" Value="6" />
-        <Member Name="NA" Value="7" />
-        <Member Name="NE" Value="8" />
+        <Member Name="co" Value="0" />
+        <Member Name="cr" Value="1" />
+        <Member Name="en" Value="2" />
+        <Member Name="vu" Value="3" />
+        <Member Name="nt" Value="4" />
+        <Member Name="dd" Value="5" />
+        <Member Name="lc" Value="6" />
+        <Member Name="na" Value="7" />
+        <Member Name="ne" Value="8" />
       </EnumType>
       <EnumType Name="CommitteeLevel">
-        <Member Name="Member" Value="0" />
-        <Member Name="Leader" Value="1" />
+        <Member Name="member" Value="0" />
+        <Member Name="leader" Value="1" />
       </EnumType>
       <EnumType Name="AssessmentRegion">
-        <Member Name="Norge" Value="0" />
-        <Member Name="Svalbard" Value="1" />
+        <Member Name="norge" Value="0" />
+        <Member Name="svalbard" Value="1" />
       </EnumType>
       <EnumType Name="CriteriaCategoryDirect">
-        <Member Name="None" Value="0" />
-        <Member Name="CO" Value="1" />
-        <Member Name="NA" Value="2" />
-        <Member Name="NE" Value="3" />
-        <Member Name="DD" Value="4" />
-        <Member Name="LC" Value="5" />
+        <Member Name="none" Value="0" />
+        <Member Name="co" Value="1" />
+        <Member Name="na" Value="2" />
+        <Member Name="ne" Value="3" />
+        <Member Name="dd" Value="4" />
+        <Member Name="lc" Value="5" />
       </EnumType>
       <EnumType Name="CriteriaCategory">
-        <Member Name="CR" Value="0" />
-        <Member Name="EN" Value="1" />
-        <Member Name="VU" Value="2" />
-        <Member Name="NT" Value="3" />
-        <Member Name="LC" Value="4" />
-        <Member Name="DD" Value="5" />
-        <Member Name="NE" Value="6" />
+        <Member Name="cr" Value="0" />
+        <Member Name="en" Value="1" />
+        <Member Name="vu" Value="2" />
+        <Member Name="nt" Value="3" />
+        <Member Name="lc" Value="4" />
+        <Member Name="dd" Value="5" />
+        <Member Name="ne" Value="6" />
       </EnumType>
       <EnumType Name="CriteriaCategoryChange">
-        <Member Name="None" Value="0" />
-        <Member Name="Area" Value="1" />
-        <Member Name="Quality" Value="2" />
-        <Member Name="Interactions" Value="3" />
-        <Member Name="ProbablyOngoingDecline" Value="4" />
+        <Member Name="none" Value="0" />
+        <Member Name="area" Value="1" />
+        <Member Name="quality" Value="2" />
+        <Member Name="interactions" Value="3" />
+        <Member Name="probablyOngoingDecline" Value="4" />
       </EnumType>
       <EnumType Name="CriteriaCategoryImpact">
-        <Member Name="None" Value="0" />
-        <Member Name="AssumedOrKnown" Value="1" />
+        <Member Name="none" Value="0" />
+        <Member Name="assumedOrKnown" Value="1" />
       </EnumType>
       <EnumType Name="CriteriaCategoryThreatDefinedlocation">
-        <Member Name="None" Value="0" />
-        <Member Name="VU" Value="1" />
-        <Member Name="NT" Value="2" />
+        <Member Name="none" Value="0" />
+        <Member Name="vu" Value="1" />
+        <Member Name="nt" Value="2" />
       </EnumType>
     </Schema>
     <Schema Namespace="Default" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-      <EntityContainer Name="Container">
+      <Function Name="GetSalary">
+        <ReturnType Type="Edm.String" />
+      </Function>
+      <EntityContainer Name="RodlisteNaturtyperContainer">
         <EntitySet Name="Assessments" EntityType="RodlisteNaturtyper.Data.Models.Assessment">
           <NavigationPropertyBinding Path="committee" Target="Committees" />
           <NavigationPropertyBinding Path="lockedBy" Target="Users" />
@@ -318,6 +321,7 @@
           <NavigationPropertyBinding Path="committee" Target="Committees" />
           <NavigationPropertyBinding Path="user" Target="Users" />
         </EntitySet>
+        <FunctionImport Name="GetSalary" Function="Default.GetSalary" IncludeInServiceDocument="true" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

@@ -58,8 +58,7 @@
                 Område: @assessment.Region.ToString()
             </li>
             <li is-visible="assessment.Regions.Count != 0">
-                <h3>Regioner</h3>
-                @assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
+                <partial name="Partials/Details/_Regions.cshtml"/>
             </li>
             <li is-visible="assessment.References.Count != 0">
                 <h3>Referanser</h3>
@@ -72,11 +71,11 @@
                     }
                 </ol>
             </li>
-            <li>
-                <h3>Sitering</h3>
-                @Model.Citation
-            </li>
+            
         </ul>
-        <partial name="/Views/Feedback/_Feedback.cshtml" model="Model.FeedbackViewModel" />
+        
+        <partial name="/Views/Shared/_CitationForAssessment.cshtml" for="CitationForAssessmentViewModel" />
+
+        <partial name="/Views/Feedback/_Feedback.cshtml" for="FeedbackViewModel" />
     </div>
 </div>

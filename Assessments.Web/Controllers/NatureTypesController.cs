@@ -94,6 +94,43 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         return View(viewModel);
     }
 
+    [Route("2025/{id:int}")]
+    public IActionResult Detail(int id)
+    {
+        var assessment = repository.GetAssessment(id);
+
+        if (assessment == null)
+            return NotFound();
+
+        var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
+
+        var viewModel = new NatureTypesDetailViewModel(assessment)
+        {
+            Regions = repository.GetRegions(),
+
+            FeedbackViewModel = new FeedbackViewModel
+            {
+                AssessmentId = assessment.Id,
+                AssessmentName = assessment.Name,
+                ExpertGroup = assessment.Committee.Name,
+                Type = FeedbackType.NatureTypes,
+                Year = 2025
+            },
+
+            CitationForAssessmentViewModel = new CitationForAssessmentViewModel
+            {
+                AssessmentName = assessment.Name,
+                AssessmentYear = 2025,
+                ExpertCommittee = assessment.Committee.Name,
+                FirstPublished = "2025",
+                YearPreviousAssessment = 2018,
+                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name)
+            }
+        };
+
+        return View(viewModel);
+    }
+
     private async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(string queryUrl)
     {
         var categoryStatistics = await repository.GetCategoryStatistics(new Uri(queryUrl));
@@ -107,31 +144,5 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         }
 
         return viewModel;
-    }
-
-    [Route("2025/{id:int}")]
-    public IActionResult Detail(int id)
-    {
-        var assessment = repository.GetAssessment(id);
-
-        if (assessment == null)
-            return NotFound();
-
-        var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
-
-        var viewModel = new NatureTypesDetailViewModel(assessment)
-        {
-            Citation = committeeUsers.GetCitation(assessment.Committee.Name),
-            FeedbackViewModel = new FeedbackViewModel
-            {
-                AssessmentId = assessment.Id,
-                AssessmentName = assessment.Name,
-                ExpertGroup = assessment.Committee.Name,
-                Type = FeedbackType.NatureTypes,
-                Year = 2025
-            }
-        };
-
-        return View(viewModel);
     }
 }
