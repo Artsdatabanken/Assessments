@@ -128,6 +128,7 @@
                     {
                         MakeFilterChips(Model.Area, NatureTypesFilterHelpers.Areas.Filters);
                         MakeFilterChips(Model.Category, NatureTypesFilterHelpers.Categories.Filters);
+                        MakeFilterChips(Model.Committee, NatureTypesFilterHelpers.Committees(Model.Committees).Filters);
                         MakeFilterChips(Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions).Filters);
                     }
                 </ul>
@@ -180,6 +181,7 @@
                                 @{
                                     MakeFilterGroup(nameof(Model.Area), Model.Area, NatureTypesFilterHelpers.Areas);
                                     MakeFilterGroup(nameof(Model.Category), Model.Category, NatureTypesFilterHelpers.Categories);
+                                    MakeFilterGroup(nameof(Model.Committee), Model.Committee, NatureTypesFilterHelpers.Committees(Model.Committees));
                                     MakeFilterGroup(nameof(Model.Region), Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions));
                                 }
                             </ul>

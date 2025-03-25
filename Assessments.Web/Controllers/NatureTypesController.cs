@@ -143,6 +143,9 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         foreach (var category in Enum.GetValues<Category>())
         {
+            if (category == Category.NA)
+                continue;
+
             var statistics = categoryStatistics.FirstOrDefault(x => x.Category == category.ToString());
             viewModel.Categories.Add(category, statistics?.Count ?? 0);
         }

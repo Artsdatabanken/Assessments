@@ -3,6 +3,7 @@ using Assessments.Shared.Helpers;
 using Assessments.Web.Models.NatureTypes;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
+using System.Collections.Generic;
 using static Assessments.Web.Infrastructure.FilterHelpers;
 
 namespace Assessments.Web.Infrastructure.NatureTypes;
@@ -18,7 +19,7 @@ public static class NatureTypesFilterHelpers
             {
                 Name = x.ToString(),
                 NameShort = x.ToString()
-            })],
+            })]
     };
 
     public static FilterAndMetaData Categories => new()
@@ -31,8 +32,24 @@ public static class NatureTypesFilterHelpers
                 NameShort = x.ToString(),
                 Name = x.DisplayName(),
                 Description = x.DisplayName()
-            })],
+            })]
     };
+
+    public static FilterAndMetaData Committees(List<Committee> committees) => new()
+    {
+        FilterButtonName = "temafiltre",
+        FilterButtonText = "Tema",
+        Filters =
+        [
+            .. committees
+                .Select(x => new FilterItem
+                {
+                    Name = x.Name,
+                    NameShort = x.Name
+                })
+        ]
+    };
+
     public static FilterAndMetaData Regions(List<Region> modelRegions) =>
         new()
         {
@@ -46,7 +63,7 @@ public static class NatureTypesFilterHelpers
                         Name = x.Name,
                         NameShort = x.Name
                     })
-            ],
+            ]
         };
 
     public static int GetActiveSelectionCount(NatureTypesListViewModel model)
@@ -56,6 +73,7 @@ public static class NatureTypesFilterHelpers
         count += model.Area.Length;
         count += model.Category.Length;
         count += model.Region.Length;
+        count += model.Committee.Length;
 
         return count;
     }

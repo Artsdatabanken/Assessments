@@ -22,9 +22,11 @@ public class NatureTypesRepository : INatureTypesRepository
     private readonly IAppCache _appCache;
     private readonly HttpClient _client;
     private readonly ILogger<NatureTypesRepository> _logger;
+    private readonly IOptions<ApplicationOptions> _options;
 
     public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache, IHttpClientFactory clientFactory, ILogger<NatureTypesRepository> logger)
     {
+        _options = options;
         const string xApiKey = "X-API-KEY";
         var apiKey = options.Value.NatureTypes.ODataApiKey;
 
@@ -95,7 +97,7 @@ public class NatureTypesRepository : INatureTypesRepository
 
         var builder = new QueryBuilder { { "apply", queryStringValue } };
 
-        var response = await _client.GetAsync($"{_container.BaseUri}/Assessments{builder.ToQueryString()}", cancellationToken);
+        var response = await _client.GetAsync($"{_options.Value.NatureTypes.ODataUrl}Assessments{builder.ToQueryString()}", cancellationToken);
 
         try
         {
