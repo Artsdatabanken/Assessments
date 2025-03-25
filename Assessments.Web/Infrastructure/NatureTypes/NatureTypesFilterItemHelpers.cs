@@ -19,7 +19,7 @@ public static class NatureTypesFilterHelpers
             {
                 Name = x.ToString(),
                 NameShort = x.ToString()
-            })],
+            })]
     };
 
     public static FilterAndMetaData Categories => new()
@@ -32,7 +32,7 @@ public static class NatureTypesFilterHelpers
                 NameShort = x.ToString(),
                 Name = x.DisplayName(),
                 Description = x.DisplayName()
-            })],
+            })]
     };
 
     public static FilterAndMetaData Committees(List<Committee> committees) => new()
@@ -47,7 +47,7 @@ public static class NatureTypesFilterHelpers
                     Name = x.Name,
                     NameShort = x.Name
                 })
-        ],
+        ]
     };
 
     public static FilterAndMetaData Regions(List<Region> modelRegions) =>
@@ -63,7 +63,7 @@ public static class NatureTypesFilterHelpers
                         Name = x.Name,
                         NameShort = x.Name
                     })
-            ],
+            ]
         };
 
     public static int GetActiveSelectionCount(NatureTypesListViewModel model)
