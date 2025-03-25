@@ -26,8 +26,9 @@ public enum NatureTypeCategoryDto
     [Display(Name = "uten risiko")]
     LC = 6,
 
-    [Display(Name = "ikke egnet")]
-    NA = 7,
+    // NOTE: vurderinger med NA skal ikke vises
+    //[Display(Name = "ikke egnet")]
+    //NA = 7,
 
     [Display(Name = "ikke vurdert")]
     NE = 8,
