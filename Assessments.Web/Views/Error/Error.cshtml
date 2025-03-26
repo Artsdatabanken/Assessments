@@ -1,5 +1,8 @@
-﻿@{
+﻿@using System.Diagnostics
+@{
     ViewData["Title"] = "En feil oppstod";
+
+    var requestId = Activity.Current?.Id ?? Context.TraceIdentifier;
 }
 
 <div class="pagecontainer">
@@ -7,5 +10,8 @@
         <div class="page-header">
             <h3>Beklager, en feil oppstod på denne siden.</h3>
         </div>
+        <p is-visible="@(!string.IsNullOrEmpty(requestId))">
+            referanse: @requestId
+        </p>
     </div>
 </div>
