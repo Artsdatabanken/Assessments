@@ -109,18 +109,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
             Regions = repository.GetRegions(),
-
             CodeItemViewModels = codeItemViewModels,
-
-            FeedbackViewModel = new FeedbackViewModel
-            {
-                AssessmentId = assessment.Id,
-                AssessmentName = assessment.Name,
-                ExpertGroup = assessment.Committee.Name,
-                Type = FeedbackType.NatureTypes,
-                Year = 2025
-            },
-
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
                 AssessmentName = assessment.Name,
