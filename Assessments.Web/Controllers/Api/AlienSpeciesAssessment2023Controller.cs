@@ -1,5 +1,7 @@
 using Assessments.Mapping.AlienSpecies.Model;
+using Assessments.Shared.Constants;
 using Assessments.Web.Infrastructure;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Assessments.Web.Controllers.Api;
 
+[EnableCors(nameof(CorsConstants.AllowAnyPolicy))]
 public class AlienSpeciesAssessment2023Controller(DataRepository repository) : ODataController
 {
     [EnableQuery(PageSize = 100)]
