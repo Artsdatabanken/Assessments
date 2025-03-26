@@ -1,44 +1,74 @@
-﻿using Assessments.Shared.DTOs.NatureTypes;
+﻿using System.Net.Http.Json;
+using System.Web;
+using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NatureTypes;
+using Assessments.Shared.DTOs.NatureTypes.Statistics;
 using Assessments.Shared.Interfaces;
 using Assessments.Shared.Options;
 using Default;
 using LazyCache;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OData.Client;
+using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
 
 namespace Assessments.Shared.Repositories;
 
 public class NatureTypesRepository : INatureTypesRepository
 {
-    private readonly Container _context;
+    private readonly RodlisteNaturtyperContainer _container;
     private readonly IAppCache _appCache;
+    private readonly HttpClient _client;
+    private readonly ILogger<NatureTypesRepository> _logger;
+    private readonly IOptions<ApplicationOptions> _options;
 
-    public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache)
+    public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache, IHttpClientFactory clientFactory, ILogger<NatureTypesRepository> logger)
     {
+        _options = options;
+        const string xApiKey = "X-API-KEY";
+        var apiKey = options.Value.NatureTypes.ODataApiKey;
+
+        _logger = logger;
         _appCache = appCache;
-        _context = new Container(options.Value.NatureTypes.ODataUrl);
-        _context.BuildingRequest += (_, e) => e.Headers.Add("X-API-KEY", options.Value.NatureTypes.ODataApiKey);
+        
+        _container = new RodlisteNaturtyperContainer(options.Value.NatureTypes.ODataUrl)
+        {
+            HttpClientFactory = clientFactory
+        };
+        _container.BuildingRequest += (_, e) => e.Headers.Add(xApiKey, apiKey);
+
+        _client =  clientFactory.CreateClient(HttpClientConstants.NatureTypesRepositoryClient);
+        _client.DefaultRequestHeaders.Add(xApiKey, apiKey);
     }
 
-    public IQueryable<Assessment> GetAssessments() => _context.Assessments.Expand(x => x.Committee);
+    public IQueryable<Assessment> GetAssessments() => _container.Assessments.Expand(x => x.Committee);
     
     public Assessment GetAssessment(int id)
     {
-        return _context.Assessments
+        return _container.Assessments
             .Expand(x => x.Committee)
             .Expand(x => x.Regions)
             .Expand(x => x.References)
             .FirstOrDefault(c => c.Id == id);
     }
 
+    public List<CodeItemViewModel> GetAssessmentCodeItemViewModels(int id)
+    {
+        DataServiceQuerySingle<Assessment> assessment = _container.Assessments.ByKey(id);
+        
+        return [.. assessment.CodeItemViewModels()];
+    }
+
     public List<Committee> GetCommittees()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommittees)}", () => _context.Committees.OrderBy(x => x.Name).ToList());
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommittees)}", () => _container.Committees.OrderBy(x => x.Name).ToList());
     }
 
     public List<CommitteeUserDto> GetCommitteeUsers()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => _context.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => _container.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
         {
             CommitteeId = (int)x.CommitteeId,
             CommitteeName = x.Committee.Name,
@@ -51,6 +81,37 @@ public class NatureTypesRepository : INatureTypesRepository
 
     public List<Region> GetRegions()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _context.Regions.OrderBy(x => x.SortOrder).ToList());
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _container.Regions.OrderBy(x => x.SortOrder).ToList());
+    }
+
+    public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)
+    {
+        var queryStrings = HttpUtility.ParseQueryString(new UriBuilder(uri).Query);
+        var filter = queryStrings["$filter"];
+        var queryStringValue = "groupby((category), aggregate($count as count))";
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            queryStringValue = $"filter({filter})/{queryStringValue}";
+        }
+
+        var builder = new QueryBuilder { { "apply", queryStringValue } };
+
+        var response = await _client.GetAsync($"{_options.Value.NatureTypes.ODataUrl}Assessments{builder.ToQueryString()}", cancellationToken);
+
+        try
+        {
+            response.EnsureSuccessStatusCode();
+            
+            var rootResponse = await response.Content.ReadFromJsonAsync<CategoryStatisticsRootResponse>(cancellationToken);
+
+            return rootResponse.Value;
+        }
+        catch (Exception ex)
+        { 
+            _logger.LogError("{method} failed: {message} (StatusCode: {statuscode} Path: '{path}')", nameof(GetCategoryStatistics), ex.Message, response.StatusCode, uri);
+
+            return null;
+        }
     }
 }

@@ -128,10 +128,11 @@
                     {
                         MakeFilterChips(Model.Area, NatureTypesFilterHelpers.Areas.Filters);
                         MakeFilterChips(Model.Category, NatureTypesFilterHelpers.Categories.Filters);
+                        MakeFilterChips(Model.Committee, NatureTypesFilterHelpers.Committees(Model.Committees).Filters);
                         MakeFilterChips(Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions).Filters);
                     }
                 </ul>
-                <a is-visible="NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 1" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name)])" class="button tinybutton tertiary search_related">
+                <a is-visible="NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 1" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name), nameof(Model.View)])" class="button tinybutton tertiary search_related">
                     <span class="material-icons">close</span>Fjern alle filter
                 </a>
             </div>
@@ -159,6 +160,7 @@
         }
     </div>
     <partial name="/Views/Shared/_ControlButtons.cshtml" model="new ControlButtonsViewModel { View = Model.ListViewViewModel.View }" />
+    <input asp-for="View" value="stat" type="hidden" is-visible="@(Model.ListViewViewModel.View == "stat")" />
 </div>
 
 <div class="listwrapper">
@@ -179,6 +181,7 @@
                                 @{
                                     MakeFilterGroup(nameof(Model.Area), Model.Area, NatureTypesFilterHelpers.Areas);
                                     MakeFilterGroup(nameof(Model.Category), Model.Category, NatureTypesFilterHelpers.Categories);
+                                    MakeFilterGroup(nameof(Model.Committee), Model.Committee, NatureTypesFilterHelpers.Committees(Model.Committees));
                                     MakeFilterGroup(nameof(Model.Region), Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions));
                                 }
                             </ul>
@@ -200,5 +203,5 @@
             </div>
         </div>
     </div>
-    <partial name="_ListView.cshtml" />
+    <partial name="_View.cshtml" />
 </div>

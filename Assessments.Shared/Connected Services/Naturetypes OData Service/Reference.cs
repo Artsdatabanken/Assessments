@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 11.03.2025 19:22:06
+// Generation date: 24.03.2025 13:19:35
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -5085,6 +5085,104 @@ namespace RodlisteNaturtyper.Data.Models
         }
     }
 }
+namespace RodlisteNaturtyper.Core.Models
+{
+    /// <summary>
+    /// There are no comments for CodeItemViewModel in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModel")]
+    public partial class CodeItemViewModel
+    {
+        /// <summary>
+        /// There are no comments for Property CodeItemDescription in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemDescription")]
+        public virtual string CodeItemDescription
+        {
+            get
+            {
+                return this._CodeItemDescription;
+            }
+            set
+            {
+                this.OnCodeItemDescriptionChanging(value);
+                this._CodeItemDescription = value;
+                this.OnCodeItemDescriptionChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _CodeItemDescription;
+        partial void OnCodeItemDescriptionChanging(string value);
+        partial void OnCodeItemDescriptionChanged();
+        /// <summary>
+        /// There are no comments for Property TimeOfIncident in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("timeOfIncident")]
+        public virtual string TimeOfIncident
+        {
+            get
+            {
+                return this._TimeOfIncident;
+            }
+            set
+            {
+                this.OnTimeOfIncidentChanging(value);
+                this._TimeOfIncident = value;
+                this.OnTimeOfIncidentChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _TimeOfIncident;
+        partial void OnTimeOfIncidentChanging(string value);
+        partial void OnTimeOfIncidentChanged();
+        /// <summary>
+        /// There are no comments for Property InfluenceFactor in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("influenceFactor")]
+        public virtual string InfluenceFactor
+        {
+            get
+            {
+                return this._InfluenceFactor;
+            }
+            set
+            {
+                this.OnInfluenceFactorChanging(value);
+                this._InfluenceFactor = value;
+                this.OnInfluenceFactorChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _InfluenceFactor;
+        partial void OnInfluenceFactorChanging(string value);
+        partial void OnInfluenceFactorChanged();
+        /// <summary>
+        /// There are no comments for Property Magnitude in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("magnitude")]
+        public virtual string Magnitude
+        {
+            get
+            {
+                return this._Magnitude;
+            }
+            set
+            {
+                this.OnMagnitudeChanging(value);
+                this._Magnitude = value;
+                this.OnMagnitudeChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _Magnitude;
+        partial void OnMagnitudeChanging(string value);
+        partial void OnMagnitudeChanged();
+    }
+}
 namespace RodlisteNaturtyper.Data.Models.Enums
 {
     /// <summary>
@@ -5232,25 +5330,25 @@ namespace RodlisteNaturtyper.Data.Models.Enums
 namespace Default
 {
     /// <summary>
-    /// There are no comments for Container in the schema.
+    /// There are no comments for RodlisteNaturtyperContainer in the schema.
     /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("Container")]
-    public partial class Container : global::Microsoft.OData.Client.DataServiceContext
+    [global::Microsoft.OData.Client.OriginalNameAttribute("RodlisteNaturtyperContainer")]
+    public partial class RodlisteNaturtyperContainer : global::Microsoft.OData.Client.DataServiceContext
     {
         /// <summary>
-        /// Initialize a new Container object.
+        /// Initialize a new RodlisteNaturtyperContainer object.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        public Container(global::System.Uri serviceRoot) :
+        public RodlisteNaturtyperContainer(global::System.Uri serviceRoot) :
                 this(serviceRoot, global::Microsoft.OData.Client.ODataProtocolVersion.V4)
         {
         }
 
         /// <summary>
-        /// Initialize a new Container object.
+        /// Initialize a new RodlisteNaturtyperContainer object.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        public Container(global::System.Uri serviceRoot, global::Microsoft.OData.Client.ODataProtocolVersion protocolVersion) :
+        public RodlisteNaturtyperContainer(global::System.Uri serviceRoot, global::Microsoft.OData.Client.ODataProtocolVersion protocolVersion) :
                 base(serviceRoot, protocolVersion)
         {
             this.ResolveName = new global::System.Func<global::System.Type, string>(this.ResolveNameFromType);
@@ -5269,6 +5367,11 @@ namespace Default
         protected global::System.Type ResolveTypeFromName(string typeName)
         {
             global::System.Type resolvedType = this.DefaultResolveType(typeName, "RodlisteNaturtyper.Data.Models.Enums", "RodlisteNaturtyper.Data.Models.Enums");
+            if ((resolvedType != null))
+            {
+                return resolvedType;
+            }
+            resolvedType = this.DefaultResolveType(typeName, "RodlisteNaturtyper.Core.Models", "RodlisteNaturtyper.Core.Models");
             if ((resolvedType != null))
             {
                 return resolvedType;
@@ -5301,6 +5404,14 @@ namespace Default
                     return string.Concat("RodlisteNaturtyper.Data.Models.Enums.", originalNameAttribute.OriginalName);
                 }
                 return string.Concat("RodlisteNaturtyper.Data.Models.Enums.", clientType.Name);
+            }
+            if (clientType.Namespace.Equals("RodlisteNaturtyper.Core.Models", global::System.StringComparison.Ordinal))
+            {
+                if (originalNameAttribute != null)
+                {
+                    return string.Concat("RodlisteNaturtyper.Core.Models.", originalNameAttribute.OriginalName);
+                }
+                return string.Concat("RodlisteNaturtyper.Core.Models.", clientType.Name);
             }
             if (clientType.Namespace.Equals("RodlisteNaturtyper.Data.Models", global::System.StringComparison.Ordinal))
             {
@@ -5516,6 +5627,25 @@ namespace Default
                     throw new global::System.Xml.XmlException("Failed to create an XmlReader from the stream. Check if the resource exists.", e);
                 }
             }
+        }
+    }
+    /// <summary>
+    /// Class containing all extension methods
+    /// </summary>
+    public static class ExtensionMethods
+    {
+        /// <summary>
+        /// There are no comments for CodeItemViewModels in the schema.
+        /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModels")]
+        public static global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel> CodeItemViewModels(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::RodlisteNaturtyper.Data.Models.Assessment> _source)
+        {
+            if (!_source.IsComposable)
+            {
+                throw new global::System.NotSupportedException("The previous function is not composable.");
+            }
+
+            return _source.CreateFunctionQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel>("Default.CodeItemViewModels", false);
         }
     }
 }

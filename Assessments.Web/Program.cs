@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using Assessments.Data;
 using Assessments.Shared;
+using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
@@ -41,6 +42,11 @@ builder.Services.AddControllersWithViews()
     .AddViewLocalization(options => options.ResourcesPath = "Resources")
     .AddOData(ODataHelper.Options);
 
+builder.Services.AddDbContext<AssessmentsDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure());
+});
+
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var cultures = new List<CultureInfo>
@@ -50,19 +56,16 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     };
 
     options.DefaultRequestCulture = new RequestCulture(cultures.First());
-    
     options.SupportedCultures = cultures;
     options.SupportedUICultures = cultures;
-    
     options.RequestCultureProviders.Remove(typeof(AcceptLanguageHeaderRequestCultureProvider));
 });
 
 builder.Services.AddScoped<RequestLocalizationCookiesMiddleware>();
 
-builder.Services.AddDbContext<AssessmentsDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure());
-});
+builder.Services.AddProblemDetails(options =>
+    options.CustomizeProblemDetails = ctx =>
+        ctx.ProblemDetails.Extensions.Add("environment", builder.Environment.EnvironmentName));
 
 builder.Services.AddSharedModule();
 
@@ -104,16 +107,24 @@ builder.Services.AddStaticRobotsTxt(options =>
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedHost;
-
     options.ForwardedHostHeaderName = "X-Original-Host";
-
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: CorsConstants.AllowAnyPolicy, policy =>
+    {
+        policy.AllowAnyOrigin().WithMethods("GET");
+    });
 });
 
 var app = builder.Build();
 
 app.UseForwardedHeaders();
+
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
@@ -125,6 +136,8 @@ else
     app.UseHsts();
     app.UseResponseCompression();
 }
+
+app.HandleApiException();
 
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 

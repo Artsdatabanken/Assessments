@@ -236,6 +236,14 @@
         <NavigationProperty Name="codeItemParamLevels" Type="Collection(RodlisteNaturtyper.Data.Models.CodeItemParamLevel)" />
       </EntityType>
     </Schema>
+    <Schema Namespace="RodlisteNaturtyper.Core.Models" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <ComplexType Name="CodeItemViewModel">
+        <Property Name="codeItemDescription" Type="Edm.String" />
+        <Property Name="timeOfIncident" Type="Edm.String" />
+        <Property Name="influenceFactor" Type="Edm.String" />
+        <Property Name="magnitude" Type="Edm.String" />
+      </ComplexType>
+    </Schema>
     <Schema Namespace="RodlisteNaturtyper.Data.Models.Enums" xmlns="http://docs.oasis-open.org/odata/ns/edm">
       <EnumType Name="AssessmentState">
         <Member Name="NotStarted" Value="0" />
@@ -296,7 +304,11 @@
       </EnumType>
     </Schema>
     <Schema Namespace="Default" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-      <EntityContainer Name="Container">
+      <Function Name="CodeItemViewModels" IsBound="true">
+        <Parameter Name="bindingParameter" Type="RodlisteNaturtyper.Data.Models.Assessment" />
+        <ReturnType Type="Collection(RodlisteNaturtyper.Core.Models.CodeItemViewModel)" />
+      </Function>
+      <EntityContainer Name="RodlisteNaturtyperContainer">
         <EntitySet Name="Assessments" EntityType="RodlisteNaturtyper.Data.Models.Assessment">
           <NavigationPropertyBinding Path="committee" Target="Committees" />
           <NavigationPropertyBinding Path="lockedBy" Target="Users" />
