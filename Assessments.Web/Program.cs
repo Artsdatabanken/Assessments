@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using Assessments.Data;
 using Assessments.Shared;
+using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
@@ -111,9 +112,19 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Clear();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: CorsConstants.AllowAnyPolicy, policy =>
+    {
+        policy.AllowAnyOrigin().WithMethods("GET");
+    });
+});
+
 var app = builder.Build();
 
 app.UseForwardedHeaders();
+
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
