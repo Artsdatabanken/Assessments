@@ -55,11 +55,16 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         new("en")
     };
 
+
     options.DefaultRequestCulture = new RequestCulture(cultures.First());
     options.SupportedCultures = cultures;
     options.SupportedUICultures = cultures;
     options.RequestCultureProviders.Remove(typeof(AcceptLanguageHeaderRequestCultureProvider));
+
+    options.RequestCultureProviders.OfType<CookieRequestCultureProvider>().First().CookieName = "adb.req.culture";
 });
+
+builder.Services.AddAntiforgery(options => { options.Cookie.Name = "adb.req.antiforgery"; });
 
 builder.Services.AddScoped<RequestLocalizationCookiesMiddleware>();
 
