@@ -35,31 +35,27 @@ if (!builder.Environment.IsDevelopment())
     builder.Services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
 }
 
-builder.Services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
     .AddViewLocalization(options => options.ResourcesPath = "Resources")
     .AddOData(ODataHelper.Options);
 
-builder.Services.AddDbContext<AssessmentsDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure());
-});
+builder.Services.AddDbContext<AssessmentsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure()));
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var cultures = new List<CultureInfo>
-    {
-        new("no"),
-        new("en")
-    };
+    var cultures = new List<CultureInfo> { new("no"), new("en") };
 
     options.DefaultRequestCulture = new RequestCulture(cultures.First());
     options.SupportedCultures = cultures;
     options.SupportedUICultures = cultures;
     options.RequestCultureProviders.Remove(typeof(AcceptLanguageHeaderRequestCultureProvider));
+    options.RequestCultureProviders.OfType<CookieRequestCultureProvider>().First().CookieName = "adb.req.culture";
 });
+
+builder.Services.AddAntiforgery(options => options.Cookie.Name = "adb.req.antiforgery");
 
 builder.Services.AddScoped<RequestLocalizationCookiesMiddleware>();
 
@@ -85,7 +81,7 @@ var applicationOptions = builder.Configuration.GetSection(nameof(ApplicationOpti
 
 builder.Services.AddOptions<ApplicationOptions>().Bind(applicationOptions).ValidateDataAnnotations().ValidateOnStart();
 
-builder.Services.AddSendGrid(options => { options.ApiKey = applicationOptions.Get<ApplicationOptions>().SendGridApiKey; });
+builder.Services.AddSendGrid(options => options.ApiKey = applicationOptions.Get<ApplicationOptions>().SendGridApiKey);
 
 if (!builder.Environment.IsDevelopment())
 {
@@ -112,13 +108,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Clear();
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: CorsConstants.AllowAnyPolicy, policy =>
-    {
-        policy.AllowAnyOrigin().WithMethods("GET");
-    });
-});
+builder.Services.AddCors(options => { options.AddPolicy(name: CorsConstants.AllowGetAnyOriginPolicy, policy => { policy.AllowAnyOrigin().WithMethods("GET"); }); });
 
 var app = builder.Build();
 

@@ -21,7 +21,7 @@ public class FeedbackController : BaseController<FeedbackController>
     private readonly string _feedbackSecret;
     private readonly ISendGridClient _sendGridClient;
     private readonly IOptions<ApplicationOptions> _options;
-    public const string ValidationCookieName = "FeedbackValidation";
+    public const string ValidationCookieName = "adb.req.feedbackvalidation";
 
     public FeedbackController(IConfiguration configuration, AssessmentsDbContext dbContext, ISendGridClient sendGridClient, IOptions<ApplicationOptions> options)
     {
