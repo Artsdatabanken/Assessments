@@ -108,7 +108,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Clear();
 });
 
-builder.Services.AddCors(options => { options.AddPolicy(name: CorsConstants.AllowGetAnyOriginPolicy, policy => { policy.AllowAnyOrigin().WithMethods("GET"); }); });
+builder.Services.AddCors(options => { options.AddPolicy(name: CorsConstants.AllowAnyOriginGetOptionsPolicy, policy => { policy.AllowAnyOrigin().WithMethods("GET", "OPTIONS"); }); });
 
 var app = builder.Build();
 
