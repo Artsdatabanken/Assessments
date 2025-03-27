@@ -9,7 +9,7 @@ namespace Assessments.Web.Controllers.Api;
 
 [ApiController]
 [Route("api/[controller]")]
-[EnableCors(nameof(CorsConstants.AllowAnyOriginGetOptionsPolicy))]
+[EnableCors(nameof(CorsConstants.AllowAny))]
 public class TestController(IWebHostEnvironment environment, IOptions<ApplicationOptions> options) : ControllerBase
 {
     [HttpGet]

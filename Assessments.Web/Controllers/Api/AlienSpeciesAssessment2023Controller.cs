@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Assessments.Web.Controllers.Api;
 
-[EnableCors(nameof(CorsConstants.AllowAnyOriginGetOptionsPolicy))]
+[EnableCors(nameof(CorsConstants.AllowAny))]
 public class AlienSpeciesAssessment2023Controller(DataRepository repository) : ODataController
 {
     [EnableQuery(PageSize = 100)]
