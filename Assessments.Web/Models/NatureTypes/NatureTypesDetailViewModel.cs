@@ -1,4 +1,5 @@
-﻿using Assessments.Shared.Constants;
+﻿using Assessments.Data.Models;
+using Assessments.Shared.Constants;
 using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
@@ -7,7 +8,14 @@ namespace Assessments.Web.Models.NatureTypes;
 
 public record NatureTypesDetailViewModel(Assessment Assessment)
 {
-    public FeedbackViewModel FeedbackViewModel { get; set; }
+    public FeedbackViewModel FeedbackViewModel => new()
+    {
+        AssessmentId = Assessment.Id,
+        AssessmentName = Assessment.Name,
+        ExpertGroup = Assessment.Committee.Name,
+        Type = FeedbackType.NatureTypes,
+        Year = 2025
+    };
     
     public PageMenuViewModel PageMenuViewModel => new()
     {

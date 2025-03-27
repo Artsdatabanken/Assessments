@@ -2,28 +2,21 @@
 using Microsoft.Extensions.Options;
 
 namespace Assessments.Web.Infrastructure.Middleware;
-// husker valgt språk ved navigering til ulike sider med hjelp av cookies
 
-public class RequestLocalizationCookiesMiddleware : IMiddleware
+// husker valgt språk ved navigering til ulike sider med cookies
+public class RequestLocalizationCookiesMiddleware(IOptions<RequestLocalizationOptions> requestLocalizationOptions) : IMiddleware
 {
-    private CookieRequestCultureProvider Provider { get; }
-
-    public RequestLocalizationCookiesMiddleware(IOptions<RequestLocalizationOptions> requestLocalizationOptions)
-    {
-        Provider = requestLocalizationOptions.Value.RequestCultureProviders.Where(x => x is CookieRequestCultureProvider).Cast<CookieRequestCultureProvider>().FirstOrDefault();
-    }
+    private CookieRequestCultureProvider Provider { get; } = requestLocalizationOptions.Value.RequestCultureProviders.Where(x => x is CookieRequestCultureProvider).Cast<CookieRequestCultureProvider>().FirstOrDefault();
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         if (Provider != null)
         {
-            var feature = context.Features.Get<IRequestCultureFeature>();
+            var requestCultureFeature = context.Features.Get<IRequestCultureFeature>();
 
-            if (feature != null)
+            if (requestCultureFeature != null)
             {
-                // bruker må ha godtatt cookies for å kunne lagre valgt språk
-                if (CookiesHelper.UserAcceptedCookies(context))
-                    context.Response.Cookies.Append(Provider.CookieName, CookieRequestCultureProvider.MakeCookieValue(feature.RequestCulture));
+                    context.Response.Cookies.Append(Provider.CookieName, CookieRequestCultureProvider.MakeCookieValue(requestCultureFeature.RequestCulture));
             }
         }
 
