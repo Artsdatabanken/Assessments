@@ -27,7 +27,6 @@
                 <span class="material-icons">keyboard_arrow_right</span>
             </a>
         </li>
-
         <li>
             <a href="https://artsdatabanken.no/Pages/201632/Norsk_roedliste_2006">
                 <span>Rødlista 2006 </span>
@@ -35,50 +34,29 @@
             </a>
         </li>
     </ul>
-
-    @* TODO: endre meny etter lansering av rødlista for naturtyper 2025 *@
-    <environment exclude="Production">
-        <ul>
-            <li>
-                <a class="menuheaderlink" asp-controller="NatureTypes" asp-action="Home">
-                    <h3>
-                        <span>Rødlista for naturtyper</span>
-                        <span class="material-icons pad-top">keyboard_arrow_right</span>
-                    </h3>
-                </a>
-            </li>
+    <ul>
+        <li>
+            <div class="menuheaderlink redlist">
+                <h3>
+                    <span>Rødlista for naturtyper</span>
+                </h3>
+            </div>
+        </li>
+        <feature name="@nameof(FeatureManagementConstants.PublicAccessPeriodNatureTypes)">
             <li>
                 <a asp-controller="NatureTypes" asp-action="List">
-                    <span>Rødlista 2025</span>
+                    <span>Innsyn Rødlista 2025</span>
                     <span class="material-icons">keyboard_arrow_right</span>
                 </a>
             </li>
-            <li>
-                <a href="https://artsdatabanken.no/rodlistefornaturtyper">
-                    <span>Rødlista 2018 </span>
-                    <span class="material-icons">keyboard_arrow_right</span>
-                </a>
-            </li>
-        </ul>
-    </environment>
-    <environment include="Production">
-        <ul>
-            <li>
-                <div class="menuheaderlink redlist">
-                    <h3>
-                        <span>Rødlista for naturtyper</span>
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <a href="https://artsdatabanken.no/rodlistefornaturtyper">
-                    <span>Rødlista 2018 </span>
-                    <span class="material-icons">keyboard_arrow_right</span>
-                </a>
-            </li>
-        </ul>
-    </environment>
-
+        </feature>
+        <li>
+            <a href="https://artsdatabanken.no/rodlistefornaturtyper">
+                <span>Rødlista 2018 </span>
+                <span class="material-icons">keyboard_arrow_right</span>
+            </a>
+        </li>
+    </ul>
     <ul>
         <li>
             <a class="menuheaderlink alien-species" asp-controller="AlienSpecies" asp-action="Home">

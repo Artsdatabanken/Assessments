@@ -1,21 +1,21 @@
 ﻿using System.Linq.Expressions;
-using Assessments.Data.Models;
+using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
-using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
 using Assessments.Web.Models.NatureTypes.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 using X.PagedList.Extensions;
 
 namespace Assessments.Web.Controllers;
 
-[NotReadyForProduction]
+[FeatureGate(FeatureManagementConstants.PublicAccessPeriodNatureTypes)]
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
