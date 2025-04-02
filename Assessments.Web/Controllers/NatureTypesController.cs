@@ -19,7 +19,8 @@ namespace Assessments.Web.Controllers;
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
-    public IActionResult Home() => View();
+    // TODO: gjøre klar og vis landingssiden til lansering (vises ikke i innsynsperioden)
+    //public IActionResult Home() => View();
 
     [Route("2025")]
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page)
