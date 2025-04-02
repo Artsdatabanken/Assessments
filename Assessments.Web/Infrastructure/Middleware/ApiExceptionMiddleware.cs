@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace Assessments.Web.Infrastructure;
+namespace Assessments.Web.Infrastructure.Middleware;
 
-public static class ExceptionHelper
+public static class ApiExceptionMiddleware
 {
     public static void HandleApiException(this WebApplication app)
     {
