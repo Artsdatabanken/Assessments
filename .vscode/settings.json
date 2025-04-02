@@ -1,9 +1,3 @@
 {
-    "editor.formatOnSaveMode": "modificationsIfAvailable",
-    "omnisharp.enableEditorConfigSupport": true,
-    "[csharp]": {
-        "editor.defaultFormatter": "ms-dotnettools.csharp",
-        "editor.formatOnSave": true,
-        "editor.formatOnPaste": true,
-    }   
+    "dotnet.defaultSolution": "Assessments.sln"
 }
