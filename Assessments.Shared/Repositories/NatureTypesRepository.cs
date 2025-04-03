@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Json;
 using System.Web;
-using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.DTOs.NatureTypes.Statistics;
 using Assessments.Shared.Interfaces;
@@ -24,23 +23,20 @@ public class NatureTypesRepository : INatureTypesRepository
     private readonly ILogger<NatureTypesRepository> _logger;
     private readonly IOptions<ApplicationOptions> _options;
 
-    public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache, IHttpClientFactory clientFactory, ILogger<NatureTypesRepository> logger)
+    public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache, ILogger<NatureTypesRepository> logger, HttpClient client)
     {
         _options = options;
-        const string xApiKey = "X-API-KEY";
-        var apiKey = options.Value.NatureTypes.ODataApiKey;
-
         _logger = logger;
         _appCache = appCache;
+        _client = client;
+
+        _client.Timeout = TimeSpan.FromSeconds(10);
+        _client.DefaultRequestHeaders.Add("X-API-KEY", options.Value.NatureTypes.ODataApiKey);
         
         _container = new RodlisteNaturtyperContainer(options.Value.NatureTypes.ODataUrl)
         {
-            HttpClientFactory = clientFactory
+            HttpClientFactory = new HttpClientFactory(_client)
         };
-        _container.BuildingRequest += (_, e) => e.Headers.Add(xApiKey, apiKey);
-
-        _client =  clientFactory.CreateClient(HttpClientConstants.NatureTypesRepositoryClient);
-        _client.DefaultRequestHeaders.Add(xApiKey, apiKey);
     }
 
     public IQueryable<Assessment> GetAssessments() => _container.Assessments.Expand(x => x.Committee);
@@ -113,5 +109,10 @@ public class NatureTypesRepository : INatureTypesRepository
 
             return null;
         }
+    }
+
+    private class HttpClientFactory(HttpClient httpClient) : IHttpClientFactory
+    {
+        HttpClient IHttpClientFactory.CreateClient(string name) => httpClient;
     }
 }
