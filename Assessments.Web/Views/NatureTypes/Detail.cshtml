@@ -1,5 +1,4 @@
-﻿@inject IOptions<ApplicationOptions> Options
-@model NatureTypesDetailViewModel
+﻿@model NatureTypesDetailViewModel
 
 @{
     var assessment = Model.Assessment;
@@ -27,92 +26,86 @@
             <h1>
                 @assessment.Name
             </h1>
-            <environment exclude="Production">
-                <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
-            </environment>
+            
             <p class="ingress">
                 @Html.Raw(assessment.DescriptionHtml)
             </p>
         </div>
-        <ul>
-            <li>
-                Id: @assessment.Id
-            </li>
-            <li>Navn: @assessment.Name</li>
-            <li>
-                Kortkode: @assessment.ShortCode
-            </li>
-            <li>
-                Langkode med lenke : <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.LongCode</a>
-            </li>
-            <li is-visible="!string.IsNullOrEmpty(assessment.PopularName)">
-                Populærnavn: @assessment.PopularName
-            </li>
-            <li>
-                Kategori med beskrivelse: @assessment.Category @assessment.Category.GetDescription()
-            </li>
-            <li>Endelig kategori og kriterium: @assessment.CriteriaSummary</li>
-            <li>
-                Ekspertkomitée: @assessment.Committee.Name
-            </li>
-            <li>
-                Område: @assessment.Region.ToString()
-            </li>
-            <li is-visible="assessment.Regions.Count != 0">
+
+        <div class="page_section">
+            <div id="@nameof(NatureTypesConstants.Headings.Description)">
+                <h2>
+                    @NatureTypesConstants.Headings.Description
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
+                </p>
+            </div>
+        </div>
+
+        <div class="page_section">
+            <div id="@nameof(NatureTypesConstants.Headings.Summary)">
+                <h2>
+                    @NatureTypesConstants.Headings.Summary
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
+                </p>
+            </div>
+        </div>
+
+        <div class="page_section" is-visible="Model.CodeItemViewModels.Count != 0">
+            <div id="@nameof(NatureTypesConstants.Headings.CodeItems)">
+                <h2>
+                    @NatureTypesConstants.Headings.CodeItems
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
+                </p>
+            </div>
+        </div>
+
+        <div class="page_section">
+            <div id="@nameof(NatureTypesConstants.Headings.CriteriaInformation)">
+                <h2>
+                    @NatureTypesConstants.Headings.CriteriaInformation
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
+                </p>
+            </div>
+        </div>
+
+        <div class="page_section">
+            <div id="@nameof(NatureTypesConstants.Headings.AreaInformation)">
+                <h2>
+                    @NatureTypesConstants.Headings.AreaInformation
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
+                </p>
+            </div>
+        </div>
+
+        <div class="page_section">
+            <div id="@nameof(NatureTypesConstants.Headings.Regions)">
+                <h2>
+                    @NatureTypesConstants.Headings.Regions
+                </h2>
                 <partial name="Partials/Details/_Regions.cshtml" />
-            </li>
-            <li is-visible="assessment.References.Count != 0">
-                <h3>Referanser</h3>
-                <ol>
-                    @foreach (var reference in assessment.References)
-                    {
-                        <li>
-                            @reference.ReferencePresentation
-                        </li>
-                    }
-                </ol>
-            </li>
-            <li is-visible="Model.CodeItemViewModels.Count != 0">
-                <h3>Påvirkningsfaktorer</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                Påvirkningsfaktor
-                            </th>
-                            <th>
-                                Tidspunkt
-                            </th>
-                            <th>
-                                Omfang
-                            </th>
-                            <th>
-                                Alvorlighetsgrad
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var codeItem in Model.CodeItemViewModels)
-                        {
-                            <tr>
-                                <td>
-                                    @codeItem.CodeItemDescription
-                                </td>
-                                <td>
-                                    @codeItem.TimeOfIncident
-                                </td>
-                                <td>
-                                    @codeItem.InfluenceFactor
-                                </td>
-                                <td>
-                                    @codeItem.Magnitude
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </li>
-        </ul>
+            </div>
+        </div>
+
+        <div class="page_section" is-visible="Model.Assessment.References.Count != 0">
+            <div id="@nameof(NatureTypesConstants.Headings.References)">
+                <h2>
+                    @NatureTypesConstants.Headings.References
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
+                </p>
+            </div>
+        </div>
 
         <partial name="/Views/Shared/_CitationForAssessment.cshtml" for="CitationForAssessmentViewModel" />
 
