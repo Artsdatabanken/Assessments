@@ -118,7 +118,8 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
                 ExpertCommittee = assessment.Committee.Name,
                 FirstPublished = "2025",
                 YearPreviousAssessment = 2018,
-                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name)
+                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name),
+                HasBackToTopLink = true
             }
         };
 
