@@ -24,12 +24,14 @@ public static class SharedModule
             return cache;
         });
 
-        services.AddScoped<INatureTypesRepository, NatureTypesRepository>();
-
         services.ConfigureHttpClientDefaults(builder =>
         {
             builder.SetHandlerLifetime(TimeSpan.FromMinutes(60));
         });
+
+        services.AddHttpClient(string.Empty).AddStandardResilienceHandler();
+
+        services.AddScoped<INatureTypesRepository, NatureTypesRepository>();
 
         services.AddHttpClient<IDrupalRepository, DrupalRepository>()
             .AddStandardResilienceHandler(options =>
