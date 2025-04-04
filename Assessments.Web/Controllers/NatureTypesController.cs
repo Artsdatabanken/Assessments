@@ -19,7 +19,7 @@ namespace Assessments.Web.Controllers;
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
-    // TODO: gjøre klar og vis landingssiden til lansering (vises ikke i innsynsperioden)
+    // TODO: vis landingssiden før lansering av rødlista for naturtyper 2025
     //public IActionResult Home() => View();
 
     [Route("2025")]

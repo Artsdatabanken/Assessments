@@ -48,17 +48,6 @@ window.addEventListener('CookieInformationConsentGiven', function (event) {
     }
 }, false);
 
-/* 
- * Cookies for Google Analytics and their handling
- * Using session-storage to remember which user preference. 
- * These fall under criteria B for not needing warning as they are 1. session and B. remembers choice across page.
- * TODO: Follow best practices: https://www.cookieyes.com/google-analytics-cookie-banner/
- */
-
-var acceptedcookies = null;
-var readValue = sessionStorage['acceptedcookies'];
-var acceptedcookie = getCookie("acceptedcookie");
-
 // Duration for all persistent cookies should be the same.
 // Set to 365 days (12 months), based on GDPR cookie consent rules.
 var cookieDurationDays = 365;
@@ -66,7 +55,6 @@ var cookieDurationSeconds = cookieDurationDays * 24 * 60 * 60; // GA uses second
 var cookieDuration = new Date();
 cookieDuration.setTime(cookieDuration.getTime() + (cookieDurationSeconds * 1000));
 var cookieDurationString = cookieDuration.toUTCString(); // setCookie uses this one.
-
 
 // Make a new cookie
 function setCookie(cname, cvalue, cduration) {
