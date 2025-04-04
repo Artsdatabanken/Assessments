@@ -2,13 +2,13 @@
 
 public static class NatureTypesConstants
 {
-    // TODO: sett inn dato for publisering av rødlista for naturtyper 2025
+    // TODO: sett inn dato før lansering av rødlista for naturtyper 2025
 
     public const string Title = "Rødlista for naturtyper";
 
     public const string Title2025 = "Rødlista for naturtyper 2025";
     
-    public const string Citation = "Artsdatabanken (*sett inn dato her). Norsk rødliste for naturtyper 2025.";
+    public const string Citation = "Artsdatabanken. Norsk rødliste for naturtyper 2025.";
 
     // TODO: endre node id når tilgjengelig
     public const int PageMenuContentId = 258590; 

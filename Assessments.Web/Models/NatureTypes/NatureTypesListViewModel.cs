@@ -22,11 +22,11 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
     
     public PageHeaderViewModel PageHeaderViewModel => new()
     {
-        HeaderText = NatureTypesConstants.Title2025,
-        // TODO: ikke vis publisert dato under innsynet for rødlista for naturtyper 2025
-        HeaderByline = NatureTypesConstants.HeaderByline
+        // TODO: endre før lansering av rødlista for naturtyper 2025
+        HeaderText = "Innsyn i Norsk rødliste for naturtyper 2025", // NatureTypesConstants.Title2025 
+        HeaderByline = string.Empty //NatureTypesConstants.HeaderByline
     };
-    
+
     public IntroductionViewModel IntroductionViewModel => new(introduction: NatureTypesConstants.Introduction);
 
     public CitationForListViewModel CitationForListViewModel => new(citationString: NatureTypesConstants.Citation);

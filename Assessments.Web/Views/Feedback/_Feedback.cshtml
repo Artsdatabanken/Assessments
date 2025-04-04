@@ -66,9 +66,8 @@
 
 <div id="feedback" class="feedback_form_container">
     <h2>
-        Tilbakemelding
+        Tilbakemelding på vurderingen
     </h2>
-
     @if (validationCodeIsInvalid)
     {
         <p>Lenken for validering av e-post er ugyldig.</p>
@@ -120,7 +119,6 @@
         <p>
             Registrer navn og e-postadresse for å få tilsendt en gyldig lenke for å sende tilbakemelding.
         </p>
-
         <div class="page_section">
             <form id="js-feedback-form" asp-controller="Feedback" asp-action="ValidateEmail" asp-route-returnurl="@returnUrl" method="post" enctype="multipart/form-data" class="feedback_form" novalidate>
                 <div class="feedback_form_input_field">
