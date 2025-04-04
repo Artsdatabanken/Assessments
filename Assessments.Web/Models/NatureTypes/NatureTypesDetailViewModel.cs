@@ -1,15 +1,19 @@
 ﻿using Assessments.Data.Models;
 using Assessments.Shared.Constants;
+using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
+using RodlisteNaturtyper.Data.Models.Enums;
 
 namespace Assessments.Web.Models.NatureTypes;
 
 public record NatureTypesDetailViewModel(Assessment Assessment)
 {
-    public List<Region> Regions { get; set; } = [];
+    public List<Region> Regions { get; init; } = [];
+
+    public List<CodeItemViewModel> CodeItemViewModels { get; init; }
 
     public FeedbackViewModel FeedbackViewModel => new()
     {
@@ -81,7 +85,16 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
         }
     };
     
-    public CitationForAssessmentViewModel CitationForAssessmentViewModel { get; set; }
+    public CitationForAssessmentViewModel CitationForAssessmentViewModel { get; init; }
     
-    public List<CodeItemViewModel> CodeItemViewModels { get; set; }
+    public CategoryDescriptionViewModel CategoryDescriptionViewModel = new()
+    {
+        CategoryShort = Assessment.Category.ToString(),
+        CategoryBar = [.. Enum.GetValues<Category>().Except([Category.NA]).Select(x => new CategoryBarListElement
+        {
+            Name = x.GetDescription(),
+            NameShort = x.ToString()
+        }).Reverse()],
+        MethodUrl = "https://artsdatabanken.no/Pages/258616"
+    };
 }

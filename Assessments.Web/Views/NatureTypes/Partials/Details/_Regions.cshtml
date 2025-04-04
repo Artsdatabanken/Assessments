@@ -1,15 +1,10 @@
 ﻿@model NatureTypesDetailViewModel
 
-<p>
-    @Model.Assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
-</p>
-
-<table>
+<table class="big-data-table">
     <tr>
         <th>Region</th>
         <th>Forekomst</th>
     </tr>
-
     @foreach (var region in Model.Regions)
     {
         <tr>
