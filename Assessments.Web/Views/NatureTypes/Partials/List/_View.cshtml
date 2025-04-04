@@ -7,33 +7,29 @@
     }
     else
     {
-        <ul class="main_list_view" id="@AssessmentType.NatureTypes2025.ToString()">
-
-            <li class="listheader" id="listheader">
-                <span></span>
-                <span class="list_cell">Naturtype</span>
-                <span class="list_cell">Populærnavn</span>
-                <span class="list_cell">Kategori</span>
+        <ul class="main_list_view">
+            <li class="listheader" style="grid-template-columns: 2fr auto">
+                <span class="list_cell">
+                    Naturtype
+                </span>
+                <span class="list_cell">
+                    Kategori
+                </span>
             </li>
-
             @if (Model.Assessments.Count > 0)
             {
                 @foreach (var item in Model.Assessments)
                 {
                     <li class="list">
-                        <a asp-action="Detail" asp-route-id="@item.Id">
-                            <div class="element_icon list_cell"></div>
-                            <span class="element_species">
-                                <span class="list_cell">@item.Name</span>
-                                <span class="element_popular_name list_cell">@item.PopularName</span>
+                        <a asp-action="Detail" asp-route-id="@item.Id" style="grid-template-columns: 4fr auto auto">
+                            <span class="list_cell">
+                                @item.Name
                             </span>
                             <span class="list_cell categoryname capitalized">
                                 @item.Category.GetDescription()
                             </span>
-                            <span class="list_cell categorytag">
-                                <span class="@item.Category category_tag">
-                                    <span class="category_tag_label">@item.Category</span>
-                                </span>
+                            <span class="@item.Category category_tag">
+                                <span class="category_tag_label">@item.Category</span>
                             </span>
                         </a>
                     </li>

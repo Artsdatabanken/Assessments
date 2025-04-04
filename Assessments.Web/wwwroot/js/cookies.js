@@ -95,6 +95,6 @@ function getCookie(cname) {
 function themeCookie() {
     if (document.body) {
         let currenttheme = document.body.classList || " ";
-        setCookie("theme", currenttheme, cookieDurationString);
+        setCookie("adb.req.theme", currenttheme, cookieDurationString);
     }
 }

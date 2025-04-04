@@ -157,6 +157,10 @@ li.active  .category_item.NR {
     background: #5a5b5d;
 }
 
+.CO {
+    background: #5a5b5d;
+}
+
 .CR {
     background: #99191a;
 }
@@ -214,6 +218,7 @@ li.active  .category_item.NR {
 }
 
 .RE span,
+.CO span,
 .CR span,
 .EN span,
 .VU span,

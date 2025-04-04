@@ -62,7 +62,6 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         assessments = parameters.SortBy switch
         {
             SortByEnum.Category => assessments.OrderBy(x => x.Category),
-            SortByEnum.Committee => assessments.OrderBy(x => x.Committee.Name),
             _ => assessments.OrderBy(x => x.Name)
         };
 
