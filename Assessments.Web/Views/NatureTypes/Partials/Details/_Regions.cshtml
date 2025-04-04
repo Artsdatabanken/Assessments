@@ -12,7 +12,7 @@
                 @region.Name
             </td>
             <td>
-                @(Model.Assessment.Regions.Any(x => x.Id == region.Id) ? "X" : string.Empty)
+                @(Model.Assessment.Regions.Any(x => x.Id == region.Id) ? "x" : string.Empty)
             </td>
         </tr>
     }

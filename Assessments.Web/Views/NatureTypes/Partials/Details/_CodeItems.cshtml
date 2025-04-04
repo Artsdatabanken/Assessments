@@ -1,0 +1,43 @@
+﻿@model List<CodeItemViewModel>
+
+<table class="big-data-table">
+    <caption class="table-title">
+        Mer om karakterisering av påvirkningsfaktorer (** lenke til metodeartikkel)
+    </caption>
+    <thead>
+    <tr>
+        <th>
+            Påvirkningsfaktor
+        </th>
+        <th>
+            Tidspunkt
+        </th>
+        <th>
+            Omfang
+        </th>
+        <th>
+            Alvorlighetsgrad
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var codeItem in Model)
+    {
+        <tr>
+            <td>
+                @codeItem.CodeItemDescription
+            </td>
+            <td>
+                @codeItem.TimeOfIncident
+            </td>
+            <td>
+                @codeItem.InfluenceFactor
+            </td>
+            <td>
+                @codeItem.Magnitude
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+

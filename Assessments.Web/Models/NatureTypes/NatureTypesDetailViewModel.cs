@@ -37,7 +37,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
                 {
                     ElementId = nameof(NatureTypesConstants.Headings.Description),
                     Title = NatureTypesConstants.Headings.Description,
-                    ShouldShow = true
+                    ShouldShow = !string.IsNullOrEmpty(Assessment.DescriptionHtml)
                 },
                 new TableOfContentsViewModel.Content
                 {

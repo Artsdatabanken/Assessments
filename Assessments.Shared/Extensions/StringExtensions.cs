@@ -43,11 +43,11 @@ public static class StringExtensions
         return sb.ToString();
     }
 
-    public static string RemoveUnusedTags(this string source) => GeneratedRegularExpressions.UnusedTags().Replace(source, string.Empty);
+    public static string RemoveEmptyTags(this string source) => GeneratedRegularExpressions.EmptyTags().Replace(source, string.Empty);
 }
 
 internal static partial class GeneratedRegularExpressions
 {
     [GeneratedRegex("""<(\w+)\b(?:\s+[\w\-.:]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[\w\-.:]+))?)*\s*/?>\s*</\1\s*>""", RegexOptions.Multiline)]
-    public static partial Regex UnusedTags();
+    public static partial Regex EmptyTags();
 }

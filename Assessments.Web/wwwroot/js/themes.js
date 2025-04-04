@@ -49,8 +49,8 @@ function highContrastMode(thisbutton,className) {
     }
 }
 
-if (cookiesave && getCookie('theme') != null) {  
-    let activethemes = getCookie('theme');
+if (cookiesave && getCookie('adb.req.theme') != null) {  
+    let activethemes = getCookie('adb.req.theme');
     document.body.classList = activethemes;
     if (activethemes.includes("darktheme")) {
         let darkmodebutton = document.getElementById("darkmodebutton");
