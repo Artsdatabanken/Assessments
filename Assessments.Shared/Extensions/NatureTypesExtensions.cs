@@ -10,6 +10,8 @@ public static class NatureTypesExtensions
 {
     public static string GetDescription(this Category category) => category.ConvertTo<NatureTypeCategoryDto>().DisplayName();
 
+    public static string GetDescription(this AssessmentRegion region) => region.ConvertTo<AssessmentRegionDto>().DisplayName();
+
     public static string GetCitation(this List<CommitteeUserDto> committeeUsers, string committeeName)
     {
         var users = committeeUsers.OrderByDescending(x => x.Level).ThenBy(x => x.UserLastName)

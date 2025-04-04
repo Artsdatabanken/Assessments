@@ -1,9 +1,9 @@
 ﻿using Assessments.Shared.DTOs.NatureTypes.Enums;
+using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Web.Models.NatureTypes;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
-using System.Collections.Generic;
 using static Assessments.Web.Infrastructure.FilterHelpers;
 
 namespace Assessments.Web.Infrastructure.NatureTypes;
@@ -17,7 +17,7 @@ public static class NatureTypesFilterHelpers
         Filters = [.. Enum.GetValues<AssessmentRegion>()
             .Select(x => new FilterItem
             {
-                Name = x.ToString(),
+                Name = x.GetDescription(),
                 NameShort = x.ToString()
             })]
     };
