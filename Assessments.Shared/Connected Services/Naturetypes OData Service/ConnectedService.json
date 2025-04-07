@@ -12,7 +12,7 @@
     "ExcludedBoundOperations": [],
     "OmitVersioningInfo": false,
     "ServiceName": "Naturetypes OData Service",
-    "Endpoint": "https://localhost:7087/odata/$metadata",
+    "Endpoint": "https://rln.test.artsdatabanken.no/odata/$metadata",
     "EdmxVersion": {
       "Major": 4,
       "Minor": 0,
