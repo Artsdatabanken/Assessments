@@ -16,7 +16,7 @@ if (filters) {
     let endangered = ["CR", "EN", "VU"];
 
     // NatureType categories
-    if (filters.dataset.type === "naturetypes") {
+    if (filters.getAttribute("data-type") === "naturetypes") {
         redlisted = ["CO", "CR", "EN", "VU", "NT", "DD"];
     }
 
