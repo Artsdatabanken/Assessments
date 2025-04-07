@@ -27,7 +27,11 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
         HeaderByline = string.Empty //NatureTypesConstants.HeaderByline
     };
 
-    public IntroductionViewModel IntroductionViewModel => new(introduction: NatureTypesConstants.Introduction);
+    public IntroductionViewModel IntroductionViewModel => new(introduction:
+        // TODO: endre før lansering av rødlista for naturtyper 2025
+        //NatureTypesConstants.Introduction
+        "Artsdatabanken ønsker informasjon som kan utfylle kunnskapsgrunnlaget for vurdering av naturtypene. Foreløpige resultater er åpne for innsyn fra 5. mai til 16. juni 2025. Send inn innspill ved å gå inn på en naturtype og gi tilbakemelding i skjemaet nederst på siden."
+    );
 
     public CitationForListViewModel CitationForListViewModel => new(citationString: NatureTypesConstants.Citation);
 
