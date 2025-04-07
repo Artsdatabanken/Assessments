@@ -11,9 +11,14 @@ if (filters) {
     const init = document.getElementById("initial_check");
     const scrollTo = document.getElementById("remember_scroll");
 
-    // Constants
-    const redlisted = ["RE", "CR", "EN", "VU", "NT", "DD"];
-    const endangered = ["CR", "EN", "VU"];
+    // Grouped categories
+    let redlisted = ["RE", "CR", "EN", "VU", "NT", "DD"];
+    let endangered = ["CR", "EN", "VU"];
+
+    // NatureType categories
+    if (filters.dataset.type === "naturetypes") {
+        redlisted = ["CO", "CR", "EN", "VU", "NT", "DD"];
+    }
 
     // Ids for filters that should be open by default
     const handleFirstTimeIds = [
