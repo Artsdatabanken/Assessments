@@ -45,6 +45,7 @@ public class NatureTypesRepository : INatureTypesRepository
     {
         return _container.Assessments
             .Expand(x => x.Committee)
+            .Expand(x => x.AreaInformation)
             .Expand(x => x.Regions)
             .Expand(x => x.References)
             .FirstOrDefault(c => c.Id == id);

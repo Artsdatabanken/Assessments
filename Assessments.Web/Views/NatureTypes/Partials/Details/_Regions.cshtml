@@ -1,10 +1,12 @@
 ﻿@model NatureTypesDetailViewModel
 
 <table class="big-data-table">
-    <tr>
-        <th>Region</th>
-        <th>Forekomst</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Region</th>
+            <th>Forekomst</th>
+        </tr>
+    </thead>
     @foreach (var region in Model.Regions)
     {
         <tr>
