@@ -1,8 +1,9 @@
 ﻿using Assessments.Transformation.DynamicProperties;
 using Databank.Domain.Taxonomy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace Assessments.Transformation.Tests
+namespace Assessments.Tests.Transformation
 {
     [TestClass]
     public class DynamicPropertyObjectComparerTests
