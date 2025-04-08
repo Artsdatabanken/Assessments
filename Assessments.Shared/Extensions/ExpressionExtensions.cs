@@ -4,7 +4,7 @@ namespace Assessments.Shared.Extensions;
 
 public static class ExpressionExtensions
 {
-    public static Expression<Func<T, bool>> CombineOrElse<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
+    public static Expression<Func<T, bool>> Combine<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right, CombineExpressionType expressionType = CombineExpressionType.OrElse)
     {
         switch (left)
         {
@@ -14,11 +14,17 @@ public static class ExpressionExtensions
                 return right;
         }
 
-        if (right == null) 
+        if (right == null)
             return left;
 
         var parameter = Expression.Parameter(typeof(T), "p");
-        var combined = new ParameterReplacer(parameter).Visit(Expression.OrElse(left.Body, right.Body));
+        
+        var binaryExpression = Expression.OrElse(left.Body, right.Body);
+        
+        if (expressionType == CombineExpressionType.AndAlso)
+            binaryExpression = Expression.AndAlso(left.Body, right.Body);
+
+        var combined = new ParameterReplacer(parameter).Visit(binaryExpression);
 
         return Expression.Lambda<Func<T, bool>>(combined, parameter);
     }
@@ -30,5 +36,11 @@ public static class ExpressionExtensions
         internal ParameterReplacer(ParameterExpression parameter) => _parameter = parameter;
 
         protected override Expression VisitParameter(ParameterExpression node) => _parameter;
+    }
+
+    public enum CombineExpressionType
+    {
+        OrElse,
+        AndAlso
     }
 }

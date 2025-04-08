@@ -117,7 +117,7 @@
                 <span>
                     @($"Viser treff for \"{Model.Name.Trim()}\"")
                 </span>
-                <a href="@Context.Request.QueryString.RemoveParameters([nameof(NatureTypesListViewModel.Name), nameof(Model.Name)])" class="button tinybutton tertiary search_related">
+                <a href="@Context.Request.QueryString.RemoveParameters([nameof(NatureTypesListViewModel.Name), nameof(Model.Name), "Page"])" class="button tinybutton tertiary search_related">
                     <span class="material-icons">close</span>Fjern søk
                 </a>
             </span>
