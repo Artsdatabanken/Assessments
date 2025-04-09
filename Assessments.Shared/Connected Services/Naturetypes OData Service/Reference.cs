@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 07.04.2025 13:41:36
+// Generation date: 09.04.2025 11:28:21
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -5154,10 +5154,10 @@ namespace RodlisteNaturtyper.Data.Models
 namespace RodlisteNaturtyper.Core.Models
 {
     /// <summary>
-    /// There are no comments for CodeItemViewModel in the schema.
+    /// There are no comments for CodeItemModel in the schema.
     /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModel")]
-    public partial class CodeItemViewModel
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemModel")]
+    public partial class CodeItemModel
     {
         /// <summary>
         /// There are no comments for Property CodeItemDescription in the schema.
@@ -5701,17 +5701,17 @@ namespace Default
     public static class ExtensionMethods
     {
         /// <summary>
-        /// There are no comments for CodeItemViewModels in the schema.
+        /// There are no comments for CodeItemModels in the schema.
         /// </summary>
-        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModels")]
-        public static global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel> CodeItemViewModels(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::RodlisteNaturtyper.Data.Models.Assessment> _source)
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemModels")]
+        public static global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Core.Models.CodeItemModel> CodeItemModels(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::RodlisteNaturtyper.Data.Models.Assessment> _source)
         {
             if (!_source.IsComposable)
             {
                 throw new global::System.NotSupportedException("The previous function is not composable.");
             }
 
-            return _source.CreateFunctionQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel>("Default.CodeItemViewModels", false);
+            return _source.CreateFunctionQuery<global::RodlisteNaturtyper.Core.Models.CodeItemModel>("Default.CodeItemModels", false);
         }
     }
 }
