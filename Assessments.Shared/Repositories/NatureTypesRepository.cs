@@ -51,11 +51,11 @@ public class NatureTypesRepository : INatureTypesRepository
             .FirstOrDefault(c => c.Id == id);
     }
 
-    public List<CodeItemViewModel> GetAssessmentCodeItemViewModels(int id)
+    public List<CodeItemModel> GetAssessmentCodeItemModels(int id)
     {
         DataServiceQuerySingle<Assessment> assessment = _container.Assessments.ByKey(id);
         
-        return [.. assessment.CodeItemViewModels()];
+        return [.. assessment.CodeItemModels()];
     }
 
     public List<Committee> GetCommittees()
