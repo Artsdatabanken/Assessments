@@ -13,7 +13,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
 {
     public List<Region> Regions { get; init; } = [];
 
-    public List<CodeItemViewModel> CodeItemViewModels { get; init; }
+    public List<CodeItemModel> CodeItemModels { get; init; }
 
     public FeedbackViewModel FeedbackViewModel => new()
     {
@@ -49,7 +49,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
                 {
                     ElementId = nameof(NatureTypesConstants.Headings.CodeItems),
                     Title = NatureTypesConstants.Headings.CodeItems,
-                    ShouldShow = Assessment.CodeItems.Count != 0
+                    ShouldShow = CodeItemModels.Count != 0
                 },
                 new TableOfContentsViewModel.Content
                 {

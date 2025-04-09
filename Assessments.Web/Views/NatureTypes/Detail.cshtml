@@ -7,7 +7,7 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/assessment.css" />
+<link rel="stylesheet" href="~/css/assessment.css" />
 }
 
 @section Breadcrumb {
@@ -53,14 +53,19 @@
                 <br />
                 Endelig kriterium: ***
             </div>
-            <div is-visible="!string.IsNullOrEmpty(assessment.DescriptionHtml)" class="page_section">
+            <div class="page_section">
                 <div id="@nameof(NatureTypesConstants.Headings.Description)">
                     <h2>
                         @NatureTypesConstants.Headings.Description
                     </h2>
-                    <div>
-                        @Html.Raw(assessment.DescriptionHtml.RemoveEmptyTags())
-                    </div>
+                    @{
+                        var description = assessment.DescriptionHtml.RemoveEmptyTags();
+                        if (string.IsNullOrEmpty(description))
+                        {
+                            description = "Tekst mangler";
+                        }
+                    }
+                    @Html.Raw(description)
                 </div>
             </div>
             <div class="page_section">
@@ -70,19 +75,24 @@
                             @NatureTypesConstants.Headings.Summary
                         </h2>
                     </div>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere
-                    </p>
+                    @{
+                        var documentation = assessment.CriteriaDocumentationHtml.RemoveEmptyTags();
+                        if (string.IsNullOrEmpty(documentation))
+                        {
+                            documentation = "Tekst mangler";
+                        }
+                    }
+                    @Html.Raw(documentation)
                 </div>
             </div>
-            <div class="page_section" is-visible="Model.CodeItemViewModels.Count != 0">
+            <div class="page_section" is-visible="Model.CodeItemModels.Count != 0">
                 <div id="@nameof(NatureTypesConstants.Headings.CodeItems)">
                     <div class="page_section_header">
                         <h2>
                             @NatureTypesConstants.Headings.CodeItems
                         </h2>
                     </div>
-                    <partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemViewModels" />
+                    <partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemModels" />
                 </div>
                 @Html.Raw(@assessment.ImpactsCommentHtml)
             </div>
