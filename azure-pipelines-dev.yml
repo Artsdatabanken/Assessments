@@ -25,8 +25,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        New-Item $(Build.SourcesDirectory)/BuildNumber.txt -Force
-        Set-Content $(Build.SourcesDirectory)/BuildNumber.txt '$(Build.BuildNumber)'
+        New-Item $(Build.SourcesDirectory)/Assessments.Web/BuildNumber.txt -Force
+        Set-Content $(Build.SourcesDirectory)/Assessments.Web/BuildNumber.txt '$(Build.BuildNumber)'
 
   - task: DotNetCoreCLI@2
     displayName: 'Build'
