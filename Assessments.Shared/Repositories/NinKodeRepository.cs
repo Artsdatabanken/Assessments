@@ -40,7 +40,7 @@ public class NinKodeRepository : INinKodeRepository
                 responseStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
 
-                var responseDto = await response.Content.ReadFromJsonAsync<CodeRootResponseDto>(cancellationToken: cancellationToken);
+                var responseDto = await response.Content.ReadFromJsonAsync<NinKodeResponseDto>(cancellationToken: cancellationToken);
                 
                 return responseDto?.Variabler;
             });
@@ -53,6 +53,4 @@ public class NinKodeRepository : INinKodeRepository
             return null;
         }
     }
-
-    public async Task<HttpResponseMessage> Ping(CancellationToken cancellationToken = default) => await _client.GetAsync(_client.BaseAddress!.GetLeftPart(UriPartial.Authority), cancellationToken);
 }

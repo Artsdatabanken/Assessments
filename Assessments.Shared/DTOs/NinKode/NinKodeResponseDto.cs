@@ -1,6 +1,6 @@
 ﻿namespace Assessments.Shared.DTOs.NinKode;
 
-public record CodeRootResponseDto
+public record NinKodeResponseDto
 {
     public List<VariablerResponseDto> Variabler { get; init; } = [];
 }
