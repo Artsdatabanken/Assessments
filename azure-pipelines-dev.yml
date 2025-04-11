@@ -29,6 +29,7 @@ steps:
       configuration: $(buildConfiguration)
       
   - task: PowerShell@2
+    displayName: 'AddBuildNumber'
     inputs:
       targetType: 'inline'
       script: |
