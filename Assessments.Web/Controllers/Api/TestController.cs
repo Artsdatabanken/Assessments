@@ -19,7 +19,7 @@ public class TestController(IWebHostEnvironment environment, IOptions<Applicatio
 
         buildNumber = await cache.GetOrAddAsync($"{nameof(TestController)}-{nameof(buildNumber)}", async () =>
         {
-            var buildNumberPath = Path.Combine(environment.ContentRootPath, "BuildNumber.txt");
+            var buildNumberPath = Path.Combine(environment.WebRootPath, "BuildNumber.txt");
 
             if (!System.IO.File.Exists(buildNumberPath))
                 return buildNumber;
