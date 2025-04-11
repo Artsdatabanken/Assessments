@@ -20,7 +20,14 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '9.x'
-    
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        New-Item $(Build.SourcesDirectory)/BuildNumber.txt -Force
+        Set-Content $(Build.SourcesDirectory)/BuildNumber.txt '$(Build.BuildNumber)'
+
   - task: DotNetCoreCLI@2
     displayName: 'Build'
     inputs:
