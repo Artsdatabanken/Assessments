@@ -19,4 +19,7 @@ public class ApplicationOptions // configured in appsettings.*.json
     [Required]
     [ValidateObjectMembers]
     public NatureTypesOptions NatureTypes { get; set; }
+
+    [Required]
+    public Uri NinKodeApiUrl { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NinKode;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
@@ -18,7 +19,7 @@ namespace Assessments.Web.Controllers;
 
 [FeatureGate(FeatureManagementConstants.PublicAccessPeriodNatureTypes)]
 [Route("naturtyper")]
-public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
+public class NatureTypesController(INatureTypesRepository repository, INinKodeRepository ninKodeRepository) : BaseController<NatureTypesController>
 {
     // TODO: vis landingssiden før lansering av rødlista for naturtyper 2025
     //public IActionResult Home() => View();
@@ -67,7 +68,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
     }
 
     [Route("2025/{id:int}")]
-    public IActionResult Detail(int id)
+    public async Task<IActionResult> Detail(int id)
     {
         var assessment = repository.GetAssessment(id);
 
@@ -77,7 +78,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
 
         var codeItemModels = repository.GetAssessmentCodeItemModels(assessment.Id);
-
+        
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
             Regions = repository.GetRegions(),
@@ -91,10 +92,56 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
                 YearPreviousAssessment = 2018,
                 ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name),
                 HasBackToTopLink = true
-            }
+            },
+            VariableNames = await GetVariableNames(assessment.AppliedVariables)
         };
 
         return View(viewModel);
+    }
+
+    private async Task<List<VariableNameViewModel>> GetVariableNames(string appliedVariables)
+    {
+        var variableNames = new List<VariableNameViewModel>();
+
+        if (string.IsNullOrEmpty(appliedVariables))
+            return variableNames;
+
+        var variables = await ninKodeRepository.VariablerAlleKoder();
+        var appliedVariablesList = appliedVariables.Split(";");
+
+        foreach (var appliedVariable in appliedVariablesList)
+        {
+            var variable = appliedVariable.Split("_").First();
+
+            var variablerResponseDtos = variables.SelectMany(x => x.Variabelnavn).FirstOrDefault(y => y.Kode.Id == variable);
+
+            if (variablerResponseDtos == null)
+                continue;
+
+            var variableName = new VariableNameViewModel
+            {
+                Name = variablerResponseDtos.Navn,
+                ShortCode = variablerResponseDtos.Kode.Id,
+                LongCode = variablerResponseDtos.Kode.Langkode
+            };
+
+            var variableStep = appliedVariable.Split("_").Last();
+            var variableSteps = variableStep.Split("&");
+
+            foreach (var step in variableSteps)
+            {
+                var trinnResponseDto = variablerResponseDtos.Variabeltrinn.SelectMany(x => x.Trinn).FirstOrDefault(x => x.Verdi == step);
+
+                if (trinnResponseDto != null)
+                {
+                    variableName.Steps.Add(new VariableNameStepViewModel { Description = trinnResponseDto.Beskrivelse});
+                }
+            }
+		
+            variableNames.Add(variableName);
+        }
+
+        return variableNames;
     }
 
     private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions)

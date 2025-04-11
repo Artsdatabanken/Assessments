@@ -1163,3 +1163,7 @@ tr.water-area-hide,
 .horizon-scanned-lists li {
     padding-left: 10px;
 }
+
+.side ul {
+    list-style-type: none;
+}

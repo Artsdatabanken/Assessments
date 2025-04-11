@@ -152,12 +152,36 @@
     </div>
     <div class="side mobile_padding">
         <div class="sidebar_image_info">
-            <p>
-                NiN-kode: <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode" target="_blank">@assessment.ShortCode</a>
-            </p>
-            <p is-visible="!string.IsNullOrEmpty(assessment.AppliedVariables)">
-                Anvendt variabel: @assessment.AppliedVariables
-            </p>
+            NiN-kode:<br/>
+            <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
+                @assessment.ShortCode
+            </a>
+            @* // TODO: gjør om til komponent *@
+            <div is-visible="Model.VariableNames.Any()">
+                <hr/>
+                <h3>
+                    Anvendte variabler:
+                </h3>
+                <ul>
+                    @foreach (var variableName in Model.VariableNames)
+                    {
+                        <li>
+                            <a href="https://naturinorge.artsdatabanken.no/Variabler/@variableName.LongCode">
+                                @variableName.Name @variableName.ShortCode
+                            </a>
+
+                            <ul is-visible="variableName.Steps.Any()">
+                                @foreach (var step in variableName.Steps)
+                                {
+                                    <li>
+                                        @step.Description
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
 </div>
