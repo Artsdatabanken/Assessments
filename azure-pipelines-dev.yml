@@ -32,8 +32,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        New-Item $(Build.SourcesDirectory)/Assessments.Web/wwwroot/BuildNumber.txt -Force
-        Set-Content $(Build.SourcesDirectory)/Assessments.Web/wwwroot/BuildNumber.txt '$(Build.BuildNumber)'
+        New-Item $(Build.SourcesDirectory)/Assessments.Web/BuildNumber.txt -Force
+        Set-Content $(Build.SourcesDirectory)/Assessments.Web/BuildNumber.txt '$(Build.BuildNumber)'
 
   - task: DotNetCoreCLI@2
     displayName: 'Publish and zip'
