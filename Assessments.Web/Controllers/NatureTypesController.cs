@@ -77,7 +77,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
 
         var codeItemModels = repository.GetAssessmentCodeItemModels(assessment.Id);
-
+        
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
             Regions = repository.GetRegions(),
@@ -96,7 +96,6 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         return View(viewModel);
     }
-
     private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))

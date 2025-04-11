@@ -41,5 +41,7 @@ public static class SharedModule
                     .HandleResult(response => response.StatusCode == HttpStatusCode.BadGateway)
                     .HandleResult(response => response.StatusCode == HttpStatusCode.GatewayTimeout);
             });
+
+        services.AddHttpClient<INinKodeRepository, NinKodeRepository>().AddStandardResilienceHandler();
     }
 }

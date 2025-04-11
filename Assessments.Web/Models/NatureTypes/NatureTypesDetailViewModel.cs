@@ -86,7 +86,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
     };
     
     public CitationForAssessmentViewModel CitationForAssessmentViewModel { get; init; }
-    
+
     public CategoryDescriptionViewModel CategoryDescriptionViewModel = new()
     {
         CategoryShort = Assessment.Category.ToString(),
