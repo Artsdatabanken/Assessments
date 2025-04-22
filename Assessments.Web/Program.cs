@@ -20,6 +20,7 @@ using NLog.Web;
 using RobotsTxt;
 using SendGrid.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +113,8 @@ builder.Services.AddCors(options => { options.AddPolicy(name: CorsConstants.Allo
 {
     policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }); });
+
+builder.Services.AddFeatureManagement();
 
 var app = builder.Build();
 

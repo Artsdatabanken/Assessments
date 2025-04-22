@@ -15,12 +15,26 @@ variables:
   solutionPath: '**/Assessments.Web.csproj'
 
 steps:
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '9.x'
+
   - task: DotNetCoreCLI@2
     displayName: 'Build'
     inputs:
       command: 'build'
       projects: $(solutionPath)
       configuration: $(buildConfiguration)
+      
+  - task: PowerShell@2
+    displayName: 'AddBuildNumber'
+    inputs:
+      targetType: 'inline'
+      script: |
+        New-Item $(Build.SourcesDirectory)/Assessments.Web/wwwroot/BuildNumber.txt -Force
+        Set-Content $(Build.SourcesDirectory)/Assessments.Web/wwwroot/BuildNumber.txt '$(Build.BuildNumber)'
 
   - task: DotNetCoreCLI@2
     displayName: 'Publish and zip'

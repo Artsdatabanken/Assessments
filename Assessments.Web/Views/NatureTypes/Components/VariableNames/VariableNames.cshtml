@@ -1,0 +1,28 @@
+﻿@using Assessments.Web.Views.NatureTypes.Components.VariableNames
+@model VariableNamesModel
+
+<div is-visible="Model.VariableNames.Any()">
+    <hr />
+    <h3>
+        Anvendte variabler:
+    </h3>
+    <ul>
+        @foreach (var variableName in Model.VariableNames)
+        {
+            <li>
+                <a href="https://naturinorge.artsdatabanken.no/Variabler/@variableName.LongCode">
+                    @variableName.Name @variableName.ShortCode
+                </a>
+
+                <ul is-visible="variableName.Steps.Any()">
+                    @foreach (var step in variableName.Steps)
+                    {
+                        <li>
+                            @step.Description
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

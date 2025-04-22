@@ -26,16 +26,12 @@ public enum NatureTypeCategoryDto
     [Display(Name = "uten risiko")]
     LC = 6,
 
-    // NOTE: vurderinger med NA skal ikke vises
-    //[Display(Name = "ikke egnet")]
-    //NA = 7,
-
     [Display(Name = "ikke vurdert")]
     NE = 8,
 
-    [Display(Name = "Merk alle *sett inn tekst")] // TODO: sett inn tekster for gruppering
+    [Display(Name = "Merk alle rødlistede naturtyper")]
     RED = 9,
 
-    [Display(Name = "Marker alle *sett inn tekst")]
+    [Display(Name = "Merk alle truede naturtyper")]
     END = 10
 }

@@ -11,7 +11,7 @@ public interface INatureTypesRepository
 
     Assessment GetAssessment(int id);
 
-    List<CodeItemViewModel> GetAssessmentCodeItemViewModels(int id);
+    List<CodeItemModel> GetAssessmentCodeItemModels(int id);
 
     List<Committee> GetCommittees();
 

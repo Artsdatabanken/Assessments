@@ -108,7 +108,6 @@
                 RenderChip(buttonText, filter);
         }
     }
-
 }
 
 <div class="empty_filters">
@@ -118,7 +117,7 @@
                 <span>
                     @($"Viser treff for \"{Model.Name.Trim()}\"")
                 </span>
-                <a href="@Context.Request.QueryString.RemoveParameters([nameof(NatureTypesListViewModel.Name), nameof(Model.Name)])" class="button tinybutton tertiary search_related">
+                <a href="@Context.Request.QueryString.RemoveParameters([nameof(NatureTypesListViewModel.Name), nameof(Model.Name), "Page"])" class="button tinybutton tertiary search_related">
                     <span class="material-icons">close</span>Fjern søk
                 </a>
             </span>
@@ -171,7 +170,7 @@
         @{
             InputTag("remember_scroll", "meta_checkbox", "Meta", Model.Meta, "0");
         }
-        <div id="filters" class="filteX no_js hide_on_smallscreen">
+        <div id="filters" data-type="naturetypes" class="filteX no_js hide_on_smallscreen">
             <div id="filter_modal_background">
                 <div id="filters_scrollable" class="filter_background">
                     <div class="filter_groups">

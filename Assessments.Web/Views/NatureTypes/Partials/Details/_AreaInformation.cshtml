@@ -1,0 +1,49 @@
+﻿@model AssessmentAreaInformation
+
+<table class="big-data-table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Kjent areal km²	</th>
+        <th>Mørketall</th>
+        <th>Beregnet areal km² (kjent * mørketall)</th>
+    </tr>
+    </thead>
+    <tr>
+        <th>Totalareal</th>
+        <th>
+            @Model.TotalArea?.ToString("0.##")
+        </th>
+        <th>
+            @Model.TotalAreaMultiplier?.ToString("0.##")
+        </th>
+        <th>
+            @Model.TotalAreaCalculated?.ToString("0.##")
+        </th>
+    </tr>
+    <tr>
+        <th>Utbredelsesareal</th>
+        <th>
+            @Model.ExtentArea?.ToString("0.##")
+        </th>
+        <th>
+            @Model.ExtentAreaMultiplier?.ToString("0.##")
+        </th>
+        <th>
+            @Model.ExtentAreaCalculated?.ToString("0.##")
+        </th>
+    </tr>
+    <tr>
+        <th>Antall forekomster</th>
+        <th>
+            @Model.LocalityArea?.ToString("0.##")
+        </th>
+        <th>
+            @Model.LocalityAreaMultiplier?.ToString("0.##")
+        </th>
+        <th>
+            @Model.LocalityAreaCalculated?.ToString("0.##")
+        </th>
+    </tr>
+</table>
+@Html.Raw(Model.CommentHtml)

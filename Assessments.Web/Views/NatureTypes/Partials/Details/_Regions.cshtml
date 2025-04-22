@@ -1,19 +1,12 @@
 ﻿@model NatureTypesDetailViewModel
 
-<h3>
-    Regioner
-</h3>
-
-<p>
-    @Model.Assessment.Regions.OrderBy(x => x.SortOrder).Select(x => x.Name).JoinAnd(", ", " og ")
-</p>
-
-<table>
-    <tr>
-        <th>Region</th>
-        <th>Forekomst</th>
-    </tr>
-
+<table class="big-data-table">
+    <thead>
+        <tr>
+            <th>Region</th>
+            <th>Forekomst</th>
+        </tr>
+    </thead>
     @foreach (var region in Model.Regions)
     {
         <tr>
@@ -21,7 +14,7 @@
                 @region.Name
             </td>
             <td>
-                @(Model.Assessment.Regions.Any(x => x.Id == region.Id) ? "X" : string.Empty)
+                @(Model.Assessment.Regions.Any(x => x.Id == region.Id) ? "x" : string.Empty)
             </td>
         </tr>
     }

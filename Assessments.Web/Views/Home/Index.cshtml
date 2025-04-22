@@ -10,21 +10,18 @@
                 <h1>
                     Lister
                 </h1>
-
                 <p class="ingress">
                     Rødlistene viser hvilke naturtyper og arter som har risiko for å gå tapt fra Norge.
                     Fremmedartslista viser hvilken økologisk risiko fremmede arter kan utgjøre for naturmangfoldet i Norge.
                     Listene er utarbeidet av Artsdatabanken i samarbeid med fageksperter.
                 </p>
             </div>
-
             <div class="mobile_padding">
-
-                <h2> Gjeldende rødliste</h2>
-
+                <h2>
+                    Gjeldende rødliste
+                </h2>
                 <p class="page_section">
                     Gjeldende rødliste ble lansert 24. november, og vil være den gjeldende rødlista frem til neste revisjon i 2027.
-
                 </p>
                 <p>
                     <a asp-controller="Species" asp-action="Index" asp-route-Area="N" class="button primary">
@@ -32,12 +29,11 @@
                         <span class="material-icons">keyboard_arrow_right</span>
                     </a>
                 </p>
-
-                <h2> Alle listene </h2>
+                <h2>
+                    Alle listene
+                </h2>
                 <p class="page_section">
-
                     <ul class="front_page_links">
-                        
                         <li>
                             <a asp-controller="Species" asp-action="RodlisteForArter" class="redlistlink">
                                 <img src="https://design.artsdatabanken.no/list-icons/RL-ART.png">
@@ -45,7 +41,6 @@
                                 <span class="material-icons bigarrow">keyboard_arrow_right</span>
                             </a>
                         </li>
-
                         <li>
                             <a href="https://artsdatabanken.no/rodlistefornaturtyper" class="redlistlink">
                                 <img src="https://design.artsdatabanken.no/list-icons/RL-NA.png">
@@ -53,7 +48,6 @@
                                 <span class="material-icons bigarrow">keyboard_arrow_right</span>
                             </a>
                         </li>
-
                         <li>
                             <a asp-controller="AlienSpecies" asp-action="Home" asp-route-TaxonRank="AssessedAtSameRank" class="fremmedartlink">
                                 <img src="https://design.artsdatabanken.no/list-icons/FA.png">

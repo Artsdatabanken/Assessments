@@ -111,10 +111,13 @@
         <Property Name="commentHtml" Type="Edm.String" />
         <Property Name="totalArea" Type="Edm.Decimal" Scale="variable" />
         <Property Name="totalAreaMultiplier" Type="Edm.Decimal" Scale="variable" />
+        <Property Name="totalAreaCalculated" Type="Edm.Decimal" Scale="variable" />
         <Property Name="extentArea" Type="Edm.Decimal" Scale="variable" />
         <Property Name="extentAreaMultiplier" Type="Edm.Decimal" Scale="variable" />
+        <Property Name="extentAreaCalculated" Type="Edm.Decimal" Scale="variable" />
         <Property Name="localityArea" Type="Edm.Decimal" Scale="variable" />
         <Property Name="localityAreaMultiplier" Type="Edm.Decimal" Scale="variable" />
+        <Property Name="localityAreaCalculated" Type="Edm.Decimal" Scale="variable" />
         <NavigationProperty Name="assessment" Type="RodlisteNaturtyper.Data.Models.Assessment">
           <ReferentialConstraint Property="assessmentId" ReferencedProperty="id" />
         </NavigationProperty>
@@ -237,7 +240,7 @@
       </EntityType>
     </Schema>
     <Schema Namespace="RodlisteNaturtyper.Core.Models" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-      <ComplexType Name="CodeItemViewModel">
+      <ComplexType Name="CodeItemModel">
         <Property Name="codeItemDescription" Type="Edm.String" />
         <Property Name="timeOfIncident" Type="Edm.String" />
         <Property Name="influenceFactor" Type="Edm.String" />
@@ -304,9 +307,9 @@
       </EnumType>
     </Schema>
     <Schema Namespace="Default" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-      <Function Name="CodeItemViewModels" IsBound="true">
+      <Function Name="CodeItemModels" IsBound="true">
         <Parameter Name="bindingParameter" Type="RodlisteNaturtyper.Data.Models.Assessment" />
-        <ReturnType Type="Collection(RodlisteNaturtyper.Core.Models.CodeItemViewModel)" />
+        <ReturnType Type="Collection(RodlisteNaturtyper.Core.Models.CodeItemModel)" />
       </Function>
       <EntityContainer Name="RodlisteNaturtyperContainer">
         <EntitySet Name="Assessments" EntityType="RodlisteNaturtyper.Data.Models.Assessment">

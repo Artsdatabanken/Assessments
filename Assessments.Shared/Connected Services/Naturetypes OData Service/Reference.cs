@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 24.03.2025 13:19:35
+// Generation date: 09.04.2025 11:28:21
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -2447,6 +2447,28 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnTotalAreaMultiplierChanging(global::System.Nullable<decimal> value);
         partial void OnTotalAreaMultiplierChanged();
         /// <summary>
+        /// There are no comments for Property TotalAreaCalculated in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("totalAreaCalculated")]
+        public virtual global::System.Nullable<decimal> TotalAreaCalculated
+        {
+            get
+            {
+                return this._TotalAreaCalculated;
+            }
+            set
+            {
+                this.OnTotalAreaCalculatedChanging(value);
+                this._TotalAreaCalculated = value;
+                this.OnTotalAreaCalculatedChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Nullable<decimal> _TotalAreaCalculated;
+        partial void OnTotalAreaCalculatedChanging(global::System.Nullable<decimal> value);
+        partial void OnTotalAreaCalculatedChanged();
+        /// <summary>
         /// There are no comments for Property ExtentArea in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
@@ -2491,6 +2513,28 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnExtentAreaMultiplierChanging(global::System.Nullable<decimal> value);
         partial void OnExtentAreaMultiplierChanged();
         /// <summary>
+        /// There are no comments for Property ExtentAreaCalculated in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("extentAreaCalculated")]
+        public virtual global::System.Nullable<decimal> ExtentAreaCalculated
+        {
+            get
+            {
+                return this._ExtentAreaCalculated;
+            }
+            set
+            {
+                this.OnExtentAreaCalculatedChanging(value);
+                this._ExtentAreaCalculated = value;
+                this.OnExtentAreaCalculatedChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Nullable<decimal> _ExtentAreaCalculated;
+        partial void OnExtentAreaCalculatedChanging(global::System.Nullable<decimal> value);
+        partial void OnExtentAreaCalculatedChanged();
+        /// <summary>
         /// There are no comments for Property LocalityArea in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
@@ -2534,6 +2578,28 @@ namespace RodlisteNaturtyper.Data.Models
         private global::System.Nullable<decimal> _LocalityAreaMultiplier;
         partial void OnLocalityAreaMultiplierChanging(global::System.Nullable<decimal> value);
         partial void OnLocalityAreaMultiplierChanged();
+        /// <summary>
+        /// There are no comments for Property LocalityAreaCalculated in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("localityAreaCalculated")]
+        public virtual global::System.Nullable<decimal> LocalityAreaCalculated
+        {
+            get
+            {
+                return this._LocalityAreaCalculated;
+            }
+            set
+            {
+                this.OnLocalityAreaCalculatedChanging(value);
+                this._LocalityAreaCalculated = value;
+                this.OnLocalityAreaCalculatedChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Nullable<decimal> _LocalityAreaCalculated;
+        partial void OnLocalityAreaCalculatedChanging(global::System.Nullable<decimal> value);
+        partial void OnLocalityAreaCalculatedChanged();
         /// <summary>
         /// There are no comments for Property Assessment in the schema.
         /// </summary>
@@ -5088,10 +5154,10 @@ namespace RodlisteNaturtyper.Data.Models
 namespace RodlisteNaturtyper.Core.Models
 {
     /// <summary>
-    /// There are no comments for CodeItemViewModel in the schema.
+    /// There are no comments for CodeItemModel in the schema.
     /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModel")]
-    public partial class CodeItemViewModel
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemModel")]
+    public partial class CodeItemModel
     {
         /// <summary>
         /// There are no comments for Property CodeItemDescription in the schema.
@@ -5635,17 +5701,17 @@ namespace Default
     public static class ExtensionMethods
     {
         /// <summary>
-        /// There are no comments for CodeItemViewModels in the schema.
+        /// There are no comments for CodeItemModels in the schema.
         /// </summary>
-        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemViewModels")]
-        public static global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel> CodeItemViewModels(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::RodlisteNaturtyper.Data.Models.Assessment> _source)
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemModels")]
+        public static global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Core.Models.CodeItemModel> CodeItemModels(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::RodlisteNaturtyper.Data.Models.Assessment> _source)
         {
             if (!_source.IsComposable)
             {
                 throw new global::System.NotSupportedException("The previous function is not composable.");
             }
 
-            return _source.CreateFunctionQuery<global::RodlisteNaturtyper.Core.Models.CodeItemViewModel>("Default.CodeItemViewModels", false);
+            return _source.CreateFunctionQuery<global::RodlisteNaturtyper.Core.Models.CodeItemModel>("Default.CodeItemModels", false);
         }
     }
 }
