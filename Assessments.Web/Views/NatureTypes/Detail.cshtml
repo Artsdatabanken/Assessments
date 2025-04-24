@@ -7,7 +7,7 @@
 }
 
 @section Styles {
-<link rel="stylesheet" href="~/css/assessment.css" />
+    <link rel="stylesheet" href="~/css/assessment.css" />
 }
 
 @section Breadcrumb {
@@ -50,8 +50,6 @@
                     <br />
                 </div>
                 <partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
-                <br />
-                Endelig kriterium: ***
             </div>
             <div class="page_section">
                 <div id="@nameof(NatureTypesConstants.Headings.Description)">
@@ -103,7 +101,7 @@
                             @NatureTypesConstants.Headings.CriteriaInformation
                         </h2>
                     </div>
-                    **tabell med to faner. 1) oppsummering. 2) alle kriteriene
+                    <partial name="Partials/Details/_CriteriaInformation" for="Assessment.CriteriaInformation" />
                 </div>
             </div>
             <div class="page_section">
@@ -152,13 +150,13 @@
     </div>
     <div class="side mobile_padding">
         <div class="sidebar_image_info">
-            NiN-kode:<br/>
+            NiN-kode:<br />
             <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
                 @assessment.ShortCode
             </a>
-            
+
             <vc:variable-names applied-variables="@assessment.AppliedVariables" />
-            
+
         </div>
     </div>
 </div>
