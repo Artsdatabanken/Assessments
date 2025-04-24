@@ -1,9 +1,9 @@
 ﻿@using Assessments.Shared.DTOs.NatureTypes.Enums
 @model AssessmentCriteriaInformation
 
-<h3>
+@* <h3>
     Utslagsgivende kriterier
-</h3>
+</h3> *@
 
 <h4>
     A - Reduksjon i totalarealet
@@ -53,7 +53,136 @@
 <p>
     Utbredelsesareal i dag (B1) eller antall 10 × 10 km ruter hvor naturtypen finnes i dag (B2). Minst ett av underkriteriene a-c må være angitt for at kategorien B1 og/eller B2 skal gjelde.
 </p>
-** hvilke felter skal vises?
+<table class="big-data-table">
+    <tr>
+        <td>
+            B1
+        </td>
+        <td>
+            Utbredelsesareal
+        </td>
+        <td>
+            @Model.CategoryB1.GetDescription(CriteriaCategoryType.B1)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            B1a
+        </td>
+        <td>
+            Pågående nedgang i areal eller kvalitet
+        </td>
+        <td>
+            @Model.CategoryB1Change.GetDescription()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            B1b
+        </td>
+        <td>
+            Påvirkningsfaktor som medfører nedgang i areal eller kvalitet
+        </td>
+        <td>
+            @Model.CategoryB1Impact.GetDescription()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            B1c
+        </td>
+        <td>
+            Antall lokaliteter/trusler
+        </td>
+        <td>
+            @Model.CategoryB1Sites?.GetDescription(CriteriaCategoryType.BSites)
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            Tilsvarer
+        </td>
+        <td>@Model.CategoryB1Result</td>
+    </tr>
+</table>
+<table class="big-data-table">
+    <tr>
+        <td>
+            B2
+        </td>
+        <td>
+            Antall 10 x 10 km forekomstruter
+        </td>
+        <td>
+            @Model.CategoryB2.GetDescription(CriteriaCategoryType.B2)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            B2a
+        </td>
+        <td>
+            Pågående nedgang i areal eller kvalitet
+        </td>
+        <td>
+            @Model.CategoryB2Change.GetDescription()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            B2b
+        </td>
+        <td>
+            Påvirkningsfaktor som medfører nedgang i areal eller kvalitet
+        </td>
+        <td>
+            @Model.CategoryB2Impact.GetDescription()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            B2c
+        </td>
+        <td>
+            Antall lokaliteter/trusler
+        </td>
+        <td>
+            @Model.CategoryB2Sites?.GetDescription(CriteriaCategoryType.BSites)
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            Tilsvarer
+        </td>
+        <td>@Model.CategoryB2Result</td>
+    </tr>
+</table>
+<table class="big-data-table">
+    <tr>
+        <td>
+            B3
+        </td>
+        <td>
+            Trusseldefinerte lokaliteter
+        </td>
+        <td>
+            @Model.CategoryB3.GetDescription()
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            Tilsvarer
+        </td>
+        <td>@Model.CategoryB3Result</td>
+    </tr>
+</table>
+
 <h4>
     C - Abiotisk forringelse
 </h4>

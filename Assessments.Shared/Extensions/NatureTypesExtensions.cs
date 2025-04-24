@@ -60,6 +60,17 @@ public static class NatureTypesExtensions
                 CriteriaCategory.NE => nameof(CriteriaCategory.NE),
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             },
+            CriteriaCategoryType.BSites => category switch
+            {
+                CriteriaCategory.CR => "ant lok 1 CR",
+                CriteriaCategory.EN => "ant lok ≤ 5 EN",
+                CriteriaCategory.VU => "ant lok ≤ 10 VU",
+                CriteriaCategory.NT => string.Empty,
+                CriteriaCategory.LC => string.Empty,
+                CriteriaCategory.DD => string.Empty,
+                CriteriaCategory.NE => string.Empty,
+                _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
+            },
             CriteriaCategoryType.C or CriteriaCategoryType.D => category switch
             {
                 CriteriaCategory.CR => "≥ 80 %",
@@ -72,6 +83,40 @@ public static class NatureTypesExtensions
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             },
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+    }
+
+    public static string GetDescription(this CriteriaCategoryChange criteriaCategoryChange)
+    {
+        return criteriaCategoryChange switch
+        {
+            CriteriaCategoryChange.None => string.Empty,
+            CriteriaCategoryChange.Area => "i. Areal",
+            CriteriaCategoryChange.Quality => "ii. Kvalitet",
+            CriteriaCategoryChange.Interactions => "iii. Interaksjoner",
+            CriteriaCategoryChange.ProbablyOngoingDecline => "iv. Trolig pågående nedgang i kvalitet eller areal",
+            _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
+        };
+    }
+
+    public static string GetDescription(this CriteriaCategoryImpact criteriaCategoryChange)
+    {
+        return criteriaCategoryChange switch
+        {
+            CriteriaCategoryImpact.None => string.Empty,
+            CriteriaCategoryImpact.AssumedOrKnown => "antatt eller kjent",
+            _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
+        };
+    }
+
+    public static string GetDescription(this CriteriaCategoryThreatDefinedlocation criteriaCategoryChange)
+    {
+        return criteriaCategoryChange switch
+        {
+            CriteriaCategoryThreatDefinedlocation.None => string.Empty,
+            CriteriaCategoryThreatDefinedlocation.VU => "< 5 lokaliteter VU",
+            CriteriaCategoryThreatDefinedlocation.NT => "< 10 lokaliteter NT",
+            _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
         };
     }
 }
