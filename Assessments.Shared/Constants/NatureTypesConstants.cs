@@ -28,4 +28,6 @@ public static class NatureTypesConstants
         public static readonly string Regions = "Regioner og havområder";
         public static readonly string References = "Referanser";
     }
+
+    public const string TemporaryAccessCookieName = "adb.req.enablenaturetypes";
 }

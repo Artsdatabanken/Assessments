@@ -10,6 +10,12 @@ public static class NatureTypesHelper
             return [];
 
         // utslagsgivende kriterier fra "Endelig kategori og kriterium"
-        return [.. Array.ConvertAll(categoryCriteria[2..].Split('+'), x => x.Trim()[..1]).Distinct().ToEnumerable<CategoryCriteriaType>()];
+
+        var categoryCriterion = categoryCriteria[2..]; // ta bort kategori
+
+        if (string.IsNullOrEmpty(categoryCriterion))
+            return [];
+
+        return [.. Array.ConvertAll(categoryCriterion.Split('+'), x => x.Trim()[..1]).Distinct().ToEnumerable<CategoryCriteriaType>()];
     }
 }
