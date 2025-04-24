@@ -6,6 +6,5 @@ public enum CriteriaCategoryType
     B1,
     B2,
     C,
-    D,
-    E
+    D
 }

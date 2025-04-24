@@ -60,7 +60,7 @@ public static class NatureTypesExtensions
                 CriteriaCategory.NE => nameof(CriteriaCategory.NE),
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             },
-            CriteriaCategoryType.C => category switch
+            CriteriaCategoryType.C or CriteriaCategoryType.D => category switch
             {
                 CriteriaCategory.CR => "≥ 80 %",
                 CriteriaCategory.EN => "≥ 50 %",
