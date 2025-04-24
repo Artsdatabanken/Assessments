@@ -1,5 +1,6 @@
 ﻿using Assessments.Data.Models;
 using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
@@ -86,7 +87,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
     };
     
     public CitationForAssessmentViewModel CitationForAssessmentViewModel { get; init; }
-
+    
     public CategoryDescriptionViewModel CategoryDescriptionViewModel = new()
     {
         CategoryShort = Assessment.Category.ToString(),
@@ -97,4 +98,6 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
         }).Reverse()],
         MethodUrl = "https://artsdatabanken.no/Pages/258616"
     };
+
+    public List<CategoryCriteriaType> CategoryCriteriaTypes { get; set; } = [];
 }
