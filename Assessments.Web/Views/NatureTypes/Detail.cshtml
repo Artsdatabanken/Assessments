@@ -47,7 +47,10 @@
                     <p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
                         Endelig kategori og kriterium: @assessment.CategoryCriteria
                         <br />
-                        Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025. Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName()).JoinAnd(", ", " og ").
+                        Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
+                        <span is-visible="Model.CategoryCriteriaTypes.Any()">
+                            Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName()).JoinAnd(", ", " og ").
+                        </span>
                     </p>
                 </div>
                 <partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />

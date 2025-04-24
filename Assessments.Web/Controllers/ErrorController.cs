@@ -9,13 +9,12 @@ namespace Assessments.Web.Controllers;
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public class ErrorController : Controller
 {
-
     [Route("{code:int}")]
     public IActionResult Error(int code)
     {
         var codeReExecuteFeature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
 
-        var defaultResult = code == 404 ? View("ErrorNotFound") : View();
+        var defaultResult = code == 404 ? View("ErrorNotFound") : View(code);
 
         if (codeReExecuteFeature is null)
             return defaultResult;
