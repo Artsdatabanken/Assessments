@@ -99,5 +99,5 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
         MethodUrl = "https://artsdatabanken.no/Pages/258616"
     };
 
-    public List<CategoryCriteriaType> CategoryCriteriaTypes { get; set; } = [];
+    public List<CategoryCriteriaType> CategoryCriteriaTypes { get; init; } = [];
 }

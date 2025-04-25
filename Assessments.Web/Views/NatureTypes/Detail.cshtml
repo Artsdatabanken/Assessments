@@ -105,7 +105,27 @@
                             @NatureTypesConstants.Headings.CriteriaInformation
                         </h2>
                     </div>
-                    <partial name="Partials/Details/_CriteriaInformation" for="Assessment.CriteriaInformation" />
+                    <div class="page_section criteria" id="criteria">
+                        <button class="changetab active" id="summary_criteria" onclick="criterialist('summary', this)">
+                            Oppsummering
+                        </button>
+                        <button class="changetab" id="full_list_criteria" onclick="criterialist('full_list', this)">
+                            Full liste
+                        </button>
+                        <div class="tabbed_element_container">
+                            <ul class="outer noline">
+                                <li class="tablist_listheader">
+                                    <span class="summary_title">
+                                        Utslagsgivende kriterier
+                                    </span>
+                                    <span class="full_list_title">Alle kriterier</span>
+                                </li>
+                                <li class="inactive">
+                                    <partial name="Partials/Details/_CriteriaInformation" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="page_section">
