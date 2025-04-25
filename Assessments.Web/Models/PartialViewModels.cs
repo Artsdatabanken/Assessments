@@ -71,6 +71,8 @@ namespace Assessments.Web.Models
         public CategoryBarListElement[] CategoryBar { get; set; }
 
         public string MethodUrl { get; set; }
+
+        public string MethodText { get; set; } = "Alt om kategoriskalaen";
     }
 
     public class CitationForAssessmentViewModel
