@@ -96,7 +96,8 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
             Name = x.GetDescription(),
             NameShort = x.ToString()
         }).Reverse()],
-        MethodUrl = "https://artsdatabanken.no/Pages/258616"
+        MethodUrl = "https://artsdatabanken.no/pages/376752",
+        MethodText = "Forklaring av kategoriene og kriteriene"
     };
 
     public List<CategoryCriteriaType> CategoryCriteriaTypes { get; init; } = [];
