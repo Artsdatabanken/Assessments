@@ -19,5 +19,7 @@ public interface INatureTypesRepository
 
     List<Region> GetRegions();
 
+    List<NinCodeTopic> GetNinCodeTopics();
+
     Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default);
 }

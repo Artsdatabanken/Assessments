@@ -33,8 +33,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     {
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
+        var topics = repository.GetNinCodeTopics();
 
-        assessments = ApplyParametersToList(parameters, assessments, regions);
+        assessments = ApplyParametersToList(parameters, assessments, regions, topics);
 
         assessments = parameters.SortBy switch
         {
@@ -48,13 +49,13 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         {
             Name = parameters.Name,
             Category = parameters.Category,
-            Committee = parameters.Committee,
+            Topic = parameters.Topic,
             Region = parameters.Region,
             Area = parameters.Area,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
-            Committees = repository.GetCommittees(),
             Regions = regions,
+            NinCodeTopics = topics,
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
@@ -114,7 +115,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return RedirectToAction("List");
     }
 
-    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions)
+    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
@@ -129,12 +130,21 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }
             else
             {
-                var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+                var topic = topics.FirstOrDefault(x => x.Name.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                
+                if (topic != null)
+                {
+                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Id);
+                }
+                else
+                {
+                    var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode == parameters.Name || x.LongCode == parameters.Name, CombineExpressionType.AndAlso));
+                    var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode.Contains(parameters.Name) || x.LongCode == parameters.Name, CombineExpressionType.AndAlso));
 
-                if (searchTerms != null)
-                    assessments = assessments.Where(searchTerms);
+                    if (searchTerms != null)
+                        assessments = assessments.Where(searchTerms);
+                }
             }
 
             parameters.Name = searchParameter;
@@ -157,8 +167,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
                 assessments = assessments.Where(categories);
         }
 
-        if (parameters.Committee.Length != 0)
-            assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
+        if (parameters.Topic.Length != 0)
+            assessments = assessments.Where(x => parameters.Topic.ToArray().Contains(x.NinCodeTopic.Description));
 
         if (parameters.Region.Length != 0)
         {

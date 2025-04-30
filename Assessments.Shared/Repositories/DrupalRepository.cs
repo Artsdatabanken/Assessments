@@ -44,8 +44,7 @@ public class DrupalRepository : IDrupalRepository
         catch (Exception ex)
         {
             _cache.Remove(cacheKey);
-            _logger.LogCritical("Could not get content by id: {id} (StatusCode: {statuscode}, Message: {message})", id, responseStatusCode, ex.Message);
-
+            _logger.LogError(ex, "Could not get content by id: {id} (StatusCode: {statuscode}, Message: {message})", id, responseStatusCode, ex.Message);
             return null;
         }
     }

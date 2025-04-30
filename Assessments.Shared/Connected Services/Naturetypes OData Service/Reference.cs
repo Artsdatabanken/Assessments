@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 09.04.2025 11:28:21
+// Generation date: 29.04.2025 15:13:55
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -57,6 +57,28 @@ namespace RodlisteNaturtyper.Data.Models
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private global::RodlisteNaturtyper.Data.Models.CommitteeSingle _Committee;
+        /// <summary>
+        /// There are no comments for NinCodeTopic in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ninCodeTopic")]
+        public virtual global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle NinCodeTopic
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._NinCodeTopic == null))
+                {
+                    this._NinCodeTopic = new global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle(this.Context, GetPath("ninCodeTopic"));
+                }
+                return this._NinCodeTopic;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle _NinCodeTopic;
         /// <summary>
         /// There are no comments for AreaInformation in the schema.
         /// </summary>
@@ -553,6 +575,28 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnRegionChanging(global::RodlisteNaturtyper.Data.Models.Enums.AssessmentRegion value);
         partial void OnRegionChanged();
         /// <summary>
+        /// There are no comments for Property NinCodeTopicId in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ninCodeTopicId")]
+        public virtual global::System.Nullable<int> NinCodeTopicId
+        {
+            get
+            {
+                return this._NinCodeTopicId;
+            }
+            set
+            {
+                this.OnNinCodeTopicIdChanging(value);
+                this._NinCodeTopicId = value;
+                this.OnNinCodeTopicIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Nullable<int> _NinCodeTopicId;
+        partial void OnNinCodeTopicIdChanging(global::System.Nullable<int> value);
+        partial void OnNinCodeTopicIdChanged();
+        /// <summary>
         /// There are no comments for Property DescriptionHtml in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
@@ -778,6 +822,28 @@ namespace RodlisteNaturtyper.Data.Models
         private global::RodlisteNaturtyper.Data.Models.Committee _Committee;
         partial void OnCommitteeChanging(global::RodlisteNaturtyper.Data.Models.Committee value);
         partial void OnCommitteeChanged();
+        /// <summary>
+        /// There are no comments for Property NinCodeTopic in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ninCodeTopic")]
+        public virtual global::RodlisteNaturtyper.Data.Models.NinCodeTopic NinCodeTopic
+        {
+            get
+            {
+                return this._NinCodeTopic;
+            }
+            set
+            {
+                this.OnNinCodeTopicChanging(value);
+                this._NinCodeTopic = value;
+                this.OnNinCodeTopicChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.NinCodeTopic _NinCodeTopic;
+        partial void OnNinCodeTopicChanging(global::RodlisteNaturtyper.Data.Models.NinCodeTopic value);
+        partial void OnNinCodeTopicChanged();
         /// <summary>
         /// There are no comments for Property AreaInformation in the schema.
         /// </summary>
@@ -2266,6 +2332,176 @@ namespace RodlisteNaturtyper.Data.Models
         private global::RodlisteNaturtyper.Data.Models.ApplicationUser _User;
         partial void OnUserChanging(global::RodlisteNaturtyper.Data.Models.ApplicationUser value);
         partial void OnUserChanged();
+    }
+    /// <summary>
+    /// There are no comments for NinCodeTopicSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("NinCodeTopicSingle")]
+    public partial class NinCodeTopicSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<NinCodeTopic>
+    {
+        /// <summary>
+        /// Initialize a new NinCodeTopicSingle object.
+        /// </summary>
+        public NinCodeTopicSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new NinCodeTopicSingle object.
+        /// </summary>
+        public NinCodeTopicSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new NinCodeTopicSingle object.
+        /// </summary>
+        public NinCodeTopicSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<NinCodeTopic> query)
+            : base(query) {}
+
+    }
+    /// <summary>
+    /// There are no comments for NinCodeTopic in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("id")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("NinCodeTopic")]
+    public partial class NinCodeTopic : global::Microsoft.OData.Client.BaseEntityType
+    {
+        /// <summary>
+        /// Create a new NinCodeTopic object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        /// <param name="name">Initial value of Name.</param>
+        /// <param name="shortCode">Initial value of ShortCode.</param>
+        /// <param name="description">Initial value of Description.</param>
+        /// <param name="type">Initial value of Type.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public static NinCodeTopic CreateNinCodeTopic(int ID, string name, string shortCode, string description, global::RodlisteNaturtyper.Data.Models.Enums.NinCodeTopicType type)
+        {
+            NinCodeTopic ninCodeTopic = new NinCodeTopic();
+            ninCodeTopic.Id = ID;
+            ninCodeTopic.Name = name;
+            ninCodeTopic.ShortCode = shortCode;
+            ninCodeTopic.Description = description;
+            ninCodeTopic.Type = type;
+            return ninCodeTopic;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("id")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Id is required.")]
+        public virtual int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property Name in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("name")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Name is required.")]
+        public virtual string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// There are no comments for Property ShortCode in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("shortCode")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "ShortCode is required.")]
+        public virtual string ShortCode
+        {
+            get
+            {
+                return this._ShortCode;
+            }
+            set
+            {
+                this.OnShortCodeChanging(value);
+                this._ShortCode = value;
+                this.OnShortCodeChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _ShortCode;
+        partial void OnShortCodeChanging(string value);
+        partial void OnShortCodeChanged();
+        /// <summary>
+        /// There are no comments for Property Description in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("description")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Description is required.")]
+        public virtual string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
+        /// There are no comments for Property Type in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("type")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Type is required.")]
+        public virtual global::RodlisteNaturtyper.Data.Models.Enums.NinCodeTopicType Type
+        {
+            get
+            {
+                return this._Type;
+            }
+            set
+            {
+                this.OnTypeChanging(value);
+                this._Type = value;
+                this.OnTypeChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.Enums.NinCodeTopicType _Type;
+        partial void OnTypeChanging(global::RodlisteNaturtyper.Data.Models.Enums.NinCodeTopicType value);
+        partial void OnTypeChanged();
     }
     /// <summary>
     /// There are no comments for AssessmentAreaInformationSingle in the schema.
@@ -4966,6 +5202,29 @@ namespace RodlisteNaturtyper.Data.Models
             return new global::RodlisteNaturtyper.Data.Models.CommitteeUserSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.NinCodeTopic as global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="_keys">dictionary with the names and values of keys</param>
+        public static global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.NinCodeTopic> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
+        {
+            return new global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.NinCodeTopic as global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="id">The value of id</param>
+        public static global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.NinCodeTopic> _source,
+            int id)
+        {
+            global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "id", id }
+            };
+            return new global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
         /// Get an entity of type global::RodlisteNaturtyper.Data.Models.AssessmentAreaInformation as global::RodlisteNaturtyper.Data.Models.AssessmentAreaInformationSingle specified by key from an entity set
         /// </summary>
         /// <param name="_source">source entity set</param>
@@ -5312,6 +5571,17 @@ namespace RodlisteNaturtyper.Data.Models.Enums
         Svalbard = 1
     }
     /// <summary>
+    /// There are no comments for NinCodeTopicType in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("NinCodeTopicType")]
+    public enum NinCodeTopicType
+    {
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Landformer")]
+        Landformer = 0,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Natursystem")]
+        Natursystem = 1
+    }
+    /// <summary>
     /// There are no comments for CriteriaCategoryDirect in the schema.
     /// </summary>
     [global::Microsoft.OData.Client.OriginalNameAttribute("CriteriaCategoryDirect")]
@@ -5588,6 +5858,24 @@ namespace Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CommitteeUser> _CommitteeUsers;
         /// <summary>
+        /// There are no comments for NinCodeTopics in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("NinCodeTopics")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.NinCodeTopic> NinCodeTopics
+        {
+            get
+            {
+                if ((this._NinCodeTopics == null))
+                {
+                    this._NinCodeTopics = base.CreateQuery<global::RodlisteNaturtyper.Data.Models.NinCodeTopic>("NinCodeTopics");
+                }
+                return this._NinCodeTopics;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.NinCodeTopic> _NinCodeTopics;
+        /// <summary>
         /// There are no comments for Assessments in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
@@ -5626,6 +5914,14 @@ namespace Default
         public virtual void AddToCommitteeUsers(global::RodlisteNaturtyper.Data.Models.CommitteeUser committeeUser)
         {
             base.AddObject("CommitteeUsers", committeeUser);
+        }
+        /// <summary>
+        /// There are no comments for NinCodeTopics in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public virtual void AddToNinCodeTopics(global::RodlisteNaturtyper.Data.Models.NinCodeTopic ninCodeTopic)
+        {
+            base.AddObject("NinCodeTopics", ninCodeTopic);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private abstract class GeneratedEdmModel
