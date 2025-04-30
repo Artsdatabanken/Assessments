@@ -7,9 +7,9 @@ namespace Assessments.Web.Models.NatureTypes;
 
 public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : NatureTypesListParameters
 {
-    public List<Committee> Committees { get; init; }
-
     public List<Region> Regions { get; init; }
+
+    public List<NinCodeTopic> NinCodeTopics { get; init; }
 
     public ListViewViewModel ListViewViewModel { get; init; }
 

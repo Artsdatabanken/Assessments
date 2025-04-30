@@ -35,29 +35,29 @@ public static class NatureTypesFilterHelpers
             })]
     };
 
-    public static FilterAndMetaData Committees(List<Committee> committees) => new()
+    public static FilterAndMetaData Topics(List<NinCodeTopic> topics) => new()
     {
         FilterButtonName = "temafiltre",
         FilterButtonText = "Tema",
         Filters =
         [
-            .. committees
+            .. topics.GroupBy(x => x.Description).OrderBy(x => x.Key)
                 .Select(x => new FilterItem
                 {
-                    Name = x.Name,
-                    NameShort = x.Name
+                    Name = x.Key,
+                    NameShort = x.Key
                 })
         ]
     };
 
-    public static FilterAndMetaData Regions(List<Region> modelRegions) =>
+    public static FilterAndMetaData Regions(List<Region> regions) =>
         new()
         {
             FilterButtonName = "regionsfiltre",
             FilterButtonText = "Regioner og havområder",
             Filters =
             [
-                .. modelRegions
+                .. regions
                     .Select(x => new FilterItem
                     {
                         Name = x.Name,
@@ -73,7 +73,7 @@ public static class NatureTypesFilterHelpers
         count += model.Area.Length;
         count += model.Category.Length;
         count += model.Region.Length;
-        count += model.Committee.Length;
+        count += model.Topic.Length;
 
         return count;
     }

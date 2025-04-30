@@ -25,6 +25,12 @@
         <div class="page-header">
             <h1>
                 @assessment.Name
+                @if (assessment.NinCodeTopic != null)
+                {
+                    <span style="color: grey; font-size: medium; display: block">
+                        @assessment.NinCodeTopic.Name (@assessment.NinCodeTopic.Description)
+                    </span>
+                }
             </h1>
             <a href="#feedback">
                 Gi innspill til vurderingen nederst på siden

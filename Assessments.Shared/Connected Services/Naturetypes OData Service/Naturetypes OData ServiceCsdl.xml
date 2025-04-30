@@ -17,6 +17,7 @@
         <Property Name="shortCode" Type="Edm.String" Nullable="false" />
         <Property Name="committeeId" Type="Edm.Int32" />
         <Property Name="region" Type="RodlisteNaturtyper.Data.Models.Enums.AssessmentRegion" Nullable="false" />
+        <Property Name="ninCodeTopicId" Type="Edm.Int32" />
         <Property Name="descriptionHtml" Type="Edm.String" Nullable="false" />
         <Property Name="impactsCommentHtml" Type="Edm.String" Nullable="false" />
         <Property Name="criteriaDocumentationHtml" Type="Edm.String" Nullable="false" />
@@ -28,6 +29,9 @@
         <Property Name="lockedById" Type="Edm.String" />
         <NavigationProperty Name="committee" Type="RodlisteNaturtyper.Data.Models.Committee">
           <ReferentialConstraint Property="committeeId" ReferencedProperty="id" />
+        </NavigationProperty>
+        <NavigationProperty Name="ninCodeTopic" Type="RodlisteNaturtyper.Data.Models.NinCodeTopic">
+          <ReferentialConstraint Property="ninCodeTopicId" ReferencedProperty="id" />
         </NavigationProperty>
         <NavigationProperty Name="areaInformation" Type="RodlisteNaturtyper.Data.Models.AssessmentAreaInformation" />
         <NavigationProperty Name="criteriaInformation" Type="RodlisteNaturtyper.Data.Models.AssessmentCriteriaInformation" />
@@ -101,6 +105,16 @@
           <ReferentialConstraint Property="committeeId" ReferencedProperty="id" />
         </NavigationProperty>
         <NavigationProperty Name="user" Type="RodlisteNaturtyper.Data.Models.ApplicationUser" />
+      </EntityType>
+      <EntityType Name="NinCodeTopic">
+        <Key>
+          <PropertyRef Name="id" />
+        </Key>
+        <Property Name="id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="name" Type="Edm.String" Nullable="false" />
+        <Property Name="shortCode" Type="Edm.String" Nullable="false" />
+        <Property Name="description" Type="Edm.String" Nullable="false" />
+        <Property Name="type" Type="RodlisteNaturtyper.Data.Models.Enums.NinCodeTopicType" Nullable="false" />
       </EntityType>
       <EntityType Name="AssessmentAreaInformation">
         <Key>
@@ -272,6 +286,10 @@
         <Member Name="Norge" Value="0" />
         <Member Name="Svalbard" Value="1" />
       </EnumType>
+      <EnumType Name="NinCodeTopicType">
+        <Member Name="Landformer" Value="0" />
+        <Member Name="Natursystem" Value="1" />
+      </EnumType>
       <EnumType Name="CriteriaCategoryDirect">
         <Member Name="None" Value="0" />
         <Member Name="CO" Value="1" />
@@ -316,6 +334,7 @@
           <NavigationPropertyBinding Path="committee" Target="Committees" />
           <NavigationPropertyBinding Path="lockedBy" Target="Users" />
           <NavigationPropertyBinding Path="modifiedBy" Target="Users" />
+          <NavigationPropertyBinding Path="ninCodeTopic" Target="NinCodeTopics" />
           <NavigationPropertyBinding Path="regions" Target="Regions" />
         </EntitySet>
         <EntitySet Name="Regions" EntityType="RodlisteNaturtyper.Data.Models.Region">
@@ -333,6 +352,7 @@
           <NavigationPropertyBinding Path="committee" Target="Committees" />
           <NavigationPropertyBinding Path="user" Target="Users" />
         </EntitySet>
+        <EntitySet Name="NinCodeTopics" EntityType="RodlisteNaturtyper.Data.Models.NinCodeTopic" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

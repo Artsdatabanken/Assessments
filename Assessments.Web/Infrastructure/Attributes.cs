@@ -35,6 +35,7 @@ public class CookieRequiredAttribute : Attribute, IAsyncActionFilter
     {
         var environment = context.HttpContext.RequestServices.GetService<IWebHostEnvironment>();
 
+        // gjelder kun for testmiljøet
         if (!environment.IsStaging())
             await next();
 

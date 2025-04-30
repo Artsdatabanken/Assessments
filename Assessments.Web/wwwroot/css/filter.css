@@ -645,6 +645,6 @@ button.list_header {
 .only_js input[type=checkbox]:not(:checked)#show_spreadways ~ .filter_spreadways,
 .only_js input[type=checkbox]:not(:checked)#show_notassessed ~ .filter_notassessed,
 .only_js input[type=checkbox]:not(:checked)#show_taxonrank ~ .filter_taxonrank,
-.only_js input[type=checkbox]:not(:checked)#show_committee ~ .filter_committee {
+.only_js input[type=checkbox]:not(:checked)#show_topic ~ .filter_topic {
     display: none;
 }
