@@ -6,6 +6,10 @@
     ViewBag.Title = NatureTypesConstants.Title2025;
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/rln/autocomplete.css">
+}
+
 @section PageMenu {
 
     <partial name="/Views/Shared/_PageMenu.cshtml" for="PageMenuViewModel" />
@@ -24,11 +28,34 @@
                 </environment>
             </div>
         </div>
-        <form id="search_and_filter_form" method="get">
-            <partial name="Partials/List/_Search.cshtml" />
+        <form id="search_and_filter_form" method="get" autocomplete="off">
+            <div class="list-search">
+                <label asp-for="Name">
+                    <b>Søk i @NatureTypesConstants.Title2025</b>
+                </label>
+                <div class="searchfield">
+                    <div class="searchfield_and_button">
+                        <div class="autocomplete" style="width: 100%;">
+                            <input asp-for="Name">
+                        </div>
+                        <button class="primary" type="submit">
+                            <span class="material-icons">
+                                search
+                            </span>
+                            Søk
+                        </button>
+                    </div>
+                </div>
+                <small class="search-help-text">
+                    F.eks. "skog" eller hovedtypen "Nakent berg"
+                </small>
+            </div>
             <partial name="Partials/List/_Filters.cshtml" />
         </form>
         <partial name="/Views/Shared/_CitationForList.cshtml" for="CitationForListViewModel" />
     </div>
 </div>
 
+@section Scripts {
+    <script src="~/js/rln/autocomplete.js"></script>
+}

@@ -115,6 +115,10 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return RedirectToAction("List");
     }
 
+    [Route("2025/[action]")]
+    [ResponseCache(Duration = 86400)]
+    public IActionResult Suggestions() => Json(repository.GetNinCodeTopics().Select(x => new string($"{x.Name} ({x.Description})")));
+
     private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
@@ -130,7 +134,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }
             else
             {
-                var topic = topics.FirstOrDefault(x => x.Name.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                var topicSuggestions = topics.Select(x => new { Text = new string($"{x.Name} ({x.Description})"), x.Id});
+                var topic = topicSuggestions.FirstOrDefault(x => x.Text.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
                 
                 if (topic != null)
                 {
