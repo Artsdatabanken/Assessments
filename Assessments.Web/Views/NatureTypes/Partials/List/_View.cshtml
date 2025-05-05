@@ -11,6 +11,7 @@
             <li class="listheader" style="grid-template-columns: 2fr auto">
                 <span class="list_cell">
                     Naturtype
+                    <br/>
                 </span>
                 <span class="list_cell">
                     Kategori
@@ -18,18 +19,27 @@
             </li>
             @if (Model.Assessments.Count > 0)
             {
-                @foreach (var item in Model.Assessments)
+                @foreach (var assessment in Model.Assessments)
                 {
+                    var topic = Model.NinCodeTopics.FirstOrDefault(x => x.Id == assessment.NinCodeTopicId);
+
                     <li class="list">
-                        <a asp-action="Detail" asp-route-id="@item.Id" style="grid-template-columns: 4fr auto auto">
+                        <a asp-action="Detail" asp-route-id="@assessment.Id" style="grid-template-columns: 4fr auto auto">
                             <span class="list_cell">
-                                @item.Name
+                                @assessment.Name
+                                @if (topic != null)
+                                {
+                                    <br />
+                                    <span style="color: grey">
+                                        @topic.Name (@topic.Description)
+                                    </span>
+                                }
                             </span>
                             <span class="list_cell categoryname capitalized">
-                                @item.Category.GetDescription()
+                                @assessment.Category.GetDescription()
                             </span>
-                            <span class="@item.Category category_tag">
-                                <span class="category_tag_label">@item.Category</span>
+                            <span class="@assessment.Category category_tag">
+                                <span class="category_tag_label">@assessment.Category</span>
                             </span>
                         </a>
                     </li>

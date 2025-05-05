@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics
+@model int
 @{
     ViewData["Title"] = "En feil oppstod";
 
@@ -8,10 +9,22 @@
 <div class="pagecontainer">
     <div class="mid-content">
         <div class="page-header">
-            <h3>Beklager, en feil oppstod på denne siden.</h3>
+            @if (Model == StatusCodes.Status401Unauthorized)
+            {
+                <p>
+                    Ingen tilgang til denne siden
+                </p>
+            }
+            else
+            {
+                <h3>
+                    Beklager, en feil oppstod på denne siden.
+                </h3>
+
+                <p is-visible="@(!string.IsNullOrEmpty(requestId))">
+                    referanse: @requestId
+                </p>
+            }
         </div>
-        <p is-visible="@(!string.IsNullOrEmpty(requestId))">
-            referanse: @requestId
-        </p>
     </div>
 </div>

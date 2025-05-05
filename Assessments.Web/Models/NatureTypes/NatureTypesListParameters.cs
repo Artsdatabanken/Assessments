@@ -10,7 +10,7 @@ public record NatureTypesListParameters
 
     public string[] Category { get; set; } = [];
     
-    public string[] Committee { get; set; } = [];
+    public string[] Topic { get; set; } = [];
 
     public string[] Region { get; set; } = [];
 

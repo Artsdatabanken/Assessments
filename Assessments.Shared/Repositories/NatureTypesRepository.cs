@@ -46,8 +46,10 @@ public class NatureTypesRepository : INatureTypesRepository
         return _container.Assessments
             .Expand(x => x.Committee)
             .Expand(x => x.AreaInformation)
+            .Expand(x => x.CriteriaInformation)
             .Expand(x => x.Regions)
             .Expand(x => x.References)
+            .Expand(x => x.NinCodeTopic)
             .FirstOrDefault(c => c.Id == id);
     }
 
@@ -79,6 +81,11 @@ public class NatureTypesRepository : INatureTypesRepository
     public List<Region> GetRegions()
     {
         return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _container.Regions.OrderBy(x => x.SortOrder).ToList());
+    }
+
+    public List<NinCodeTopic> GetNinCodeTopics()
+    {
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopics)}", () => _container.NinCodeTopics.OrderBy(x => x.Name).ToList());
     }
 
     public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)

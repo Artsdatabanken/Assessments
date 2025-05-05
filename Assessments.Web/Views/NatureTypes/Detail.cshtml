@@ -7,7 +7,7 @@
 }
 
 @section Styles {
-<link rel="stylesheet" href="~/css/assessment.css" />
+    <link rel="stylesheet" href="~/css/assessment.css" />
 }
 
 @section Breadcrumb {
@@ -25,6 +25,12 @@
         <div class="page-header">
             <h1>
                 @assessment.Name
+                @if (assessment.NinCodeTopic != null)
+                {
+                    <span style="color: grey; font-size: medium; display: block">
+                        @assessment.NinCodeTopic.Name (@assessment.NinCodeTopic.Description)
+                    </span>
+                }
             </h1>
             <a href="#feedback">
                 Gi innspill til vurderingen nederst på siden
@@ -44,14 +50,16 @@
             <hr />
             <div class="mobile_padding">
                 <div class="page_section">
-                    Endelig kategori og kriterium: @assessment.CategoryCriteria
-                    <br />
-                    Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025. Kategorien kommer av ***
-                    <br />
+                    <p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
+                        Endelig kategori og kriterium: @assessment.CategoryCriteria
+                        <br />
+                        Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
+                        <span is-visible="Model.CategoryCriteriaTypes.Any()">
+                            Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName()).JoinAnd(", ", " og ").
+                        </span>
+                    </p>
                 </div>
                 <partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
-                <br />
-                Endelig kriterium: ***
             </div>
             <div class="page_section">
                 <div id="@nameof(NatureTypesConstants.Headings.Description)">
@@ -92,6 +100,11 @@
                             @NatureTypesConstants.Headings.CodeItems
                         </h2>
                     </div>
+                    <p>
+                        <a href="https://artsdatabanken.no/Files/59239/Metodeveileder_Norsk_r_dliste_for_naturtyper_2025">
+                            Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
+                        </a>
+                    </p>
                     <partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemModels" />
                 </div>
                 @Html.Raw(@assessment.ImpactsCommentHtml)
@@ -103,7 +116,27 @@
                             @NatureTypesConstants.Headings.CriteriaInformation
                         </h2>
                     </div>
-                    **tabell med to faner. 1) oppsummering. 2) alle kriteriene
+                    <div class="page_section criteria" id="criteria">
+                        <button class="changetab active" id="summary_criteria" onclick="criterialist('summary', this)">
+                            Oppsummering
+                        </button>
+                        <button class="changetab" id="full_list_criteria" onclick="criterialist('full_list', this)">
+                            Full liste
+                        </button>
+                        <div class="tabbed_element_container">
+                            <ul class="outer noline">
+                                <li class="tablist_listheader">
+                                    <span class="summary_title">
+                                        Utslagsgivende kriterier
+                                    </span>
+                                    <span class="full_list_title">Alle kriterier</span>
+                                </li>
+                                <li class="inactive">
+                                    <partial name="Partials/Details/_CriteriaInformation" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="page_section">
@@ -114,7 +147,7 @@
                         </h2>
                     </div>
                     <p>
-                        Totalareal er naturtypens kjente areal per i dag. Utbredelsesarealet er et minimum konvekst polygon som omslutter alle forekomstene av typen. Antall forekomster er antall 10 x 10 km ruter der naturtypen forekommer. Forklaring til areal (**lenke til nettsidetekst - settes inn når tilgjengelig).
+                        Totalareal er naturtypens kjente areal per i dag. Utbredelsesarealet er et minimum konvekst polygon som omslutter alle forekomstene av typen. Antall forekomster er antall 10 x 10 km ruter der naturtypen forekommer. <a href="https://artsdatabanken.no/pages/376753">Forklaring til areal</a>
                     </p>
                     <partial name="Partials/Details/_AreaInformation" for="Assessment.AreaInformation" />
                 </div>
@@ -152,13 +185,11 @@
     </div>
     <div class="side mobile_padding">
         <div class="sidebar_image_info">
-            NiN-kode:<br/>
+            NiN-kode:<br />
             <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
                 @assessment.ShortCode
             </a>
-            
             <vc:variable-names applied-variables="@assessment.AppliedVariables" />
-            
         </div>
     </div>
 </div>

@@ -13,17 +13,13 @@
 
 <div class="content-placer bigmid">
     <div class="mid-content">
-        <div class="title_with_image">
-            <div class="title_with_header">
-                <partial name="/Views/Shared/_Header.cshtml" for="PageHeaderViewModel" />
-            </div>
-            <div class="title_with_ingress">
-                <partial name="/Views/Shared/_Introduction.cshtml" for="IntroductionViewModel" />
-                <environment exclude="Production">
-                    <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
-                </environment>
-            </div>
+        <div class="title_with_header">
+            <partial name="/Views/Shared/_Header.cshtml" for="PageHeaderViewModel" />
         </div>
+        <partial name="/Views/Shared/_Introduction.cshtml" for="IntroductionViewModel" />
+        <environment exclude="Production">
+            <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
+        </environment>
         <form id="search_and_filter_form" method="get">
             <partial name="Partials/List/_Search.cshtml" />
             <partial name="Partials/List/_Filters.cshtml" />

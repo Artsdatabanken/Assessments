@@ -1,13 +1,17 @@
-﻿using System.Linq.Expressions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
+using Assessments.Shared.Options;
+using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
 using Assessments.Web.Models.NatureTypes.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
@@ -18,19 +22,21 @@ namespace Assessments.Web.Controllers;
 
 [FeatureGate(FeatureManagementConstants.PublicAccessPeriodNatureTypes)]
 [Route("naturtyper")]
-public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
+public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
 {
     // TODO: vis landingssiden før lansering av rødlista for naturtyper 2025
     //public IActionResult Home() => View();
 
+    [CookieRequired]
     [Route("2025")]
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page)
     {
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
+        var topics = repository.GetNinCodeTopics();
 
-        assessments = ApplyParametersToList(parameters, assessments, regions);
-        
+        assessments = ApplyParametersToList(parameters, assessments, regions, topics);
+
         assessments = parameters.SortBy switch
         {
             SortByEnum.Category => assessments.OrderBy(x => x.Category),
@@ -38,18 +44,18 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         };
 
         var pagedList = assessments.ToPagedList(page ?? 1, DefaultPageSize);
-        
+
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
             Name = parameters.Name,
             Category = parameters.Category,
-            Committee = parameters.Committee,
+            Topic = parameters.Topic,
             Region = parameters.Region,
             Area = parameters.Area,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
-            Committees = repository.GetCommittees(),
             Regions = regions,
+            NinCodeTopics = topics,
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
@@ -66,6 +72,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         return View(viewModel);
     }
 
+    [CookieRequired]
     [Route("2025/{id:int}")]
     public IActionResult Detail(int id)
     {
@@ -77,11 +84,12 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
         var committeeUsers = repository.GetCommitteeUsers().Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
 
         var codeItemModels = repository.GetAssessmentCodeItemModels(assessment.Id);
-        
+
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
             Regions = repository.GetRegions(),
             CodeItemModels = codeItemModels,
+            CategoryCriteriaTypes = NatureTypesHelper.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
                 AssessmentName = assessment.Name,
@@ -96,14 +104,25 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
 
         return View(viewModel);
     }
-    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions)
+
+    public IActionResult EnableNaturetypes([Required] string key)
+    {
+        if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
+            return NotFound();
+
+        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(14) });
+
+        return RedirectToAction("List");
+    }
+
+    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
             var searchParameter = parameters.Name.StripHtml();
-            
+
             const string quotationMark = "\"";
-            
+
             if (searchParameter.StartsWith(quotationMark) && searchParameter.EndsWith(quotationMark))
             {
                 searchParameter = searchParameter.Replace(quotationMark, string.Empty);
@@ -111,14 +130,23 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
             }
             else
             {
-                var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+                var topic = topics.FirstOrDefault(x => x.Name.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
                 
-                var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode == parameters.Name || x.LongCode == parameters.Name, CombineExpressionType.AndAlso));
+                if (topic != null)
+                {
+                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Id);
+                }
+                else
+                {
+                    var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                if (searchTerms != null)
-                    assessments = assessments.Where(searchTerms);
+                    var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode.Contains(parameters.Name) || x.LongCode == parameters.Name, CombineExpressionType.AndAlso));
+
+                    if (searchTerms != null)
+                        assessments = assessments.Where(searchTerms);
+                }
             }
-            
+
             parameters.Name = searchParameter;
         }
 
@@ -139,11 +167,11 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
                 assessments = assessments.Where(categories);
         }
 
-        if (parameters.Committee.Length != 0)
-            assessments = assessments.Where(x => parameters.Committee.ToArray().Contains(x.Committee.Name));
-        
+        if (parameters.Topic.Length != 0)
+            assessments = assessments.Where(x => parameters.Topic.ToArray().Contains(x.NinCodeTopic.Description));
+
         if (parameters.Region.Length != 0)
-        {        
+        {
             var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
             assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));

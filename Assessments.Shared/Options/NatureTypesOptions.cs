@@ -9,4 +9,6 @@ public class NatureTypesOptions
 
     [Required] 
     public string ODataApiKey { get; set; }
+
+    public string TemporaryAccessKey { get; set; }
 }

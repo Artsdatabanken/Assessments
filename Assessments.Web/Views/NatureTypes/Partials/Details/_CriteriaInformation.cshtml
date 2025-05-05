@@ -1,0 +1,440 @@
+﻿@using Assessments.Shared.DTOs.NatureTypes.Enums
+@model NatureTypesDetailViewModel
+
+@{
+    var criteria = Model.Assessment.CriteriaInformation;
+    var type = Model.CategoryCriteriaTypes;
+}
+
+<li class="@(type.Contains(CategoryCriteriaType.A) ? "active" : "inactive")">
+    <h4>
+        A - Reduksjon i totalarealet
+    </h4>
+    <p>
+        Reduksjon av naturtypens totalareal i løpet av en 50-årsperiode
+    </p>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                A1
+            </td>
+            <td>
+                Reduksjon siste 50 år
+            </td>
+            <td>
+                @criteria.CategoryA1.GetDescription(CriteriaCategoryType.A)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                A2a
+            </td>
+            <td>
+                Reduksjon kommende 50 år
+            </td>
+            <td>
+                @criteria.CategoryA2A.GetDescription(CriteriaCategoryType.A)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                A2b
+            </td>
+            <td>
+                Reduksjon i en 50-årsperiode (fortid, nåtid, fremtid)
+            </td>
+            <td>
+                @criteria.CategoryA2B
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>@criteria.CategoryAResult</td>
+        </tr>
+    </table>
+</li>
+
+<li class="@(type.Contains(CategoryCriteriaType.B) ? "active" : "inactive")">
+    <h4>
+        B - Begrenset geografisk utbredelse
+    </h4>
+    <p>
+        Utbredelsesareal i dag (B1) eller antall 10 × 10 km ruter hvor naturtypen finnes i dag (B2). Minst ett av underkriteriene a-c må være angitt for at kategorien B1 og/eller B2 skal gjelde.
+    </p>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                B1
+            </td>
+            <td>
+                Utbredelsesareal
+            </td>
+            <td>
+                @criteria.CategoryB1.GetDescription(CriteriaCategoryType.B1)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                B1a
+            </td>
+            <td>
+                Pågående nedgang i areal eller kvalitet
+            </td>
+            <td>
+                @criteria.CategoryB1Change.GetDescription()
+            </td>
+        </tr>
+        <tr>
+            <td>
+                B1b
+            </td>
+            <td>
+                Påvirkningsfaktor som medfører nedgang i areal eller kvalitet
+            </td>
+            <td>
+                @criteria.CategoryB1Impact.GetDescription()
+            </td>
+        </tr>
+        <tr>
+            <td>
+                B1c
+            </td>
+            <td>
+                Antall lokaliteter/trusler
+            </td>
+            <td>
+                @criteria.CategoryB1Sites?.GetDescription(CriteriaCategoryType.BSites)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>@criteria.CategoryB1Result</td>
+        </tr>
+    </table>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                B2
+            </td>
+            <td>
+                Antall 10 x 10 km forekomstruter
+            </td>
+            <td>
+                @criteria.CategoryB2.GetDescription(CriteriaCategoryType.B2)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                B2a
+            </td>
+            <td>
+                Pågående nedgang i areal eller kvalitet
+            </td>
+            <td>
+                @criteria.CategoryB2Change.GetDescription()
+            </td>
+        </tr>
+        <tr>
+            <td>
+                B2b
+            </td>
+            <td>
+                Påvirkningsfaktor som medfører nedgang i areal eller kvalitet
+            </td>
+            <td>
+                @criteria.CategoryB2Impact.GetDescription()
+            </td>
+        </tr>
+        <tr>
+            <td>
+                B2c
+            </td>
+            <td>
+                Antall lokaliteter/trusler
+            </td>
+            <td>
+                @criteria.CategoryB2Sites?.GetDescription(CriteriaCategoryType.BSites)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>@criteria.CategoryB2Result</td>
+        </tr>
+    </table>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                B3
+            </td>
+            <td>
+                Trusseldefinerte lokaliteter
+            </td>
+            <td>
+                @criteria.CategoryB3.GetDescription()
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>@criteria.CategoryB3Result</td>
+        </tr>
+    </table>
+</li>
+
+<li class="@(type.Contains(CategoryCriteriaType.C) ? "active" : "inactive")">
+    <h4>
+        C - Abiotisk forringelse
+    </h4>
+    <p>
+        Andel av totalarealet som er forringet, og graden av forringelse, basert på endring i en abiotisk variabel, i løpet av en vurderingsperiode på 50 år.
+    </p>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                C1
+            </td>
+            <td>
+                Andel av totalareal forringet siste 50 år
+            </td>
+            <td>
+                @criteria.CategoryC1Area.GetDescription(CriteriaCategoryType.C)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                C1
+            </td>
+            <td>
+                Grad av abiotisk forringelse siste 50 år
+            </td>
+            <td>
+                @criteria.CategoryC1Abiotic.GetDescription(CriteriaCategoryType.C)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>@criteria.CategoryC1Result</td>
+        </tr>
+    </table>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                C2a
+            </td>
+            <td>
+                Andel av totalareal forringet kommende 50 år
+            </td>
+            <td>
+                @criteria.CategoryC2AArea.GetDescription(CriteriaCategoryType.C)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                C2a
+            </td>
+            <td>
+                Grad av abiotisk forringelse kommende 50 år
+            </td>
+            <td>
+                @criteria.CategoryC2AAbiotic.GetDescription(CriteriaCategoryType.C)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>
+                @criteria.CategoryC2AResult
+            </td>
+        </tr>
+    </table>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                C2b
+            </td>
+            <td>
+                Andel av totalareal forringet i en 50-årsperiode (fortid, nåtid og fremtid)
+            </td>
+            <td>
+                @criteria.CategoryC2BArea.GetDescription(CriteriaCategoryType.C)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                C2b
+            </td>
+            <td>
+                Grad av abiotisk forringelse i en 50-årsperiode (fortid, nåtid og fremtid)
+            </td>
+            <td>
+                @criteria.CategoryC2BAbiotic.GetDescription(CriteriaCategoryType.C)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>
+                @criteria.CategoryC2BResult
+            </td>
+        </tr>
+    </table>
+</li>
+
+<li class="@(type.Contains(CategoryCriteriaType.D) ? "active" : "inactive")">
+    <h4>
+        D - Biotisk forringelse
+    </h4>
+    <p>
+        Andel av totalarealet som er forringet, og graden av forringelse, basert på endring i en biotisk variabel, i løpet av en vurderingsperiode på 50 år.
+    </p>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                D1
+            </td>
+            <td>
+                Andel av totalareal forringet siste 50 år
+            </td>
+            <td>
+                @criteria.CategoryD1Area.GetDescription(CriteriaCategoryType.D)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                D1
+            </td>
+            <td>
+                Grad av biotisk forringelse siste 50 år
+            </td>
+            <td>
+                @criteria.CategoryD1BioticCategory.GetDescription(CriteriaCategoryType.D)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>
+                @criteria.CategoryD1ResultCategory
+            </td>
+        </tr>
+    </table>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                D2a
+            </td>
+            <td>
+                Andel av totalareal forringet kommende 50 år
+            </td>
+            <td>
+                @criteria.CategoryD2AArea.GetDescription(CriteriaCategoryType.D)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                D2a
+            </td>
+            <td>
+                Grad av biotisk forringelse kommende 50 år
+            </td>
+            <td>
+                @criteria.CategoryD2ABioticCategory.GetDescription(CriteriaCategoryType.D)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>
+                @criteria.CategoryD2AResultCategory
+            </td>
+        </tr>
+    </table>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                D2b
+            </td>
+            <td>
+                Andel av totalareal forringet i en 50-årsperiode (fortid, nåtid og fremtid)
+            </td>
+            <td>
+                @criteria.CategoryD2BArea.GetDescription(CriteriaCategoryType.D)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                D2b
+            </td>
+            <td>
+                Grad av biotisk forringelse i en 50-årsperiode (fortid, nåtid og fremtid)
+            </td>
+            <td>
+                @criteria.CategoryD2BBioticCategory.GetDescription(CriteriaCategoryType.D)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Konklusjon
+            </td>
+            <td>
+                @criteria.CategoryD2BResultCategory
+            </td>
+        </tr>
+    </table>
+</li>
+
+<li class="@(type.Contains(CategoryCriteriaType.E) ? "active" : "inactive")">
+    <h4>
+        E - Kvantitativ risikoanalyse
+    </h4>
+    <p>
+        Angir den estimerte sannsynligheten for at økosystemet går tapt
+    </p>
+    <table class="big-data-table">
+        <tr>
+            <td>
+                E
+            </td>
+            <td>
+                Kvantitativ risikoanalyse
+            </td>
+            <td>
+                @criteria.CategoryE
+            </td>
+        </tr>
+    </table>
+   
+</li>
