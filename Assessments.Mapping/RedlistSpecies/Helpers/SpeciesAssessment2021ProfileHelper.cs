@@ -819,5 +819,28 @@ namespace Assessments.Mapping.RedlistSpecies.Helpers
                 }
             }
         }
+
+        // fra FormatScientificNameElement i Assessments.Web.Infrastructure.Helpers
+        public static string FormatScientificNameHtml(string scientificName)
+        {
+            if (scientificName.Contains('\''))
+                scientificName += " ";
+
+            scientificName = "<i>" + scientificName + "</i>";
+            scientificName = scientificName.Replace("×", "</i>×<i>");
+            scientificName = scientificName.Replace("aff.", "</i>aff.<i>");
+            scientificName = scientificName.Replace("agg.", "</i>agg.<i>");
+            scientificName = scientificName.Replace("coll.", "</i>coll.<i>");
+            scientificName = scientificName.Replace("n.", "</i>n.<i>");
+            scientificName = scientificName.Replace("subsp.", "</i>subsp.<i>");
+            scientificName = scientificName.Replace(" sp.", "</i> sp.<i>");
+            scientificName = scientificName.Replace("var.", "</i>var.<i>");
+            scientificName = scientificName.Replace(" '", "</i> '");
+            scientificName = scientificName.Replace("' ", "'<i> ");
+            scientificName = scientificName.Replace("<i></i>", "");
+            scientificName = scientificName.Replace("<i> </i>", "");
+            
+            return scientificName;
+        }
     }
 }

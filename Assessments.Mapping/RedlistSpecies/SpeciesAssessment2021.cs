@@ -322,6 +322,8 @@ namespace Assessments.Mapping.RedlistSpecies
         /// </summary>
         public string ScientificName { get; set; } // VurdertVitenskapeligNavn
 
+        public string ScientificNameHtml { get; set; } = string.Empty;
+
         /// <summary>
         /// Author of the scienfic name
         /// </summary>
