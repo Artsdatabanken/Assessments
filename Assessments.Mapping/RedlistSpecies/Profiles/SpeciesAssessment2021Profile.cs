@@ -156,6 +156,7 @@ namespace Assessments.Mapping.RedlistSpecies.Profiles
                     SpeciesAssessment2021ProfileHelper.FixMissingRegions(src, dest);
                     SpeciesAssessment2021ProfileHelper.FixSomeTaxonomy(src, dest);
                     InitialClassification.Map(src, dest);
+                    dest.ScientificNameHtml = SpeciesAssessment2021ProfileHelper.FormatScientificNameHtml(dest.ScientificName);
                 });
         }
     }

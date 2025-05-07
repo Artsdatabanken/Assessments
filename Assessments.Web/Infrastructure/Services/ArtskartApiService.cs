@@ -3,11 +3,9 @@
     public class ArtskartApiService
     {
         private readonly HttpClient _client;
-        private readonly ILogger<ArtskartApiService> _logger;
 
-        public ArtskartApiService(HttpClient client, ILogger<ArtskartApiService> logger)
+        public ArtskartApiService(HttpClient client)
         {
-            _logger = logger;
             _client = client;
             _client.BaseAddress = new Uri("https://artskart.artsdatabanken.no/appapi/api/");
             _client.Timeout = TimeSpan.FromSeconds(5);
@@ -19,9 +17,8 @@
             {
                 return await _client.GetFromJsonAsync<T>(path);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "An error occurred");
                 return default;
             }
         }

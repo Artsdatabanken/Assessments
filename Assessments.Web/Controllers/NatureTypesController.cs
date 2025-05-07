@@ -134,21 +134,18 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }
             else
             {
-                var topicSuggestions = topics.Select(x => new { Text = new string($"{x.Name} ({x.Description})"), x.Id});
-                var topic = topicSuggestions.FirstOrDefault(x => x.Text.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
-                
+                var topic = topics.FirstOrDefault(x => x.Name.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+
                 if (topic != null)
                 {
                     assessments = assessments.Where(x => x.NinCodeTopicId == topic.Id);
                 }
                 else
                 {
-                    var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+                    //var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+                    //var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter, CombineExpressionType.AndAlso));
 
-                    var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode.Contains(parameters.Name) || x.LongCode == parameters.Name, CombineExpressionType.AndAlso));
-
-                    if (searchTerms != null)
-                        assessments = assessments.Where(searchTerms);
+                    assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
             }
 

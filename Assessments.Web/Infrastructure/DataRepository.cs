@@ -28,7 +28,8 @@ public class DataRepository(IAppCache appCache, IConfiguration configuration, IW
             var fileName = Path.Combine(environment.ContentRootPath, Constants.CacheFolder, name);
             string fileContent;
 
-            if (File.Exists(fileName)) // use cached file
+            // use cached file from disk in development
+            if (environment.IsDevelopment() && File.Exists(fileName))
             {
                 fileContent = await File.ReadAllTextAsync(fileName);
                 logger.LogDebug("Using cached '{name}'", name);
