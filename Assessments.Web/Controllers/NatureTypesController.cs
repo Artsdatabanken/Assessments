@@ -134,7 +134,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }
             else
             {
-                var topic = topics.FirstOrDefault(x => x.Name.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                var topicSuggestions = topics.Select(x => new { Text = new string($"{x.Name} ({x.Description})"), x.Id});
+                var topic = topicSuggestions.FirstOrDefault(x => x.Text.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
                 if (topic != null)
                 {

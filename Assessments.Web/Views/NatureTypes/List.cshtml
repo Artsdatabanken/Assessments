@@ -21,7 +21,7 @@
             <div class="title_with_header">
                 <partial name="/Views/Shared/_Header.cshtml" for="PageHeaderViewModel" />
             </div>
-            <div class="title_with_ingress">
+            <div class="mobile_padding">
                 <partial name="/Views/Shared/_Introduction.cshtml" for="IntroductionViewModel" />
                 <environment exclude="Production">
                     <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
