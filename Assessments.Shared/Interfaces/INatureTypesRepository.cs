@@ -21,5 +21,7 @@ public interface INatureTypesRepository
 
     List<NinCodeTopic> GetNinCodeTopics();
 
+    List<CodeItem> GetCodeItems();
+
     Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default);
 }

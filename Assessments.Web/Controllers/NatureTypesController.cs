@@ -34,8 +34,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
         var topics = repository.GetNinCodeTopics();
+        var codeItems = repository.GetCodeItems();
 
-        assessments = ApplyParametersToList(parameters, assessments, regions, topics);
+        assessments = ApplyParametersToList(parameters, assessments, regions, topics, codeItems);
 
         assessments = parameters.SortBy switch
         {
@@ -48,14 +49,16 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
             Name = parameters.Name,
+            Area = parameters.Area,
             Category = parameters.Category,
             Topic = parameters.Topic,
             Region = parameters.Region,
-            Area = parameters.Area,
+            CodeItem = parameters.CodeItem,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
             Regions = regions,
             NinCodeTopics = topics,
+            CodeItems = codeItems,
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
@@ -115,7 +118,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return RedirectToAction("List");
     }
 
-    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
+    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics, List<CodeItem> codeItems)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
@@ -165,14 +168,19 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
                 assessments = assessments.Where(categories);
         }
 
-        if (parameters.Topic.Length != 0)
-            assessments = assessments.Where(x => parameters.Topic.ToArray().Contains(x.NinCodeTopic.Description));
-
         if (parameters.Region.Length != 0)
         {
             var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
             assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
+        }
+
+        if (parameters.Topic.Length != 0)
+            assessments = assessments.Where(x => parameters.Topic.ToArray().Contains(x.NinCodeTopic.Description));
+
+        if (parameters.CodeItem.Length != 0)
+        {
+           // TODO
         }
 
         return assessments;

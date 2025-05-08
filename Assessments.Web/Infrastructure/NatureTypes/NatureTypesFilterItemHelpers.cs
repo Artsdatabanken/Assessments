@@ -66,6 +66,22 @@ public static class NatureTypesFilterHelpers
             ]
         };
 
+    public static FilterAndMetaData CodeItems(List<CodeItem> codeItems) =>
+        new()
+        {
+            FilterButtonName = "faktorfiltre",
+            FilterButtonText = "Påvirkningsfaktorer",
+            Filters =
+            [
+                .. codeItems
+                    .Select(x => new FilterItem
+                    {
+                        Name = x.Description,
+                        NameShort = x.Id.ToString()
+                    })
+            ]
+        };
+
     public static int GetActiveSelectionCount(NatureTypesListViewModel model)
     {
         var count = 0;
@@ -74,6 +90,7 @@ public static class NatureTypesFilterHelpers
         count += model.Category.Length;
         count += model.Region.Length;
         count += model.Topic.Length;
+        count += model.CodeItem.Length;
 
         return count;
     }
