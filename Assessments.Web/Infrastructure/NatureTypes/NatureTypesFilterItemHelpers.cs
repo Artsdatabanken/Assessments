@@ -73,7 +73,7 @@ public static class NatureTypesFilterHelpers
             FilterButtonText = "Påvirkningsfaktorer",
             Filters =
             [
-                .. codeItems
+                .. codeItems.Where(x => x.ParentId == 0)
                     .Select(x => new FilterItem
                     {
                         Name = x.Description,

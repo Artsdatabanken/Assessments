@@ -180,7 +180,26 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         if (parameters.CodeItem.Length != 0)
         {
-           // TODO
+            List<int> selectedCodeItemIds = [];
+
+            foreach (var codeItemId in parameters.CodeItem)
+            {
+                if (!int.TryParse(codeItemId, out var id))
+                    continue;
+
+                var codeItem = codeItems.FirstOrDefault(x => x.Id == id);
+
+                if (codeItem == null)
+                    continue;
+
+                var idNr = codeItem.IdNr.Split(".").First();
+                selectedCodeItemIds.AddRange(codeItems.Where(x => x.IdNr.StartsWith($"{idNr}.")).Select(x => x.Id));
+            }
+
+            if (selectedCodeItemIds.Count != 0)
+            {
+                assessments = assessments.Where(x => x.CodeItems.Any(y => selectedCodeItemIds.Cast<int?>().ToArray().Contains(y.CodeItemId)));
+            }
         }
 
         return assessments;

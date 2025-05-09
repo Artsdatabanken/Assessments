@@ -90,7 +90,7 @@ public class NatureTypesRepository : INatureTypesRepository
 
     public List<CodeItem> GetCodeItems()
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => _container.CodeItems.Where(x => x.ParentId == 0).OrderBy(x => x.Id).ToList());
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => _container.CodeItems.ToList());
     }
 
     public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)
