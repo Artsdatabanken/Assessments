@@ -27,8 +27,10 @@
                 <ul class="footer-list">
                     @foreach (var link in Model.Links)
                     {
+                        var url = link.Url.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? link.Url : $"https://artsdatabanken.no{link.Url}";
+
                         <li>
-                            <a href="@link.Url">@link.Title</a>
+                            <a href="@url">@link.Title</a>
                         </li>
                     }
                 </ul>
