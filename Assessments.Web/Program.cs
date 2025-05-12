@@ -21,6 +21,7 @@ using RobotsTxt;
 using SendGrid.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.FeatureManagement;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,6 +84,11 @@ var applicationOptions = builder.Configuration.GetSection(nameof(ApplicationOpti
 builder.Services.AddOptions<ApplicationOptions>().Bind(applicationOptions).ValidateDataAnnotations().ValidateOnStart();
 
 builder.Services.AddSendGrid(options => options.ApiKey = applicationOptions.Get<ApplicationOptions>().SendGridApiKey);
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Assessments API", Version = "v1" });
+});
 
 if (!builder.Environment.IsDevelopment())
 {
@@ -148,6 +154,14 @@ app.UseCookiePolicy(new CookiePolicyOptions
     Secure = CookieSecurePolicy.Always,
     HttpOnly = HttpOnlyPolicy.Always,
     MinimumSameSitePolicy = SameSiteMode.Strict
+});
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.DocumentTitle = "Assessments API";
+    options.DefaultModelsExpandDepth(-1);
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Assessments API");
 });
 
 var cachedFilesFolder = Path.Combine(app.Environment.ContentRootPath, Constants.CacheFolder);

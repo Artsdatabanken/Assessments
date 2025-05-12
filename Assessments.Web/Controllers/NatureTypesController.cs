@@ -117,7 +117,18 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
     [Route("2025/[action]")]
     [ResponseCache(Duration = 86400)]
-    public IActionResult Suggestions() => Json(repository.GetNinCodeTopics().Select(x => new string($"{x.Name} ({x.Description})")));
+    public IActionResult Suggestions()
+    {
+        var codeItems = repository.GetCodeItems()
+            .Where(x => x.ParentId != 0)
+            .Select(x => new string($"{x.Description} (todo Påvirkningsfaktor"));
+
+        var ninCodeTopics = repository.GetNinCodeTopics().Select(x => new string($"{x.Name} ({x.Description})"));
+
+        var suggestions = codeItems.Concat(ninCodeTopics).OrderBy(x => x);
+
+        return Json(suggestions);
+    }
 
     private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
     {

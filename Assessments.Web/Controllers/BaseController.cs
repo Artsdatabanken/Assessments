@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assessments.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public abstract class BaseController<T> : Controller where T : BaseController<T>
     {
         private IWebHostEnvironment _environment;
