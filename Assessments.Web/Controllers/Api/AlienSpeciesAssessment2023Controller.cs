@@ -12,7 +12,7 @@ namespace Assessments.Web.Controllers.Api;
 [EnableCors(nameof(CorsConstants.AllowAny))]
 public class AlienSpeciesAssessment2023Controller(DataRepository repository) : ODataController
 {
-    [EnableQuery(PageSize = 25)]
+    [EnableQuery(PageSize = 100)]
     public async Task<IQueryable<AlienSpeciesAssessment2023>> Get() => await repository.GetAlienSpeciesAssessments();
 
     [EnableQuery]
