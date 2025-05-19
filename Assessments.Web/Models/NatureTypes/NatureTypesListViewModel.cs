@@ -11,6 +11,8 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
 
     public List<NinCodeTopic> NinCodeTopics { get; init; }
 
+    public List<CodeItem> CodeItems { get; init; }
+
     public ListViewViewModel ListViewViewModel { get; init; }
 
     public PageMenuViewModel PageMenuViewModel => new()

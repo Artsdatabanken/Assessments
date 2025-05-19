@@ -34,8 +34,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
         var topics = repository.GetNinCodeTopics();
+        var codeItems = repository.GetCodeItems();
 
-        assessments = ApplyParametersToList(parameters, assessments, regions, topics);
+        assessments = ApplyParametersToList(parameters, assessments, regions, codeItems, repository);
 
         assessments = parameters.SortBy switch
         {
@@ -48,14 +49,16 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
             Name = parameters.Name,
+            Area = parameters.Area,
             Category = parameters.Category,
             Topic = parameters.Topic,
             Region = parameters.Region,
-            Area = parameters.Area,
+            CodeItem = parameters.CodeItem,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
             Regions = regions,
             NinCodeTopics = topics,
+            CodeItems = codeItems,
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
@@ -116,21 +119,18 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     }
 
     [Route("2025/[action]")]
-    [ResponseCache(Duration = 86400)]
+    //[ResponseCache(Duration = 86400)]
     public IActionResult Suggestions()
     {
-        var codeItems = repository.GetCodeItems()
-            .Where(x => x.ParentId != 0)
-            .Select(x => new string($"{x.Description} (todo Påvirkningsfaktor"));
-
-        var ninCodeTopics = repository.GetNinCodeTopics().Select(x => new string($"{x.Name} ({x.Description})"));
+        var codeItems = repository.GetCodeItemSuggestions().Select(x => x.Key);
+        var ninCodeTopics = repository.GetNinCodeTopicSuggestions().Select(x => x.Key);
 
         var suggestions = codeItems.Concat(ninCodeTopics).OrderBy(x => x);
 
         return Json(suggestions);
     }
 
-    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
+    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
@@ -145,19 +145,26 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }
             else
             {
-                var topicSuggestions = topics.Select(x => new { Text = new string($"{x.Name} ({x.Description})"), x.Id});
-                var topic = topicSuggestions.FirstOrDefault(x => x.Text.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                var topic = repository.GetNinCodeTopicSuggestions().FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
-                if (topic != null)
+                // søk på valgt forslag for tema
+                if (topic.Key != null)
                 {
-                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Id);
+                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Value);
                 }
                 else
                 {
-                    //var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
-                    //var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter, CombineExpressionType.AndAlso));
+                    // søk på valgt forslag for påvirkninsfaktor
+                    var codeItem = repository.GetCodeItemSuggestions().FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
-                    assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    if (codeItem.Key != null)
+                    {
+                        assessments = assessments.Where(x => x.CodeItems.Any(y => y.CodeItemId == codeItem.Value));
+                    }
+                    else
+                    {
+                        assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    }
                 }
             }
 
@@ -189,6 +196,30 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
             assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
+        }
+
+        if (parameters.CodeItem.Length != 0)
+        {
+            List<int> selectedCodeItemIds = [];
+
+            foreach (var codeItemId in parameters.CodeItem)
+            {
+                if (!int.TryParse(codeItemId, out var id))
+                    continue;
+
+                var codeItem = codeItems.FirstOrDefault(x => x.Id == id);
+
+                if (codeItem == null)
+                    continue;
+
+                var idNr = codeItem.IdNr.Split(".").First();
+                selectedCodeItemIds.AddRange(codeItems.Where(x => x.IdNr.StartsWith($"{idNr}.")).Select(x => x.Id));
+            }
+
+            if (selectedCodeItemIds.Count != 0)
+            {
+                assessments = assessments.Where(x => x.CodeItems.Any(y => selectedCodeItemIds.Cast<int?>().ToArray().Contains(y.CodeItemId)));
+            }
         }
 
         return assessments;

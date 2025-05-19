@@ -129,6 +129,7 @@
                         MakeFilterChips(Model.Category, NatureTypesFilterHelpers.Categories.Filters);
                         MakeFilterChips(Model.Topic, NatureTypesFilterHelpers.Topics(Model.NinCodeTopics).Filters);
                         MakeFilterChips(Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions).Filters);
+                        MakeFilterChips(Model.CodeItem, NatureTypesFilterHelpers.CodeItems(Model.CodeItems).Filters);
                     }
                 </ul>
                 <a is-visible="NatureTypesFilterHelpers.GetActiveSelectionCount(Model) > 1" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name), nameof(Model.View)])" class="button tinybutton tertiary search_related">
@@ -182,6 +183,7 @@
                                     MakeFilterGroup(nameof(Model.Category), Model.Category, NatureTypesFilterHelpers.Categories);
                                     MakeFilterGroup(nameof(Model.Topic), Model.Topic, NatureTypesFilterHelpers.Topics(Model.NinCodeTopics));
                                     MakeFilterGroup(nameof(Model.Region), Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions));
+                                    MakeFilterGroup(nameof(Model.CodeItem), Model.CodeItem, NatureTypesFilterHelpers.CodeItems(Model.CodeItems));
                                 }
                             </ul>
                         </div>

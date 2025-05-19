@@ -21,6 +21,7 @@
                 b.addEventListener("click", function() {
                     input.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
+                    input.closest("form").submit();
                 });
                 a.appendChild(b);
             }
@@ -39,8 +40,13 @@
             addActive(x);
         } else if (e.keyCode === 13) {
             if (currentFocus > -1) {
-                if (x) x[currentFocus].click();
+                if (x) {
+                    x[currentFocus].click();
+                    this.submit();
+                }
             }
+        } else if (e.keyCode === 27) {
+            closeAllLists();
         }
     });
 
