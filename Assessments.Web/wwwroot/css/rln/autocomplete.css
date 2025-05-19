@@ -3,6 +3,10 @@
     display: inline-block;
 }
 
+.darktheme .autocomplete {
+    color: black;
+}
+
 .autocomplete-items {
     position: absolute;
     border: 1px solid #d4d4d4;
@@ -12,6 +16,7 @@
     top: 100%;
     left: 0;
     right: 0;
+    font-size: 10pt;
 }
 
 .autocomplete-items div {
