@@ -13,10 +13,9 @@
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < data.length; i++) {
-            if (data[i].substr(0, val.length).toUpperCase() === val.toUpperCase()) {
+            if (data[i].toUpperCase().includes(val.toUpperCase())) {
                 b = document.createElement("div");
-                b.innerHTML = `<strong>${data[i].substr(0, val.length)}</strong>`;
-                b.innerHTML += data[i].substr(val.length);
+                b.innerHTML = makeQueryStrong(data[i], val);
                 b.innerHTML += `<input type="hidden"" value="${data[i]}"">`;
                 b.addEventListener("click", function() {
                     input.value = this.getElementsByTagName("input")[0].value;
@@ -49,6 +48,17 @@
             closeAllLists();
         }
     });
+
+    function makeQueryStrong(str, query) {
+        const n = str.toUpperCase();
+        const q = query.toUpperCase();
+        const x = n.indexOf(q);
+        if (!q || x === -1) {
+            return str;
+        }
+        const l = q.length;
+        return str.substr(0, x) + "<strong>" + str.substr(x, l) + "</strong>" + str.substr(x + l);
+    }
 
     function addActive(x) {
         if (!x)
