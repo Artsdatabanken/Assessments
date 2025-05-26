@@ -10,5 +10,7 @@ public record ReferenceResponseDto
 
     public string Type { get; init; }
 
+    public DateTime? Published { get; set; }
+
     public List<RecordResponseDto> Records { get; init; } = [];
 }
