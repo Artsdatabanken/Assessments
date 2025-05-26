@@ -1,6 +1,4 @@
 ﻿@using Assessments.Shared.Interfaces
-@using Assessments.Web.Infrastructure.Enums
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject IDrupalRepository DrupalRepository
 
 @model PageMenuViewModel
@@ -23,7 +21,9 @@
 
         if (content != null)
         {
-            menuItems = content.References.Select(x => new KeyValuePair<string, string>(x.Heading, $"https://artsdatabanken.no{x.Url}")).ToList();
+            menuItems = content.References
+                .Where(x => x.Published != null && !string.IsNullOrEmpty(x.Heading))
+                .Select(x => new KeyValuePair<string, string>(x.Heading, $"https://artsdatabanken.no{x.Url}")).ToList();
         }
 
         return menuItems;
