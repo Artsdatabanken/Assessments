@@ -84,8 +84,6 @@ builder.Services.AddOptions<ApplicationOptions>().Bind(applicationOptions).Valid
 
 builder.Services.AddSendGrid(options => options.ApiKey = applicationOptions.Get<ApplicationOptions>().SendGridApiKey);
 
-
-
 if (!builder.Environment.IsDevelopment())
 {
     builder.Services.AddDataProtection().SetApplicationName("Assessments").PersistKeysToDbContext<AssessmentsDbContext>();
