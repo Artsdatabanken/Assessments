@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 29.04.2025 15:13:55
+// Generation date: 12.05.2025 10:54:19
 namespace RodlisteNaturtyper.Data.Models
 {
     /// <summary>
@@ -2504,6 +2504,252 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnTypeChanged();
     }
     /// <summary>
+    /// There are no comments for CodeItemSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemSingle")]
+    public partial class CodeItemSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<CodeItem>
+    {
+        /// <summary>
+        /// Initialize a new CodeItemSingle object.
+        /// </summary>
+        public CodeItemSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new CodeItemSingle object.
+        /// </summary>
+        public CodeItemSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new CodeItemSingle object.
+        /// </summary>
+        public CodeItemSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<CodeItem> query)
+            : base(query) {}
+
+        /// <summary>
+        /// There are no comments for CodeItemType in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemType")]
+        public virtual global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle CodeItemType
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._CodeItemType == null))
+                {
+                    this._CodeItemType = new global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle(this.Context, GetPath("codeItemType"));
+                }
+                return this._CodeItemType;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle _CodeItemType;
+        /// <summary>
+        /// There are no comments for Assessments in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._Assessments == null))
+                {
+                    this._Assessments = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.Assessment>(GetPath("assessments"));
+                }
+                return this._Assessments;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments;
+    }
+    /// <summary>
+    /// There are no comments for CodeItem in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("id")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItem")]
+    public partial class CodeItem : global::Microsoft.OData.Client.BaseEntityType
+    {
+        /// <summary>
+        /// Create a new CodeItem object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public static CodeItem CreateCodeItem(int ID)
+        {
+            CodeItem codeItem = new CodeItem();
+            codeItem.Id = ID;
+            return codeItem;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("id")]
+        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Id is required.")]
+        public virtual int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property ParentId in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("parentId")]
+        public virtual global::System.Nullable<int> ParentId
+        {
+            get
+            {
+                return this._ParentId;
+            }
+            set
+            {
+                this.OnParentIdChanging(value);
+                this._ParentId = value;
+                this.OnParentIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Nullable<int> _ParentId;
+        partial void OnParentIdChanging(global::System.Nullable<int> value);
+        partial void OnParentIdChanged();
+        /// <summary>
+        /// There are no comments for Property CodeItemTypeId in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemTypeId")]
+        public virtual global::System.Nullable<int> CodeItemTypeId
+        {
+            get
+            {
+                return this._CodeItemTypeId;
+            }
+            set
+            {
+                this.OnCodeItemTypeIdChanging(value);
+                this._CodeItemTypeId = value;
+                this.OnCodeItemTypeIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Nullable<int> _CodeItemTypeId;
+        partial void OnCodeItemTypeIdChanging(global::System.Nullable<int> value);
+        partial void OnCodeItemTypeIdChanged();
+        /// <summary>
+        /// There are no comments for Property Description in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("description")]
+        public virtual string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
+        /// There are no comments for Property IdNr in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("idNr")]
+        public virtual string IdNr
+        {
+            get
+            {
+                return this._IdNr;
+            }
+            set
+            {
+                this.OnIdNrChanging(value);
+                this._IdNr = value;
+                this.OnIdNrChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private string _IdNr;
+        partial void OnIdNrChanging(string value);
+        partial void OnIdNrChanged();
+        /// <summary>
+        /// There are no comments for Property CodeItemType in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemType")]
+        public virtual global::RodlisteNaturtyper.Data.Models.CodeItemType CodeItemType
+        {
+            get
+            {
+                return this._CodeItemType;
+            }
+            set
+            {
+                this.OnCodeItemTypeChanging(value);
+                this._CodeItemType = value;
+                this.OnCodeItemTypeChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::RodlisteNaturtyper.Data.Models.CodeItemType _CodeItemType;
+        partial void OnCodeItemTypeChanging(global::RodlisteNaturtyper.Data.Models.CodeItemType value);
+        partial void OnCodeItemTypeChanged();
+        /// <summary>
+        /// There are no comments for Property Assessments in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
+        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
+        {
+            get
+            {
+                return this._Assessments;
+            }
+            set
+            {
+                this.OnAssessmentsChanging(value);
+                this._Assessments = value;
+                this.OnAssessmentsChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment>();
+        partial void OnAssessmentsChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> value);
+        partial void OnAssessmentsChanged();
+    }
+    /// <summary>
     /// There are no comments for AssessmentAreaInformationSingle in the schema.
     /// </summary>
     [global::Microsoft.OData.Client.OriginalNameAttribute("AssessmentAreaInformationSingle")]
@@ -4378,252 +4624,6 @@ namespace RodlisteNaturtyper.Data.Models
         partial void OnCodeItemParamLevelChanged();
     }
     /// <summary>
-    /// There are no comments for CodeItemSingle in the schema.
-    /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemSingle")]
-    public partial class CodeItemSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<CodeItem>
-    {
-        /// <summary>
-        /// Initialize a new CodeItemSingle object.
-        /// </summary>
-        public CodeItemSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
-            : base(context, path) {}
-
-        /// <summary>
-        /// Initialize a new CodeItemSingle object.
-        /// </summary>
-        public CodeItemSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
-            : base(context, path, isComposable) {}
-
-        /// <summary>
-        /// Initialize a new CodeItemSingle object.
-        /// </summary>
-        public CodeItemSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<CodeItem> query)
-            : base(query) {}
-
-        /// <summary>
-        /// There are no comments for CodeItemType in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemType")]
-        public virtual global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle CodeItemType
-        {
-            get
-            {
-                if (!this.IsComposable)
-                {
-                    throw new global::System.NotSupportedException("The previous function is not composable.");
-                }
-                if ((this._CodeItemType == null))
-                {
-                    this._CodeItemType = new global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle(this.Context, GetPath("codeItemType"));
-                }
-                return this._CodeItemType;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle _CodeItemType;
-        /// <summary>
-        /// There are no comments for Assessments in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
-        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
-        {
-            get
-            {
-                if (!this.IsComposable)
-                {
-                    throw new global::System.NotSupportedException("The previous function is not composable.");
-                }
-                if ((this._Assessments == null))
-                {
-                    this._Assessments = Context.CreateQuery<global::RodlisteNaturtyper.Data.Models.Assessment>(GetPath("assessments"));
-                }
-                return this._Assessments;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments;
-    }
-    /// <summary>
-    /// There are no comments for CodeItem in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::Microsoft.OData.Client.Key("id")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItem")]
-    public partial class CodeItem : global::Microsoft.OData.Client.BaseEntityType
-    {
-        /// <summary>
-        /// Create a new CodeItem object.
-        /// </summary>
-        /// <param name="ID">Initial value of Id.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        public static CodeItem CreateCodeItem(int ID)
-        {
-            CodeItem codeItem = new CodeItem();
-            codeItem.Id = ID;
-            return codeItem;
-        }
-        /// <summary>
-        /// There are no comments for Property Id in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("id")]
-        [global::System.ComponentModel.DataAnnotations.RequiredAttribute(ErrorMessage = "Id is required.")]
-        public virtual int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// There are no comments for Property ParentId in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("parentId")]
-        public virtual global::System.Nullable<int> ParentId
-        {
-            get
-            {
-                return this._ParentId;
-            }
-            set
-            {
-                this.OnParentIdChanging(value);
-                this._ParentId = value;
-                this.OnParentIdChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Nullable<int> _ParentId;
-        partial void OnParentIdChanging(global::System.Nullable<int> value);
-        partial void OnParentIdChanged();
-        /// <summary>
-        /// There are no comments for Property CodeItemTypeId in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemTypeId")]
-        public virtual global::System.Nullable<int> CodeItemTypeId
-        {
-            get
-            {
-                return this._CodeItemTypeId;
-            }
-            set
-            {
-                this.OnCodeItemTypeIdChanging(value);
-                this._CodeItemTypeId = value;
-                this.OnCodeItemTypeIdChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Nullable<int> _CodeItemTypeId;
-        partial void OnCodeItemTypeIdChanging(global::System.Nullable<int> value);
-        partial void OnCodeItemTypeIdChanged();
-        /// <summary>
-        /// There are no comments for Property Description in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("description")]
-        public virtual string Description
-        {
-            get
-            {
-                return this._Description;
-            }
-            set
-            {
-                this.OnDescriptionChanging(value);
-                this._Description = value;
-                this.OnDescriptionChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private string _Description;
-        partial void OnDescriptionChanging(string value);
-        partial void OnDescriptionChanged();
-        /// <summary>
-        /// There are no comments for Property IdNr in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("idNr")]
-        public virtual string IdNr
-        {
-            get
-            {
-                return this._IdNr;
-            }
-            set
-            {
-                this.OnIdNrChanging(value);
-                this._IdNr = value;
-                this.OnIdNrChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private string _IdNr;
-        partial void OnIdNrChanging(string value);
-        partial void OnIdNrChanged();
-        /// <summary>
-        /// There are no comments for Property CodeItemType in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("codeItemType")]
-        public virtual global::RodlisteNaturtyper.Data.Models.CodeItemType CodeItemType
-        {
-            get
-            {
-                return this._CodeItemType;
-            }
-            set
-            {
-                this.OnCodeItemTypeChanging(value);
-                this._CodeItemType = value;
-                this.OnCodeItemTypeChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::RodlisteNaturtyper.Data.Models.CodeItemType _CodeItemType;
-        partial void OnCodeItemTypeChanging(global::RodlisteNaturtyper.Data.Models.CodeItemType value);
-        partial void OnCodeItemTypeChanged();
-        /// <summary>
-        /// There are no comments for Property Assessments in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("assessments")]
-        public virtual global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> Assessments
-        {
-            get
-            {
-                return this._Assessments;
-            }
-            set
-            {
-                this.OnAssessmentsChanging(value);
-                this._Assessments = value;
-                this.OnAssessmentsChanged();
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
-        private global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> _Assessments = new global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment>();
-        partial void OnAssessmentsChanging(global::System.Collections.ObjectModel.Collection<global::RodlisteNaturtyper.Data.Models.Assessment> value);
-        partial void OnAssessmentsChanged();
-    }
-    /// <summary>
     /// There are no comments for CodeItemTypeSingle in the schema.
     /// </summary>
     [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItemTypeSingle")]
@@ -5225,6 +5225,29 @@ namespace RodlisteNaturtyper.Data.Models
             return new global::RodlisteNaturtyper.Data.Models.NinCodeTopicSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CodeItem as global::RodlisteNaturtyper.Data.Models.CodeItemSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="_keys">dictionary with the names and values of keys</param>
+        public static global::RodlisteNaturtyper.Data.Models.CodeItemSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CodeItem> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
+        {
+            return new global::RodlisteNaturtyper.Data.Models.CodeItemSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CodeItem as global::RodlisteNaturtyper.Data.Models.CodeItemSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="_source">source entity set</param>
+        /// <param name="id">The value of id</param>
+        public static global::RodlisteNaturtyper.Data.Models.CodeItemSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CodeItem> _source,
+            int id)
+        {
+            global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "id", id }
+            };
+            return new global::RodlisteNaturtyper.Data.Models.CodeItemSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
+        }
+        /// <summary>
         /// Get an entity of type global::RodlisteNaturtyper.Data.Models.AssessmentAreaInformation as global::RodlisteNaturtyper.Data.Models.AssessmentAreaInformationSingle specified by key from an entity set
         /// </summary>
         /// <param name="_source">source entity set</param>
@@ -5315,29 +5338,6 @@ namespace RodlisteNaturtyper.Data.Models
                 { "id", id }
             };
             return new global::RodlisteNaturtyper.Data.Models.AssessmentCodeItemSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CodeItem as global::RodlisteNaturtyper.Data.Models.CodeItemSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="_source">source entity set</param>
-        /// <param name="_keys">dictionary with the names and values of keys</param>
-        public static global::RodlisteNaturtyper.Data.Models.CodeItemSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CodeItem> _source, global::System.Collections.Generic.IDictionary<string, object> _keys)
-        {
-            return new global::RodlisteNaturtyper.Data.Models.CodeItemSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CodeItem as global::RodlisteNaturtyper.Data.Models.CodeItemSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="_source">source entity set</param>
-        /// <param name="id">The value of id</param>
-        public static global::RodlisteNaturtyper.Data.Models.CodeItemSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CodeItem> _source,
-            int id)
-        {
-            global::System.Collections.Generic.IDictionary<string, object> _keys = new global::System.Collections.Generic.Dictionary<string, object>
-            {
-                { "id", id }
-            };
-            return new global::RodlisteNaturtyper.Data.Models.CodeItemSingle(_source.Context, _source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(_source.Context, _keys)));
         }
         /// <summary>
         /// Get an entity of type global::RodlisteNaturtyper.Data.Models.CodeItemType as global::RodlisteNaturtyper.Data.Models.CodeItemTypeSingle specified by key from an entity set
@@ -5876,6 +5876,24 @@ namespace Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.NinCodeTopic> _NinCodeTopics;
         /// <summary>
+        /// There are no comments for CodeItems in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CodeItems")]
+        public virtual global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CodeItem> CodeItems
+        {
+            get
+            {
+                if ((this._CodeItems == null))
+                {
+                    this._CodeItems = base.CreateQuery<global::RodlisteNaturtyper.Data.Models.CodeItem>("CodeItems");
+                }
+                return this._CodeItems;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::RodlisteNaturtyper.Data.Models.CodeItem> _CodeItems;
+        /// <summary>
         /// There are no comments for Assessments in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
@@ -5922,6 +5940,14 @@ namespace Default
         public virtual void AddToNinCodeTopics(global::RodlisteNaturtyper.Data.Models.NinCodeTopic ninCodeTopic)
         {
             base.AddObject("NinCodeTopics", ninCodeTopic);
+        }
+        /// <summary>
+        /// There are no comments for CodeItems in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
+        public virtual void AddToCodeItems(global::RodlisteNaturtyper.Data.Models.CodeItem codeItem)
+        {
+            base.AddObject("CodeItems", codeItem);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "#VersionNumber#")]
         private abstract class GeneratedEdmModel

@@ -116,6 +116,20 @@
         <Property Name="description" Type="Edm.String" Nullable="false" />
         <Property Name="type" Type="RodlisteNaturtyper.Data.Models.Enums.NinCodeTopicType" Nullable="false" />
       </EntityType>
+      <EntityType Name="CodeItem">
+        <Key>
+          <PropertyRef Name="id" />
+        </Key>
+        <Property Name="id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="parentId" Type="Edm.Int32" />
+        <Property Name="codeItemTypeId" Type="Edm.Int32" />
+        <Property Name="description" Type="Edm.String" />
+        <Property Name="idNr" Type="Edm.String" />
+        <NavigationProperty Name="codeItemType" Type="RodlisteNaturtyper.Data.Models.CodeItemType">
+          <ReferentialConstraint Property="codeItemTypeId" ReferencedProperty="id" />
+        </NavigationProperty>
+        <NavigationProperty Name="assessments" Type="Collection(RodlisteNaturtyper.Data.Models.Assessment)" />
+      </EntityType>
       <EntityType Name="AssessmentAreaInformation">
         <Key>
           <PropertyRef Name="id" />
@@ -209,20 +223,6 @@
         <NavigationProperty Name="codeItemParamLevel" Type="RodlisteNaturtyper.Data.Models.CodeItemParamLevel">
           <ReferentialConstraint Property="codeItemParamLevelId" ReferencedProperty="id" />
         </NavigationProperty>
-      </EntityType>
-      <EntityType Name="CodeItem">
-        <Key>
-          <PropertyRef Name="id" />
-        </Key>
-        <Property Name="id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="parentId" Type="Edm.Int32" />
-        <Property Name="codeItemTypeId" Type="Edm.Int32" />
-        <Property Name="description" Type="Edm.String" />
-        <Property Name="idNr" Type="Edm.String" />
-        <NavigationProperty Name="codeItemType" Type="RodlisteNaturtyper.Data.Models.CodeItemType">
-          <ReferentialConstraint Property="codeItemTypeId" ReferencedProperty="id" />
-        </NavigationProperty>
-        <NavigationProperty Name="assessments" Type="Collection(RodlisteNaturtyper.Data.Models.Assessment)" />
       </EntityType>
       <EntityType Name="CodeItemType">
         <Key>
@@ -353,6 +353,9 @@
           <NavigationPropertyBinding Path="user" Target="Users" />
         </EntitySet>
         <EntitySet Name="NinCodeTopics" EntityType="RodlisteNaturtyper.Data.Models.NinCodeTopic" />
+        <EntitySet Name="CodeItems" EntityType="RodlisteNaturtyper.Data.Models.CodeItem">
+          <NavigationPropertyBinding Path="assessments" Target="Assessments" />
+        </EntitySet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>
