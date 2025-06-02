@@ -118,8 +118,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return RedirectToAction("List");
     }
 
+    [HttpGet]
     [Route("2025/[action]")]
-    //[ResponseCache(Duration = 86400)]
     public IActionResult Suggestions()
     {
         var codeItems = repository.GetCodeItemSuggestions().Select(x => x.Key);
