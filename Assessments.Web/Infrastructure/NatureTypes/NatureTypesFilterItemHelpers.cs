@@ -68,8 +68,8 @@ public static class NatureTypesFilterHelpers
 
     public static FilterAndMetaData CodeItems(List<CodeItem> codeItems)
     {
-        // hardkodet liste med id'er som bestemmer hva som skal vises og rekkefølge
-        int[] codeItemFilterIds = [13, 14, 15, 16, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+        // liste med id'er som bestemmer rekkefølgen og hvilke påvirkningsfaktorer som skal vises 
+        int[] codeItemFilterIds = [13, 14, 15, 16, 3, 4, 5, 6, 7, 8, 9, 10];
 
         return new FilterAndMetaData
         {
