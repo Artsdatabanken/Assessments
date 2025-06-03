@@ -199,9 +199,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
                 if (codeItem == null)
                     continue;
-
-                var idNr = codeItem.IdNr.Split(".").First();
-                selectedCodeItemIds.AddRange(codeItems.Where(x => x.IdNr.StartsWith($"{idNr}.")).Select(x => x.Id));
+             
+                selectedCodeItemIds.AddRange(codeItems.Where(x => x.IdNr.StartsWith(codeItem.IdNr)).Select(x => x.Id));
             }
 
             if (selectedCodeItemIds.Count != 0)
