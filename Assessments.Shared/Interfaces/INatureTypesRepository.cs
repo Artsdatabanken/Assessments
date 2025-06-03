@@ -25,7 +25,5 @@ public interface INatureTypesRepository
     
     List<CodeItem> GetCodeItems();
     
-    List<KeyValuePair<string, int>> GetCodeItemSuggestions();
-
     Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default);
 }

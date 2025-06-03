@@ -6,9 +6,9 @@ public static class NatureTypesConstants
 
     public const string Title = "Rødlista for naturtyper";
 
-    public const string Title2025 = "Rødlista for naturtyper 2025";
+    public const string Title2025 = "Norsk rødliste for naturtyper 2025";
     
-    public const string Citation = "Artsdatabanken. Norsk rødliste for naturtyper 2025.";
+    public const string Citation = $"Artsdatabanken. {Title2025}.";
 
     public const int PageMenuContentId = 376719;
 

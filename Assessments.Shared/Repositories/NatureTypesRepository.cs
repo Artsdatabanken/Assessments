@@ -96,7 +96,7 @@ public class NatureTypesRepository : INatureTypesRepository
 
             List<KeyValuePair<string, int>> items = [];
 
-            items.AddRange(topics.Select(ninCodeTopic => new KeyValuePair<string, int>(new string($"{ninCodeTopic.Name} (Tema: {ninCodeTopic.Description})"), ninCodeTopic.Id)));
+            items.AddRange(topics.Select(ninCodeTopic => new KeyValuePair<string, int>(new string($"{ninCodeTopic.ShortCode} {ninCodeTopic.Name} (Tema: {ninCodeTopic.Description})"), ninCodeTopic.Id)));
             
             return items;
         });
@@ -105,36 +105,6 @@ public class NatureTypesRepository : INatureTypesRepository
     public List<CodeItem> GetCodeItems()
     {
         return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => _container.CodeItems.ToList());
-    }
-
-    public List<KeyValuePair<string, int>> GetCodeItemSuggestions()
-    {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItemSuggestions)}", () =>
-        {
-            var codeItems = GetCodeItems();
-
-            List<KeyValuePair<string, int>> items = [];
-
-            foreach (var element in codeItems.Where(x => x.ParentId != 0))
-            {
-                var codeItem = element;
-                var description = codeItem.Description;
-                var parentDescriptions = new List<string>();
-
-                while (codeItem != null && codeItem.ParentId != 0)
-                {
-                    var parent = codeItems.FirstOrDefault(a => a.Id == codeItem.ParentId);
-                    if (parent != null && !string.IsNullOrEmpty(parent.Description))
-                        parentDescriptions.Add(parent.Description);
-
-                    codeItem = parent;
-                }
-
-                items.Add(new KeyValuePair<string, int>($"{description} (Påvirkningsfaktor: {string.Join(" > ", parentDescriptions)})", element.Id));
-            }
-
-            return items;
-        });
     }
 
     public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)

@@ -113,7 +113,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
             return NotFound();
 
-        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(14) });
+        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(90) });
 
         return RedirectToAction("List");
     }
@@ -122,12 +122,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     [Route("2025/[action]")]
     public IActionResult Suggestions()
     {
-        var codeItems = repository.GetCodeItemSuggestions().Select(x => x.Key);
-        var ninCodeTopics = repository.GetNinCodeTopicSuggestions().Select(x => x.Key);
-
-        var suggestions = codeItems.Concat(ninCodeTopics).OrderBy(x => x);
-
-        return Json(suggestions);
+        var ninCodeTopics = repository.GetNinCodeTopicSuggestions().Select(x => x.Key).OrderBy(x => x);
+        
+        return Json(ninCodeTopics);
     }
 
     private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
@@ -147,24 +144,15 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             {
                 var topic = repository.GetNinCodeTopicSuggestions().FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
-                // søk på valgt forslag for tema
-                if (topic.Key != null)
+                if (topic.Key == null)
                 {
-                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Value);
+                    // "fritekstsøk"
+                    assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
                 else
                 {
-                    // søk på valgt forslag for påvirkninsfaktor
-                    var codeItem = repository.GetCodeItemSuggestions().FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
-
-                    if (codeItem.Key != null)
-                    {
-                        assessments = assessments.Where(x => x.CodeItems.Any(y => y.CodeItemId == codeItem.Value));
-                    }
-                    else
-                    {
-                        assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
-                    }
+                    // søk på valgt forslag for tema
+                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Value);
                 }
             }
 
