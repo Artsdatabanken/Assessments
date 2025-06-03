@@ -1027,6 +1027,13 @@ namespace Assessments.Mapping.AlienSpecies.Helpers
             return assessmentId switch
             {
                 2526 => new DateTime(2024, 05, 06),
+                1711 => new DateTime(2025, 06, 06),  //TODO: use date for publishing
+                2375 => new DateTime(2025, 06, 06), //TODO: use date for publishing
+                5128 => new DateTime(2025, 06, 06), //TODO: use date for publishing
+                5142 => new DateTime(2025, 06, 06), //TODO: use date for publishing
+                5164 => new DateTime(2025, 06, 06), //TODO: use date for publishing
+                5184 => new DateTime(2025, 06, 06), //TODO: use date for publishing
+                1468 => new DateTime(2025, 06, 06), //TODO: use date for publishing
                 _ => dateObject
             };
         }
