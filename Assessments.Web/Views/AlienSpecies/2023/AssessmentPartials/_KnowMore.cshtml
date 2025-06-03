@@ -30,9 +30,7 @@
         var text = $"{Helpers.FixSpeciesLevelWithTranslation("{Arten}", Model.Assessment.ScientificName.ScientificNameRank, Model.Assessment.ScientificName.ScientificName)} ";
         if (Model.Assessment.SpeciesStatus == AlienSpeciesAssessment2023SpeciesStatus.Abroad)
             return $"{text} forekommer ikke {areaText}.";
-        if (Model.Assessment.SpeciesStatus == AlienSpeciesAssessment2023SpeciesStatus.C3)
-            return $"{text} {Model.Assessment.SpeciesStatus.Description()}. Etter introduksjon har {Helpers.FixSpeciesLevelWithTranslation("{arten}", Model.Assessment.ScientificName.ScientificNameRank, Model.Assessment.ScientificName.ScientificName)} selv spredd seg til minst ti forekomster der den er etablert.";
-        return $"{text} {Model.Assessment.SpeciesStatus.Description().Replace("i Norge", areaText)}.";
+        return $"{text} {Model.Assessment.SpeciesStatus.Description()}.";
     }
 
     string GetReproductionString()
