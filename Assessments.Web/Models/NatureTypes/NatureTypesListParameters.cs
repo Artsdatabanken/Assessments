@@ -14,6 +14,8 @@ public record NatureTypesListParameters
 
     public string[] Region { get; set; } = [];
 
+    public string[] CodeItem { get; set; } = [];
+
     public SortByEnum SortBy { get; set; }
     
     public string[] Meta { get; set; } = [];

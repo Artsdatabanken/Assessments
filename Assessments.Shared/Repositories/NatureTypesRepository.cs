@@ -88,6 +88,25 @@ public class NatureTypesRepository : INatureTypesRepository
         return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopics)}", () => _container.NinCodeTopics.OrderBy(x => x.Name).ToList());
     }
 
+    public List<KeyValuePair<string, int>> GetNinCodeTopicSuggestions()
+    {
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopicSuggestions)}", () =>
+        {
+            var topics = GetNinCodeTopics();
+
+            List<KeyValuePair<string, int>> items = [];
+
+            items.AddRange(topics.Select(ninCodeTopic => new KeyValuePair<string, int>(new string($"{ninCodeTopic.ShortCode} {ninCodeTopic.Name} (Tema: {ninCodeTopic.Description})"), ninCodeTopic.Id)));
+            
+            return items;
+        });
+    }
+
+    public List<CodeItem> GetCodeItems()
+    {
+        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => _container.CodeItems.ToList());
+    }
+
     public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)
     {
         var queryStrings = HttpUtility.ParseQueryString(new UriBuilder(uri).Query);

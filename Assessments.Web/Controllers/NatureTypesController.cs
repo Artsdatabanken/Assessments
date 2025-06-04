@@ -34,8 +34,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var assessments = repository.GetAssessments();
         var regions = repository.GetRegions();
         var topics = repository.GetNinCodeTopics();
+        var codeItems = repository.GetCodeItems();
 
-        assessments = ApplyParametersToList(parameters, assessments, regions, topics);
+        assessments = ApplyParametersToList(parameters, assessments, regions, codeItems, repository);
 
         assessments = parameters.SortBy switch
         {
@@ -48,14 +49,16 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
             Name = parameters.Name,
+            Area = parameters.Area,
             Category = parameters.Category,
             Topic = parameters.Topic,
             Region = parameters.Region,
-            Area = parameters.Area,
+            CodeItem = parameters.CodeItem,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
             Regions = regions,
             NinCodeTopics = topics,
+            CodeItems = codeItems,
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
@@ -110,12 +113,21 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
             return NotFound();
 
-        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(14) });
+        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(90) });
 
         return RedirectToAction("List");
     }
 
-    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<NinCodeTopic> topics)
+    [HttpGet]
+    [Route("2025/[action]")]
+    public IActionResult Suggestions()
+    {
+        var ninCodeTopics = repository.GetNinCodeTopicSuggestions().Select(x => x.Key).OrderBy(x => x);
+        
+        return Json(ninCodeTopics);
+    }
+
+    private static IQueryable<Assessment> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
@@ -130,18 +142,17 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }
             else
             {
-                var topic = topics.FirstOrDefault(x => x.Name.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                var topic = repository.GetNinCodeTopicSuggestions().FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
-                if (topic != null)
+                if (topic.Key == null)
                 {
-                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Id);
+                    // "fritekstsøk"
+                    assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
                 else
                 {
-                    //var searchParameters = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
-                    //var searchTerms = searchParameters.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, term) => Combine(current, x => x.Name.Contains(term) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter, CombineExpressionType.AndAlso));
-
-                    assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    // søk på valgt forslag for tema
+                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Value);
                 }
             }
 
@@ -173,6 +184,29 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
             assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
+        }
+
+        if (parameters.CodeItem.Length != 0)
+        {
+            List<int> selectedCodeItemIds = [];
+
+            foreach (var codeItemId in parameters.CodeItem)
+            {
+                if (!int.TryParse(codeItemId, out var id))
+                    continue;
+
+                var codeItem = codeItems.FirstOrDefault(x => x.Id == id);
+
+                if (codeItem == null)
+                    continue;
+             
+                selectedCodeItemIds.AddRange(codeItems.Where(x => x.IdNr.StartsWith(codeItem.IdNr)).Select(x => x.Id));
+            }
+
+            if (selectedCodeItemIds.Count != 0)
+            {
+                assessments = assessments.Where(x => x.CodeItems.Any(y => selectedCodeItemIds.Cast<int?>().ToArray().Contains(y.CodeItemId)));
+            }
         }
 
         return assessments;
