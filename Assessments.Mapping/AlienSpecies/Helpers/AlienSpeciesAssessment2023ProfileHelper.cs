@@ -76,13 +76,14 @@ namespace Assessments.Mapping.AlienSpecies.Helpers
 
         internal static string GetEstablishmentCategory(string speciesEstablishmentCategory, string speciesStatus, string alienSpeciesCategory)
         {
-            string notAlienSpecies = "NotAlienSpecie";
+            bool isExcludedAlienSpeciesCategory = alienSpeciesCategory is "HorizonScannedButNotRiskAssessed" or "NotAlienSpecie";
 
-            if (speciesStatus == null || alienSpeciesCategory == notAlienSpecies)
+            if (isExcludedAlienSpeciesCategory || string.IsNullOrEmpty(speciesStatus))
             {
                 return string.Empty;
             }
-            return speciesStatus != "C3" ? speciesStatus : speciesEstablishmentCategory;
+            
+            return speciesStatus is "C3" && speciesEstablishmentCategory is not null ? speciesEstablishmentCategory : speciesStatus;
         }
 
         internal static bool GetHasIndoorProduction(string indoorProductionString)
