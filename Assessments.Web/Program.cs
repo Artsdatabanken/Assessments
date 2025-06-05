@@ -21,6 +21,7 @@ using RobotsTxt;
 using SendGrid.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.FeatureManagement;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,6 +117,11 @@ builder.Services.AddCors(options => { options.AddPolicy(name: CorsConstants.Allo
 
 builder.Services.AddFeatureManagement();
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Assessments API", Version = "v1" });
+});
+
 var app = builder.Build();
 
 app.UseForwardedHeaders();
@@ -158,6 +164,14 @@ if (!Directory.Exists(cachedFilesFolder))
 app.MapDefaultControllerRoute().WithStaticAssets();
 
 app.UseRobotsTxt();
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.DocumentTitle = "Assessments API";
+    options.DefaultModelsExpandDepth(-1);
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Assessments API");
+});
 
 ExportHelper.Setup();
 
