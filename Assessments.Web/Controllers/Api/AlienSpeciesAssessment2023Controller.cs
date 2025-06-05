@@ -10,12 +10,14 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace Assessments.Web.Controllers.Api;
 
 [EnableCors(nameof(CorsConstants.AllowAny))]
+[Produces("application/json")]
 public class AlienSpeciesAssessment2023Controller(DataRepository repository) : ODataController
 {
     [EnableQuery(PageSize = 100)]
     public async Task<IQueryable<AlienSpeciesAssessment2023>> Get() => await repository.GetAlienSpeciesAssessments();
 
     [EnableQuery]
+    [Produces<AlienSpeciesAssessment2023>]
     public async Task<IActionResult> Get(int key)
     {
         var query = await repository.GetAlienSpeciesAssessments();
