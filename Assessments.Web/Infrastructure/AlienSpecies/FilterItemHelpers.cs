@@ -1110,7 +1110,7 @@ namespace Assessments.Web.Infrastructure.AlienSpecies
 
             MisIdentified = AlienSpeciecAssessment2023AlienSpeciesCategory.MisIdentified,
 
-            HorizonScanned = AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment
+            HorizonScanned = AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed
         }
 
         public FilterAndMetaData AlienSpecies2023NotAssessed() => 
