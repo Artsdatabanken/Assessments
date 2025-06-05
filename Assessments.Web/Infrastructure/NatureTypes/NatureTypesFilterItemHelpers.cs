@@ -69,7 +69,7 @@ public static class NatureTypesFilterHelpers
     public static FilterAndMetaData Criteria => new()
     {
         FilterButtonName = "kriteriefiltre",
-        FilterButtonText = "Kriterier",
+        FilterButtonText = "Utslagsgivende kriterier",
         Filters = [.. Enum.GetValues<CategoryCriteriaType>()
             .Select(x => new FilterItem
             {
