@@ -66,6 +66,19 @@ public static class NatureTypesFilterHelpers
             ]
         };
 
+    public static FilterAndMetaData Criteria => new()
+    {
+        FilterButtonName = "kriteriefiltre",
+        FilterButtonText = "Kriterier",
+        Filters = [.. Enum.GetValues<CategoryCriteriaType>()
+            .Select(x => new FilterItem
+            {
+                NameShort = x.ToString(),
+                Name = $"{x} - {x.DisplayName()}",
+                Description = x.DisplayName()
+            })]
+    };
+
     public static FilterAndMetaData CodeItems(List<CodeItem> codeItems)
     {
         // liste med id'er som bestemmer rekkefølgen og hvilke påvirkningsfaktorer som skal vises 
@@ -96,6 +109,7 @@ public static class NatureTypesFilterHelpers
         count += model.Category.Length;
         count += model.Region.Length;
         count += model.Topic.Length;
+        count += model.Criteria.Length;
         count += model.CodeItem.Length;
 
         return count;

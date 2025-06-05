@@ -8,7 +8,7 @@
 
 <li class="@(type.Contains(CategoryCriteriaType.A) ? "active" : "inactive")">
     <h4>
-        A - Reduksjon i totalarealet
+        @($"{CategoryCriteriaType.A} - {CategoryCriteriaType.A.DisplayName()}")
     </h4>
     <p>
         Reduksjon av naturtypens totalareal i løpet av en 50-årsperiode
@@ -60,7 +60,7 @@
 
 <li class="@(type.Contains(CategoryCriteriaType.B) ? "active" : "inactive")">
     <h4>
-        B - Begrenset geografisk utbredelse
+        @($"{CategoryCriteriaType.B} - {CategoryCriteriaType.B.DisplayName()}")
     </h4>
     <p>
         Utbredelsesareal i dag (B1) eller antall 10 × 10 km ruter hvor naturtypen finnes i dag (B2). Minst ett av underkriteriene a-c må være angitt for at kategorien B1 og/eller B2 skal gjelde.
@@ -198,7 +198,7 @@
 
 <li class="@(type.Contains(CategoryCriteriaType.C) ? "active" : "inactive")">
     <h4>
-        C - Abiotisk forringelse
+        @($"{CategoryCriteriaType.C} - {CategoryCriteriaType.C.DisplayName()}")
     </h4>
     <p>
         Andel av totalarealet som er forringet, og graden av forringelse, basert på endring i en abiotisk variabel, i løpet av en vurderingsperiode på 50 år.
@@ -307,7 +307,7 @@
 
 <li class="@(type.Contains(CategoryCriteriaType.D) ? "active" : "inactive")">
     <h4>
-        D - Biotisk forringelse
+        @($"{CategoryCriteriaType.D} - {CategoryCriteriaType.D.DisplayName()}")
     </h4>
     <p>
         Andel av totalarealet som er forringet, og graden av forringelse, basert på endring i en biotisk variabel, i løpet av en vurderingsperiode på 50 år.
@@ -418,7 +418,7 @@
 
 <li class="@(type.Contains(CategoryCriteriaType.E) ? "active" : "inactive")">
     <h4>
-        E - Kvantitativ risikoanalyse
+        @($"{CategoryCriteriaType.E} - {CategoryCriteriaType.E.DisplayName()}")
     </h4>
     <p>
         Angir den estimerte sannsynligheten for at økosystemet går tapt

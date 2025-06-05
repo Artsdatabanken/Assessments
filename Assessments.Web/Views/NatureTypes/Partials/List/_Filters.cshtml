@@ -129,6 +129,7 @@
                         MakeFilterChips(Model.Category, NatureTypesFilterHelpers.Categories.Filters);
                         MakeFilterChips(Model.Topic, NatureTypesFilterHelpers.Topics(Model.NinCodeTopics).Filters);
                         MakeFilterChips(Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions).Filters);
+                        MakeFilterChips(Model.Criteria, NatureTypesFilterHelpers.Criteria.Filters);
                         MakeFilterChips(Model.CodeItem, NatureTypesFilterHelpers.CodeItems(Model.CodeItems).Filters);
                     }
                 </ul>
@@ -183,6 +184,7 @@
                                     MakeFilterGroup(nameof(Model.Category), Model.Category, NatureTypesFilterHelpers.Categories);
                                     MakeFilterGroup(nameof(Model.Topic), Model.Topic, NatureTypesFilterHelpers.Topics(Model.NinCodeTopics));
                                     MakeFilterGroup(nameof(Model.Region), Model.Region, NatureTypesFilterHelpers.Regions(Model.Regions));
+                                    MakeFilterGroup(nameof(Model.Criteria), Model.Criteria, NatureTypesFilterHelpers.Criteria);
                                     MakeFilterGroup(nameof(Model.CodeItem), Model.CodeItem, NatureTypesFilterHelpers.CodeItems(Model.CodeItems));
                                 }
                             </ul>
