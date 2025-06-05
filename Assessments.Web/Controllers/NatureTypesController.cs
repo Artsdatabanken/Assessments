@@ -53,6 +53,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             Category = parameters.Category,
             Topic = parameters.Topic,
             Region = parameters.Region,
+            Criteria = parameters.Criteria,
             CodeItem = parameters.CodeItem,
             Meta = parameters.Meta,
             IsCheck = parameters.IsCheck,
@@ -184,6 +185,27 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
             assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
+        }
+
+        if (parameters.Criteria.Length != 0)
+        {
+            List<string> criteria = [];
+
+            if (parameters.Criteria.Contains("A"))
+                criteria.AddRange(["A1", "A2a", "A2b"]);
+            if (parameters.Criteria.Contains("B"))
+                criteria.AddRange(["B1", "B2", "B3"]);
+            if (parameters.Criteria.Contains("C"))
+                criteria.AddRange(["C1", "C2a", "C2b"]);
+            if (parameters.Criteria.Contains("D"))
+                criteria.AddRange(["D1", "D2a", "D2b"]);
+            if (parameters.Criteria.Contains("E"))
+                criteria.AddRange([" E"]);
+
+            if (criteria.Count != 0)
+            {
+                assessments = assessments.Where(criteria.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.CategoryCriteria.Contains(keyword))));
+            }
         }
 
         if (parameters.CodeItem.Length != 0)

@@ -4,18 +4,18 @@ namespace Assessments.Shared.DTOs.NatureTypes.Enums;
 
 public enum CategoryCriteriaType
 {
-    [Display(Name = "reduksjon i totalarealet")]
+    [Display(Name = "Reduksjon i totalarealet")]
     A,
 
-    [Display(Name = "begrenset geografisk utbredelse")]
+    [Display(Name = "Begrenset geografisk utbredelse")]
     B,
 
-    [Display(Name = "abiotisk forringelse")]
+    [Display(Name = "Abiotisk forringelse")]
     C,
 
-    [Display(Name = "biotisk forringelse")]
+    [Display(Name = "Biotisk forringelse")]
     D,
 
-    [Display(Name = "kvantitativ analyse")]
+    [Display(Name = "Kvantitativ analyse")]
     E
 }
