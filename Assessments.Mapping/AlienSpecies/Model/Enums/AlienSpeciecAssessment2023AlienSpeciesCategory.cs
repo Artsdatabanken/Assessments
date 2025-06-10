@@ -24,7 +24,7 @@ namespace Assessments.Mapping.AlienSpecies.Model.Enums
         NotAlienSpecie,
 
         [Display(Name = nameof(AlienSpeciesAssessment2023AlienSpeciesCategoryResource.horizon_scanned_but_no_risk_assessment), ResourceType = typeof(AlienSpeciesAssessment2023AlienSpeciesCategoryResource))]
-        HorizonScannedButNotRiskAssessed,
+        HorizonScannedButNoRiskAssessment,
 
         [Display(Name = nameof(AlienSpeciesAssessment2023AlienSpeciesCategoryResource.evaluated_at_another_level), ResourceType = typeof(AlienSpeciesAssessment2023AlienSpeciesCategoryResource))]
         TaxonEvaluatedAtAnotherLevel,

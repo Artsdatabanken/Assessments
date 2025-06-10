@@ -18,7 +18,7 @@
     var allSubTaxaAssessedSeparatelyString = "det";
     var evaluatedString = Model.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.TaxonEvaluatedAtAnotherLevel ? evaluatedOnAnotherLevelString : 
         Model.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.AllSubTaxaAssessedSeparately ? allSubTaxaAssessedSeparatelyString : notEvaluatedOnAnotherLevelString;
-    var statusText = Model.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed ? @Localizer["did_not_pass_horizon_scanning"] : Model.AlienSpeciesCategory.DisplayName().ToLowerInvariant();
+    var statusText = Model.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment ? @Localizer["did_not_pass_horizon_scanning"] : Model.AlienSpeciesCategory.DisplayName().ToLowerInvariant();
 }
 
 <div is-visible="!isNr" class="page_section">

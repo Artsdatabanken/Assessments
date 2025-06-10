@@ -247,7 +247,7 @@ namespace Assessments.Transformation
 
             assessment.Category = "NR";
             assessment.AssessmentConclusion = "WillNotBeRiskAssessed";
-            assessment.AlienSpeciesCategory = "HorizonScannedButNotRiskAssessed";
+            assessment.AlienSpeciesCategory = "HorizonScannedButNoRiskAssessment";
         }
 
         private static void FixSubSpeciesLinkedToSpecies(List<AlienSpeciesAssessment2023> targetItems, List<FA4> sourceItems)

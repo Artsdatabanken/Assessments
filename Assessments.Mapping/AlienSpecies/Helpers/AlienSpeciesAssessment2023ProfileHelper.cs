@@ -76,7 +76,7 @@ namespace Assessments.Mapping.AlienSpecies.Helpers
 
         internal static string GetEstablishmentCategory(string speciesEstablishmentCategory, string speciesStatus, string alienSpeciesCategory)
         {
-            bool isExcludedAlienSpeciesCategory = alienSpeciesCategory is "HorizonScannedButNotRiskAssessed" or "NotAlienSpecie";
+            bool isExcludedAlienSpeciesCategory = alienSpeciesCategory is "HorizonScannedButNoRiskAssessment" or "NotAlienSpecie";
 
             if (isExcludedAlienSpeciesCategory || string.IsNullOrEmpty(speciesStatus))
             {

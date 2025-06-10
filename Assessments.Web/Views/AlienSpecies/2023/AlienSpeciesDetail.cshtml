@@ -33,7 +33,7 @@
         {
             AssessmentYear = 2023, // TODO: create this field in assessment model
             ExpertCommittee = assessment.ExpertGroup,
-            FirstPublishedDateString = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed ? Constants.AlienSpecies2023FirstPublishedHorizonScanned :  Constants.AlienSpecies2023FirstPublished,
+            FirstPublishedDateString = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment ? Constants.AlienSpecies2023FirstPublishedHorizonScanned :  Constants.AlienSpecies2023FirstPublished,
             RevisionDate = assessment.RevisionDate, // TODO: check if this is revision date
             RevisionReason = "", // TODO: create a field for this, if we need revisions at all for alien species
             SpeciesGroup = assessment.SpeciesGroup.DisplayName(),
@@ -91,7 +91,7 @@
     var isMisidentified = assessment.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.MisIdentified;
 
     var showExpertStatement = !isNr && !isEvaluatedAtAnotherLevel;
-    var isHorizonScanned = Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed;
+    var isHorizonScanned = Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
     var showAssessmentReasoning = isHorizonScanned || (isNr || isEvaluatedAtAnotherLevel) &&
         (!string.IsNullOrEmpty(Model.ExpertStatementViewModel.MisidentifiedDescription) ||
         !string.IsNullOrEmpty(Model.ExpertStatementViewModel.AllSubTaxaAssessedSeparately) ||
@@ -107,8 +107,8 @@
     var showRegionalSpread = !isNr && !isEvaluatedAtAnotherLevel;
     var showAttachments = !isEvaluatedAtAnotherLevel && assessment.Attachments != null && assessment.Attachments.Count() != 0;
     var showImpactedNatureTypes = !isNr && !isEvaluatedAtAnotherLevel;
-    var showKnowMore = !(assessment.Category == AlienSpeciesAssessment2023Category.NR && (assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.NotAlienSpecie || Model.Assessment.SpeciesStatus == AlienSpeciesAssessment2023SpeciesStatus.NotIndicated || Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed));
-    var showReference = assessment.References != null && assessment.References.Count() > 0 && assessment.AlienSpeciesCategory != AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed;
+    var showKnowMore = !(assessment.Category == AlienSpeciesAssessment2023Category.NR && (assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.NotAlienSpecie || Model.Assessment.SpeciesStatus == AlienSpeciesAssessment2023SpeciesStatus.NotIndicated || Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment));
+    var showReference = assessment.References != null && assessment.References.Count() > 0 && assessment.AlienSpeciesCategory != AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
     var showSpreadWays = !isNr && !isEvaluatedAtAnotherLevel;
     var showTableOfContents = assessment.Category != AlienSpeciesAssessment2023Category.NR;
     var showCitationForAssessment = Model.ExpertGroupMembers.Any();

@@ -8,7 +8,7 @@
     var showChangedFromAlienDescription = !string.IsNullOrEmpty(Model.ChangedFromAlienDescription) && (!string.IsNullOrEmpty(Model.AlienStatusExplanation) && Model.AlienStatusExplanation != Model.ChangedFromAlienDescription || string.IsNullOrEmpty(Model.AlienStatusExplanation));
     var showConnectedToHigherLowerTaxonDescription = Model.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.TaxonEvaluatedAtAnotherLevel;
     var showUncertaintyEstablishmentTimeDescription = Model.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.UncertainBefore1800 || Model.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.RegionallyAlienEstablishedBefore1800;
-    var showHorizonScanned = Model.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNotRiskAssessed;
+    var showHorizonScanned = Model.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
     var isMisidentified = Model.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.MisIdentified;
     var isAllBubTaxaAssessedSeparately = Model.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.AllSubTaxaAssessedSeparately;
     var isHybridWithoutOwnRiskAssessment = Model.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.HybridWithoutOwnRiskAssessment;
