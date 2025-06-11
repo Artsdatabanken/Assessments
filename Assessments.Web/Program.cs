@@ -4,24 +4,25 @@ using Assessments.Data;
 using Assessments.Shared;
 using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
+using Assessments.Shared.Options;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Infrastructure.Middleware;
 using Assessments.Web.Infrastructure.Services;
-using Assessments.Shared.Options;
 using Azure.Identity;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.FeatureManagement;
+using Microsoft.OData;
+using Microsoft.OpenApi.Models;
 using NLog.Web;
 using RobotsTxt;
 using SendGrid.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.FeatureManagement;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,9 +43,9 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
     .AddViewLocalization(options => options.ResourcesPath = "Resources")
-    .AddOData(ODataHelper.Options);
+    .AddOData(options => options.EnableQueryFeatures(maxTopValue: 100).AddRouteComponents("odata/v1", ODataHelper.GetModel(builder.Environment)));
 
-builder.Services.AddDbContext<AssessmentsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException(), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure()));
+builder.Services.AddDbContext<AssessmentsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(ConnectionStrings.Default) ?? throw new InvalidOperationException($"ConnectionString '{ConnectionStrings.Default}' not found"), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure()));
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -65,7 +66,8 @@ builder.Services.AddProblemDetails(options =>
     options.CustomizeProblemDetails = ctx =>
         ctx.ProblemDetails.Extensions.Add("environment", builder.Environment.EnvironmentName));
 
-builder.Services.AddSharedModule();
+
+builder.Services.AddSharedModule(builder.Configuration);
 
 builder.Services.AddSingleton<DataRepository>();
 

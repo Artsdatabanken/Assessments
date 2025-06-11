@@ -1,10 +1,10 @@
 ﻿using Assessments.Data.Models;
 using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
-using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 
@@ -14,7 +14,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
 {
     public List<Region> Regions { get; init; } = [];
 
-    public List<CodeItemModel> CodeItemModels { get; init; }
+    public List<CodeItemDto> CodeItemDtos { get; init; }
 
     public FeedbackViewModel FeedbackViewModel => new()
     {
@@ -50,7 +50,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
                 {
                     ElementId = nameof(NatureTypesConstants.Headings.CodeItems),
                     Title = NatureTypesConstants.Headings.CodeItems,
-                    ShouldShow = CodeItemModels.Count != 0
+                    ShouldShow = CodeItemDtos.Count != 0
                 },
                 new TableOfContentsViewModel.Content
                 {

@@ -1,5 +1,4 @@
-﻿@inject IOptions<ApplicationOptions> Options
-@model NatureTypesListViewModel
+﻿@model NatureTypesListViewModel
 
 @{
     Layout = "_Layout.cshtml";
@@ -28,9 +27,6 @@
             </div>
             <div class="mobile_padding">
                 <partial name="/Views/Shared/_Introduction.cshtml" for="IntroductionViewModel" />
-                <environment exclude="Production">
-                    <i>data hentes fra @Options.Value.NatureTypes.ODataUrl.Host</i>
-                </environment>
             </div>
         </div>
         <form id="search_and_filter_form" method="get" autocomplete="off">

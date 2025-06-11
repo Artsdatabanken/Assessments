@@ -1,6 +1,4 @@
 ﻿using Assessments.Shared.DTOs.NatureTypes;
-using Assessments.Shared.DTOs.NatureTypes.Statistics;
-using RodlisteNaturtyper.Core.Models;
 using RodlisteNaturtyper.Data.Models;
 
 namespace Assessments.Shared.Interfaces;
@@ -9,21 +7,17 @@ public interface INatureTypesRepository
 {
     IQueryable<Assessment> GetAssessments();
 
-    Assessment GetAssessment(int id);
+    Task<Assessment> GetAssessment(int id, CancellationToken cancellationToken = default);
 
-    List<CodeItemModel> GetAssessmentCodeItemModels(int id);
+    Task<List<CodeItemDto>> GetAssessmentCodeItemModels(int id, CancellationToken cancellationToken = default);
 
-    List<Committee> GetCommittees();
+    Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken = default);
 
-    List<CommitteeUserDto> GetCommitteeUsers();
+    Task<List<Region>> GetRegions(CancellationToken cancellationToken = default);
 
-    List<Region> GetRegions();
+    Task<List<NinCodeTopic>> GetNinCodeTopics(CancellationToken cancellationToken = default);
 
-    List<NinCodeTopic> GetNinCodeTopics();
-
-    List<KeyValuePair<string, int>> GetNinCodeTopicSuggestions();
+    Task<List<KeyValuePair<string, int>>> GetNinCodeTopicSuggestions(CancellationToken cancellationToken = default);
     
-    List<CodeItem> GetCodeItems();
-    
-    Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default);
+    Task<List<CodeItem>> GetCodeItems(CancellationToken cancellationToken = default);
 }

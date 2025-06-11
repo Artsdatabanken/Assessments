@@ -93,7 +93,7 @@
                     @Html.Raw(documentation)
                 </div>
             </div>
-            <div class="page_section" is-visible="Model.CodeItemModels.Count != 0">
+            <div class="page_section" is-visible="Model.CodeItemDtos.Count != 0">
                 <div id="@nameof(NatureTypesConstants.Headings.CodeItems)">
                     <div class="page_section_header">
                         <h2>
@@ -105,7 +105,7 @@
                             Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
                         </a>
                     </p>
-                    <partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemModels" />
+                    <partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemDtos" />
                 </div>
                 @Html.Raw(@assessment.ImpactsCommentHtml)
             </div>
