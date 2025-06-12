@@ -76,13 +76,14 @@ namespace Assessments.Mapping.AlienSpecies.Helpers
 
         internal static string GetEstablishmentCategory(string speciesEstablishmentCategory, string speciesStatus, string alienSpeciesCategory)
         {
-            string notAlienSpecies = "NotAlienSpecie";
+            bool isExcludedAlienSpeciesCategory = alienSpeciesCategory is "HorizonScannedButNoRiskAssessment" or "NotAlienSpecie";
 
-            if (speciesStatus == null || alienSpeciesCategory == notAlienSpecies)
+            if (isExcludedAlienSpeciesCategory || string.IsNullOrEmpty(speciesStatus))
             {
                 return string.Empty;
             }
-            return speciesStatus != "C3" ? speciesStatus : speciesEstablishmentCategory;
+            
+            return speciesStatus is "C3" && speciesEstablishmentCategory is not null ? speciesEstablishmentCategory : speciesStatus;
         }
 
         internal static bool GetHasIndoorProduction(string indoorProductionString)
@@ -1027,6 +1028,13 @@ namespace Assessments.Mapping.AlienSpecies.Helpers
             return assessmentId switch
             {
                 2526 => new DateTime(2024, 05, 06),
+                1711 => new DateTime(2025, 06, 12),  
+                2375 => new DateTime(2025, 06, 12), 
+                5128 => new DateTime(2025, 06, 12), 
+                5142 => new DateTime(2025, 06, 12), 
+                5164 => new DateTime(2025, 06, 12), 
+                5184 => new DateTime(2025, 06, 12), 
+                1468 => new DateTime(2025, 06, 12), 
                 _ => dateObject
             };
         }
