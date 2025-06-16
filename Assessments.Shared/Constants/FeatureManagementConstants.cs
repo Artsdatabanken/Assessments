@@ -2,5 +2,5 @@
 
 public static class FeatureManagementConstants
 {
-    public const string PublicAccessPeriodNatureTypes = nameof(PublicAccessPeriodNatureTypes);
+    public const string EnableNatureTypes = nameof(EnableNatureTypes);
 }
