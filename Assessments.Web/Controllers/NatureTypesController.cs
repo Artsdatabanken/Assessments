@@ -21,7 +21,7 @@ using static Assessments.Shared.Extensions.ExpressionExtensions;
 
 namespace Assessments.Web.Controllers;
 
-[FeatureGate(FeatureManagementConstants.PublicAccessPeriodNatureTypes)]
+[FeatureGate(FeatureManagementConstants.EnableNatureTypes)]
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
 {
