@@ -43,7 +43,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         assessmentsQuery = parameters.SortBy switch
         {
             SortByEnum.Category => assessmentsQuery.OrderBy(x => x.Category),
-            _ => assessmentsQuery.OrderBy(x => x.Name)
+            SortByEnum.Name => assessmentsQuery.OrderBy(x => x.Name),
+            _ => assessmentsQuery.OrderBy(x => x.NinCodeTopic.ShortCode)
         };
 
         var pagedList = assessmentsQuery.ToPagedList(page ?? 1, DefaultPageSize);
