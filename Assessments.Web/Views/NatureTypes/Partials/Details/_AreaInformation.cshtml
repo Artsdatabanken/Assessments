@@ -1,49 +1,56 @@
 ﻿@model AssessmentAreaInformation
 
 <table class="big-data-table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>Kjent areal km²	</th>
-        <th>Mørketall</th>
-        <th>Beregnet areal km² (kjent * mørketall)</th>
-    </tr>
-    </thead>
-    <tr>
-        <th>Totalareal</th>
-        <th>
-            @Model.TotalArea?.ToString("0.##")
-        </th>
-        <th>
-            @Model.TotalAreaMultiplier?.ToString("0.##")
-        </th>
-        <th>
-            @Model.TotalAreaCalculated?.ToString("0.##")
-        </th>
-    </tr>
-    <tr>
-        <th>Utbredelsesareal</th>
-        <th>
-            @Model.ExtentArea?.ToString("0.##")
-        </th>
-        <th>
-            @Model.ExtentAreaMultiplier?.ToString("0.##")
-        </th>
-        <th>
-            @Model.ExtentAreaCalculated?.ToString("0.##")
-        </th>
-    </tr>
-    <tr>
-        <th>Antall forekomster</th>
-        <th>
-            @Model.LocalityArea?.ToString("0.##")
-        </th>
-        <th>
-            @Model.LocalityAreaMultiplier?.ToString("0.##")
-        </th>
-        <th>
-            @Model.LocalityAreaCalculated?.ToString("0.##")
-        </th>
-    </tr>
+	<thead>
+		<tr>
+			<th></th>
+			<th>Kjent areal (km²)/kjente forekomster</th>
+			<th>Mørketall</th>
+			<th>Beregnet areal km² (kjent * mørketall)</th>
+		</tr>
+	</thead>
+	<tr>
+		<th>Totalareal</th>
+		<th>
+			@Model.TotalArea?.ToString("#,#.##")
+		</th>
+		<th>
+			@Model.TotalAreaMultiplier?.ToString("#,#.##")
+		</th>
+		<th>
+			@Model.TotalAreaCalculated?.ToString("#,#.##")
+		</th>
+	</tr>
+	<tr>
+		<th>Utbredelsesareal</th>
+		<th>
+			@Model.ExtentArea?.ToString("#,#.##")
+		</th>
+		<th>
+			@Model.ExtentAreaMultiplier?.ToString("#,#.##")
+		</th>
+		<th>
+			@Model.ExtentAreaCalculated?.ToString("#,#.##")
+		</th>
+	</tr>
+	<tr>
+		<th>Antall forekomstruter</th>
+		<th>
+			@Model.LocalityArea?.ToString("#,#.##")
+		</th>
+		<th>
+			@Model.LocalityAreaMultiplier?.ToString("#,#.##")
+		</th>
+		<th>
+			@if (Model.LocalityAreaCalculated != null)
+			{
+				var value = ((decimal)Model.LocalityAreaCalculated * 100).ToString("#,#.##");
+
+				<text>
+					@value
+				</text>
+			}
+		</th>
+	</tr>
 </table>
 @Html.Raw(Model.CommentHtml)
