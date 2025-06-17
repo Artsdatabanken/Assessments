@@ -1,11 +1,10 @@
-﻿@model NatureTypesDetailViewModel
+﻿@using System.Text.Json
+@model NatureTypesDetailViewModel
 
 @{
 	var assessment = Model.Assessment;
 	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
 	Layout = "_Layout.cshtml";
-
-	var regionShortNames = string.Join(",", Model.Assessment.Regions.Select(x => $"'{x.ShortName.ToLower()}'").OrderBy(x => x));
 }
 
 @section Styles {
@@ -14,6 +13,7 @@
 
 @section Scripts {
 	<script src="~/js/lib/d3/d3.min.js"></script>
+	<script src="~/js/rln/regionmap.js"></script>
 }
 
 @section Breadcrumb {
@@ -165,7 +165,8 @@
 							@NatureTypesConstants.Headings.Regions
 						</h2>
 					</div>
-					<div id="regionsMap"></div>
+					<div id="regionsMap" data-regions="@JsonSerializer.Serialize(Model.Assessment.Regions.Select(x => x.ShortName.ToLower()))">
+					</div>
 					<partial name="Partials/Details/_Regions.cshtml" />
 				</div>
 			</div>
@@ -200,54 +201,3 @@
 		</div>
 	</div>
 </div>
-<script>
-
-	const regionShortNames = new Array(@Html.Raw(regionShortNames));
-
-	const dimensions = {
-		width: 500,
-		height: 600
-	}
-
-	fetch('/json/naturetyperegions.json').then(response => {
-		return response.json();
-	}).then(data => {
-
-		//console.log(data.features);
-		//console.log(data.features.map(a => a.properties.Region));
-		//console.log(data.features.map(a => a.properties.Region_kort));
-
-		const projection = d3.geoIdentity()
-			.reflectY(true)
-			.fitSize([dimensions.width, dimensions.height], data);
-
-		const path = d3.geoPath(projection);
-
-		d3.select('#regionsMap')
-			.append('svg')
-			.attr("preserveAspectRatio", "xMinYMin meet")
-			.attr("viewBox", "0 0 500 600")
-			.selectAll()
-			.data(data.features)
-			.join('path')
-			.attr('d', path)
-			.style("stroke-width", ".3")
-			.style("stroke", "black")
-			.attr("fill",
-				function(d) {
-					const regionShort = d.properties["Region_kort"];
-					if (regionShort) {
-						if (regionShortNames.includes(d.properties["Region_kort"].toLowerCase())) {
-							//console.log(d.properties["Region_kort"]);
-							return "#72FB3D99";
-						}
-					}
-					return d.properties["rgb"];
-				}
-			)
-			.append('title').text((d) => d.properties["Region"]);
-	}).catch(err => {
-		console.warn(err);
-	});
-
-</script>
