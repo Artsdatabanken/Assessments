@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
@@ -26,7 +25,19 @@ namespace Assessments.Web.Controllers;
 public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
 {
     [HttpGet]
-    public IActionResult Home() => View();
+    public IActionResult Home(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+            return View();
+
+        // midlertidig tilgangskontroll før lansering
+        if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
+            return NotFound();
+
+        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(90) });
+
+        return RedirectToAction("List");
+    }
 
     [CookieRequired]
     [Route("2025")]
@@ -110,17 +121,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         return View(viewModel);
     }
-
-    public IActionResult EnableNaturetypes([Required] string key)
-    {
-        if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
-            return NotFound();
-
-        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(90) });
-
-        return RedirectToAction("List");
-    }
-
+    
     [HttpGet]
     [Route("2025/[action]")]
     public async Task<IActionResult> Suggestions()
