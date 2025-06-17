@@ -25,27 +25,28 @@ namespace Assessments.Web.Controllers;
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
 {
-    // TODO: vis landingssiden før lansering av rødlista for naturtyper 2025
-    //public IActionResult Home() => View();
+    [HttpGet]
+    public IActionResult Home() => View();
 
     [CookieRequired]
     [Route("2025")]
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page)
     {
-        var assessments = repository.GetAssessments();
+        var assessmentsQuery = repository.GetAssessments();
+        
         var regions = await repository.GetRegions();
         var topics = await repository.GetNinCodeTopics();
         var codeItems = await repository.GetCodeItems();
 
-        assessments = await ApplyParametersToList(parameters, assessments, regions, codeItems, repository);
+        assessmentsQuery = await ApplyParametersToList(parameters, assessmentsQuery, regions, codeItems, repository);
 
-        assessments = parameters.SortBy switch
+        assessmentsQuery = parameters.SortBy switch
         {
-            SortByEnum.Category => assessments.OrderBy(x => x.Category),
-            _ => assessments.OrderBy(x => x.Name)
+            SortByEnum.Category => assessmentsQuery.OrderBy(x => x.Category),
+            _ => assessmentsQuery.OrderBy(x => x.Name)
         };
 
-        var pagedList = assessments.ToPagedList(page ?? 1, DefaultPageSize);
+        var pagedList = assessmentsQuery.ToPagedList(page ?? 1, DefaultPageSize);
 
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
@@ -70,7 +71,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         };
 
         if (!string.IsNullOrEmpty(parameters.View) && parameters.View.Equals("stat"))
-            viewModel.NatureTypesStatisticsViewModel = await SetupStatisticsViewModel(assessments);
+            viewModel.NatureTypesStatisticsViewModel = await SetupStatisticsViewModel(assessmentsQuery);
 
         return View(viewModel);
     }

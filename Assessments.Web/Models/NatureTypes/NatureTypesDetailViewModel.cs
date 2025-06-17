@@ -1,5 +1,4 @@
-﻿using Assessments.Data.Models;
-using Assessments.Shared.Constants;
+﻿using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
@@ -15,15 +14,6 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
     public List<Region> Regions { get; init; } = [];
 
     public List<CodeItemDto> CodeItemDtos { get; init; }
-
-    public FeedbackViewModel FeedbackViewModel => new()
-    {
-        AssessmentId = Assessment.Id,
-        AssessmentName = Assessment.Name,
-        ExpertGroup = Assessment.Committee.Name,
-        Type = FeedbackType.NatureTypes,
-        Year = 2025
-    };
     
     public PageMenuViewModel PageMenuViewModel => new()
     {
