@@ -1,195 +1,203 @@
-﻿@model NatureTypesDetailViewModel
+﻿@using System.Text.Json
+@model NatureTypesDetailViewModel
 
 @{
-    var assessment = Model.Assessment;
-    ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
-    Layout = "_Layout.cshtml";
+	var assessment = Model.Assessment;
+	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
+	Layout = "_Layout.cshtml";
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/assessment.css" />
+	<link rel="stylesheet" href="~/css/assessment.css" />
+}
+
+@section Scripts {
+	<script src="~/js/lib/d3/d3.min.js"></script>
+	<script src="~/js/rln/regionmap.js"></script>
 }
 
 @section Breadcrumb {
 
-    <partial name="Partials/_Breadcrumb" for="Assessment" />
+	<partial name="Partials/_Breadcrumb" for="Assessment" />
 }
 
 @section PageMenu {
 
-    <partial name="/Views/Shared/_PageMenu.cshtml" for="PageMenuViewModel" />
+	<partial name="/Views/Shared/_PageMenu.cshtml" for="PageMenuViewModel" />
 }
 
 <div class="content-placer bigmid">
-    <div class="mid-content with_sidebar">
-        <div class="page-header">
-            <h1>
-                @assessment.Name
-                @if (assessment.NinCodeTopic != null)
-                {
-                    <span style="color: grey; font-size: medium; display: block">
-                        @assessment.NinCodeTopic.Name (@assessment.NinCodeTopic.Description)
-                    </span>
-                }
-            </h1>
-            <a href="#Feedback">
-                Gi innspill til vurderingen nederst på siden
-            </a>
-            <div class="speciesgroup_container">
-                <p class="published">
-                    <span>
-                        Utført av <a href="https://artsdatabanken.no/pages/370736">ekspertkomité for @assessment.Committee.Name</a>
-                    </span>
-                    <br />
-                    <span class="datestring">
-                        sist endret: @($"{assessment.ModifiedOn:f}")
-                    </span>
-                </p>
-            </div>
-            Gjelder for @assessment.Region.GetDescription()
-            <hr />
-            <div class="mobile_padding">
-                <div class="page_section">
-                    <p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
-                        Endelig kategori og kriterium: @assessment.CategoryCriteria
-                        <br />
-                        Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
-                        <span is-visible="Model.CategoryCriteriaTypes.Any()">
-                            Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName().ToLower()).JoinAnd(", ", " og ").
-                        </span>
-                    </p>
-                </div>
-                <partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
-            </div>
-            <div class="page_section">
-                <div id="@nameof(NatureTypesConstants.Headings.Description)">
-                    <h2>
-                        @NatureTypesConstants.Headings.Description
-                    </h2>
-                    @{
-                        var description = assessment.DescriptionHtml.RemoveEmptyTags();
-                        if (string.IsNullOrEmpty(description))
-                        {
-                            description = "Tekst mangler";
-                        }
-                    }
-                    @Html.Raw(description)
-                </div>
-            </div>
-            <div class="page_section">
-                <div id="@nameof(NatureTypesConstants.Headings.Summary)">
-                    <div class="page_section_header">
-                        <h2>
-                            @NatureTypesConstants.Headings.Summary
-                        </h2>
-                    </div>
-                    @{
-                        var documentation = assessment.CriteriaDocumentationHtml.RemoveEmptyTags();
-                        if (string.IsNullOrEmpty(documentation))
-                        {
-                            documentation = "Tekst mangler";
-                        }
-                    }
-                    @Html.Raw(documentation)
-                </div>
-            </div>
-            <div class="page_section" is-visible="Model.CodeItemDtos.Count != 0">
-                <div id="@nameof(NatureTypesConstants.Headings.CodeItems)">
-                    <div class="page_section_header">
-                        <h2>
-                            @NatureTypesConstants.Headings.CodeItems
-                        </h2>
-                    </div>
-                    <p>
-                        <a href="https://artsdatabanken.no/Files/59239/Metodeveileder_Norsk_r_dliste_for_naturtyper_2025">
-                            Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
-                        </a>
-                    </p>
-                    <partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemDtos" />
-                </div>
-                @Html.Raw(@assessment.ImpactsCommentHtml)
-            </div>
-            <div class="page_section">
-                <div id="@nameof(NatureTypesConstants.Headings.CriteriaInformation)">
-                    <div class="page_section_header">
-                        <h2>
-                            @NatureTypesConstants.Headings.CriteriaInformation
-                        </h2>
-                    </div>
-                    <div class="page_section criteria" id="criteria">
-                        <button class="changetab active" id="summary_criteria" onclick="criterialist('summary', this)">
-                            Oppsummering
-                        </button>
-                        <button class="changetab" id="full_list_criteria" onclick="criterialist('full_list', this)">
-                            Full liste
-                        </button>
-                        <div class="tabbed_element_container">
-                            <ul class="outer noline">
-                                <li class="tablist_listheader">
-                                    <span class="summary_title">
-                                        Utslagsgivende kriterier
-                                    </span>
-                                    <span class="full_list_title">Alle kriterier</span>
-                                </li>
-                                <li class="inactive">
-                                    <partial name="Partials/Details/_CriteriaInformation" />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="page_section">
-                <div id="@nameof(NatureTypesConstants.Headings.AreaInformation)">
-                    <div class="page_section_header">
-                        <h2>
-                            @NatureTypesConstants.Headings.AreaInformation
-                        </h2>
-                    </div>
-                    <p>
-                        Totalareal er naturtypens kjente areal per i dag. Utbredelsesarealet er et minimum konvekst polygon som omslutter alle forekomstene av typen. Antall forekomster er antall 10 x 10 km ruter der naturtypen forekommer. <a href="https://artsdatabanken.no/pages/376753">Forklaring til areal</a>
-                    </p>
-                    <partial name="Partials/Details/_AreaInformation" for="Assessment.AreaInformation" />
-                </div>
-            </div>
-            <div class="page_section">
-                <div id="@nameof(NatureTypesConstants.Headings.Regions)">
-                    <div class="page_section_header">
-                        <h2>
-                            @NatureTypesConstants.Headings.Regions
-                        </h2>
-                    </div>
-                    <partial name="Partials/Details/_Regions.cshtml" />
-                </div>
-            </div>
-            <div class="page_section" is-visible="Model.Assessment.References.Count != 0">
-                <div id="@nameof(NatureTypesConstants.Headings.References)">
-                    <div class="page_section_header">
-                        <h2>
-                            @NatureTypesConstants.Headings.References
-                        </h2>
-                    </div>
-                    <ul>
-                        @foreach (var reference in assessment.References)
-                        {
-                            <li class="reference">
-                                @reference.ReferencePresentation
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <partial name="/Views/Shared/_CitationForAssessment.cshtml" for="CitationForAssessmentViewModel" />
-            <partial name="/Views/Feedback/_Feedback.cshtml" model="Model.FeedbackViewModel" />
-        </div>
-    </div>
-    <div class="side mobile_padding">
-        <div class="sidebar_image_info">
-            NiN-kode:<br />
-            <a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
-                @assessment.ShortCode
-            </a>
-            <vc:variable-names applied-variables="@assessment.AppliedVariables" />
-        </div>
-    </div>
+	<div class="mid-content with_sidebar">
+		<div class="page-header">
+			<h1>
+				@assessment.Name
+				@if (assessment.NinCodeTopic != null)
+				{
+					<span style="color: grey; font-size: medium; display: block">
+						@assessment.NinCodeTopic.Name (@assessment.NinCodeTopic.Description)
+					</span>
+				}
+			</h1>
+			<a href="#Feedback">
+				Gi innspill til vurderingen nederst på siden
+			</a>
+			<div class="speciesgroup_container">
+				<p class="published">
+					<span>
+						Utført av <a href="https://artsdatabanken.no/pages/370736">ekspertkomité for @assessment.Committee.Name</a>
+					</span>
+					<br />
+					<span class="datestring">
+						sist endret: @($"{assessment.ModifiedOn:f}")
+					</span>
+				</p>
+			</div>
+			Gjelder for @assessment.Region.GetDescription()
+			<hr />
+			<div class="mobile_padding">
+				<div class="page_section">
+					<p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
+						Endelig kategori og kriterium: @assessment.CategoryCriteria
+						<br />
+						Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
+						<span is-visible="Model.CategoryCriteriaTypes.Any()">
+							Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName().ToLower()).JoinAnd(", ", " og ").
+						</span>
+					</p>
+				</div>
+				<partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
+			</div>
+			<div class="page_section">
+				<div id="@nameof(NatureTypesConstants.Headings.Description)">
+					<h2>
+						@NatureTypesConstants.Headings.Description
+					</h2>
+					@{
+						var description = assessment.DescriptionHtml.RemoveEmptyTags();
+						if (string.IsNullOrEmpty(description))
+						{
+							description = "Tekst mangler";
+						}
+					}
+					@Html.Raw(description)
+				</div>
+			</div>
+			<div class="page_section">
+				<div id="@nameof(NatureTypesConstants.Headings.Summary)">
+					<div class="page_section_header">
+						<h2>
+							@NatureTypesConstants.Headings.Summary
+						</h2>
+					</div>
+					@{
+						var documentation = assessment.CriteriaDocumentationHtml.RemoveEmptyTags();
+						if (string.IsNullOrEmpty(documentation))
+						{
+							documentation = "Tekst mangler";
+						}
+					}
+					@Html.Raw(documentation)
+				</div>
+			</div>
+			<div class="page_section" is-visible="Model.CodeItemDtos.Count != 0">
+				<div id="@nameof(NatureTypesConstants.Headings.CodeItems)">
+					<div class="page_section_header">
+						<h2>
+							@NatureTypesConstants.Headings.CodeItems
+						</h2>
+					</div>
+					<p>
+						<a href="https://artsdatabanken.no/Files/59239/Metodeveileder_Norsk_r_dliste_for_naturtyper_2025">
+							Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
+						</a>
+					</p>
+					<partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemDtos" />
+				</div>
+				@Html.Raw(@assessment.ImpactsCommentHtml)
+			</div>
+			<div class="page_section">
+				<div id="@nameof(NatureTypesConstants.Headings.CriteriaInformation)">
+					<div class="page_section_header">
+						<h2>
+							@NatureTypesConstants.Headings.CriteriaInformation
+						</h2>
+					</div>
+					<div class="page_section criteria" id="criteria">
+						<button class="changetab active" id="summary_criteria" onclick="criterialist('summary', this)">
+							Oppsummering
+						</button>
+						<button class="changetab" id="full_list_criteria" onclick="criterialist('full_list', this)">
+							Full liste
+						</button>
+						<div class="tabbed_element_container">
+							<ul class="outer noline">
+								<li class="tablist_listheader">
+									<span class="summary_title">
+										Utslagsgivende kriterier
+									</span>
+									<span class="full_list_title">Alle kriterier</span>
+								</li>
+								<li class="inactive">
+									<partial name="Partials/Details/_CriteriaInformation" />
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page_section">
+				<div id="@nameof(NatureTypesConstants.Headings.AreaInformation)">
+					<div class="page_section_header">
+						<h2>
+							@NatureTypesConstants.Headings.AreaInformation
+						</h2>
+					</div>
+					<p>
+						Totalareal er naturtypens kjente areal per i dag. Utbredelsesarealet er et minimum konvekst polygon som omslutter alle forekomstene av typen. Antall forekomster er antall 10 x 10 km ruter der naturtypen forekommer. <a href="https://artsdatabanken.no/pages/376753">Forklaring til areal</a>
+					</p>
+					<partial name="Partials/Details/_AreaInformation" for="Assessment.AreaInformation" />
+				</div>
+			</div>
+			<div class="page_section">
+				<div id="@nameof(NatureTypesConstants.Headings.Regions)">
+					<div class="page_section_header">
+						<h2>
+							@NatureTypesConstants.Headings.Regions
+						</h2>
+					</div>
+					<div id="regionsMap" data-regions="@JsonSerializer.Serialize(Model.Assessment.Regions.Select(x => x.ShortName.ToLower()))">
+					</div>
+					<partial name="Partials/Details/_Regions.cshtml" />
+				</div>
+			</div>
+			<div class="page_section" is-visible="Model.Assessment.References.Count != 0">
+				<div id="@nameof(NatureTypesConstants.Headings.References)">
+					<div class="page_section_header">
+						<h2>
+							@NatureTypesConstants.Headings.References
+						</h2>
+					</div>
+					<ul>
+						@foreach (var reference in assessment.References)
+						{
+							<li class="reference">
+								@reference.ReferencePresentation
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+			<partial name="/Views/Shared/_CitationForAssessment.cshtml" for="CitationForAssessmentViewModel" />
+			<partial name="/Views/Feedback/_Feedback.cshtml" model="Model.FeedbackViewModel" />
+		</div>
+	</div>
+	<div class="side mobile_padding">
+		<div class="sidebar_image_info">
+			NiN-kode:<br />
+			<a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
+				@assessment.ShortCode
+			</a>
+			<vc:variable-names applied-variables="@assessment.AppliedVariables" />
+		</div>
+	</div>
 </div>
