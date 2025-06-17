@@ -12,13 +12,11 @@ using Assessments.Web.Infrastructure.Services;
 using Azure.Identity;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FeatureManagement;
-using Microsoft.OData;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
 using RobotsTxt;
@@ -66,7 +64,6 @@ builder.Services.AddProblemDetails(options =>
     options.CustomizeProblemDetails = ctx =>
         ctx.ProblemDetails.Extensions.Add("environment", builder.Environment.EnvironmentName));
 
-
 builder.Services.AddSharedModule(builder.Configuration);
 
 builder.Services.AddSingleton<DataRepository>();
@@ -87,11 +84,7 @@ builder.Services.AddOptions<ApplicationOptions>().Bind(applicationOptions).Valid
 
 builder.Services.AddSendGrid(options => options.ApiKey = applicationOptions.Get<ApplicationOptions>().SendGridApiKey);
 
-if (!builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDataProtection().SetApplicationName("Assessments").PersistKeysToDbContext<AssessmentsDbContext>();
-}
-else
+if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 }
@@ -177,7 +170,6 @@ app.UseSwaggerUI(options =>
 
 ExportHelper.Setup();
 
-// TODO: legge til en innstilling om man skal jobbe med databasen lokalt?
 if (!app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
