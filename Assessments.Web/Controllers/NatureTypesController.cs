@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
@@ -9,6 +10,7 @@ using Assessments.Web.Infrastructure.Enums;
 using Assessments.Web.Models;
 using Assessments.Web.Models.NatureTypes;
 using Assessments.Web.Models.NatureTypes.Enums;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -41,24 +43,34 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
     [CookieRequired]
     [Route("2025")]
-    public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page)
+    public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page, bool export)
     {
-        var assessmentsQuery = repository.GetAssessments();
+        var query = repository.GetAssessments();
         
         var regions = await repository.GetRegions();
         var topics = await repository.GetNinCodeTopics();
         var codeItems = await repository.GetCodeItems();
 
-        assessmentsQuery = await ApplyParametersToList(parameters, assessmentsQuery, regions, codeItems, repository);
+        query = await ApplyParametersToList(parameters, query, regions, codeItems, repository);
 
-        assessmentsQuery = parameters.SortBy switch
+        query = parameters.SortBy switch
         {
-            SortByEnum.Category => assessmentsQuery.OrderBy(x => x.Category),
-            SortByEnum.Name => assessmentsQuery.OrderBy(x => x.Name),
-            _ => assessmentsQuery.OrderBy(x => x.NinCodeTopic.ShortCode)
+            SortByEnum.Category => query.OrderBy(x => x.Category),
+            SortByEnum.Name => query.OrderBy(x => x.Name),
+            _ => query.OrderBy(x => x.NinCodeTopic.ShortCode)
         };
 
-        var pagedList = assessmentsQuery.ToPagedList(page ?? 1, DefaultPageSize);
+        if (export)
+        {
+            var assessmentExports = Mapper.ProjectTo<NatureTypeAssessmentExport>(query);
+
+            return new FileStreamResult(ExportHelper.GenerateNatureTypeAssessment2025Export(assessmentExports, Request.GetDisplayUrl()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+                FileDownloadName = "rødlista-naturtyper-2025.xlsx"
+            };
+        }
+
+        var pagedList = query.ToPagedList(page ?? 1, DefaultPageSize);
 
         var viewModel = new NatureTypesListViewModel(pagedList)
         {
@@ -83,7 +95,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         };
 
         if (!string.IsNullOrEmpty(parameters.View) && parameters.View.Equals("stat"))
-            viewModel.NatureTypesStatisticsViewModel = await SetupStatisticsViewModel(assessmentsQuery);
+            viewModel.NatureTypesStatisticsViewModel = await SetupStatisticsViewModel(query);
 
         return View(viewModel);
     }
@@ -132,7 +144,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return Json(ninCodeTopics);
     }
 
-    private static async Task<IQueryable<Assessment>> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> assessments, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
+    private static async Task<IQueryable<Assessment>> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> query, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
@@ -143,7 +155,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             if (searchParameter.StartsWith(quotationMark) && searchParameter.EndsWith(quotationMark))
             {
                 searchParameter = searchParameter.Replace(quotationMark, string.Empty);
-                assessments = assessments.Where(x => x.Name == searchParameter);
+                query = query.Where(x => x.Name == searchParameter);
             }
             else
             {
@@ -153,12 +165,12 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
                 if (topic.Key == null)
                 {
                     // "fritekstsøk"
-                    assessments = assessments.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
                 else
                 {
                     // søk på valgt forslag for tema
-                    assessments = assessments.Where(x => x.NinCodeTopicId == topic.Value);
+                    query = query.Where(x => x.NinCodeTopicId == topic.Value);
                 }
             }
 
@@ -171,7 +183,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var assessmentRegions = enumerable.Aggregate<AssessmentRegion, Expression<Func<Assessment, bool>>>(null, (current, category) => Combine(current, c => c.Region == category));
 
             if (assessmentRegions != null)
-                assessments = assessments.Where(assessmentRegions);
+                query = query.Where(assessmentRegions);
         }
 
         if (parameters.Category.Length != 0)
@@ -179,17 +191,17 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var categories = parameters.Category.ToEnumerable<Category>().Aggregate<Category, Expression<Func<Assessment, bool>>>(null, (current, category) => Combine(current, c => c.Category == category));
 
             if (categories != null)
-                assessments = assessments.Where(categories);
+                query = query.Where(categories);
         }
 
         if (parameters.Topic.Length != 0)
-            assessments = assessments.Where(x => parameters.Topic.Contains(x.NinCodeTopic.Description));
+            query = query.Where(x => parameters.Topic.Contains(x.NinCodeTopic.Description));
 
         if (parameters.Region.Length != 0)
         {
             var selectedRegionIds = regions.Where(x => parameters.Region.Contains(x.Name)).Select(y => y.Id).ToArray();
 
-            assessments = assessments.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
+            query = query.Where(x => x.Regions.Any(y => selectedRegionIds.Contains(y.Id)));
         }
 
         if (parameters.Criteria.Length != 0)
@@ -209,7 +221,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
             if (criteria.Count != 0)
             {
-                assessments = assessments.Where(criteria.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.CategoryCriteria.Contains(keyword))));
+                query = query.Where(criteria.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.CategoryCriteria.Contains(keyword))));
             }
         }
 
@@ -232,11 +244,11 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
             if (selectedCodeItemIds.Count != 0)
             {
-                assessments = assessments.Where(x => x.CodeItems.Any(y => selectedCodeItemIds.Contains(y.CodeItemId)));
+                query = query.Where(x => x.CodeItems.Any(y => selectedCodeItemIds.Contains(y.CodeItemId)));
             }
         }
 
-        return assessments;
+        return query;
     }
 
     private static async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(IQueryable<Assessment> assessments)
