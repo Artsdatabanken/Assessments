@@ -96,6 +96,9 @@ public static class SwaggerConfiguration
 
             foreach (var property in removeProperties)
                 schema.Properties.Remove(property);
+
+            foreach (var schemaProperty in schema.Properties)
+                schemaProperty.Value.Description = string.Empty;
         }
     }
 }
