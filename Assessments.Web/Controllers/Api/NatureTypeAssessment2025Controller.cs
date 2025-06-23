@@ -11,7 +11,7 @@ using RodlisteNaturtyper.Data.Models.Enums;
 
 namespace Assessments.Web.Controllers.Api;
 
-[NotReadyForProduction]
+[ApiKeyRequired]
 [EnableCors(nameof(CorsConstants.AllowAny))]
 [Produces("application/json")]
 public class NatureTypeAssessment2025Controller(RodlisteNaturtyperDbContext dbContext) : ODataController

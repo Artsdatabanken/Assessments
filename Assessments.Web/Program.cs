@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FeatureManagement;
-using Microsoft.OpenApi.Models;
 using NLog.Web;
 using RobotsTxt;
 using SendGrid.Extensions.DependencyInjection;
@@ -41,7 +40,7 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
     .AddViewLocalization(options => options.ResourcesPath = "Resources")
-    .AddOData(options => options.EnableQueryFeatures(maxTopValue: 100).AddRouteComponents("odata/v1", ODataHelper.GetModel(builder.Environment)));
+    .AddOData(options => options.EnableQueryFeatures(maxTopValue: 100).AddRouteComponents("odata/v1", ODataHelper.GetModel()));
 
 builder.Services.AddDbContext<AssessmentsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(ConnectionStrings.Default) ?? throw new InvalidOperationException($"ConnectionString '{ConnectionStrings.Default}' not found"), providerOptions => providerOptions.MigrationsAssembly(typeof(AssessmentsDbContext).Assembly.FullName).EnableRetryOnFailure()));
 
@@ -112,10 +111,7 @@ builder.Services.AddCors(options => { options.AddPolicy(name: CorsConstants.Allo
 
 builder.Services.AddFeatureManagement();
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Assessments API", Version = "v1" });
-});
+builder.Services.AddSwagger(builder.Environment);
 
 var app = builder.Build();
 
@@ -160,13 +156,7 @@ app.MapDefaultControllerRoute().WithStaticAssets();
 
 app.UseRobotsTxt();
 
-app.UseSwagger();
-app.UseSwaggerUI(options =>
-{
-    options.DocumentTitle = "Assessments API";
-    options.DefaultModelsExpandDepth(-1);
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Assessments API");
-});
+app.ConfigureSwagger(builder.Environment);
 
 ExportHelper.Setup();
 

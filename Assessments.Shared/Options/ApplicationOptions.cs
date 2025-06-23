@@ -17,6 +17,9 @@ public class ApplicationOptions // configured in appsettings.*.json
     public string SendGridApiKey { get; set; }
 
     [Required]
+    public string ApiKey { get; set; }
+
+    [Required]
     [ValidateObjectMembers]
     public NatureTypesOptions NatureTypes { get; set; }
 
