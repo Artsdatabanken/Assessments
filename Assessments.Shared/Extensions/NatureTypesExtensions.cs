@@ -86,19 +86,6 @@ public static class NatureTypesExtensions
         };
     }
 
-    public static string GetDescription(this CriteriaCategoryChange criteriaCategoryChange)
-    {
-        return criteriaCategoryChange switch
-        {
-            CriteriaCategoryChange.None => string.Empty,
-            CriteriaCategoryChange.Area => "i. Areal",
-            CriteriaCategoryChange.Quality => "ii. Kvalitet",
-            CriteriaCategoryChange.Interactions => "iii. Interaksjoner",
-            CriteriaCategoryChange.ProbablyOngoingDecline => "iv. Trolig pågående nedgang i kvalitet eller areal",
-            _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
-        };
-    }
-
     public static string GetDescription(this CriteriaCategoryImpact criteriaCategoryChange)
     {
         return criteriaCategoryChange switch

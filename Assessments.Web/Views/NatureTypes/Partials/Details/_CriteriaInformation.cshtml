@@ -1,5 +1,4 @@
-﻿@using Assessments.Shared.DTOs.NatureTypes.Enums
-@model NatureTypesDetailViewModel
+﻿@model NatureTypesDetailViewModel
 
 @{
     var criteria = Model.Assessment.CriteriaInformation;
@@ -85,7 +84,7 @@
                 Pågående nedgang i areal eller kvalitet
             </td>
             <td>
-                @criteria.CategoryB1Change.GetDescription()
+                @criteria.CategoryB1Change.DisplayName()
             </td>
         </tr>
         <tr>
@@ -139,7 +138,7 @@
                 Pågående nedgang i areal eller kvalitet
             </td>
             <td>
-                @criteria.CategoryB2Change.GetDescription()
+                @criteria.CategoryB2Change.DisplayName()
             </td>
         </tr>
         <tr>
@@ -436,5 +435,4 @@
             </td>
         </tr>
     </table>
-   
 </li>

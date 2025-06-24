@@ -1,145 +1,90 @@
-﻿using System.Net.Http.Json;
-using System.Web;
-using Assessments.Shared.DTOs.NatureTypes;
-using Assessments.Shared.DTOs.NatureTypes.Statistics;
+﻿using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.Interfaces;
-using Assessments.Shared.Options;
-using Default;
 using LazyCache;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.OData.Client;
-using RodlisteNaturtyper.Core.Models;
+using Microsoft.EntityFrameworkCore;
+using RodlisteNaturtyper.Data;
 using RodlisteNaturtyper.Data.Models;
+using RodlisteNaturtyper.Data.Models.Enums;
 
 namespace Assessments.Shared.Repositories;
 
-public class NatureTypesRepository : INatureTypesRepository
+public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext dbContext) : INatureTypesRepository
 {
-    private readonly RodlisteNaturtyperContainer _container;
-    private readonly IAppCache _appCache;
-    private readonly HttpClient _client;
-    private readonly ILogger<NatureTypesRepository> _logger;
-    private readonly IOptions<ApplicationOptions> _options;
+    public IQueryable<Assessment> GetAssessments() => dbContext.Assessments.Where(x => x.Category != Category.NA);
 
-    public NatureTypesRepository(IOptions<ApplicationOptions> options, IAppCache appCache, ILogger<NatureTypesRepository> logger, HttpClient client)
+    public async Task<Assessment> GetAssessment(int id, CancellationToken cancellationToken)
     {
-        _options = options;
-        _logger = logger;
-        _appCache = appCache;
-        _client = client;
+        return await dbContext.Assessments
+            .Include(x => x.Committee)
+            .Include(x => x.AreaInformation)
+            .Include(x => x.CriteriaInformation)
+            .Include(x => x.Regions)
+            .Include(x => x.References)
+            .Include(x => x.NinCodeTopic)
+            .Where(x => x.Category != Category.NA)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
+    }
 
-        _client.Timeout = TimeSpan.FromSeconds(10);
-        _client.DefaultRequestHeaders.Add("X-API-KEY", options.Value.NatureTypes.ODataApiKey);
-        
-        _container = new RodlisteNaturtyperContainer(options.Value.NatureTypes.ODataUrl)
+    public async Task<List<CodeItemDto>> GetAssessmentCodeItemModels(int id, CancellationToken cancellationToken)
+    {
+        var assessment = await dbContext.Assessments.Include(x => x.CodeItems).ThenInclude(x => x.CodeItemParamLevel).FirstAsync(x => x.Id == id, cancellationToken: cancellationToken);
+
+        var codeItemModels = new List<CodeItemDto>();
+
+        codeItemModels.AddRange(assessment.CodeItems.GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
+            new CodeItemDto
+            {
+                CodeItemDescription = group.First().CodeItemDescription,
+                TimeOfIncident = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 1).CodeItemParamLevel
+                    .Description,
+                InfluenceFactor = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 2).CodeItemParamLevel
+                    .Description,
+                Magnitude = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 3).CodeItemParamLevel
+                    .Description,
+            }));
+
+        return codeItemModels;
+    }
+
+    public async Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken)
+    {
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => dbContext.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
         {
-            HttpClientFactory = new HttpClientFactory(_client)
-        };
-    }
-
-    public IQueryable<Assessment> GetAssessments() => _container.Assessments.Expand(x => x.Committee);
-    
-    public Assessment GetAssessment(int id)
-    {
-        return _container.Assessments
-            .Expand(x => x.Committee)
-            .Expand(x => x.AreaInformation)
-            .Expand(x => x.CriteriaInformation)
-            .Expand(x => x.Regions)
-            .Expand(x => x.References)
-            .Expand(x => x.NinCodeTopic)
-            .FirstOrDefault(c => c.Id == id);
-    }
-
-    public List<CodeItemModel> GetAssessmentCodeItemModels(int id)
-    {
-        DataServiceQuerySingle<Assessment> assessment = _container.Assessments.ByKey(id);
-        
-        return [.. assessment.CodeItemModels()];
-    }
-
-    public List<Committee> GetCommittees()
-    {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommittees)}", () => _container.Committees.OrderBy(x => x.Name).ToList());
-    }
-
-    public List<CommitteeUserDto> GetCommitteeUsers()
-    {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => _container.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
-        {
-            CommitteeId = (int)x.CommitteeId,
+            CommitteeId = x.CommitteeId,
             CommitteeName = x.Committee.Name,
             Level = x.Level,
             UserLastName = x.User.LastName,
             UserFirstName = x.User.FirstName,
             UserCitationName = x.User.CitationName
-        }).ToList());
+        }).ToListAsync(cancellationToken: cancellationToken));
     }
 
-    public List<Region> GetRegions()
+    public async Task<List<Region>> GetRegions(CancellationToken cancellationToken)
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => _container.Regions.OrderBy(x => x.SortOrder).ToList());
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetRegions)}", () => dbContext.Regions.OrderBy(x => x.SortOrder).ToListAsync(cancellationToken: cancellationToken));
     }
 
-    public List<NinCodeTopic> GetNinCodeTopics()
+    public async Task<List<NinCodeTopic>> GetNinCodeTopics(CancellationToken cancellationToken)
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopics)}", () => _container.NinCodeTopics.OrderBy(x => x.Name).ToList());
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopics)}", () => dbContext.NinCodeTopics.OrderBy(x => x.Name).ToListAsync(cancellationToken: cancellationToken));
     }
 
-    public List<KeyValuePair<string, int>> GetNinCodeTopicSuggestions()
+    public async Task<List<KeyValuePair<string, int>>> GetNinCodeTopicSuggestions(CancellationToken cancellationToken)
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopicSuggestions)}", () =>
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetNinCodeTopicSuggestions)}", async () =>
         {
-            var topics = GetNinCodeTopics();
-
             List<KeyValuePair<string, int>> items = [];
 
+            var topics = await GetNinCodeTopics(cancellationToken);
+
             items.AddRange(topics.Select(ninCodeTopic => new KeyValuePair<string, int>(new string($"{ninCodeTopic.ShortCode} {ninCodeTopic.Name} (Tema: {ninCodeTopic.Description})"), ninCodeTopic.Id)));
-            
+
             return items;
         });
     }
 
-    public List<CodeItem> GetCodeItems()
+    public async Task<List<CodeItem>> GetCodeItems(CancellationToken cancellationToken)
     {
-        return _appCache.GetOrAdd($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => _container.CodeItems.ToList());
-    }
-
-    public async Task<List<CategoryStatisticsResponse>> GetCategoryStatistics(Uri uri, CancellationToken cancellationToken = default)
-    {
-        var queryStrings = HttpUtility.ParseQueryString(new UriBuilder(uri).Query);
-        var filter = queryStrings["$filter"];
-        var queryStringValue = "groupby((category), aggregate($count as count))";
-
-        if (!string.IsNullOrEmpty(filter))
-        {
-            queryStringValue = $"filter({filter})/{queryStringValue}";
-        }
-
-        var builder = new QueryBuilder { { "apply", queryStringValue } };
-
-        var response = await _client.GetAsync($"{_options.Value.NatureTypes.ODataUrl}Assessments{builder.ToQueryString()}", cancellationToken);
-
-        try
-        {
-            response.EnsureSuccessStatusCode();
-            
-            var rootResponse = await response.Content.ReadFromJsonAsync<CategoryStatisticsRootResponse>(cancellationToken);
-
-            return rootResponse.Value;
-        }
-        catch (Exception ex)
-        { 
-            _logger.LogError("{method} failed: {message} (StatusCode: {statuscode} Path: '{path}')", nameof(GetCategoryStatistics), ex.Message, response.StatusCode, uri);
-
-            return null;
-        }
-    }
-
-    private class HttpClientFactory(HttpClient httpClient) : IHttpClientFactory
-    {
-        HttpClient IHttpClientFactory.CreateClient(string name) => httpClient;
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => dbContext.CodeItems.ToListAsync(cancellationToken: cancellationToken));
     }
 }

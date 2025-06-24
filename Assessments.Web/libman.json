@@ -17,11 +17,17 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "jquery-validation-unobtrusive@4.0.0",
       "destination": "wwwroot/js/lib/",
       "files": [
         "jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "library": "d3@7.9.0",
+      "destination": "wwwroot/js/lib/d3/",
+      "files": [
+        "d3.min.js"
       ]
     }
   ]

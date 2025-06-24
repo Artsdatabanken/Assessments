@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Assessments.Shared.Constants;
 using Assessments.Shared.Options;
 using Microsoft.Extensions.Options;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Assessments.Web.Infrastructure;
 
@@ -47,6 +48,46 @@ public class CookieRequiredAttribute : Attribute, IAsyncActionFilter
             || !temporaryAccessCookie.Equals(options.Value.NatureTypes.TemporaryAccessKey))
         {
             context.Result = new UnauthorizedResult();
+            return;
+        }
+
+        await next();
+    }
+}
+
+/// <summary>
+/// Tilgang som krever nøkkel
+/// </summary>
+[AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
+public class ApiKeyRequiredAttribute : Attribute, IAsyncActionFilter
+{
+    public const string ApiKeyHeader = "X-API-KEY";
+
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+    {
+        if (!context.HttpContext.Request.Headers.TryGetValue(ApiKeyHeader, out var requestApiKey))
+        {
+            context.Result = new ObjectResult(new ProblemDetails
+            {
+                Title = $"{ApiKeyHeader} is required",
+                Status = Status401Unauthorized
+            });
+
+            return;
+        }
+
+        var options = context.HttpContext.RequestServices.GetRequiredService<IOptions<ApplicationOptions>>();
+
+        var accessKey = options.Value.ApiKey;
+
+        if (!accessKey.Equals(requestApiKey))
+        {
+            context.Result = new ObjectResult(new ProblemDetails
+            {
+                Title = $"{ApiKeyHeader} is invalid",
+                Status = Status401Unauthorized
+            });
+
             return;
         }
 
