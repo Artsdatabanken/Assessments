@@ -49,10 +49,10 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
 
         var codeItems = await GetCodeItems(cancellationToken: cancellationToken);
 
-        foreach (var model in codeItemModels.OrderBy(x => x.CodeItemId))
+        foreach (var model in codeItemModels)
         {
             var codeItem = codeItems.First(x => x.Id == model.CodeItemId);
-            
+           
             if (codeItem.ParentId == 0)
             {
                 model.ParentCodeItems.Add(codeItem);
@@ -61,17 +61,15 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
             while (codeItem != null && codeItem.ParentId != 0)
             {
                 var parent = codeItems.FirstOrDefault(a => a.Id == codeItem.ParentId);
-                
                 if (parent != null)
-                {
                     model.ParentCodeItems.Add(parent);
-                }
 
-                model.ParentCodeItems.Add(codeItem);
+                if (model.ParentCodeItems.All(x => x.Id != codeItem.Id))
+                    model.ParentCodeItems.Add(codeItem);
+
                 codeItem = parent;
             }
-
-            model.ParentCodeItems = [.. model.ParentCodeItems.OrderBy(x => x.ParentId)];
+            model.ParentCodeItems = model.ParentCodeItems.OrderBy(x => x.ParentId).ToList();
         }
 
         return codeItemModels;
