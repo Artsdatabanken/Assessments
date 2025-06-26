@@ -47,8 +47,7 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
         if (codeItemModels.Count == 0)
             return codeItemModels;
 
-        // TODO: bruke cache
-        var codeItems = await dbContext.CodeItems.ToListAsync(cancellationToken: cancellationToken);
+        var codeItems = await GetCodeItems(cancellationToken: cancellationToken);
 
         foreach (var model in codeItemModels.OrderBy(x => x.CodeItemId))
         {
