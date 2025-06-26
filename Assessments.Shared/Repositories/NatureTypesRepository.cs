@@ -31,9 +31,10 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
 
         var codeItemModels = new List<CodeItemDto>();
 
-        codeItemModels.AddRange(assessment.CodeItems.GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
+        codeItemModels.AddRange(assessment.CodeItems.OrderBy(x => x.CodeItemId).GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
             new CodeItemDto
             {
+                CodeItemId = group.First().CodeItemId,
                 CodeItemDescription = group.First().CodeItemDescription,
                 TimeOfIncident = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 1).CodeItemParamLevel
                     .Description,
@@ -42,6 +43,37 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
                 Magnitude = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 3).CodeItemParamLevel
                     .Description,
             }));
+
+        if (codeItemModels.Count == 0)
+            return codeItemModels;
+
+        // TODO: bruke cache
+        var codeItems = await dbContext.CodeItems.ToListAsync(cancellationToken: cancellationToken);
+
+        foreach (var model in codeItemModels.OrderBy(x => x.CodeItemId))
+        {
+            var codeItem = codeItems.First(x => x.Id == model.CodeItemId);
+            
+            if (codeItem.ParentId == 0)
+            {
+                model.ParentCodeItems.Add(codeItem);
+            }
+
+            while (codeItem != null && codeItem.ParentId != 0)
+            {
+                var parent = codeItems.FirstOrDefault(a => a.Id == codeItem.ParentId);
+                
+                if (parent != null)
+                {
+                    model.ParentCodeItems.Add(parent);
+                }
+
+                model.ParentCodeItems.Add(codeItem);
+                codeItem = parent;
+            }
+
+            model.ParentCodeItems = [.. model.ParentCodeItems.OrderBy(x => x.ParentId)];
+        }
 
         return codeItemModels;
     }

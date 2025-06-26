@@ -1,39 +1,46 @@
 ﻿@model List<CodeItemDto>
 
-<table class="big-data-table">
-    <thead>
-        <tr>
-            <th>
-                Påvirkningsfaktor
-            </th>
-            <th>
-                Tidspunkt
-            </th>
-            <th>
-                Omfang
-            </th>
-            <th>
-                Alvorlighetsgrad
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var codeItem in Model)
-        {
-            <tr>
-                <td>
-                    @codeItem.CodeItemDescription
-                </td>
-                <td>
-                    @codeItem.TimeOfIncident
-                </td>
-                <td>
-                    @codeItem.InfluenceFactor
-                </td>
-                <td>
-                    @codeItem.Magnitude
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h3>Artens påvirkningsfaktorer</h3>
+
+<ul>
+	@foreach (var codeItemDto in Model)
+	{
+		var padding = 0;
+		<li>
+			@foreach (var parentCodeItem in codeItemDto.ParentCodeItems)
+			{
+				@if (parentCodeItem.ParentId != 0)
+				{
+					padding += 20;
+				}
+				<div style="padding-left: @($"{padding}px")">
+					<h4>
+						@parentCodeItem.Description
+					</h4>
+
+					@if (codeItemDto.CodeItemId == parentCodeItem.Id)
+					{
+						<p>
+							<h5>
+								Omfang
+							</h5>
+							@codeItemDto.InfluenceFactor
+						</p>
+						<p>
+							<h5>
+								Alvorlighetsgrad
+							</h5>
+							@codeItemDto.Magnitude
+						</p>
+						<p>
+							<h5>
+								Tidsrom
+							</h5>
+							@codeItemDto.TimeOfIncident
+						</p>
+					}
+				</div>
+			}
+		</li>
+	}
+</ul>
