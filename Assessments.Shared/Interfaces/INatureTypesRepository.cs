@@ -9,7 +9,7 @@ public interface INatureTypesRepository
 
     Task<Assessment> GetAssessment(int id, CancellationToken cancellationToken = default);
 
-    Task<List<CodeItemDto>> GetAssessmentCodeItemModels(int id, CancellationToken cancellationToken = default);
+    Task<List<CodeItemNodeDto>> GetAssessmentCodeItemNodes(int assessmentId, CancellationToken cancellationToken = default);
 
     Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken = default);
 

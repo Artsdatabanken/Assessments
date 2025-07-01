@@ -1,46 +1,60 @@
-﻿@model List<CodeItemDto>
+﻿@model IEnumerable<CodeItemNodeDto>
 
-<h3>Artens påvirkningsfaktorer</h3>
-
-<ul>
-	@foreach (var codeItemDto in Model)
+@functions
+{
+	private void ShowNode(IEnumerable<CodeItemNodeDto> nodes)
 	{
-		var padding = 0;
-		<li>
-			@foreach (var parentCodeItem in codeItemDto.ParentCodeItems)
+		<ul style="list-style-type: none;">
+			@foreach (var node in nodes)
 			{
-				@if (parentCodeItem.ParentId != 0)
-				{
-					padding += 20;
-				}
-				<div style="padding-left: @($"{padding}px")">
-					<h4>
-						@parentCodeItem.Description
-					</h4>
-
-					@if (codeItemDto.CodeItemId == parentCodeItem.Id)
-					{
-						<p>
-							<h5>
-								Omfang
-							</h5>
-							@codeItemDto.InfluenceFactor
-						</p>
-						<p>
-							<h5>
-								Alvorlighetsgrad
-							</h5>
-							@codeItemDto.Magnitude
-						</p>
-						<p>
-							<h5>
-								Tidsrom
-							</h5>
-							@codeItemDto.TimeOfIncident
-						</p>
-					}
-				</div>
+				var padding = node.ParentId == 0 ? 0 : 20;
+				<li style="padding-left: @(padding)px; @(node.Level == 2 ? "border-left: 1px solid lightgray" : "")">
+					<div>
+						<h4>
+							@node.Description
+						</h4>
+						@if (node.CodeItemDto != null)
+						{
+							<div style="padding-left: 20px; @(node.ParentId == 0 ? "" : "border-left: 1px solid lightgray")">
+								<p>
+									<h5>
+										Omfang
+									</h5>
+									@node.CodeItemDto.InfluenceFactor
+								</p>
+								<p>
+									<h5>
+										Alvorlighetsgrad
+									</h5>
+									@node.CodeItemDto.Magnitude
+								</p>
+								<p>
+									<h5>
+										Tidsrom
+									</h5>
+									@node.CodeItemDto.TimeOfIncident
+								</p>
+							</div>
+						}
+						@if (node.Nodes.Any())
+						{
+							ShowNode(node.Nodes);
+						}
+					</div>
+				</li>
 			}
-		</li>
+		</ul>
 	}
-</ul>
+}
+
+<p>
+	Nedenfor listes det opp forskjellige påvirkningsfaktorer som kan gi utslag for rødlisting av naturtypen.
+	<br />
+	<a href="https://artsdatabanken.no/Files/59239/Metodeveileder_Norsk_r_dliste_for_naturtyper_2025">
+		Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
+	</a>
+</p>
+
+@{
+	ShowNode(Model);
+}

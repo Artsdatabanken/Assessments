@@ -11,9 +11,7 @@ namespace Assessments.Web.Models.NatureTypes;
 
 public record NatureTypesDetailViewModel(Assessment Assessment)
 {
-    public List<Region> Regions { get; init; } = [];
-
-    public List<CodeItemDto> CodeItemDtos { get; init; }
+    public IEnumerable<CodeItemNodeDto> CodeItemNodeDtos { get; init; }
     
     public PageMenuViewModel PageMenuViewModel => new()
     {
@@ -40,7 +38,7 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
                 {
                     ElementId = nameof(NatureTypesConstants.Headings.CodeItems),
                     Title = NatureTypesConstants.Headings.CodeItems,
-                    ShouldShow = CodeItemDtos.Count != 0
+                    ShouldShow = CodeItemNodeDtos.Any()
                 },
                 new TableOfContentsViewModel.Content
                 {

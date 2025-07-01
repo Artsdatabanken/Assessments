@@ -112,12 +112,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var committeeUserDtos = await repository.GetCommitteeUsers();
         var committeeUsers = committeeUserDtos.Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
 
-        var codeItemModels = await repository.GetAssessmentCodeItemModels(assessment.Id);
-
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
-            Regions = await repository.GetRegions(),
-            CodeItemDtos = codeItemModels,
+            CodeItemNodeDtos = await repository.GetAssessmentCodeItemNodes(assessment.Id),
             CategoryCriteriaTypes = NatureTypesHelper.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {

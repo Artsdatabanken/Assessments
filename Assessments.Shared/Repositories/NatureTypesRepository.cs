@@ -25,13 +25,16 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 
-    public async Task<List<CodeItemDto>> GetAssessmentCodeItemModels(int id, CancellationToken cancellationToken)
+    public async Task<List<CodeItemNodeDto>> GetAssessmentCodeItemNodes(int assessmentId, CancellationToken cancellationToken)
     {
-        var assessment = await dbContext.Assessments.Include(x => x.CodeItems).ThenInclude(x => x.CodeItemParamLevel).FirstAsync(x => x.Id == id, cancellationToken: cancellationToken);
+        var assessmentCodeItems = await dbContext.AssessmentCodeItems.Include(x => x.CodeItemParamLevel).Where(x => x.AssessmentId == assessmentId).ToListAsync(cancellationToken: cancellationToken);
+
+        if (assessmentCodeItems.Count == 0)
+            return null;
 
         var codeItemModels = new List<CodeItemDto>();
 
-        codeItemModels.AddRange(assessment.CodeItems.OrderBy(x => x.CodeItemId).GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
+        codeItemModels.AddRange(assessmentCodeItems.OrderBy(x => x.CodeItemId).GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
             new CodeItemDto
             {
                 CodeItemId = group.First().CodeItemId,
@@ -44,19 +47,14 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
                     .Description,
             }));
 
-        if (codeItemModels.Count == 0)
-            return codeItemModels;
-
         var codeItems = await GetCodeItems(cancellationToken: cancellationToken);
 
         foreach (var model in codeItemModels)
         {
             var codeItem = codeItems.First(x => x.Id == model.CodeItemId);
-           
+
             if (codeItem.ParentId == 0)
-            {
                 model.ParentCodeItems.Add(codeItem);
-            }
 
             while (codeItem != null && codeItem.ParentId != 0)
             {
@@ -72,7 +70,22 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
             model.ParentCodeItems = model.ParentCodeItems.OrderBy(x => x.ParentId).ToList();
         }
 
-        return codeItemModels;
+        var lookup = codeItemModels.SelectMany(x => x.ParentCodeItems).Distinct().ToLookup(x => x.ParentId);
+
+        var nodes = Build(0).ToList();
+
+        return nodes;
+
+        IEnumerable<CodeItemNodeDto> Build(int? pid) => lookup[pid]
+            .Select(x => new CodeItemNodeDto
+            {
+                Id = x.Id,
+                ParentId = x.ParentId,
+                Level = x.IdNr.Split(".").Length - 1,
+                Description = x.Description,
+                Nodes = Build(x.Id),
+                CodeItemDto = codeItemModels.FirstOrDefault(y => y.CodeItemId == x.Id)
+            });
     }
 
     public async Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken)

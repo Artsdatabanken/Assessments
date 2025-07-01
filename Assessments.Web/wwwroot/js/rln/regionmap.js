@@ -6,7 +6,7 @@ const dimensions = {
     height: 600
 }
 
-const selectedColor = "#00ff0066"; 
+const selectedColor = "#69AD58BF"; 
 
 fetch("/json/naturetyperegions.json").then(response => {
     return response.json();
