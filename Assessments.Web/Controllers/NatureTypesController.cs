@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
@@ -112,12 +113,14 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var committeeUserDtos = await repository.GetCommitteeUsers();
         var committeeUsers = committeeUserDtos.Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
 
+        var assessmentCodeItemNodes = await repository.GetAssessmentCodeItemNodes(assessment.Id);
+        
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
-            CodeItemNodeDtos = await repository.GetAssessmentCodeItemNodes(assessment.Id),
             CategoryCriteriaTypes = NatureTypesHelper.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
+               
                 AssessmentName = assessment.Name,
                 AssessmentYear = 2025,
                 ExpertCommittee = assessment.Committee.Name,
@@ -125,7 +128,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
                 YearPreviousAssessment = 2018,
                 ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name),
                 HasBackToTopLink = true
-            }
+            },
+            CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
 
         return View(viewModel);
