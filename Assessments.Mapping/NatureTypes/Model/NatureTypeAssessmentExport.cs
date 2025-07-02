@@ -4,8 +4,6 @@ namespace Assessments.Mapping.NatureTypes.Model;
 
 public class NatureTypeAssessmentExport
 {
-    // TODO: eksport: gå gjennom rekkefølge, navn og beskrivelser
-
     [DisplayName("Id for vurderingen")]
     [Description("Id for 2025 vurderingen")]
     public int Id { get; set; }
@@ -66,6 +64,10 @@ public class NatureTypeAssessmentExport
     [Description("")]
     public string ImpactsCommentHtml { get; set; }
 
+    [DisplayName("Påvirkningsfaktorer")]
+    [Description("")]
+    public string CodeitemsList { get; set; }
+
     [DisplayName("Areal kommentar")] 
     [Description("")]
     public string AreaInformationCommentHtml { get; set; }
@@ -86,35 +88,35 @@ public class NatureTypeAssessmentExport
     [Description("")]
     public decimal? AreaInformationExtentArea { get; set; }
 
-    [Description("")]
     [DisplayName("Mørketall utbredelsesareal")]
+    [Description("")]
     public decimal? AreaInformationExtentAreaMultiplier { get; set; }
 
-    [Description("")]
     [DisplayName("Beregnet utbredelsesareal (km2)")]
+    [Description("")]
     public decimal? AreaInformationExtentAreaCalculated { get; set; }
 
-    [Description("")]
     [DisplayName("Antall forekomstruter (km2)")]
+    [Description("")]
     public decimal? AreaInformationLocalityArea { get; set; }
 
+    [DisplayName("Mørketall forekomster")]
     [Description("")]
-    [DisplayName("Mørketall forekomster")] 
     public decimal? AreaInformationLocalityAreaMultiplier { get; set; }
 
-    [Description("")]
     [DisplayName("Beregnet antall forekomstruter")]
+    [Description("")]
     public decimal? AreaInformationLocalityAreaCalculated { get; set; }
-
-    // TODO: eksport av påvirkningsfaktorer
-    //[DisplayName("Påvirkningsfaktorer")]
-    //public string Codeitems { get; set; }
-
+    
     [DisplayName("Regioner og havområder")]
     [Description("")]
-    public string Regions { get; set; }
+    public string RegionsList { get; set; }
 
     [DisplayName("Referanser")]
     [Description("")]
-    public string References { get; set; }
+    public string ReferencesList { get; set; }
+
+    [DisplayName("Sitering")]
+    [Description("")]
+    public string Citation { get; set; }
 }

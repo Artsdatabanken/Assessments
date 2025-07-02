@@ -2,6 +2,7 @@
 using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Helpers;
+using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 
 namespace Assessments.Shared.Extensions;
@@ -12,14 +13,16 @@ public static class NatureTypesExtensions
 
     public static string GetDescription(this AssessmentRegion region) => region.ConvertTo<AssessmentRegionDto>().DisplayName();
 
-    public static string GetCitation(this List<CommitteeUserDto> committeeUsers, string committeeName)
+    public static string GetCitation(this List<CommitteeUser> committeeUsers, Committee committee)
     {
-        var users = committeeUsers.OrderByDescending(x => x.Level).ThenBy(x => x.UserLastName)
-            .Select(x => !string.IsNullOrEmpty(x.UserCitationName) ? x.UserCitationName : $"{x.UserLastName}, {x.UserFirstName[0]}.")
+        var users = committeeUsers
+            .Where(x => x.CommitteeId == committee.Id)
+            .OrderByDescending(x => x.Level).ThenBy(x => x.User.LastName)
+            .Select(x => !string.IsNullOrEmpty(x.User.CitationName) ? x.User.CitationName : $"{x.User.LastName}, {x.User.FirstName[0]}.")
             .ToList();
 
-        var citation = $"{users.JoinAnd(", ", " og ")} (alfabetisk) (2025). {committeeName}. {NatureTypesConstants.CitationSummary}";
-        
+        var citation = $"{users.JoinAnd(", ", " og ")} (alfabetisk) (2025). {committee.Name}. {NatureTypesConstants.CitationSummary}";
+
         return citation;
     }
 
@@ -105,5 +108,40 @@ public static class NatureTypesExtensions
             CriteriaCategoryThreatDefinedlocation.NT => "< 10 lokaliteter NT",
             _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
         };
+    }
+
+    public static List<CategoryCriteriaType> GetCategoryCriteriaTypes(string categoryCriteria)
+    {
+        if (string.IsNullOrEmpty(categoryCriteria))
+            return [];
+
+        // utslagsgivende kriterier fra "Endelig kategori og kriterium"
+
+        var categoryCriterion = categoryCriteria[2..]; // ta bort kategori
+
+        if (string.IsNullOrEmpty(categoryCriterion))
+            return [];
+
+        return [.. Array.ConvertAll(categoryCriterion.Split('+'), x => x.Trim()[..1]).Distinct().ToEnumerable<CategoryCriteriaType>()];
+    }
+
+    public static List<CodeItemDto> GetCodeItemModels(this List<AssessmentCodeItem> assessmentCodeItems)
+    {
+        var codeItemModels = new List<CodeItemDto>();
+
+        codeItemModels.AddRange(assessmentCodeItems.OrderBy(x => x.CodeItemId).GroupBy(x => new { x.CodeItemId }).Select(group =>
+            new CodeItemDto
+            {
+                CodeItemId = group.First().CodeItemId,
+                CodeItemDescription = group.First().CodeItemDescription,
+                TimeOfIncident = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 1).CodeItemParamLevel
+                    .Description,
+                InfluenceFactor = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 2).CodeItemParamLevel
+                    .Description,
+                Magnitude = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 3).CodeItemParamLevel
+                    .Description,
+            }));
+
+        return codeItemModels;
     }
 }
