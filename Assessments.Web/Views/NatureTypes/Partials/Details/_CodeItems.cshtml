@@ -7,15 +7,15 @@
 		<ul style="list-style-type: none;">
 			@foreach (var node in nodes)
 			{
-				var padding = node.ParentId == 0 ? 0 : 20;
-				<li style="padding-left: @(padding)px; @(node.Level == 2 ? "border-left: 1px solid lightgray" : "")">
+				var padding = node.ParentId == 0 ? 0 : 2;
+				<li style="padding-left: @(padding)em; @(node.Level == 2 ? "border-left: 1px solid lightgray" : string.Empty)">
 					<div>
 						<h4>
 							@node.Description
 						</h4>
 						@if (node.CodeItemDto != null)
 						{
-							<div style="padding-left: 20px; @(node.ParentId == 0 ? "" : "border-left: 1px solid lightgray")">
+							<div style="padding-left: 2em; border-left: 1px solid lightgray">
 								<p>
 									<h5>
 										Omfang
