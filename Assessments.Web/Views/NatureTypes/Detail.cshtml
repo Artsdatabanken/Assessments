@@ -96,19 +96,14 @@
 					@Html.Raw(documentation)
 				</div>
 			</div>
-			<div class="page_section" is-visible="Model.CodeItemDtos.Count != 0">
+			<div class="page_section" is-visible="Model.CodeItemNodeDtos.Any()">
 				<div id="@nameof(NatureTypesConstants.Headings.CodeItems)">
 					<div class="page_section_header">
 						<h2>
 							@NatureTypesConstants.Headings.CodeItems
 						</h2>
 					</div>
-					<p>
-						<a href="https://artsdatabanken.no/Files/59239/Metodeveileder_Norsk_r_dliste_for_naturtyper_2025">
-							Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
-						</a>
-					</p>
-					<partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemDtos" />
+					<partial name="Partials/Details/_CodeItems.cshtml" for="CodeItemNodeDtos" />
 				</div>
 				@Html.Raw(@assessment.ImpactsCommentHtml)
 			</div>
@@ -164,7 +159,9 @@
 					</div>
 					<div id="regionsMap" data-regions="@JsonSerializer.Serialize(Model.Assessment.Regions.Select(x => x.ShortName.ToLower()))">
 					</div>
-					<partial name="Partials/Details/_Regions.cshtml" />
+					<p>
+						Naturtypen har kjent forekomst i @Model.Assessment.Regions.Select(x => x.Name).JoinAnd(", ", " og ").
+					</p>
 				</div>
 			</div>
 			<div class="page_section" is-visible="Model.Assessment.References.Count != 0">
