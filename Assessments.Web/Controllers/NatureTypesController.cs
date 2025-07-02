@@ -145,30 +145,28 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
-            var searchParameter = parameters.Name.StripHtml();
+            var searchParameter = parameters.Name.StripHtml().Trim()[..175];
 
-            const string quotationMark = "\"";
+            var ninCodeTopicSuggestions = await repository.GetNinCodeTopicSuggestions();
+            var topic = ninCodeTopicSuggestions.FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
-            if (searchParameter.StartsWith(quotationMark) && searchParameter.EndsWith(quotationMark))
+            if (topic.Key == null)
             {
-                searchParameter = searchParameter.Replace(quotationMark, string.Empty);
-                query = query.Where(x => x.Name == searchParameter);
-            }
-            else
-            {
-                var ninCodeTopicSuggestions = await repository.GetNinCodeTopicSuggestions();
-                var topic = ninCodeTopicSuggestions.FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                var words = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                if (topic.Key == null)
+                if (words.Length > 1)
                 {
-                    // "fritekstsøk"
-                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    query = query.Where(words.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.Name.Contains(keyword), CombineExpressionType.AndAlso)));
                 }
                 else
                 {
-                    // søk på valgt forslag for tema
-                    query = query.Where(x => x.NinCodeTopicId == topic.Value);
+                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
+            }
+            else
+            {
+                // søk på valgt forslag for tema
+                query = query.Where(x => x.NinCodeTopicId == topic.Value);
             }
 
             parameters.Name = searchParameter;
