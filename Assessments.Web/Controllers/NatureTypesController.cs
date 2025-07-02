@@ -145,7 +145,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
-            var searchParameter = parameters.Name.StripHtml().Trim()[..175];
+            var searchParameter = parameters.Name.StripHtml().Trim();
+            searchParameter = new string([.. searchParameter.Take(175)]);
 
             var ninCodeTopicSuggestions = await repository.GetNinCodeTopicSuggestions();
             var topic = ninCodeTopicSuggestions.FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
