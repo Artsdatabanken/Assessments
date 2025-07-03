@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
-using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
@@ -47,7 +46,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page, bool export)
     {
         var query = repository.GetAssessments();
-        
+
         var regions = await repository.GetRegions();
         var topics = await repository.GetNinCodeTopics();
         var codeItems = await repository.GetCodeItems();
@@ -63,7 +62,10 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         if (export)
         {
-            var assessmentExports = Mapper.ProjectTo<NatureTypeAssessmentExport>(query);
+            var assessmentExports = Mapper.ProjectTo<NatureTypeAssessmentExport>(query, new
+            {
+                committeeUsers = await repository.GetCommitteeUsers()
+            });
 
             return new FileStreamResult(ExportHelper.GenerateNatureTypeAssessment2025Export(assessmentExports, Request.GetDisplayUrl()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
@@ -110,23 +112,20 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         if (assessment == null)
             return NotFound();
 
-        var committeeUserDtos = await repository.GetCommitteeUsers();
-        var committeeUsers = committeeUserDtos.Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
-
+        var committeeUsers = await repository.GetCommitteeUsers();
         var assessmentCodeItemNodes = await repository.GetAssessmentCodeItemNodes(assessment.Id);
-        
+
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
-            CategoryCriteriaTypes = NatureTypesHelper.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
+            CategoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
-               
                 AssessmentName = assessment.Name,
                 AssessmentYear = 2025,
                 ExpertCommittee = assessment.Committee.Name,
                 FirstPublished = "2025",
                 YearPreviousAssessment = 2018,
-                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name),
+                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee),
                 HasBackToTopLink = true
             },
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []
@@ -134,7 +133,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         return View(viewModel);
     }
-    
+
     [HttpGet]
     [Route("2025/[action]")]
     public async Task<IActionResult> Suggestions()

@@ -11,7 +11,7 @@ public interface INatureTypesRepository
 
     Task<List<CodeItemNodeDto>> GetAssessmentCodeItemNodes(int assessmentId, CancellationToken cancellationToken = default);
 
-    Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken = default);
+    Task<List<CommitteeUser>> GetCommitteeUsers(CancellationToken cancellationToken = default);
 
     Task<List<Region>> GetRegions(CancellationToken cancellationToken = default);
 

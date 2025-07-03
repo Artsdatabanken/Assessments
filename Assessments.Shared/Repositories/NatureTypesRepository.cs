@@ -1,4 +1,5 @@
 ﻿using Assessments.Shared.DTOs.NatureTypes;
+using Assessments.Shared.Extensions;
 using Assessments.Shared.Interfaces;
 using LazyCache;
 using Microsoft.EntityFrameworkCore;
@@ -32,21 +33,8 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
         if (assessmentCodeItems.Count == 0)
             return null;
 
-        var codeItemModels = new List<CodeItemDto>();
-
-        codeItemModels.AddRange(assessmentCodeItems.OrderBy(x => x.CodeItemId).GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
-            new CodeItemDto
-            {
-                CodeItemId = group.First().CodeItemId,
-                CodeItemDescription = group.First().CodeItemDescription,
-                TimeOfIncident = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 1).CodeItemParamLevel
-                    .Description,
-                InfluenceFactor = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 2).CodeItemParamLevel
-                    .Description,
-                Magnitude = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 3).CodeItemParamLevel
-                    .Description,
-            }));
-
+        var codeItemModels = assessmentCodeItems.GetCodeItemModels();
+        
         var codeItems = await GetCodeItems(cancellationToken: cancellationToken);
 
         foreach (var model in codeItemModels)
@@ -88,17 +76,9 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
             });
     }
 
-    public async Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken)
+    public async Task<List<CommitteeUser>> GetCommitteeUsers(CancellationToken cancellationToken)
     {
-        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => dbContext.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
-        {
-            CommitteeId = x.CommitteeId,
-            CommitteeName = x.Committee.Name,
-            Level = x.Level,
-            UserLastName = x.User.LastName,
-            UserFirstName = x.User.FirstName,
-            UserCitationName = x.User.CitationName
-        }).ToListAsync(cancellationToken: cancellationToken));
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => dbContext.CommitteeUsers.AsNoTracking().Include(x => x.User).OrderBy(x => x.Committee.Name).ToListAsync(cancellationToken: cancellationToken));
     }
 
     public async Task<List<Region>> GetRegions(CancellationToken cancellationToken)
