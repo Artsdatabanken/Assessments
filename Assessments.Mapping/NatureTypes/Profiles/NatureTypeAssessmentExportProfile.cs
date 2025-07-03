@@ -23,7 +23,7 @@ public class NatureTypeAssessmentExportProfile : Profile
             .ForMember(dest => dest.ImpactsCommentHtml, opt => opt.MapFrom(src => HtmlInput(src.ImpactsCommentHtml).Trim()))
             .ForMember(dest => dest.AreaInformationCommentHtml, opt => opt.MapFrom(src => HtmlInput(src.AreaInformation.CommentHtml).Trim()))
             .ForMember(dest => dest.RegionsList, opt => opt.MapFrom(src => string.Join(";", src.Regions.Select(x => x.Name))))
-            .ForMember(dest => dest.ReferencesList, opt => opt.MapFrom(src => string.Join(";", src.References.Select(x => x.Id))))
+            .ForMember(dest => dest.ReferencesList, opt => opt.MapFrom(src => string.Join("|", src.References.Select(x => x.ReferencePresentation))))
             .ForMember(dest => dest.CodeitemsList, opt => opt.MapFrom(src => GetCodeItemList(src.CodeItems.Select(x => new AssessmentCodeItem
                 {
                     CodeItemId = x.CodeItemId,
