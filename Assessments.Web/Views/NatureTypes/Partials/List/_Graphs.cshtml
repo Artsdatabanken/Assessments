@@ -1,24 +1,26 @@
 ﻿@model NatureTypesStatisticsViewModel
 
 @{
-    static string Percentage(double sum, double value)
-    {
-        return sum != 0 ? $"{value / sum:0.0%}".Replace(",", ".") : "0";
-    }
+    static string Percentage(double sum, double value) => sum != 0 ? $"{value / sum:0.0%}".Replace(",", ".") : "0";
 }
 
+<p>
+    Figurer tegnes basert på valgte filtre og søkeord.
+</p>
+
 <div class="page_section graphs">
-    <h3>Antall vurderinger per kategori</h3>
+    <h3>
+        Antall vurderinger per kategori
+    </h3>
     <ul class="graph color_graph">
-        @{
-            var sum = Model.Categories.Sum(x => x.Value);
-        }
-        @foreach (var (key, value) in Model.Categories)
+       @foreach (var (key, value) in Model.Categories)
         {
             <li class="statelement">
                 <div class="heightbar_blank">
-                    <div class="heightbar_indicator @key" style="height:@Percentage(sum,value)">
-                        <span class="percent">@value</span>
+                    <div class="heightbar_indicator @key" style="height: @Percentage(Model.Categories.Sum(x => x.Value), value)">
+                        <span class="percent">
+                            @value
+                        </span>
                     </div>
                 </div>
                 <span class="statbox">
@@ -30,4 +32,47 @@
             </li>
         }
     </ul>
+    <h3>
+        Antall vurderinger per region
+    </h3>
+    <div class="down_graph greyscale">
+        @foreach (var (key, value) in Model.Regions)
+        {
+            <div class="statelement">
+                <span class="statbox @key">
+                    @key
+                </span>
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator" style="width: @(Percentage(Model.Regions.Max(x => x.Value), value))">
+                        <span class="percent">
+                            @value
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <h3>
+        Antall vurderinger per kriterium
+    </h3>
+    <div class="graph greyscale">
+        @foreach (var (key, value) in Model.CategoryCriteriaType)
+        {
+            <div class="statelement">
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator" style="height: @(Percentage(Model.CategoryCriteriaType.Max(x => x.Value), value))">
+                        <span class="percent">
+                            @value
+                        </span>
+                    </div>
+                </div>
+                <span class="statbox @key">
+                    @key
+                </span>
+                <span class="stat_subtitle">
+                    @key.DisplayName()
+                </span>
+            </div>
+        }
+    </div>
 </div>

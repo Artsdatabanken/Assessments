@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Assessments.Mapping.NatureTypes.Model;
+﻿using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
+using System.Linq.Expressions;
 using X.PagedList.Extensions;
 using static Assessments.Shared.Extensions.ExpressionExtensions;
 
@@ -250,16 +251,37 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return query;
     }
 
-    private static async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(IQueryable<Assessment> assessments)
+    private async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(IQueryable<Assessment> assessments)
     {
         var viewModel = new NatureTypesStatisticsViewModel();
 
-        var categories = await assessments.GroupBy(x => x.Category).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
+        var categoryStats = await assessments.GroupBy(x => x.Category).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
 
         foreach (var category in Enum.GetValues<Category>().Where(x => x != Category.NA))
         {
-            var statistics = categories.FirstOrDefault(x => x.Key == category);
-            viewModel.Categories.Add(category, statistics?.Count ?? 0);
+            var stats = categoryStats.FirstOrDefault(x => x.Key == category);
+            viewModel.Categories.Add(category, stats?.Count ?? 0);
+        }
+
+        var regions = await repository.GetRegions();
+        var regionStats = await assessments.SelectMany(x => x.Regions)
+            .GroupBy(y => y.Id).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
+
+        foreach (var region in regions)
+        {
+            var stats = regionStats.FirstOrDefault(x => x.Key == region.Id);
+            viewModel.Regions.Add(region.Name, stats?.Count ?? 0);
+        }
+        
+        foreach (var categoryCriteriaType in Enum.GetValues<CategoryCriteriaType>())
+            viewModel.CategoryCriteriaType.Add(categoryCriteriaType, 0);
+
+        foreach (var assessment in assessments)
+        {
+            var categoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria);
+           
+            foreach (var categoryCriteriaType in categoryCriteriaTypes)
+                viewModel.CategoryCriteriaType[categoryCriteriaType] += 1;
         }
 
         return viewModel;
