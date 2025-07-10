@@ -49,4 +49,18 @@ public static class QueryStringExtensions
 
         return queryBuilder.ToQueryString().Value;
     }
+
+    public static string RemoveQueryStringKeys(this Uri uri, string[] keys)
+    {
+        var queryString = HttpUtility.ParseQueryString(uri.Query);
+
+        var dictionary = queryString.AllKeys.ToDictionary(x => x, name => queryString[name]);
+
+        foreach (var x in dictionary.Where(y => string.IsNullOrEmpty(y.Value) || keys.Contains(y.Key)))
+            queryString.Remove(x.Key);
+
+        var uriBuilder = new UriBuilder(uri) { Query = queryString.ToString() ?? string.Empty };
+
+        return uriBuilder.ToString();
+    }
 }
