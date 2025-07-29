@@ -8,4 +8,8 @@ public interface IDrupalRepository
     Task<ContentRootResponseDto> ContentById(int id, CancellationToken cancellationToken = default);
 
     Task<ContentRootResponseDto> ContentByType(ContentModelType modelType, CancellationToken cancellationToken = default);
+
+    Task<List<ContentByLongCodeResponseDto>> ContentByLongCode(string longCode, CancellationToken cancellationToken = default);
+
+    Task<List<ImageModelDto>> ImageModelsByLongCode(string longCode);
 }

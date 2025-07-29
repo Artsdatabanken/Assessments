@@ -73,4 +73,12 @@ public static class Extensions
     {
         return array.Where(c => Enum.IsDefined(typeof(T), c)).Select(a => (T) Enum.Parse(typeof(T), a));
     }
+
+    public static TEnum ToEnum<TEnum>(this string strEnumValue, TEnum defaultValue)
+    {
+        if (!Enum.IsDefined(typeof(TEnum), strEnumValue))
+            return defaultValue;
+
+        return (TEnum)Enum.Parse(typeof(TEnum), strEnumValue, ignoreCase: true);
+    }
 }

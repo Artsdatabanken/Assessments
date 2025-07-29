@@ -1,10 +1,11 @@
-﻿using Assessments.Shared.Interfaces;
-using LazyCache;
-using Microsoft.Extensions.Logging;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
 using Assessments.Shared.DTOs.Drupal;
 using Assessments.Shared.DTOs.Drupal.Enums;
+using Assessments.Shared.Interfaces;
+using AutoMapper;
+using LazyCache;
+using Microsoft.Extensions.Logging;
 
 namespace Assessments.Shared.Repositories;
 
@@ -13,9 +14,11 @@ public class DrupalRepository : IDrupalRepository
     private readonly HttpClient _client;
     private readonly IAppCache _cache;
     private readonly ILogger<DrupalRepository> _logger;
-    
-    public DrupalRepository(HttpClient client, IAppCache cache, ILogger<DrupalRepository> logger)
+    private readonly IMapper _mapper;
+
+    public DrupalRepository(HttpClient client, IAppCache cache, ILogger<DrupalRepository> logger, IMapper mapper)
     {
+        _mapper = mapper;
         _logger = logger;
         _cache = cache;
         _client = client;
@@ -57,6 +60,41 @@ public class DrupalRepository : IDrupalRepository
             throw new ArgumentOutOfRangeException($"{modelType}");
 
         return ContentById(contentId, cancellationToken);
+    }
+
+    public async Task<List<ContentByLongCodeResponseDto>> ContentByLongCode(string longCode, CancellationToken cancellationToken = default)
+    {
+        var cacheKey = $"{nameof(DrupalRepository)}-{nameof(ContentByLongCode)}-{longCode}";
+
+        var dto = await _cache.GetOrAddAsync(cacheKey, async () =>
+        {
+            var response = await _client.GetAsync($"nin/v3?code={longCode}", cancellationToken);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseDtos = await response.Content.ReadFromJsonAsync<List<ContentByLongCodeResponseDto>>(cancellationToken: cancellationToken);
+
+                if (responseDtos.Count != 0)
+                    return responseDtos;
+            }
+
+            _logger.LogWarning("Could not get content by longCode: {longCode} (StatusCode: {statuscode})", longCode, response.StatusCode);
+            
+            return null;
+        });
+
+        return dto;
+    }
+
+    public async Task<List<ImageModelDto>> ImageModelsByLongCode(string longCode)
+    {
+        var responseDto = await ContentByLongCode(longCode);
+
+        var responseDtos = responseDto?.Where(x => x.Type.Equals("image"));
+
+        const int maxImageCount = 10;
+
+        return responseDtos == null ? [] : _mapper.Map<List<ImageModelDto>>(responseDtos.Take(maxImageCount).ToList());
     }
 
     // hardkodede node id'er som benyttes til forskjellig innhold
