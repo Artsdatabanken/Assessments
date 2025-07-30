@@ -13,6 +13,4 @@ public record ImageModelDto
     public List<string> Authors { get; set; } = [];
 
     public ImageLicenseEnum License { get; set; }
-
-    public string LongCode { get; set; }
 }

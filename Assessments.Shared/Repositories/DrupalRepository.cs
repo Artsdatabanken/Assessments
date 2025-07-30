@@ -93,7 +93,6 @@ public class DrupalRepository : IDrupalRepository
         {
             var imageModelDto = new ImageModelDto
             {
-                LongCode = longCode,
                 Url = new Uri(dto.Id.Replace("Nodes/", "https://artsdatabanken.no/Media/")),
                 Link = new Uri(dto.Id.Replace("Nodes/", "https://artsdatabanken.no/Pages/")),
                 Text = dto.Fields.FirstOrDefault(x => x.Name.Equals("annotation"))?.Values.FirstOrDefault().StripHtml()
