@@ -1,0 +1,30 @@
+﻿@using Assessments.Shared.DTOs.Drupal.Enums
+@using Assessments.Shared.Interfaces
+
+@inject IDrupalRepository DrupalRepository
+
+@model string
+
+@{
+    var images = await DrupalRepository.ImageModelsByLongCode(Model);
+}
+
+@if (images.Any())
+{
+    <hr />
+    <h3>Bilder av naturtypen</h3>
+    @foreach (var image in images)
+    {
+        <div>
+            <a href="@image.Link" target="_blank">
+                <img src="@image.Url?mode=200x200" style="height: auto; width: 200px; padding: 0;" alt="@image.Text" title="@image.Text" />
+            </a>
+            <span>
+                @image.Authors.JoinAnd(", ")
+            </span>
+            <a is-visible="image.License != ImageLicenseEnum.Unknown" href="@image.License.Description()" target="_blank">
+                @image.License.DisplayName()
+            </a>
+        </div>
+    }
+}

@@ -1,11 +1,11 @@
-﻿using System.Net;
-using System.Net.Http.Json;
-using Assessments.Shared.DTOs.Drupal;
+﻿using Assessments.Shared.DTOs.Drupal;
 using Assessments.Shared.DTOs.Drupal.Enums;
+using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
-using AutoMapper;
 using LazyCache;
 using Microsoft.Extensions.Logging;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace Assessments.Shared.Repositories;
 
@@ -14,11 +14,8 @@ public class DrupalRepository : IDrupalRepository
     private readonly HttpClient _client;
     private readonly IAppCache _cache;
     private readonly ILogger<DrupalRepository> _logger;
-    private readonly IMapper _mapper;
-
-    public DrupalRepository(HttpClient client, IAppCache cache, ILogger<DrupalRepository> logger, IMapper mapper)
+    public DrupalRepository(HttpClient client, IAppCache cache, ILogger<DrupalRepository> logger)
     {
-        _mapper = mapper;
         _logger = logger;
         _cache = cache;
         _client = client;
@@ -66,35 +63,72 @@ public class DrupalRepository : IDrupalRepository
     {
         var cacheKey = $"{nameof(DrupalRepository)}-{nameof(ContentByLongCode)}-{longCode}";
 
-        var dto = await _cache.GetOrAddAsync(cacheKey, async () =>
+        var model = await _cache.GetOrAddAsync(cacheKey, async () =>
         {
             var response = await _client.GetAsync($"nin/v3?code={longCode}", cancellationToken);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseDtos = await response.Content.ReadFromJsonAsync<List<ContentByLongCodeResponseDto>>(cancellationToken: cancellationToken);
+            if (!response.IsSuccessStatusCode)
+                return null;
 
-                if (responseDtos.Count != 0)
-                    return responseDtos;
-            }
+            var responseDtos = await response.Content.ReadFromJsonAsync<List<ContentByLongCodeResponseDto>>(cancellationToken: cancellationToken);
 
-            _logger.LogWarning("Could not get content by longCode: {longCode} (StatusCode: {statuscode})", longCode, response.StatusCode);
-            
-            return null;
+            return responseDtos.Count != 0 ? responseDtos : null;
         });
 
-        return dto;
+        return model;
     }
 
     public async Task<List<ImageModelDto>> ImageModelsByLongCode(string longCode)
     {
-        var responseDto = await ContentByLongCode(longCode);
+        var contentByLongCode = await ContentByLongCode(longCode);
 
-        var responseDtos = responseDto?.Where(x => x.Type.Equals("image"));
+        var dtos = contentByLongCode?.Where(x => x.Type.Equals("image")).ToList();
 
-        const int maxImageCount = 10;
+        var models = new List<ImageModelDto>();
 
-        return responseDtos == null ? [] : _mapper.Map<List<ImageModelDto>>(responseDtos.Take(maxImageCount).ToList());
+        if (dtos == null)
+            return models;
+
+        foreach (var dto in dtos.Take(10))
+        {
+            var imageModelDto = new ImageModelDto
+            {
+                LongCode = longCode,
+                Url = new Uri(dto.Id.Replace("Nodes/", "https://artsdatabanken.no/Media/")),
+                Link = new Uri(dto.Id.Replace("Nodes/", "https://artsdatabanken.no/Pages/")),
+                Text = dto.Fields.FirstOrDefault(x => x.Name.Equals("annotation"))?.Values.FirstOrDefault().StripHtml()
+            };
+
+            var authorReferences = dto.Fields.FirstOrDefault(x => x.Name.Equals("metadata"))?.Fields.FirstOrDefault(x => x.Name.Equals("reference"))?.References;
+
+            if (authorReferences != null)
+                imageModelDto.Authors = await GetAuthors(authorReferences);
+
+            var licenseReference = dto.Fields.FirstOrDefault(x => x.Name.Equals("license"))?.References.FirstOrDefault(x => x.StartsWith("Nodes/T"));
+
+            if (licenseReference != null)
+                imageModelDto.License = licenseReference.Split("/").Last().ToEnum(ImageLicenseEnum.Unknown);
+
+            models.Add(imageModelDto);
+        }
+
+        return models;
+    }
+
+    private async Task<List<string>> GetAuthors(List<string> references)
+    {
+        var authors = new List<string>();
+
+        foreach (var author in references)
+        {
+            if (!int.TryParse(author.Split("/").Last(), out var nodeId))
+                continue;
+
+            var contentById = await ContentById(nodeId);
+            authors.Add(contentById.Title);
+        }
+
+        return authors;
     }
 
     // hardkodede node id'er som benyttes til forskjellig innhold

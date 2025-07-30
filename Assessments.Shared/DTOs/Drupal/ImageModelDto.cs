@@ -1,14 +1,18 @@
-﻿namespace Assessments.Shared.DTOs.Drupal;
+﻿using Assessments.Shared.DTOs.Drupal.Enums;
+
+namespace Assessments.Shared.DTOs.Drupal;
 
 public record ImageModelDto
 {
-    public Uri Url { get; init; }
+    public Uri Url { get; set; }
 
-    public Uri Link { get; init; }
+    public Uri Link { get; set; }
 
-    public string License { get; init; }
+    public string Text { get; set; }
 
-    public string Text { get; init; }
+    public List<string> Authors { get; set; } = [];
 
-    public List<string> Authors { get; init; } = [];
+    public ImageLicenseEnum License { get; set; }
+
+    public string LongCode { get; set; }
 }
