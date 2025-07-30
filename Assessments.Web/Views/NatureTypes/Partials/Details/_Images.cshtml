@@ -19,7 +19,7 @@
             <a href="@image.Link" target="_blank">
                 <img src="@image.Url?mode=200x200" style="height: auto; width: 200px; padding: 0;" alt="@image.Text" title="@image.Text" />
             </a>
-            <span>
+            <span is-visible="image.Authors.Any()">
                 @image.Authors.JoinAnd(", ")
             </span>
             <a is-visible="image.License != ImageLicenseEnum.Unknown" href="@image.License.Description()" target="_blank">
