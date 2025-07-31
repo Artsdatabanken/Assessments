@@ -50,7 +50,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         var regions = await repository.GetRegions();
         var topics = await repository.GetNinCodeTopics();
-        var codeItems = await repository.GetCodeItems();
+        var codeItems = await repository.GetMainCodeItems();
 
         query = await ApplyParametersToList(parameters, query, regions, codeItems, repository);
 
@@ -263,11 +263,10 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             viewModel.Categories.Add(category, stats?.Count ?? 0);
         }
 
-        var regions = await repository.GetRegions();
         var regionStats = await assessments.SelectMany(x => x.Regions)
             .GroupBy(y => y.Id).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
 
-        foreach (var region in regions)
+        foreach (var region in await repository.GetRegions())
         {
             var stats = regionStats.FirstOrDefault(x => x.Key == region.Id);
             viewModel.Regions.Add(region.Name, stats?.Count ?? 0);
@@ -282,6 +281,11 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
            
             foreach (var categoryCriteriaType in categoryCriteriaTypes)
                 viewModel.CategoryCriteriaType[categoryCriteriaType] += 1;
+        }
+
+        foreach (var codeItem in await repository.GetMainCodeItems())
+        {
+            viewModel.CodeItems.Add(codeItem.Description, await assessments.CountAsync(x => x.CodeItems.Any(y => y.CodeItem.IdNr.StartsWith(codeItem.IdNr))));
         }
 
         return viewModel;

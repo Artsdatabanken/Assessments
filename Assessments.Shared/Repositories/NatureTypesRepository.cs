@@ -34,7 +34,7 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
             return null;
 
         var codeItemModels = assessmentCodeItems.GetCodeItemModels();
-        
+
         var codeItems = await GetCodeItems(cancellationToken: cancellationToken);
 
         foreach (var model in codeItemModels)
@@ -55,6 +55,7 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
 
                 codeItem = parent;
             }
+
             model.ParentCodeItems = model.ParentCodeItems.OrderBy(x => x.ParentId).ToList();
         }
 
@@ -108,5 +109,18 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
     public async Task<List<CodeItem>> GetCodeItems(CancellationToken cancellationToken)
     {
         return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => dbContext.CodeItems.ToListAsync(cancellationToken: cancellationToken));
+    }
+
+    public async Task<List<CodeItem>> GetMainCodeItems(CancellationToken cancellationToken)
+    {
+        // liste med id'er som bestemmer rekkefølge og hvilke påvirkningsfaktorer som skal vises på toppnivå (filter og statistikk)
+        int[] codeItemIds = [13, 14, 15, 16, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetMainCodeItems)}", async () =>
+        {
+            var topics = await dbContext.CodeItems.Where(x => codeItemIds.Contains(x.Id)).ToListAsync(cancellationToken: cancellationToken);
+
+            return topics.OrderBy(x => Array.IndexOf(codeItemIds, x.Id)).ToList();
+        });
     }
 }

@@ -20,4 +20,6 @@ public interface INatureTypesRepository
     Task<List<KeyValuePair<string, int>>> GetNinCodeTopicSuggestions(CancellationToken cancellationToken = default);
     
     Task<List<CodeItem>> GetCodeItems(CancellationToken cancellationToken = default);
+    
+    Task<List<CodeItem>> GetMainCodeItems(CancellationToken cancellationToken = default);
 }
