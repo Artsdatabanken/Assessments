@@ -10,4 +10,6 @@ public record NatureTypesStatisticsViewModel
     public Dictionary<string, double> Regions { get; init; } = [];
 
     public Dictionary<CategoryCriteriaType, double> CategoryCriteriaType { get; init; } = [];
+
+    public Dictionary<string, double> CodeItems { get; init; } = [];
 }

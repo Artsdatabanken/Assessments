@@ -75,4 +75,25 @@
             </div>
         }
     </div>
+    <h3>
+        Antall vurderinger per påvirkningsfaktor
+    </h3>
+    <div class="down_graph greyscale">
+        @foreach (var (key, value) in Model.CodeItems)
+        {
+            <div class="statelement">
+                <span class="statbox @key">
+                    @key
+                </span>
+                <div class="heightbar_blank">
+                    <div class="heightbar_indicator" style="width: @(Percentage(Model.CodeItems.Max(x => x.Value), value))">
+                        <span class="percent">
+                            @value
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
 </div>
