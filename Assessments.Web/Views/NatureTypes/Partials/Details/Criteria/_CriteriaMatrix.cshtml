@@ -1,0 +1,98 @@
+﻿@model CriteriaMatrixViewModel
+
+<li class="@(Model.IsActive ? "active opened_element" : "inactive")">
+	<div class="text_container">
+		<div class="text_collection">
+			<span class="title_field clickable" onclick="expandCriteria(this, 'opened_element')">
+				<span class="close_icon material-icons text_icon">arrow_drop_down</span>
+				<span class="open_icon material-icons text_icon">arrow_right</span>
+				<span class="text_text">
+					@Model.Description
+				</span>
+			</span>
+			<ul>				
+				<li class="listitem_criteria active opened_element">
+					<div class="text_container">
+						<div class="text_collection">
+							<div class="criteria-matrix-container">
+								<span class="legend rotate-legend">
+									Forringet effekt (%)
+								</span>
+								<div class="criteria-matrix">
+									<span class="legend">
+										@(Model.CriteriaType == CategoryCriteriaType.C ? "Grad av biotisk forringelse (%)" : "Grad av abiotisk forringelse(%)")
+									</span>
+									<ul class="bottom-legend">
+										<li></li>
+										<li class="description">
+											&ge; 80%
+										</li>
+										<li class="description">
+											&ge; 50%
+										</li>
+										<li class="description">
+											&ge; 30%
+										</li>
+										<li class="description">
+											&ge; 20%
+										</li>
+									</ul>
+									<ul>
+										<li class="description">
+											&ge; 80%
+										</li>
+										<li class="criteria-matrix-cell cr">
+											CR
+										</li>
+										<li class="criteria-matrix-cell en">
+											EN
+										</li>
+										<li class="criteria-matrix-cell vu">
+											VU
+										</li>
+										<li class="criteria-matrix-cell nt">
+											NT
+										</li>
+									</ul>
+									<ul>
+										<li class="description">
+											&ge; 50%
+										</li>
+										<li class="criteria-matrix-cell en">
+											EN
+										</li>
+										<li class="criteria-matrix-cell vu selected">
+											VU
+										</li>
+										<li class="criteria-matrix-cell nt">
+											NT
+										</li>
+									</ul>
+									<ul>
+										<li class="description">
+											&ge; 30%
+										</li>
+										<li class="criteria-matrix-cell vu">
+											VU
+										</li>
+										<li class="criteria-matrix-cell nt">
+											NT
+										</li>
+									</ul>
+									<ul class="bottom-border">
+										<li class="description">
+											&ge; 20%
+										</li>
+										<li class="criteria-matrix-cell nt">
+											NT
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</li>

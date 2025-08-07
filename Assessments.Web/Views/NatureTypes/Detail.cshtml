@@ -7,13 +7,20 @@
 	Layout = "_Layout.cshtml";
 }
 
+
 @section Styles {
 	<link rel="stylesheet" href="~/css/assessment.css" />
+	<link rel="stylesheet" href="~/css/categorybar.css">
+	<link rel="stylesheet" href="~/css/rln/criteriaMatrix.css">
 }
 
 @section Scripts {
 	<script src="~/js/lib/d3/d3.min.js"></script>
 	<script src="~/js/rln/regionmap.js"></script>
+	<script src="~/js/assessmentTabs.js"></script>
+	<script is-visible="assessment.Category is Category.LC or Category.NE">
+		criterialist('full_list', document.getElementById('full_list_criteria'));
+	</script>
 }
 
 @section Breadcrumb {
@@ -114,20 +121,25 @@
 							@NatureTypesConstants.Headings.CriteriaInformation
 						</h2>
 					</div>
-					<div class="page_section criteria" id="criteria">
-						<button class="changetab active" id="summary_criteria" onclick="criterialist('summary', this)">
+					<div id="criteria" class="page_section">
+						<button id="summary_criteria" class="changetab active" onclick="criterialist('summary', this)">
 							Oppsummering
 						</button>
-						<button class="changetab" id="full_list_criteria" onclick="criterialist('full_list', this)">
+						<button id="full_list_criteria" class="changetab" onclick="criterialist('full_list', this)">
 							Full liste
 						</button>
 						<div class="tabbed_element_container">
 							<ul class="outer noline">
 								<li class="tablist_listheader">
-									<span class="summary_title">
+									<div class="summary_title">
 										Utslagsgivende kriterier
-									</span>
-									<span class="full_list_title">Alle kriterier</span>
+										<p>
+											Kriteriet som gir høyeste risikokategori blir utslagsgivende for naturtypen
+										</p>
+									</div>
+									<div class="full_list_title">
+										Alle kriterier
+									</div>
 								</li>
 								<li class="inactive">
 									<partial name="Partials/Details/_CriteriaInformation" />

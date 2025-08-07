@@ -32,42 +32,42 @@ public static class NatureTypesExtensions
         {
             CriteriaCategoryType.A => category switch
             {
-                CriteriaCategory.CR => "≥ 80% CR",
-                CriteriaCategory.EN => "≥ 50% EN",
-                CriteriaCategory.VU => "≥ 30% VU",
-                CriteriaCategory.NT => "≥ 20% NT",
-                CriteriaCategory.LC => nameof(CriteriaCategory.LC),
-                CriteriaCategory.DD => nameof(CriteriaCategory.DD),
-                CriteriaCategory.NE => nameof(CriteriaCategory.NE),
+                CriteriaCategory.CR => "≥ 80%",
+                CriteriaCategory.EN => "≥ 50%",
+                CriteriaCategory.VU => "≥ 30%",
+                CriteriaCategory.NT => "≥ 20%",
+                CriteriaCategory.LC => string.Empty,
+                CriteriaCategory.DD => string.Empty,
+                CriteriaCategory.NE => string.Empty,
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             },
             CriteriaCategoryType.B1 => category switch
             {
-                CriteriaCategory.CR => "≤ 2000 km2 CR",
-                CriteriaCategory.EN => "≤ 20 000 km2 EN",
-                CriteriaCategory.VU => "≤ 50 000 km2 VU",
-                CriteriaCategory.NT => "≤ 55 000 km2 NT",
-                CriteriaCategory.LC => nameof(CriteriaCategory.LC),
-                CriteriaCategory.DD => nameof(CriteriaCategory.DD),
-                CriteriaCategory.NE => nameof(CriteriaCategory.NE),
+                CriteriaCategory.CR => "≤ 2000 km2",
+                CriteriaCategory.EN => "≤ 20 000 km2",
+                CriteriaCategory.VU => "≤ 50 000 km2",
+                CriteriaCategory.NT => "≤ 55 000 km2",
+                CriteriaCategory.LC => string.Empty,
+                CriteriaCategory.DD => string.Empty,
+                CriteriaCategory.NE => string.Empty,
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             },
             CriteriaCategoryType.B2 => category switch
             {
-                CriteriaCategory.CR => "≤ 2 CR",
-                CriteriaCategory.EN => "≤ 20 EN",
-                CriteriaCategory.VU => "≤ 50 VU",
-                CriteriaCategory.NT => "≤ 55 NT",
-                CriteriaCategory.LC => nameof(CriteriaCategory.LC),
-                CriteriaCategory.DD => nameof(CriteriaCategory.DD),
-                CriteriaCategory.NE => nameof(CriteriaCategory.NE),
+                CriteriaCategory.CR => "≤ 2",
+                CriteriaCategory.EN => "≤ 20",
+                CriteriaCategory.VU => "≤ 50",
+                CriteriaCategory.NT => "≤ 55",
+                CriteriaCategory.LC => string.Empty,
+                CriteriaCategory.DD => string.Empty,
+                CriteriaCategory.NE => string.Empty,
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             },
             CriteriaCategoryType.BSites => category switch
             {
-                CriteriaCategory.CR => "ant lok 1 CR",
-                CriteriaCategory.EN => "ant lok ≤ 5 EN",
-                CriteriaCategory.VU => "ant lok ≤ 10 VU",
+                CriteriaCategory.CR => "ant lok 1",
+                CriteriaCategory.EN => "ant lok ≤ 5",
+                CriteriaCategory.VU => "ant lok ≤ 10",
                 CriteriaCategory.NT => string.Empty,
                 CriteriaCategory.LC => string.Empty,
                 CriteriaCategory.DD => string.Empty,
@@ -89,23 +89,13 @@ public static class NatureTypesExtensions
         };
     }
 
-    public static string GetDescription(this CriteriaCategoryImpact criteriaCategoryChange)
-    {
-        return criteriaCategoryChange switch
-        {
-            CriteriaCategoryImpact.None => string.Empty,
-            CriteriaCategoryImpact.AssumedOrKnown => "antatt eller kjent",
-            _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
-        };
-    }
-
     public static string GetDescription(this CriteriaCategoryThreatDefinedlocation criteriaCategoryChange)
     {
         return criteriaCategoryChange switch
         {
             CriteriaCategoryThreatDefinedlocation.None => string.Empty,
-            CriteriaCategoryThreatDefinedlocation.VU => "< 5 lokaliteter VU",
-            CriteriaCategoryThreatDefinedlocation.NT => "< 10 lokaliteter NT",
+            CriteriaCategoryThreatDefinedlocation.VU => "< 5 lokaliteter",
+            CriteriaCategoryThreatDefinedlocation.NT => "< 10 lokaliteter",
             _ => throw new ArgumentOutOfRangeException(nameof(criteriaCategoryChange), criteriaCategoryChange, null)
         };
     }

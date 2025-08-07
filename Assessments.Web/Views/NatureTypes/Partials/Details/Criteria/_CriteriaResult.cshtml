@@ -1,0 +1,33 @@
+﻿@model CriteriaResultViewModel
+
+<ul class="second">
+	<li class="@(Model.IsActive && Model.Category != CriteriaCategory.NE ? "active opened_element" : "inactive")">
+		<div class="text_container">
+			<div class="text_collection">
+				<span class="title_field" onclick="expandCriteria(this, 'opened_element')">
+					<span class="close_icon material-icons text_icon">
+						arrow_drop_down
+					</span>
+					<span class="open_icon material-icons text_icon">
+						arrow_right
+					</span>
+					<span class="text_text clickable">
+						@Model.Description
+					</span>
+				</span>
+				<p>
+					<span class="b_summary">
+						<span class="graphic_element @Model.Category">
+							@Model.Category
+						</span>
+						<span>
+							<span>
+								<i>@(Model.Category.ConvertTo<NatureTypeCategoryDto>().DisplayName()) </i> @Model.Category
+							</span>
+						</span>
+					</span>
+				</p>
+			</div>
+		</div>
+	</li>
+</ul>
