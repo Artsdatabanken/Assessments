@@ -11,6 +11,11 @@
     flex-direction: column;
 }
 
+.full_list .criteria-matrix {
+    display: inline-flex;
+    flex-direction: unset;
+}
+
 .criteria-matrix ul {
     display: inline-grid;
     grid-template-columns: repeat(5, 60px);
