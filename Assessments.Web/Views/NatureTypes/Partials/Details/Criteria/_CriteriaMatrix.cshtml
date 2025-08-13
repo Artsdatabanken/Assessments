@@ -1,5 +1,13 @@
 ﻿@model CriteriaMatrixViewModel
 
+@{
+	var citeriaX = Model.CriteriaArea.GetDescription(CriteriaCategoryType.C);
+	var citeriaY = Model.Criteria.GetDescription(CriteriaCategoryType.C);
+}
+
+@citeriaX
+@citeriaY
+
 <li class="@(Model.IsActive ? "active opened_element" : "inactive")">
 	<div class="text_container">
 		<div class="text_collection">
@@ -41,16 +49,16 @@
 										<li class="description">
 											&ge; 80%
 										</li>
-										<li class="criteria-matrix-cell cr">
+										<li class="criteria-matrix-cell cr" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 80 %")">
 											CR
 										</li>
-										<li class="criteria-matrix-cell en">
+										<li class="criteria-matrix-cell en" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 50 %")">
 											EN
 										</li>
-										<li class="criteria-matrix-cell vu">
+										<li class="criteria-matrix-cell vu" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 30 %")">
 											VU
 										</li>
-										<li class="criteria-matrix-cell nt">
+										<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 20 %")">
 											NT
 										</li>
 									</ul>
@@ -58,13 +66,13 @@
 										<li class="description">
 											&ge; 50%
 										</li>
-										<li class="criteria-matrix-cell en">
+										<li class="criteria-matrix-cell en" condition-class-selected="@(citeriaX == "≥ 50 %" && citeriaY == "≥ 80 %")">
 											EN
 										</li>
-										<li class="criteria-matrix-cell vu selected">
+										<li class="criteria-matrix-cell vu" condition-class-selected="@(citeriaX == "≥ 50 %" && citeriaY == "≥ 50 %")">
 											VU
 										</li>
-										<li class="criteria-matrix-cell nt">
+										<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 50 %" && citeriaY == "≥ 30 %")">
 											NT
 										</li>
 									</ul>
@@ -72,10 +80,10 @@
 										<li class="description">
 											&ge; 30%
 										</li>
-										<li class="criteria-matrix-cell vu">
+										<li class="criteria-matrix-cell vu" condition-class-selected="@(citeriaX == "≥ 30 %" && citeriaY == "≥ 80 %")">
 											VU
 										</li>
-										<li class="criteria-matrix-cell nt">
+										<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 30 %" && citeriaY == "≥ 50 %")">
 											NT
 										</li>
 									</ul>
@@ -83,7 +91,7 @@
 										<li class="description">
 											&ge; 20%
 										</li>
-										<li class="criteria-matrix-cell nt">
+										<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 20 %" && citeriaY == "≥ 80 %")">
 											NT
 										</li>
 									</ul>

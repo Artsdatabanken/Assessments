@@ -13,5 +13,4 @@ public record CriteriaCategoryImpactViewModel(string Description, CriteriaCatego
 
 public record CriteriaCategoryThreatDefinedlocationViewModel(string Description, CriteriaCategoryThreatDefinedlocation Category, bool IsActive);
 
-
-public record CriteriaMatrixViewModel(string Description, CategoryCriteriaType CriteriaType, bool IsActive);
+public record CriteriaMatrixViewModel(string Description, CategoryCriteriaType CriteriaType, CriteriaCategory CriteriaArea, CriteriaCategory Criteria, bool IsActive);
