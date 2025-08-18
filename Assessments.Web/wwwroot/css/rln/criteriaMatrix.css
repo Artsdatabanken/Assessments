@@ -31,6 +31,8 @@
 
 .criteria-matrix li.selected { border: 5px solid yellow; }
 
+.criteria-matrix .selected span { margin-left: -5px; }
+
 .criteria-matrix li.description {
     line-height: initial;
     padding: 8px;
