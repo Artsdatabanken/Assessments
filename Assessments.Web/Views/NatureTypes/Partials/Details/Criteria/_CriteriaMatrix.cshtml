@@ -15,85 +15,90 @@
 					@Model.Description
 				</span>
 			</span>
-			<ul>				
+			<ul>
 				<li class="listitem_criteria active opened_element">
-					<div class="text_collection">
-						<div class="criteria-matrix-container">
-							<span class="legend rotate-legend">
+					<table class="criteria-matrix">
+						<tr>
+							<th></th>
+							<th class="legend">
+								@(Model.CriteriaType == CategoryCriteriaType.C ? "Grad av biotisk forringelse (%)" : "Grad av abiotisk forringelse(%)")
+							</th>
+						</tr>
+						<tr>
+							<th class="horizontal-legend">
 								Forringet areal (%)
-							</span>
-							<div class="criteria-matrix">
-								<span class="legend">
-									@(Model.CriteriaType == CategoryCriteriaType.C ? "Grad av biotisk forringelse (%)" : "Grad av abiotisk forringelse(%)")
-								</span>
-								<ul>
-									<li></li>
-									<li class="description">
-										&ge; 80%
-									</li>
-									<li class="description">
-										&ge; 50%
-									</li>
-									<li class="description">
-										&ge; 30%
-									</li>
-									<li class="description">
-										&ge; 20%
-									</li>
-								</ul>
-								<ul>
-									<li class="description">
-										&ge; 80%
-									</li>
-									<li class="criteria-matrix-cell cr" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 80 %")">
-										CR
-									</li>
-									<li class="criteria-matrix-cell en" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 50 %")">
-										EN
-									</li>
-									<li class="criteria-matrix-cell vu" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 30 %")">
-										VU
-									</li>
-									<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 80 %" && citeriaY == "≥ 20 %")">
-										NT
-									</li>
-								</ul>
-								<ul>
-									<li class="description">
-										&ge; 50%
-									</li>
-									<li class="criteria-matrix-cell en" condition-class-selected="@(citeriaX == "≥ 50 %" && citeriaY == "≥ 80 %")">
-										EN
-									</li>
-									<li class="criteria-matrix-cell vu" condition-class-selected="@(citeriaX == "≥ 50 %" && citeriaY == "≥ 50 %")">
-										VU
-									</li>
-									<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 50 %" && citeriaY == "≥ 30 %")">
-										NT
-									</li>
-								</ul>
-								<ul>
-									<li class="description">
-										&ge; 30%
-									</li>
-									<li class="criteria-matrix-cell vu" condition-class-selected="@(citeriaX == "≥ 30 %" && citeriaY == "≥ 80 %")">
-										VU
-									</li>
-									<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 30 %" && citeriaY == "≥ 50 %")">
-										NT
-									</li>
-								</ul>
-								<ul class="bottom-border">
-									<li class="description">
-										&ge; 20%
-									</li>
-									<li class="criteria-matrix-cell nt" condition-class-selected="@(citeriaX == "≥ 20 %" && citeriaY == "≥ 80 %")">
-										NT
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+							</th>
+							<th>
+								<table class="criteria-matrix">
+									<tr>
+										<th></th>
+										<th class="legend">
+											&ge; 80%
+										</th>
+										<th class="legend">
+											&ge; 50%
+										</th>
+										<th class="legend">
+											&ge; 30%
+										</th>
+										<th class="legend">
+											&ge; 20%
+										</th>
+									</tr>
+									<tr>
+										<th class="legend">
+											&ge; 80%
+										</th>
+										<th class="cr" condition-class-selected="@(citeriaX == "≥ 80%" && citeriaY == "≥ 80%")">
+											CR
+										</th>
+										<th class="en" condition-class-selected="@(citeriaX == "≥ 80%" && citeriaY == "≥ 50%")">
+											EN
+										</th>
+										<th class="vu" condition-class-selected="@(citeriaX == "≥ 80%" && citeriaY == "≥ 30%")">
+											VU
+										</th>
+										<th class="nt" condition-class-selected="@(citeriaX == "≥ 80%" && citeriaY == "≥ 20%")">
+											NT
+										</th>
+									</tr>
+									<tr>
+										<th class="legend">
+											&ge; 50%
+										</th>
+										<th class="en" condition-class-selected="@(citeriaX == "≥ 50%" && citeriaY == "≥ 80%")">
+											EN
+										</th>
+										<th class="vu" condition-class-selected="@(citeriaX == "≥ 50%" && citeriaY == "≥ 50%")">
+											VU
+										</th>
+										<th class="nt" condition-class-selected="@(citeriaX == "≥ 50%" && citeriaY == "≥ 30%")">
+											NT
+										</th>
+									</tr>
+									<tr>
+										<th class="legend">
+											&ge; 30%
+										</th>
+										<th class="vu" condition-class-selected="@(citeriaX == "≥ 30%" && citeriaY == "≥ 80%")">
+											VU
+										</th>
+										<th class="nt" condition-class-selected="@(citeriaX == "≥ 30%" && citeriaY == "≥ 50%")">
+											NT
+										</th>
+									</tr>
+									<tr>
+										<th class="legend">
+											&ge; 20%
+										</th>
+										<th class="nt" condition-class-selected="@(citeriaX == "≥ 20%" && citeriaY == "≥ 80%")">
+											NT
+										</th>
+									</tr>
+								</table>
+							</th>
+						</tr>
+					</table>
 				</li>
 			</ul>
 		</div>

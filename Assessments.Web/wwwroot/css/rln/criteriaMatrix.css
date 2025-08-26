@@ -1,58 +1,34 @@
-.criteria-matrix-container {
-    display: inline-grid;
-    grid-template-columns: 20px 1fr;
-    margin: 15px 0 0;
-    overflow-x: auto;
-    max-width: 100%;
+.criteria-matrix { padding-top: 5px }
+
+.criteria-matrix table { border-spacing: 2px }
+
+.criteria-matrix .legend {
+    color: black;
+    font-weight: normal;
+    font-size: smaller;
 }
 
-.criteria-matrix {
-    display: inline-flex;
-    flex-direction: column;
+    .criteria-matrix .horizontal-legend {
+        text-align: center;
+        writing-mode: vertical-rl;
+        transform: scale(-1, -1);
+        font-weight: normal;
+        font-size: smaller;
+    }
+
+.criteria-matrix.selected {
+    box-sizing: border-box;
+    border: 5px solid yellow;
 }
 
-.full_list .criteria-matrix {
-    display: inline-flex;
-    flex-direction: unset;
-}
-
-.criteria-matrix ul {
-    display: inline-grid;
-    grid-template-columns: repeat(5, 60px);
-    list-style: none;
-}
-
-.criteria-matrix li {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 60px;
-}
-
-.criteria-matrix li.selected { border: 5px solid yellow; }
-
-.criteria-matrix .selected span { margin-left: -5px; }
-
-.criteria-matrix li.description {
-    line-height: initial;
-    padding: 8px;
-    font-size: small;
-    border: none;
-}
-
-.rotate-legend {
-    writing-mode: vertical-rl;
-    transform: scale(-1, -1);
-}
-
-.legend { text-align: center; }
-
-.criteria-matrix-cell {
-    margin: 1px;
+.criteria-matrix table th {
+    width: 50px;
+    height: 50px;
     color: white;
+    text-align: center;
 }
 
-.criteria-matrix .cr { background: #99191a; }
+.criteria-matrix .cr { background: #99191a }
 
 .criteria-matrix .en { background: #C4322D }
 
