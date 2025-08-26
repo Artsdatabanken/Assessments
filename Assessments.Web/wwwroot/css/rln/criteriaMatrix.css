@@ -8,15 +8,15 @@
     font-size: smaller;
 }
 
-    .criteria-matrix .horizontal-legend {
-        text-align: center;
-        writing-mode: vertical-rl;
-        transform: scale(-1, -1);
-        font-weight: normal;
-        font-size: smaller;
-    }
+.criteria-matrix .horizontal-legend {
+    text-align: center;
+    writing-mode: vertical-rl;
+    transform: scale(-1, -1);
+    font-weight: normal;
+    font-size: smaller;
+}
 
-.criteria-matrix.selected {
+.criteria-matrix .selected {
     box-sizing: border-box;
     border: 5px solid yellow;
 }
