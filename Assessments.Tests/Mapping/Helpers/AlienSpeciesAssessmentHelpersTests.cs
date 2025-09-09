@@ -1,4 +1,5 @@
 ﻿using Assessments.Mapping.AlienSpecies.Helpers;
+using Assert = Xunit.Assert;
 
 namespace Assessments.Tests.Mapping.Helpers
 {
