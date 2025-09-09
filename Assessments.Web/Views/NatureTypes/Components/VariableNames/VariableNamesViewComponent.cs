@@ -23,6 +23,10 @@ public class VariableNamesViewComponent(INinKodeRepository ninKodeRepository) : 
             return variableNames;
 
         var variables = await ninKodeRepository.VariablerAlleKoder();
+
+        if (variables == null)
+            return variableNames;
+
         var appliedVariablesList = appliedVariables.Split(";");
 
         foreach (var appliedVariable in appliedVariablesList)
