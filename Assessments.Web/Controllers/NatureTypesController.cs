@@ -50,7 +50,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         var regions = await repository.GetRegions();
         var topics = await repository.GetNinCodeTopics();
-        var codeItems = await repository.GetMainCodeItems();
+        var codeItems = await repository.GetCodeItems();
 
         query = await ApplyParametersToList(parameters, query, regions, codeItems, repository);
 
@@ -89,7 +89,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             IsCheck = parameters.IsCheck,
             Regions = regions,
             NinCodeTopics = topics,
-            CodeItems = codeItems,
+            CodeItems = await repository.GetMainCodeItems(),
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),

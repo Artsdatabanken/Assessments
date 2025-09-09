@@ -1,0 +1,37 @@
+.criteria-matrix { padding-top: 5px }
+
+.criteria-matrix table { border-spacing: 2px }
+
+.criteria-matrix .legend {
+    color: black;
+    font-weight: normal;
+    font-size: smaller;
+}
+
+.criteria-matrix .horizontal-legend {
+    text-align: center;
+    writing-mode: vertical-rl;
+    transform: scale(-1, -1);
+    font-weight: normal;
+    font-size: smaller;
+}
+
+.criteria-matrix .selected {
+    box-sizing: border-box;
+    border: 5px solid yellow;
+}
+
+.criteria-matrix table th {
+    width: 50px;
+    height: 50px;
+    color: white;
+    text-align: center;
+}
+
+.criteria-matrix .cr { background: #99191a }
+
+.criteria-matrix .en { background: #C4322D }
+
+.criteria-matrix .vu { background: #E86037 }
+
+.criteria-matrix .nt { background: #E17734 }

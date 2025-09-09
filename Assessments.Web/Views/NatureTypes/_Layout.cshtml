@@ -6,7 +6,6 @@
 {
     <link rel="stylesheet" href="~/css/graphs.css">
     <link rel="stylesheet" href="~/css/listview.css">
-    <link rel="stylesheet" href="~/css/categorybar.css">
     <link rel="stylesheet" href="~/css/filter.css">
     <link rel="stylesheet" href="~/css/search.css">
     <link rel="stylesheet" href="~/css/toggleSwitch.css">
@@ -20,10 +19,5 @@
     @await RenderSectionAsync("PageMenu", required: true)
     @RenderBody()
 </div>
-
-@section Scripts
-{
-    <script src="~/js/assessmentTabs.js" async></script>
-}
 
 @await RenderSectionAsync("Scripts", required: false)
