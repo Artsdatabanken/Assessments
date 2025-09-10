@@ -167,8 +167,8 @@ public static class ExportHelper
 
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
             var referringUrl = new Uri(displayUrl);
-
-            var citation = $"{NatureTypesConstants.Citation} Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
+            
+            var citation = $"{NatureTypesConstants.CitationSummary} Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
             
             citeAsWorksheet.FirstCell().Value = citation;
 

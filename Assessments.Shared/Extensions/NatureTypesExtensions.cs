@@ -13,7 +13,7 @@ public static class NatureTypesExtensions
 
     public static string GetDescription(this AssessmentRegion region) => region.ConvertTo<AssessmentRegionDto>().DisplayName();
 
-    public static string GetCitation(this List<CommitteeUser> committeeUsers, Committee committee)
+    public static string GetCitation(this List<CommitteeUser> committeeUsers, Committee committee, bool includeDetails)
     {
         var users = committeeUsers
             .Where(x => x.CommitteeId == committee.Id)
@@ -21,7 +21,10 @@ public static class NatureTypesExtensions
             .Select(x => !string.IsNullOrEmpty(x.User.CitationName) ? x.User.CitationName : $"{x.User.LastName}, {x.User.FirstName[0]}.")
             .ToList();
 
-        var citation = $"{users.JoinAnd(", ", " og ")} (alfabetisk) (2025). {committee.Name}. {NatureTypesConstants.CitationSummary}";
+        if (!includeDetails)
+            return users.JoinAnd(", ", " og ");
+
+        var citation = $"{users.JoinAnd(", ", " og ")} ({NatureTypesConstants.PublishedDate:d.M.yyy}). {committee.Name}. {NatureTypesConstants.CitationSummary}";
 
         return citation;
     }

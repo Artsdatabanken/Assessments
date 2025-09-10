@@ -35,7 +35,7 @@ public class NatureTypeAssessmentExportProfile : Profile
                     }
                 }
             ).ToList().GetCodeItemModels())))
-            .ForMember(dest => dest.Citation, opt => opt.MapFrom(src => committeeUsers.GetCitation(src.Committee)));
+            .ForMember(dest => dest.Citation, opt => opt.MapFrom(src => committeeUsers.GetCitation(src.Committee, true)));
     }
 
     private static string HtmlInput(string input) => WebUtility.HtmlDecode(input.StripHtml()).Trim();
