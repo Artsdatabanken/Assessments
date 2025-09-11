@@ -116,9 +116,9 @@
 		Andel av totalarealet som er forringet, og graden av forringelse, basert på endring i en abiotisk variabel, i løpet av en vurderingsperiode på 50 år.
 	</p>
 	<ul class="second">
-		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("C1 Abiotisk forringelse siste 50 år", CategoryCriteriaType.C, criteria.CategoryC1Area, criteria.CategoryC1Abiotic, isActiveTypeC))
-		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("C2a Abiotisk forringelse kommende 50 år", CategoryCriteriaType.C, criteria.CategoryC2AArea, criteria.CategoryC2AAbiotic, isActiveTypeC))
-		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("C2b Abiotisk forringelse i en 50-årsperiode", CategoryCriteriaType.C, criteria.CategoryC2BArea, criteria.CategoryC2BAbiotic, isActiveTypeC))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("C1 Abiotisk forringelse siste 50 år", CategoryCriteriaType.C, criteria.CategoryC1Area, criteria.CategoryC1Abiotic, criteria.CategoryC1Result, isActiveTypeC))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("C2a Abiotisk forringelse kommende 50 år", CategoryCriteriaType.C, criteria.CategoryC2AArea, criteria.CategoryC2AAbiotic, criteria.CategoryC2AResult, isActiveTypeC))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("C2b Abiotisk forringelse i en 50-årsperiode", CategoryCriteriaType.C, criteria.CategoryC2BArea, criteria.CategoryC2BAbiotic, criteria.CategoryC2BResult, isActiveTypeC))
 	</ul>
 </li>
 
@@ -131,8 +131,8 @@
 		</span>
 	</span>
 	<ul class="second">
-		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("D1 Biotisk forringelse siste 50 år", CategoryCriteriaType.D, criteria.CategoryD1Area, criteria.CategoryD1BioticCategory, isActiveTypeD))
-		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("D2a Biotisk forringelse kommende 50 år", CategoryCriteriaType.D, criteria.CategoryD2AArea, criteria.CategoryD2ABioticCategory, isActiveTypeD))
-		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("D2b Biotisk forringelse i en 50-årsperiode", CategoryCriteriaType.D, criteria.CategoryD2BArea, criteria.CategoryD2BBioticCategory, isActiveTypeD))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("D1 Biotisk forringelse siste 50 år", CategoryCriteriaType.D, criteria.CategoryD1Area, criteria.CategoryD1BioticCategory, criteria.CategoryD1ResultCategory, isActiveTypeD))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("D2a Biotisk forringelse kommende 50 år", CategoryCriteriaType.D, criteria.CategoryD2AArea, criteria.CategoryD2ABioticCategory, criteria.CategoryD2AResultCategory, isActiveTypeD))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaMatrix", new CriteriaMatrixViewModel("D2b Biotisk forringelse i en 50-årsperiode", CategoryCriteriaType.D, criteria.CategoryD2BArea, criteria.CategoryD2BBioticCategory, criteria.CategoryD2BResultCategory, isActiveTypeD))
 	</ul>
 </li>

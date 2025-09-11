@@ -1,8 +1,8 @@
 ﻿@model CriteriaMatrixViewModel
 
 @{
-	var citeriaX = Model.CriteriaArea.GetDescription(CriteriaCategoryType.C);
-	var citeriaY = Model.Criteria.GetDescription(CriteriaCategoryType.C);
+	var citeriaX = Model.CriteriaX.GetDescription(CriteriaCategoryType.C);
+	var citeriaY = Model.CriteriaY.GetDescription(CriteriaCategoryType.C);
 	
 	var displayMatrix = new List<CriteriaCategory> { CriteriaCategory.CR, CriteriaCategory.EN, CriteriaCategory.VU, CriteriaCategory.NT }.Contains(Model.Criteria);
 }
