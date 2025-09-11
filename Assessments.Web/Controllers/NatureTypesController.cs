@@ -121,7 +121,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             CategoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
-                AssessmentName = $"{assessment.Committee.Name}.",
+                AssessmentName = $"{assessment.Committee.Name}: Vurdering av {assessment.Name}.",
                 PublicationText = NatureTypesConstants.CitationSummary,
                 AssessmentYear = 2025,
                 FirstPublished = NatureTypesConstants.PublishedDate.ToString("d.M.yyy"),
