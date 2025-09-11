@@ -10,24 +10,35 @@
 					@Model.Description
 				</span>
 			</span>
-			<ul>
-				@foreach (var value in Enum.GetValues<CriteriaCategoryChange>().Where(x => x != CriteriaCategoryChange.None))
-				{
-					var className = Model.Category == value ? "active opened_element" : "inactive";
-					<li class="listitem_criteria @className">
-						<span class="text_container">
-							<span class="text_collection">
-								<span class="text_text " onclick="expandCriteria(this, 'opened_element')">
-									<span class="material-icons circle text_icon">
-										circle
+			@if (Model.Category == CriteriaCategoryChange.None)
+			{
+				<ul>
+					<li>
+						Ikke valgt
+					</li>
+				</ul>
+			}
+			else
+			{
+				<ul>
+					@foreach (var value in Enum.GetValues<CriteriaCategoryChange>().Where(x => x != CriteriaCategoryChange.None))
+					{
+						var className = Model.Category == value ? "active opened_element" : "inactive";
+						<li class="listitem_criteria @className">
+							<span class="text_container">
+								<span class="text_collection">
+									<span class="text_text " onclick="expandCriteria(this, 'opened_element')">
+										<span class="material-icons circle text_icon">
+											circle
+										</span>
+										@value.DisplayName().ToLower()
 									</span>
-									@value.DisplayName().ToLower()
 								</span>
 							</span>
-						</span>
-					</li>
-				}
-			</ul>
+						</li>
+					}
+				</ul>
+			}
 		</div>
 	</div>
 </li>

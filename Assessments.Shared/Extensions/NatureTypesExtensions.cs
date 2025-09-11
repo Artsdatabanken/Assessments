@@ -29,6 +29,21 @@ public static class NatureTypesExtensions
         return citation;
     }
 
+    public static string GetDisplayName(this CriteriaCategory category)
+    {
+        return category switch
+        {
+            CriteriaCategory.CR => "kritisk truet",
+            CriteriaCategory.EN => "sterkt truet",
+            CriteriaCategory.VU => "sårbar",
+            CriteriaCategory.NT => "nær truet",
+            CriteriaCategory.LC => "uten risiko",
+            CriteriaCategory.DD => "datamangel",
+            CriteriaCategory.NE => "ikke vurdert",
+            _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
+        };
+    }
+
     public static string GetDescription(this CriteriaCategory category, CriteriaCategoryType type)
     {
         return type switch

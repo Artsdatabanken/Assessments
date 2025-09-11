@@ -3,6 +3,8 @@
 @{
 	var citeriaX = Model.CriteriaArea.GetDescription(CriteriaCategoryType.C);
 	var citeriaY = Model.Criteria.GetDescription(CriteriaCategoryType.C);
+	
+	var displayMatrix = new List<CriteriaCategory> { CriteriaCategory.CR, CriteriaCategory.EN, CriteriaCategory.VU, CriteriaCategory.NT }.Contains(Model.Criteria);
 }
 
 <li class="@(Model.IsActive ? "active opened_element" : "inactive")">
@@ -17,7 +19,19 @@
 			</span>
 			<ul>
 				<li class="listitem_criteria active opened_element">
-					<table class="criteria-matrix">
+					<div is-visible="!displayMatrix">
+						<ul class="thresholdlist_container">
+							<li class="thresholdlist active opened_element">
+								<span class="graphic_element @Model.Criteria">
+									@Model.Criteria
+								</span>
+								<span class="capitalized categorytext">
+									@Model.Criteria.GetDisplayName()
+								</span>
+							</li>
+						</ul>
+					</div>
+					<table class="criteria-matrix" is-visible="displayMatrix">
 						<tr>
 							<th></th>
 							<th class="legend">
