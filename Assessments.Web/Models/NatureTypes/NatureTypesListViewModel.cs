@@ -25,14 +25,14 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
     public PageHeaderViewModel PageHeaderViewModel => new()
     {
         HeaderText = NatureTypesConstants.Title2025,
-        HeaderByline = NatureTypesConstants.HeaderByline
+        HeaderByline = $"Publisert: {NatureTypesConstants.PublishedDate:d. MMMM yyy}"
     };
 
     public IntroductionViewModel IntroductionViewModel => new(introduction:
         NatureTypesConstants.Introduction
     );
 
-    public CitationForListViewModel CitationForListViewModel => new(citationString: NatureTypesConstants.Citation);
+    public CitationForListViewModel CitationForListViewModel => new(citationString: $"Artsdatabanken ({NatureTypesConstants.PublishedDate:yyyy, d. MMMM}). {NatureTypesConstants.Title2025}.");
 
     public NatureTypesStatisticsViewModel NatureTypesStatisticsViewModel { get; set; }
 }

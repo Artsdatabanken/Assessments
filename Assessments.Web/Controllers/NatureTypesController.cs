@@ -121,12 +121,11 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             CategoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
-                AssessmentName = assessment.Name,
+                AssessmentName = $"{assessment.Committee.Name}: Vurdering av {assessment.Name}.",
+                PublicationText = NatureTypesConstants.CitationSummary,
                 AssessmentYear = 2025,
-                ExpertCommittee = assessment.Committee.Name,
-                FirstPublished = "2025",
-                YearPreviousAssessment = 2018,
-                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee),
+                FirstPublished = NatureTypesConstants.PublishedDate.ToString("d.M.yyy"),
+                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee, includeDetails: false),
                 HasBackToTopLink = true
             },
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []

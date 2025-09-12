@@ -6,6 +6,7 @@
     color: black;
     font-weight: normal;
     font-size: smaller;
+    text-align: end;
 }
 
 .criteria-matrix .horizontal-legend {
