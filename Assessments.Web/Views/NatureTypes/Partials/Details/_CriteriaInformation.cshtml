@@ -40,67 +40,22 @@
 		Utbredelsesareal i dag (B1) eller antall 10 × 10 km ruter hvor naturtypen finnes i dag (B2). Minst ett av underkriteriene a-c må være angitt for at kategorien B1 og/eller B2 skal gjelde.
 	</p>
 	<ul class="second">
-		<li class="@(isActiveTypeB ? "active opened_element" : "inactive")">
-			<div class="text_container">
-				<div class="text_collection">
-					<span class="title_field clickable" onclick="expandCriteria(this, 'opened_element')">
-						<span class="close_icon material-icons text_icon">arrow_drop_down</span>
-						<span class="open_icon material-icons text_icon">arrow_right</span>
-						<span class="text_text">
-							B1
-						</span>
-					</span>
-				</div>
-			</div>
-			<ul>
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B1 Utbredelsesareal", criteria.CategoryB1, CriteriaCategoryType.B1, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryChange", new CriteriaCategoryChangeViewModel("B1a Pågående nedgang i areal eller kvalitet", criteria.CategoryB1Change, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryImpact", new CriteriaCategoryImpactViewModel("B1b Påvirkningsfaktor som medfører nedgang i areal eller kvalitet", criteria.CategoryB1Impact, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B1c Antall lokaliteter/trusler", criteria.CategoryB1Sites, CriteriaCategoryType.BSites, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaResult", new CriteriaResultViewModel("Konklusjon for B1-kriteriet", criteria.CategoryB1Result, isActiveTypeB))
-			</ul>
-		</li>
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B1 Utbredelsesareal", criteria.CategoryB1, CriteriaCategoryType.B1, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryChange", new CriteriaCategoryChangeViewModel("B1a Pågående nedgang i areal eller kvalitet", criteria.CategoryB1Change, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryImpact", new CriteriaCategoryImpactViewModel("B1b Påvirkningsfaktor som medfører nedgang i areal eller kvalitet", criteria.CategoryB1Impact, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B1c Antall lokaliteter/trusler", criteria.CategoryB1Sites, CriteriaCategoryType.BSites, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaResult", new CriteriaResultViewModel("Konklusjon for B1-kriteriet", criteria.CategoryB1Result, isActiveTypeB))
 	</ul>
 	<ul class="second">
-		<li class="@(isActiveTypeB ? "active opened_element" : "inactive")">
-			<div class="text_container">
-				<div class="text_collection">
-					<span class="title_field clickable" onclick="expandCriteria(this, 'opened_element')">
-						<span class="close_icon material-icons text_icon">arrow_drop_down</span>
-						<span class="open_icon material-icons text_icon">arrow_right</span>
-						<span class="text_text">
-							B2
-						</span>
-					</span>
-				</div>
-			</div>
-			<ul>
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B2 Antall 10 x 10 km forekomstruter", criteria.CategoryB2, CriteriaCategoryType.B2, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryChange", new CriteriaCategoryChangeViewModel("B2a Pågående nedgang i areal eller kvalitet", criteria.CategoryB2Change, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryImpact", new CriteriaCategoryImpactViewModel("B2b Påvirkningsfaktor som medfører nedgang i areal eller kvalitet", criteria.CategoryB2Impact, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B2c Antall lokaliteter/trusler", criteria.CategoryB2Sites, CriteriaCategoryType.BSites, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaResult", new CriteriaResultViewModel("Konklusjon for B2-kriteriet", criteria.CategoryB2Result, isActiveTypeB))
-			</ul>
-		</li>
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B2 Antall 10 x 10 km forekomstruter", criteria.CategoryB2, CriteriaCategoryType.B2, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryChange", new CriteriaCategoryChangeViewModel("B2a Pågående nedgang i areal eller kvalitet", criteria.CategoryB2Change, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryImpact", new CriteriaCategoryImpactViewModel("B2b Påvirkningsfaktor som medfører nedgang i areal eller kvalitet", criteria.CategoryB2Impact, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategory", new CriteriaCategoryViewModel("B2c Antall lokaliteter/trusler", criteria.CategoryB2Sites, CriteriaCategoryType.BSites, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaResult", new CriteriaResultViewModel("Konklusjon for B2-kriteriet", criteria.CategoryB2Result, isActiveTypeB))
 	</ul>
 	<ul class="second">
-		<li class="@(isActiveTypeB ? "active opened_element" : "inactive")">
-			<div class="text_container">
-				<div class="text_collection">
-					<span class="title_field clickable" onclick="expandCriteria(this, 'opened_element')">
-						<span class="close_icon material-icons text_icon">arrow_drop_down</span>
-						<span class="open_icon material-icons text_icon">arrow_right</span>
-						<span class="text_text">
-							B3
-						</span>
-					</span>
-				</div>
-			</div>
-			<ul>
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryThreatDefinedlocation", new CriteriaCategoryThreatDefinedlocationViewModel("B3 Trusseldefinerte lokaliteter", criteria.CategoryB3, isActiveTypeB))
-				@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaResult", new CriteriaResultViewModel("Konklusjon for B3-kriteriet", criteria.CategoryB3Result, isActiveTypeB))
-			</ul>
-		</li>
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaCategoryThreatDefinedlocation", new CriteriaCategoryThreatDefinedlocationViewModel("B3 Trusseldefinerte lokaliteter", criteria.CategoryB3, isActiveTypeB))
+		@await Html.PartialAsync("Partials/Details/Criteria/_CriteriaResult", new CriteriaResultViewModel("Konklusjon for B3-kriteriet", criteria.CategoryB3Result, isActiveTypeB))
 	</ul>
 </li>
 
