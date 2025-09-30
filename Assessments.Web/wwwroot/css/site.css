@@ -1,4 +1,4 @@
-﻿html {
+﻿/*html {
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -45,7 +45,7 @@ span,
     z-index: 12;
 }
 
-.darktheme .heyCookie {
+.dark-theme .heyCookie {
     position: fixed;
     width: 100%;
     background: #2b2b2b;
@@ -54,7 +54,7 @@ span,
     text-align: center;
     color: #fff9f0;
     border-color: #f5e7d3;
-}
+}*/
 
 /* 
     Graphic profile colours for reference - classes are not in use as is 
@@ -744,7 +744,7 @@ option {
     margin-bottom: 20px;
 }
 
-.darktheme .archive a,
+.dark-theme .archive a,
 .archive a {
     color: #850808;
 }

@@ -26,19 +26,19 @@
 }
 
 /* ACTIVE LINK COLOUR */
-.darktheme .list:hover .speciesgroup_name,
-.darktheme .search_matchedname,
-.darktheme .search_match,
-.darktheme .breadcrumbs li,
-.darktheme .button.tertiary,
-.darktheme .main button.tertiary,
-.darktheme .sidebarmenu li h3 {
+.dark-theme .list:hover .speciesgroup_name,
+.dark-theme .search_matchedname,
+.dark-theme .search_match,
+.dark-theme .breadcrumbs li,
+.dark-theme .button.tertiary,
+.dark-theme .main button.tertiary,
+.dark-theme .sidebarmenu li h3 {
     color: #FFF9F0;
     border-color: #FFF9F0;
 }
 
 /* ACTIVE BORDER */
-.darktheme .see_all .habitat_element.active {
+.dark-theme .see_all .habitat_element.active {
     border-color: #b372bb;
 }
 
@@ -161,13 +161,13 @@ ul {
     margin-right:4px;
 }
 
-.darktheme .innsyn-info-box .impact-bold {
+.dark-theme .innsyn-info-box .impact-bold {
     background: #5e3063;
     border-color: white;
     color:white;
 }
 
-.darktheme .innsyn-info-box {
+.dark-theme .innsyn-info-box {
     color: white;
     background: #3d1f41;
 }

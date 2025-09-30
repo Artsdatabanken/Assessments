@@ -259,15 +259,15 @@ button:not(.icon-button).material-icons {
 
 /* DARK THEME */
 
-.darktheme .primary,
-.darktheme .secondary,
-.darktheme .ghost,
-.darktheme .text-button {
+.dark-theme .primary,
+.dark-theme .secondary,
+.dark-theme .ghost,
+.dark-theme .text-button {
     color: inherit;
 }
 
-.darktheme .ghost,
-.darktheme .main button.ghost {
+.dark-theme .ghost,
+.dark-theme .main button.ghost {
     border-color: white;
     background: transparent;
 }

@@ -1,58 +1,31 @@
-﻿<!DOCTYPE html>
-<html lang="nb">
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Artsdatabanken</title>
-    <link rel="icon" href="~/favicon.ico" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
-    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/style-reset.css">
-    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/layout.css">
-    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/compiled-css/header.css">
-    <link rel="stylesheet" href="https://design.artsdatabanken.no/style/compiled-css/footer.css">
-    <link rel="stylesheet" href="~/css/site.css">
-    <link rel="stylesheet" href="~/css/graphs.css">
-    <link rel="stylesheet" href="~/css/listview.css">
-    <link rel="stylesheet" href="~/css/assessment.css">
-    <link rel="stylesheet" href="~/css/categorybar.css">
-    <link rel="stylesheet" href="~/css/filter.css">
-    <link rel="stylesheet" href="~/css/search.css">
-    <link rel="stylesheet" href="~/css/toggleSwitch.css">
-    <link rel="stylesheet" href="~/css/tabs.css">
-    <link rel="stylesheet" href="~/css/rl2021.css">
-    <link rel="stylesheet" href="~/css/bnw.css">
-    <link rel="stylesheet" href="~/css/buttons-and-chips.css">
-    <link rel="stylesheet" href="~/css/accordions.css">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <environment exclude="Development">
-        <script id="CookieConsent" src="https://policy.app.cookieinformation.com/uc.js" data-culture="NB" data-gcm-version="2.0" type="text/javascript"></script>
-    </environment>
-    <script src="~/js/cookies.js"></script>   
-    <meta name="description" content="Norsk rødliste for arter 2021 er en oversikt over arter som har risiko for å dø ut fra Norge. Rødlista er utarbeidet av Artsdatabanken i samarbeid med fageksperter. ">
-</head>
+@section Styles
+{
+	<link rel="stylesheet" href="~/css/graphs.css">
+	<link rel="stylesheet" href="~/css/listview.css">
+	<link rel="stylesheet" href="~/css/assessment.css">
+	<link rel="stylesheet" href="~/css/categorybar.css">
+	<link rel="stylesheet" href="~/css/filter.css">
+	<link rel="stylesheet" href="~/css/search.css">
+	<link rel="stylesheet" href="~/css/toggleSwitch.css">
+	<link rel="stylesheet" href="~/css/tabs.css">
+	<link rel="stylesheet" href="~/css/rl2021.css">
+}
+@await RenderSectionAsync("Styles", required: false)
 
-<body>
-    <div id="bodywrap">
-        <vc:top-bar />
-        <div class="main">
-            <div class="main-content width-adjuster">
-                @RenderBody()
-                <script src="~/js/site.js"></script>
-                <script src="~/js/topbar.js"></script>
-                <script src="~/js/filter.js" async></script>
-                <script src="~/js/search.js" async></script>
-                <script src="~/js/toggleSwitch.js" async></script>
-                <script src="~/js/toggleStatView.js" async></script>
-                <script src="~/js/accordions.js" async></script>
-                <script src="~/js/assessmentTabs.js" async></script>
-                <script src="~/js/themes.js" async></script>   
-                <script src="~/js/speciesImages.js" async></script>
-                @await RenderSectionAsync("Scripts", required: false)
-            </div>
-        </div>
-        <vc:footer />
-    </div>
-</body>
-</html>
+@await RenderSectionAsync("Breadcrumb", required: false)
+<div class="pagecontainer">
+	@await RenderSectionAsync("PageMenu", required: false)
+	@RenderBody()
+</div>
+
+
+@* <script src="~/js/search.js" async></script>
+<script src="~/js/toggleSwitch.js" async></script>
+<script src="~/js/toggleStatView.js" async></script>
+<script src="~/js/assessmentTabs.js" async></script>
+<script src="~/js/speciesImages.js" async></script> *@
+@await RenderSectionAsync("Scripts", required: false)

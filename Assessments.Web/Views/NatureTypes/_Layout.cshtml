@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@await RenderSectionAsync("Styles", required: false)
 @section Styles
 {
     <link rel="stylesheet" href="~/css/graphs.css">
@@ -12,11 +13,10 @@
     <link rel="stylesheet" href="~/css/tabs.css">
     <link rel="stylesheet" href="~/css/map.css">
 }
-@await RenderSectionAsync("Styles", required: false)
 
 @await RenderSectionAsync("Breadcrumb", required: false)
 <div class="pagecontainer">
-    @await RenderSectionAsync("PageMenu", required: true)
+    @await RenderSectionAsync("PageMenu", required: false)
     @RenderBody()
 </div>
 
