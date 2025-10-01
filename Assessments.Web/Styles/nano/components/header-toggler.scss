@@ -1,0 +1,94 @@
+@use "../globals/functions" as *;
+@use "../globals/media" as *;
+@use "../globals/mixins" as *;
+
+.menu-toggler,
+.theme-switcher {
+    @include base-menu-link();
+
+    background-color: transparent;
+    border: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: var(--spacing-2xsm);
+    color: var(--text-accent);
+
+    &__text {
+        min-width: 2.75rem;
+        &--menu {
+            [aria-expanded="true"] & {
+                display: none;
+            }
+        }
+
+        &--close {
+            [aria-expanded="false"] & {
+                display: none;
+            }
+        }
+    }
+
+    &__icon {
+      display: flex;
+      align-items: center;
+
+      &--open {
+        [aria-expanded="true"] & {
+          display: none;
+        }
+      }
+
+      &--open-mobile {
+        [aria-expanded="true"] & {
+          display: none;
+        }
+
+        @media #{$media-desktop} {
+          display: none;
+        }
+      }
+
+      &--open-desktop {
+        [aria-expanded="true"] & {
+          display: none;
+        }
+
+        display: none;
+
+        @media #{$media-desktop} {
+          display: flex;
+        }
+      }
+
+      &--close {
+        display: none;
+
+        [aria-expanded="true"] & {
+          display: flex;
+        }
+      }
+
+      &--active {
+        display: none;
+
+        [aria-pressed="true"] & {
+          display: flex;
+        }
+      }
+
+      &--inactive {
+        display: flex;
+
+        [aria-pressed="true"] & {
+          display: none;
+        }
+      }
+    }
+
+    svg {
+      width: rem(24px);
+      height: rem(24px);
+    }
+  }

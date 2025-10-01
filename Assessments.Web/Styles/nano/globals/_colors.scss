@@ -1,0 +1,422 @@
+// Commented out vars are not used in the theme yet
+@mixin light-mode-variables {
+  --logo-icon: url('/images/logo-light-icon.svg') no-repeat;
+  --logo-text: url('/images/logo-light-text.svg') no-repeat;
+  --icon-theme-switcher: url('/images/mode-dark.svg') no-repeat;
+
+  --page-hero-icon-species-guide: url('/images/icons-adb/page-hero-icon-species-guide-light.svg');
+
+  --page-hero-icon-gule-rike: url('/images/icons-adb/page-hero-icon-gule-riket-light.svg');
+  --page-hero-icon-gule-rike-brand1: url('/images/icons-adb/page-hero-icon-gule-riket-brand1-light.svg');
+  --page-hero-icon-gule-rike-brand2: url('/images/icons-adb/page-hero-icon-gule-riket-brand2-light.svg');
+  --page-hero-icon-gule-rike-subtle: url('/images/icons-adb/page-hero-icon-gule-riket-subtle-light.svg');
+
+  --page-hero-icon-livsmedium: url('/images/icons-adb/page-hero-icon-livsmedium-light.svg');
+  --page-hero-icon-livsmedium-brand1: url('/images/icons-adb/page-hero-icon-livsmedium-brand1-light.svg');
+  --page-hero-icon-livsmedium-brand2: url('/images/icons-adb/page-hero-icon-livsmedium-brand2-light.svg');
+  --page-hero-icon-livsmedium-subtle: url('/images/icons-adb/page-hero-icon-livsmedium-subtle-light.svg');
+
+  --page-hero-icon-kurs: url('/images/icons-adb/page-hero-icon-kurs-light.svg');
+  --page-hero-icon-kurs-brand1: url('/images/icons-adb/page-hero-icon-kurs-brand1-light.svg');
+  --page-hero-icon-kurs-brand2: url('/images/icons-adb/page-hero-icon-kurs-brand2-light.svg');
+  --page-hero-icon-kurs-subtle: url('/images/icons-adb/page-hero-icon-kurs-subtle-light.svg');
+
+  --page-hero-icon-vepser: url('/images/icons-adb/page-hero-icon-vepser-light.svg');
+  --page-hero-icon-vepser-brand1: url('/images/icons-adb/page-hero-icon-vepser-brand1-light.svg');
+  --page-hero-icon-vepser-brand2: url('/images/icons-adb/page-hero-icon-vepser-brand2-light.svg');
+  --page-hero-icon-vepser-subtle: url('/images/icons-adb/page-hero-icon-vepser-subtle-light.svg');
+
+  --page-hero-icon-tiur: url('/images/icons-adb/page-hero-icon-tiur-light.svg');
+  --page-hero-icon-tiur-brand1: url('/images/icons-adb/page-hero-icon-tiur-brand1-light.svg');
+  --page-hero-icon-tiur-brand2: url('/images/icons-adb/page-hero-icon-tiur-brand2-light.svg');
+  --page-hero-icon-tiur-subtle: url('/images/icons-adb/page-hero-icon-tiur-subtle-light.svg');
+
+  --page-hero-icon-fjellrevhode: url('/images/icons-adb/page-hero-icon-fjellrevhode-light.svg');
+  --page-hero-icon-fjellrevhode-brand1: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand1-light.svg');
+  --page-hero-icon-fjellrevhode-brand2: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand2-light.svg');
+  --page-hero-icon-fjellrevhode-subtle: url('/images/icons-adb/page-hero-icon-fjellrevhode-subtle-light.svg');
+
+  --page-hero-icon-smorblomst: url('/images/icons-adb/page-hero-icon-smorblomst-light.svg');
+  --page-hero-icon-smorblomst-brand1: url('/images/icons-adb/page-hero-icon-smorblomst-brand1-light.svg');
+  --page-hero-icon-smorblomst-brand2: url('/images/icons-adb/page-hero-icon-smorblomst-brand2-light.svg');
+  --page-hero-icon-smorblomst-subtle: url('/images/icons-adb/page-hero-icon-smorblomst-subtle-light.svg');
+
+  --page-hero-icon-skjell: url('/images/icons-adb/page-hero-icon-skjell-light.svg');
+  --page-hero-icon-skjell-brand1: url('/images/icons-adb/page-hero-icon-skjell-brand1-light.svg');
+  --page-hero-icon-skjell-brand2: url('/images/icons-adb/page-hero-icon-skjell-brand2-light.svg');
+  --page-hero-icon-skjell-subtle: url('/images/icons-adb/page-hero-icon-skjell-subtle-light.svg');
+
+  --page-hero-icon-artsprosjektet: url('/images/icons-adb/page-hero-icon-artsprosjektet-light.svg');
+  --page-hero-icon-artsprosjektet-brand1: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand1-light.svg');
+  --page-hero-icon-artsprosjektet-brand2: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand2-light.svg');
+  --page-hero-icon-artsprosjektet-subtle: url('/images/icons-adb/page-hero-icon-artsprosjektet-subtle-light.svg');
+
+  --page-hero-icon-navnslektskap: url('/images/icons-adb/page-hero-icon-navnslektskap-light.svg');
+  --page-hero-icon-navnslektskap-brand1: url('/images/icons-adb/page-hero-icon-navnslektskap-brand1-light.svg');
+  --page-hero-icon-navnslektskap-brand2: url('/images/icons-adb/page-hero-icon-navnslektskap-brand2-light.svg');
+  --page-hero-icon-navnslektskap-subtle: url('/images/icons-adb/page-hero-icon-navnslektskap-subtle-light.svg');
+
+  --background-light: #FFFFFF;
+  --background-light-hover: #FFFFFF; // set to same color for now
+  --background-default: #{$neutrals-sand-10};
+  --background-subtle: #{$neutrals-sand-30};
+
+  //--background-warning: #98331e;
+  --background-accent: #005A71;
+
+  --surface-primary: #{$brand-hvit};
+  --surface-secondary: #FAEFDF;
+  --surface-accent: #{$brand-freshwater-blue-90};
+  --surface-accent-hover: #{$brand-freshwater-blue-100};
+  --surface-subtle: #{$neutrals-ocean-10};
+  --surface-subtle-hover: #{$neutrals-ocean-20};
+  --surface-subtle-active: #{$neutrals-ocean-30};
+  --surface-invert: #{$brand-hav};
+  --surface-hover: #004557;
+
+  --surface-tertiary: #F1F3F4;
+
+  --surface-brand-1: #FFE9E6;
+  --surface-brand-1a: #{$brand-coral-90};
+  --surface-brand-1b: #{$brand-coral-70};
+
+  --surface-brand-2-base: #E4F6F2;
+  --surface-brand-2: var(--surface-brand-2-base);
+  --surface-brand-2a: #{$brand-evergreen-90};
+  --surface-brand-2b: #{$brand-evergreen-60};
+  --surface-brand-2c: #{$brand-evergreen-10};
+
+  --surface-brand-3: #E6EEDD;
+  --surface-brand-3a: #{$brand-summer-grass-90};
+  --surface-brand-3b: #{$brand-summer-grass-70};
+  --surface-brand-3c: #{$brand-summer-grass-10};
+
+  --surface-brand-4: #FFF1DB;
+  --surface-brand-4a: #{$brand-sun-90};
+  --surface-brand-4b: #{$brand-sun-70};
+  --surface-brand-4c: #{$brand-sun-10};
+
+  --surface-brand-5: #E6F1F4;
+  --surface-brand-5a: #{$brand-freshwater-blue-90};
+  --surface-brand-5b: #{$brand-freshwater-blue-60};
+  --surface-brand-5c: #{$brand-freshwater-blue-10};
+
+  --text-primary: #{$brand-hav};
+  --text-invert: #{$brand-hvit};
+  --text-visited: #616B6D;
+  --text-secondary: #{$neutrals-ocean-60};
+  --text-accent: #{$brand-freshwater-blue-90};
+  --text-hover: #{$brand-freshwater-blue-100};
+  //--text-brand1: #CF3E1C;
+  //--text-warning: #fff;
+
+  --border-primary: #F2DFC5;
+  //--border-secondary: #768083;
+  --border-accent: #{$brand-freshwater-blue-90};
+
+  --border-strong: #768083;
+  --border-default: #{$neutrals-sand-100};
+  --border-subtle: #D2DDE0;
+  //--border-brand-1: #{$brand-coral-70};
+  //--border-brand-2: #{$brand-evergreen-60};
+  //--border-brand-3: #{$brand-summer-grass-70};
+  --border-hover: #{$brand-freshwater-blue-100};
+  //--border--accordion: #{$neutrals-sand-100};
+
+  //--infocard-background: #FFFFFF;
+
+  --focus-outer: var(--surface-invert);
+
+  --background-strong: #{$neutrals-sand-90};
+}
+
+@mixin dark-mode-variables {
+  --logo-icon: url('/images/logo-dark-icon.svg') no-repeat;
+  --logo-text: url('/images/logo-dark-text.svg') no-repeat;
+  --icon-theme-switcher: url('/images/mode-light.svg') no-repeat;
+
+  //--page-hero-icon-default: url('/images/icons-adb/page-hero-icon-tertiary-dark.svg');
+  //--page-hero-icon-tertiary: url('/images/icons-adb/page-hero-icon-tertiary-dark.svg');
+  //--page-hero-icon-brand-1: url('/images/icons-adb/page-hero-icon-brand-1-dark.svg');
+  //--page-hero-icon-brand-2: url('/images/icons-adb/page-hero-icon-brand-2-dark.svg');
+  --page-hero-icon-species-guide: url('/images/icons-adb/page-hero-icon-species-guide-dark.svg');
+
+  --page-hero-icon-gule-rike: url('/images/icons-adb/page-hero-icon-gule-riket-dark.svg');
+  --page-hero-icon-gule-rike-brand1: url('/images/icons-adb/page-hero-icon-gule-riket-brand1-dark.svg');
+  --page-hero-icon-gule-rike-brand2: url('/images/icons-adb/page-hero-icon-gule-riket-brand2-dark.svg');
+  --page-hero-icon-gule-rike-subtle: url('/images/icons-adb/page-hero-icon-gule-riket-subtle-dark.svg');
+
+  --page-hero-icon-livsmedium: url('/images/icons-adb/page-hero-icon-livsmedium-dark.svg');
+  --page-hero-icon-livsmedium-brand1: url('/images/icons-adb/page-hero-icon-livsmedium-brand1-dark.svg');
+  --page-hero-icon-livsmedium-brand2: url('/images/icons-adb/page-hero-icon-livsmedium-brand2-dark.svg');
+  --page-hero-icon-livsmedium-subtle: url('/images/icons-adb/page-hero-icon-livsmedium-subtle-dark.svg');
+
+  --page-hero-icon-kurs: url('/images/icons-adb/page-hero-icon-kurs-dark.svg');
+  --page-hero-icon-kurs-brand1: url('/images/icons-adb/page-hero-icon-kurs-brand1-dark.svg');
+  --page-hero-icon-kurs-brand2: url('/images/icons-adb/page-hero-icon-kurs-brand2-dark.svg');
+  --page-hero-icon-kurs-subtle: url('/images/icons-adb/page-hero-icon-kurs-subtle-dark.svg');
+
+  --page-hero-icon-vepser: url('/images/icons-adb/page-hero-icon-vepser-dark.svg');
+  --page-hero-icon-vepser-brand1: url('/images/icons-adb/page-hero-icon-vepser-brand1-dark.svg');
+  --page-hero-icon-vepser-brand2: url('/images/icons-adb/page-hero-icon-vepser-brand2-dark.svg');
+  --page-hero-icon-vepser-subtle: url('/images/icons-adb/page-hero-icon-vepser-subtle-dark.svg');
+
+  --page-hero-icon-tiur: url('/images/icons-adb/page-hero-icon-tiur-dark.svg');
+  --page-hero-icon-tiur-brand1: url('/images/icons-adb/page-hero-icon-tiur-brand1-dark.svg');
+  --page-hero-icon-tiur-brand2: url('/images/icons-adb/page-hero-icon-tiur-brand2-dark.svg');
+  --page-hero-icon-tiur-brand2: url('/images/icons-adb/page-hero-icon-tiur-brand2-dark.svg');
+  --page-hero-icon-tiur-subtle: url('/images/icons-adb/page-hero-icon-tiur-subtle-dark.svg');
+
+  --page-hero-icon-fjellrevhode: url('/images/icons-adb/page-hero-icon-fjellrevhode-dark.svg');
+  --page-hero-icon-fjellrevhode-brand1: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand1-dark.svg');
+  --page-hero-icon-fjellrevhode-brand2: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand2-dark.svg');
+  --page-hero-icon-fjellrevhode-subtle: url('/images/icons-adb/page-hero-icon-fjellrevhode-subtle-dark.svg');
+
+  --page-hero-icon-smorblomst: url('/images/icons-adb/page-hero-icon-smorblomst-dark.svg');
+  --page-hero-icon-smorblomst-brand1: url('/images/icons-adb/page-hero-icon-smorblomst-brand1-dark.svg');
+  --page-hero-icon-smorblomst-brand2: url('/images/icons-adb/page-hero-icon-smorblomst-brand2-dark.svg');
+  --page-hero-icon-smorblomst-subtle: url('/images/icons-adb/page-hero-icon-smorblomst-subtle-dark.svg');
+
+  --page-hero-icon-skjell: url('/images/icons-adb/page-hero-icon-skjell-dark.svg');
+  --page-hero-icon-skjell-brand1: url('/images/icons-adb/page-hero-icon-skjell-brand1-dark.svg');
+  --page-hero-icon-skjell-brand2: url('/images/icons-adb/page-hero-icon-skjell-brand2-dark.svg');
+  --page-hero-icon-skjell-subtle: url('/images/icons-adb/page-hero-icon-skjell-subtle-dark.svg');
+
+  --page-hero-icon-artsprosjektet: url('/images/icons-adb/page-hero-icon-artsprosjektet-dark.svg');
+  --page-hero-icon-artsprosjektet-brand1: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand1-dark.svg');
+  --page-hero-icon-artsprosjektet-brand2: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand2-dark.svg');
+  --page-hero-icon-artsprosjektet-subtle: url('/images/icons-adb/page-hero-icon-artsprosjektet-subtle-dark.svg');
+
+  --page-hero-icon-navnslektskap: url('/images/icons-adb/page-hero-icon-navnslektskap-dark.svg');
+  --page-hero-icon-navnslektskap-brand1: url('/images/icons-adb/page-hero-icon-navnslektskap-brand1-dark.svg');
+  --page-hero-icon-navnslektskap-brand2: url('/images/icons-adb/page-hero-icon-navnslektskap-brand2-dark.svg');
+  --page-hero-icon-navnslektskap-subtle: url('/images/icons-adb/page-hero-icon-navnslektskap-subtle-dark.svg');
+
+  --background-light: #262F31;
+  --background-light-hover: #262F31; // set to same color for now
+  --background-default: #262F31;
+  --background-subtle: #394244;
+
+  //--background-warning: #98331e;
+  --background-accent: #005A71; // same as light now
+
+  --surface-primary: #141D1F;
+  --surface-secondary: #4C5658;
+  --surface-accent: #52C0DA;
+  --surface-accent-hover: #52C0DA; // same as parent now
+  --surface-subtle: #394244;
+  --surface-subtle-hover: #394244; // same as parent now
+  --surface-invert: #FFFFFF;
+  --surface-hover: #61D0EA;
+  --surface-subtle-active: #{$neutrals-ocean-90};
+
+  --text-primary: #FFFFFF;
+  --text-invert: #262F31;
+  --text-visited: #A3AEB0;
+  --text-secondary: #D2DDE0;
+  --text-accent: #61D0EA;
+  --text-hover: #{$brand-freshwater-blue-10};
+  //--text-brand1: #E55440;
+
+  --border-primary: #141D1F;
+  //--border-secondary: #768083;
+  --border-accent: #{$brand-freshwater-blue-90};
+
+  --border-strong: #8C9799;
+  --border-default: #{$neutrals-ocean-100};
+  //--border-subtle: #{$neutrals-ocean-80};
+  //--border-brand-1: #{$brand-coral-50};
+  //--border-brand-2: #{$brand-evergreen-50};
+  //--border-brand-3: #{$brand-summer-grass-50};
+  //--border-brand-4: #{$brand-sun-50};
+  //--border-hover: #{$brand-freshwater-blue-100};
+  //
+  //--infocard-background: #1c2122;
+
+  --surface-tertiary: #141D1F;
+
+  --surface-brand-1: #381E19;
+  --surface-brand-1a: #F4A08F;
+  --surface-brand-2-base: #133A30;
+  --surface-brand-2: #5AC9A9;
+  --surface-brand-2a: #133A30;
+  --surface-brand-3: #273B0D;
+  --surface-brand-4: #392A13;
+  --surface-brand-4a: #FBCD86;
+  --surface-brand-4b: #FBBD53;
+  --surface-brand-5: #1C3840;
+
+  --background-strong: #{$neutrals-ocean-50};
+}
+
+/* Colors */
+/* Likely not be used in actual CSS */
+$brand-hav: #262F31;
+$brand-hvit: #FFFFFF;
+
+/* Brand Coral Colors */
+$brand-coral-10: #FBBFB7;
+$brand-coral-20: #F8B0A3;
+$brand-coral-30: #F4A08F;
+$brand-coral-40: #F0907B;
+$brand-coral-50: #EA7C68;
+$brand-coral-60: #EF6A52;
+$brand-coral-70: #E55440;
+$brand-coral-80: #DB462C;
+$brand-coral-90: #CF3E1C;
+$brand-coral-100: #B83719;
+
+/* Brand Evergreen Colors */
+$brand-evergreen-10: #8DE2CD;
+$brand-evergreen-20: #74D8BB;
+$brand-evergreen-30: #5AC9A9;
+$brand-evergreen-40: #3FBD96;
+$brand-evergreen-50: #25B688;
+$brand-evergreen-60: #16A979;
+$brand-evergreen-70: #0C936B;
+$brand-evergreen-80: #068562;
+$brand-evergreen-90: #007759;
+$brand-evergreen-100: #005C45;
+
+/* Brand Sun Colors */
+$brand-sun-10: #F6DDB6;
+$brand-sun-20: #F5D59E;
+$brand-sun-30: #FBCD86;
+$brand-sun-40: #FBC56D;
+$brand-sun-50: #FBBD53;
+$brand-sun-60: #FAB636;
+$brand-sun-70: #F8AE00;
+$brand-sun-80: #D79211;
+$brand-sun-90: #B67717;
+$brand-sun-100: #9E6814;
+
+
+/* Brand Summer Grass Colors */
+$brand-summer-grass-10: #C9D4BA;
+$brand-summer-grass-20: #C3CF9D;
+$brand-summer-grass-30: #BCC485;
+$brand-summer-grass-40: #B5B66E;
+$brand-summer-grass-50: #ADE56E;
+$brand-summer-grass-60: #AA433E;
+$brand-summer-grass-70: #989921;
+$brand-summer-grass-80: #727B2A;
+$brand-summer-grass-90: #495E2E;
+$brand-summer-grass-100: #3B4B25;
+
+/* Brand Freshwater Blue Colors */
+$brand-freshwater-blue-10: #61D0EA;
+$brand-freshwater-blue-20: #52C0DA;
+$brand-freshwater-blue-30: #44AFCB;
+$brand-freshwater-blue-40: #379FBB;
+$brand-freshwater-blue-50: #298FAB;
+$brand-freshwater-blue-60: #0283A1;
+$brand-freshwater-blue-70: #11718A;
+$brand-freshwater-blue-80: #066279;
+$brand-freshwater-blue-90: #005A71;
+$brand-freshwater-blue-100: #004557;
+
+/* Neutrals Ocean Colors */
+$neutrals-ocean-10: #D2DDE0;
+$neutrals-ocean-20: #BAC5C8;
+$neutrals-ocean-30: #A3AEB0;
+$neutrals-ocean-40: #8C9799;
+$neutrals-ocean-50: #768083;
+$neutrals-ocean-60: #61686D;
+$neutrals-ocean-70: #4C5658;
+$neutrals-ocean-80: #394244;
+$neutrals-ocean-90: #262F31;
+$neutrals-ocean-100: #141D1F;
+
+/* Neutrals Grey Colors */
+$neutrals-grey-50: #E4E4E4;
+
+/* Neutrals Sand Colors */
+$neutrals-sand-10: #FFFCF7;
+$neutrals-sand-20: #FEF9F1;
+$neutrals-sand-30: #FFF7EB;
+$neutrals-sand-40: #FAF1E4;
+$neutrals-sand-50: #FAEFDF;
+$neutrals-sand-60: #FBECDA;
+$neutrals-sand-70: #F7E9D5;
+$neutrals-sand-80: #F5E7D3;
+$neutrals-sand-90: #F3E2CB;
+$neutrals-sand-100: #F2DFC5;
+
+/* Functional Red Colors */
+$functional-red-base: #FDEDEF;
+$functional-red-10: #FFB4C3;
+$functional-red-20: #FF9CA7;
+$functional-red-30: #FF7C8A;
+$functional-red-40: #FB5C6E;
+$functional-red-50: #E54359;
+$functional-red-60: #CE2B49;
+$functional-red-70: #B80738;
+$functional-red-80: #9A0024;
+$functional-red-90: #7C0010;
+$functional-red-100: #5E0000;
+
+/* Functional Yellow Colors */
+$functional-yellow-base: #FFF9EA;
+$functional-yellow-10: #FFDB48;
+$functional-yellow-20: #FBB823;
+$functional-yellow-30: #DDA300;
+$functional-yellow-40: #C28C00;
+$functional-yellow-50: #A77600;
+$functional-yellow-60: #8D6000;
+$functional-yellow-70: #744800;
+$functional-yellow-80: #5E3600;
+$functional-yellow-90: #492100;
+$functional-yellow-100: #397000;
+
+/* Functional Blue Colors */
+$functional-blue-base: #E5FAFD;
+$functional-blue-10: #6CFFFF;
+$functional-blue-20: #38E5FB;
+$functional-blue-30: #00CCE8;
+$functional-blue-40: #00B2CC;
+$functional-blue-50: #0098B2;
+$functional-blue-60: #007E99;
+$functional-blue-70: #006582;
+$functional-blue-80: #0056A4;
+$functional-blue-90: #003D54;
+$functional-blue-100: #00283E;
+
+/* Functional Green Colors */
+$functional-green-base: #EBFBF5;
+$functional-green-10: #77FFD1;
+$functional-green-20: #4FE7B0;
+$functional-green-30: #2CCF99;
+$functional-green-40: #00B682;
+$functional-green-50: #009C6A;
+$functional-green-60: #008454;
+$functional-green-70: #006C3F;
+$functional-green-80: #00552B;
+$functional-green-90: #003F18;
+$functional-green-100: #002A00;
+
+/* Functional Purple Colors */
+$functional-purple-base: #FFEBFF;
+$functional-purple-10: #FFCAFF;
+$functional-purple-20: #E2AEFE;
+$functional-purple-30: #C694F4;
+$functional-purple-40: #AD7CDA;
+$functional-purple-50: #9465C1;
+$functional-purple-60: #7C4FA8;
+$functional-purple-70: #64398F;
+$functional-purple-80: #4C2378;
+$functional-purple-90: #350D61;
+$functional-purple-100: #1A0047;
+
+:root {
+  --hero-bg-transparent: transparent;
+  --hero-bg-brand_1: var(--surface-brand-1);
+  --hero-bg-brand_2: var(--surface-brand-2-base);
+  --hero-bg-tertiary: var(--surface-tertiary);
+  --hero-bg-background_subtle: var(--background-subtle);
+
+  --hero-bg-transparent-icon-color: var(--surface-invert);
+  --hero-bg-brand_1-icon-color: var(--surface-brand-1a);
+  --hero-bg-brand_2-icon-color: var(--surface-brand-2a);
+  --hero-bg-tertiary-icon-color: var(--surface-invert);
+  --hero-bg-background_subtle-icon-color: var(--surface-brand-4a);
+}

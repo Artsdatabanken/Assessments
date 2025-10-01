@@ -1,0 +1,14 @@
+/* media queries */
+//$media-desktop-big: "all and (min-width: 1226px)";
+$media-desktop: "all and (min-width: 1025px)";
+$media-mobile: "all and (max-width: 639px)";
+$media-tablet-desktop: "all and (min-width: 640px)";
+// $media-mobile-small: "all and (max-width: 375px)";
+// $media-mobile-tablet: "all and (max-width: 1024px)";
+$media-tablet: "all and (min-width: 640px) and (max-width: 1024px)";
+
+$media-sm-up: "all and (min-width: 30em)"; /* ~480px */
+$media-md-up: "all and (min-width: 48em)"; /* ~768px */
+$media-lg-up: "all and (min-width: 64em)"; /* ~1024px */
+$media-xl-up: "all and (min-width: 80em)"; /* ~1280px */
+$media-2xl-up: "all and (min-width: 120em)"; /* ~1920px */

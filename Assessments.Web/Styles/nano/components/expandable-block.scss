@@ -1,0 +1,73 @@
+@use "../globals/_mixin_buttons" as *;
+
+.expandable-block {
+  position: relative;
+  background: var(--surface-primary);
+  border: solid 1px var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-5);
+  line-height: 1.7em;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xsm);
+    font-size: var(--font-size-6);
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: var(--spacing-xsm);
+
+    &::before {
+      .about-species-guide & {
+        content: '';
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: url('/images/icons-adb/species_guide_dark.svg') no-repeat center;
+        background-size: 1.5rem 1.5rem;
+      }
+    }
+  }
+
+  .text {
+    display: none;
+
+    &.is-expanded {
+      display: block;
+    }
+  }
+
+  .expander {
+    left: 50%;
+    transform: translateX(-50%);
+
+    .is-transparent & {
+      left: 0;
+      transform: translate(0);
+    }
+  }
+
+  p {
+    margin-bottom: var(--spacing-xsm);
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+
+.expander {
+  @include expandable-section-button();
+}
+
+.clamped-text {
+  overflow: hidden;
+  max-height: calc(2 * (1.7em + var(--spacing-xsm)));
+
+  .is-expanded &,
+  &.is-expanded {
+    max-height: none;
+  }
+}

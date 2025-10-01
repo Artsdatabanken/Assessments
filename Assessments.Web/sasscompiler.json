@@ -1,0 +1,10 @@
+{
+    "Source": "",
+    "Arguments": "--style=compressed --no-source-map",
+    "Compilations": [
+        {
+            "Source": "Styles/styles.scss",
+            "Target": "wwwroot/css/styles.css"
+        }
+    ]
+}

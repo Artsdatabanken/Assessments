@@ -1,0 +1,151 @@
+@use "globals/colors" as *;
+@use "globals/typo" as *;
+@use "globals/size" as *;
+
+@use "globals/typo_mixins" as *;
+@use "globals/media" as *;
+@use "globals/buttons" as *;
+@use "globals/mixins" as *;
+@use "globals/mixin_buttons" as *;
+
+@use "components/search-input" as *;
+@use "components/search-submit" as *;
+
+*, :after, :before {
+  -webkit-box-sizing: inherit;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-default);
+  font-family: var(--font-default-family);
+  line-height: var(--font-line-height);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: antialiased; /* Options: none | subpixel-antialiased | antialiased */
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+main[role="main"] {
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+  width: 100%;
+  max-width: var(--content-width);
+  font-size: var(--font-size-6);
+  line-height: 1.7em;
+
+  &.taxon,
+  .page-node-type-species-guide-subpage & {
+    max-width: var(--max-width);
+  }
+
+  .page-node-type-landing-page & {
+    max-width: var(--landing-page-width);
+  }
+}
+
+aside[role="navigation"] {
+  padding: 20px;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+main p a,
+.properties a {
+  @include styled-link();
+}
+
+.toolbar-menu-administration,
+.gin-secondary-toolbar {
+  a, a:hover, a:active, a:visited {
+    border-bottom: none;
+    text-decoration: none;
+    box-shadow: none;
+  }
+}
+
+ul,
+ol {
+  padding-left: 2.25rem;
+}
+
+ul {
+  li::marker {
+    font-size: 1.125rem;
+  }
+}
+
+// place somewhere else, or?
+.layout-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Default light mode */
+:root {
+  @include light-mode-variables;
+}
+
+/* System preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-mode-variables;
+  }
+}
+
+/* Manual override via HTML class */
+.light-theme {
+  @include light-mode-variables;
+}
+
+.dark-theme {
+  @include dark-mode-variables;
+}
+
+[aria-expanded="true"] > .when-not-expanded {
+  display: none;
+}
+
+[aria-expanded="false"] > .when-expanded {
+  display: none;
+}
+
+.hidden-desktop {
+  @media #{$media-desktop} {
+    display: none !important;
+  }
+}
+
+.body-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $neutrals-ocean-90;
+  opacity: 0.5;
+  z-index: 10;
+  display: none;
+
+  .menu-open & {
+    display: block;
+  }
+}
+
+.shortcut-link {
+  @include shortcut-link();
+
+  display: inline-flex;
+
+  &.is-external span {
+    @include external-decoration();
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

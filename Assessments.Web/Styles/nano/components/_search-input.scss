@@ -1,0 +1,38 @@
+@use "../globals/media" as *;
+@use "../globals/mixins" as *;
+
+.search-input {
+  padding: var(--spacing-xsm) var(--spacing-sm);
+  background: var(--surface-primary);
+  font-size: var(--font-size-3);
+  line-height: 1em;
+  min-height: 2.625rem;
+  margin-right: -2px;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  border-top: 2px solid var(--border-default);
+  border-bottom: 2px solid var(--border-default);
+  border-left: 2px solid var(--border-default);
+  border-right: none;
+  color: var(--text-primary);
+  
+  &--small {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  &:focus {
+    outline-offset: 4px;
+    outline-color: var(--focus-outer);
+    outline-style: solid;
+    outline-width: 4px;
+    margin-right: 4px;
+    width: calc(14.5rem - 10px);
+    
+    @media #{$media-2xl-up} {
+      width: calc(17.75rem - 10px);
+    }
+  }
+  
+  @include placeholder {
+    color: var(--text-primary);
+  }
+}

@@ -1,0 +1,53 @@
+@use "../globals/mixin_buttons" as *;
+
+.properties {
+  position: relative;
+  padding: var(--spacing-lg) 0;
+  margin-bottom: var(--spacing-xl);
+
+  &__title {
+    font-size: var(--font-size-7);
+    margin-top: 0;
+  }
+
+  &__content {
+    overflow: hidden;
+    font-size: var(--font-size-5);
+    line-height: 1.7em;
+    max-height: calc(2 * (1.7em + var(--spacing-xsm)));
+
+    &.is-expanded {
+      max-height: none;
+    }
+  }
+
+  &__fields {
+    margin: 0;
+  }
+
+  &__field {
+    display: flex;
+    gap: var(--spacing-xsm);
+    margin: 0 0 var(--spacing-xsm);
+  }
+  
+  &__label {
+    font-weight: 700;
+  }
+
+  &__value {
+    margin: 0;
+
+    & * {
+      margin: 0;
+    }
+  }
+
+  &__none {
+    color: var(--text-secondary);
+  }
+
+  &__button {
+    @include expandable-section-button();
+  }
+}

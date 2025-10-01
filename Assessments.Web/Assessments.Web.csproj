@@ -5,6 +5,7 @@
     <UserSecretsId>c4874954-865b-4751-8136-63cfc8ec0883</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.93.2" />
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.4.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
     <PackageReference Include="ClosedXML" Version="0.105.0" /> 

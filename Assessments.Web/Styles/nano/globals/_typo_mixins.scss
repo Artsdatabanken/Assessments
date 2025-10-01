@@ -1,0 +1,10 @@
+@mixin font-introduction {
+  font-weight: 500;
+  font-size: var(--font-size-6);
+  line-height: 1.5em;
+}
+
+@mixin font-xxl {
+  font-weight: 700;
+  font-size: var(--font-size-12);
+}
