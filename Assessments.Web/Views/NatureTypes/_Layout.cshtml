@@ -1,23 +1,31 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SelectedMenuItem = "Naturtyper";
 }
 
-@await RenderSectionAsync("Styles", required: false)
 @section Styles
 {
     <link rel="stylesheet" href="~/css/graphs.css">
     <link rel="stylesheet" href="~/css/listview.css">
+    <link rel="stylesheet" href="~/css/assessment.css">
     <link rel="stylesheet" href="~/css/filter.css">
     <link rel="stylesheet" href="~/css/search.css">
     <link rel="stylesheet" href="~/css/toggleSwitch.css">
     <link rel="stylesheet" href="~/css/tabs.css">
     <link rel="stylesheet" href="~/css/map.css">
+    <link rel="stylesheet" href="~/css/categorybar.css">
+    @await RenderSectionAsync("Styles", required: false)
 }
 
-@await RenderSectionAsync("Breadcrumb", required: false)
-<div class="pagecontainer">
-    @await RenderSectionAsync("PageMenu", required: false)
-    @RenderBody()
-</div>
+@section Breadcrumb
+{
+    @await RenderSectionAsync("Breadcrumb", required: false)
+}
 
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("PageMenu", required: false)
+@RenderBody()
+
+@section Scripts
+{
+    @await RenderSectionAsync("Scripts", required: false)
+}

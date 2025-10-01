@@ -2,49 +2,52 @@
 @inject IStringLocalizer<SharedResources> LocalizerShared
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = LocalizerShared["alien_species_list"];
+    ViewBag.SelectedMenuItem = "Arter";
 }
 
-<div class="pagecontainer alien-species">
+@section PageMenu {
     <partial name="/Views/Shared/_PageMenuHistorical.cshtml" />
-    <div class="content-placer bigmid">
-        <div class="mid-content">
-            <div class="page-header">
-                <h1>@ViewData["Title"]</h1>
-                <p>@Localizer["about"]</p>
-            </div>
-            <div class="mobile_padding">
+}
 
-                <h2>Gjeldende fremmedartsliste</h2>
+<div class="content-placer bigmid">
+    <div class="mid-content">
+        <div class="page-header">
+            <h1>@ViewData["Title"]</h1>
+            <p>@Localizer["about"]</p>
+        </div>
+        <div class="mobile_padding">
 
-                <p class="page_section">
-                    Gjeldende fremmedartsliste ble lansert 11.08.2023, og vil være den gjeldende fremmedartslista frem til neste revisjon i 2029.
-                </p>
-                <p>
-                    <a asp-controller="AlienSpecies" asp-action="Index" class="button primary alien-species" asp-route-TaxonRank="AssessedAtSameRank">
-                        @ViewData["Title"] 2023
-                        <span class="material-icons">keyboard_arrow_right</span>
-                    </a>
-                </p>
+            <h2>Gjeldende fremmedartsliste</h2>
 
-                <h2>Alle fremmedartslistene</h2>
-                <p class="page_section">
-                    <ul>
-                        <li>
-                            <a asp-controller="AlienSpecies" asp-action="Index" class="button secondary" asp-route-TaxonRank="AssessedAtSameRank">
-                                @ViewData["Title"] 2023
-                                <span class="material-icons">keyboard_arrow_right</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://artsdatabanken.no/fremmedartslista2018" class="button secondary">
-                                <span>@ViewData["Title"] 2018</span>
-                                <span class="material-icons bigarrow">keyboard_arrow_right</span>
-                            </a>
-                        </li>
-                    </ul>
-                </p>
-            </div>
+            <p class="page_section">
+                Gjeldende fremmedartsliste ble lansert 11.08.2023, og vil være den gjeldende fremmedartslista frem til neste revisjon i 2029.
+            </p>
+            <p>
+                <a asp-controller="AlienSpecies" asp-action="Index" class="button primary alien-species" asp-route-TaxonRank="AssessedAtSameRank">
+                    @ViewData["Title"] 2023
+                    <span class="material-icons">keyboard_arrow_right</span>
+                </a>
+            </p>
+
+            <h2>Alle fremmedartslistene</h2>
+            <p class="page_section">
+                <ul>
+                    <li>
+                        <a asp-controller="AlienSpecies" asp-action="Index" class="button secondary" asp-route-TaxonRank="AssessedAtSameRank">
+                            @ViewData["Title"] 2023
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://artsdatabanken.no/fremmedartslista2018" class="button secondary">
+                            <span>@ViewData["Title"] 2018</span>
+                            <span class="material-icons bigarrow">keyboard_arrow_right</span>
+                        </a>
+                    </li>
+                </ul>
+            </p>
         </div>
     </div>
 </div>

@@ -35,9 +35,12 @@
         InputTag(action, "collapse_checkbox", "IsCheck", Model.IsCheck, filterName);
         <button name="@buttonname" class="list_header" id="@id" onclick="collapse('@action')" type="button">
             @buttonText
-            <span class="filternumber">
-                @Context.Request.Query[filterName].Count
-            </span>
+            @if (Context.Request.Query[filterName].Count > 0)
+            {
+                <span class="filternumber">
+                    @Context.Request.Query[filterName].Count
+                </span>
+            }
         </button>
     }
 

@@ -1,11 +1,11 @@
 ﻿@model SpeciesAssessment2021
 @using Assessments.Web.Infrastructure.Services
 @using Assessments.Mapping.AlienSpecies.Model.Enums
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject ExpertCommitteeMemberService ExpertCommitteeMemberService
 
 @{
     ViewBag.Title = Model.ScientificName + " - Rødlista 2021";
+    Layout = "~/Views/Species/_Layout.cshtml";
 
     Dictionary<string, Dictionary<string, string>> speciesGroups = ViewBag.speciesgroup.ToObject<Dictionary<string, Dictionary<string, string>>>();
 
@@ -170,31 +170,35 @@
     };
 }
 
-<partial name="/Views/Species/2021/Assessment/partials/_Breadcrumb.cshtml" />
+@section Breadcrumb {
 
-<div class="pagecontainer">
+    <partial name="/Views/Species/2021/Assessment/partials/_Breadcrumb.cshtml" />
+}
+
+@section PageMenu {
+
     <partial name="/Views/Shared/_PageMenu.cshtml" model="pageMenuViewModel" />
+}
 
-    <div class="content-placer bigmid">
-        <partial name="/Views/Species/2021/Assessment/partials/_Archived.cshtml" />
-        <div class="mid-content with_sidebar">
-            <partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
-            <div class="mobile_padding">
-                <partial name="/Views/Species/2021/Assessment/partials/_Ingress.cshtml" />
-                <partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel" />
-                <partial name="/Views/Species/2021/Assessment/partials/_ExpertStatement.cshtml" />
-                <partial name="/Views/Species/2021/Assessment/partials/_Method.cshtml" />
-                <partial name="/Views/Species/2021/Assessment/partials/_ImpactFactors.cshtml" />
-                <partial name="/Views/Species/2021/Assessment/partials/_Regions.cshtml" />
-                <partial name="/Views/Species/2021/Assessment/partials/_Habitat.cshtml" />
-                <partial name="/Views/Species/2021/Assessment/partials/_SpeciesDetails.cshtml" />
-                <partial name="/Views/Shared/_Reference.cshtml" model="referenceViewModel"/>
-                <partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
-                <partial name="/Views/Species/2021/Assessment/partials/_Revision.cshtml" model="Model" />
-            </div>
+<div class="content-placer bigmid">
+    <partial name="/Views/Species/2021/Assessment/partials/_Archived.cshtml" />
+    <div class="mid-content with_sidebar">
+        <partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
+        <div class="mobile_padding">
+            <partial name="/Views/Species/2021/Assessment/partials/_Ingress.cshtml" />
+            <partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel" />
+            <partial name="/Views/Species/2021/Assessment/partials/_ExpertStatement.cshtml" />
+            <partial name="/Views/Species/2021/Assessment/partials/_Method.cshtml" />
+            <partial name="/Views/Species/2021/Assessment/partials/_ImpactFactors.cshtml" />
+            <partial name="/Views/Species/2021/Assessment/partials/_Regions.cshtml" />
+            <partial name="/Views/Species/2021/Assessment/partials/_Habitat.cshtml" />
+            <partial name="/Views/Species/2021/Assessment/partials/_SpeciesDetails.cshtml" />
+            <partial name="/Views/Shared/_Reference.cshtml" model="referenceViewModel"/>
+            <partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
+            <partial name="/Views/Species/2021/Assessment/partials/_Revision.cshtml" model="Model" />
         </div>
-        <div class="side mobile_padding">
-            <partial name="/Views/Shared/_SidebarContent.cshtml" model="sideBarContentViewModel" />
-        </div>
+    </div>
+    <div class="side mobile_padding">
+        <partial name="/Views/Shared/_SidebarContent.cshtml" model="sideBarContentViewModel" />
     </div>
 </div>

@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "Rødlista 2021";
+    Layout = "~/Views/Species/_Layout.cshtml";
 
     CitationForListViewModel citationViewModel = new CitationForListViewModel
     {
@@ -30,30 +31,29 @@
     };
 }
 
-<div class="pagecontainer">
+@section PageMenu {
+
     <partial name="/Views/Shared/_PageMenu.cshtml" model="pageMenuViewModel" />
-    <div class="content-placer bigmid">
-        <div class="mid-content">
+}
 
-            <div class="title_with_image">
-                <div class="title_with_header">
-                    <partial name="/Views/Shared/_Header.cshtml" model="headerViewModel" />
-                </div>
-                <div class="title_with_ingress">
-                    <img src="https://design.artsdatabanken.no/list-icons/rl2021-icon-small.png" alt="Bilde av en fisk">
-                    <partial name="/Views/Shared/_Introduction.cshtml" model="introductionViewModel"/>
-                </div>
-
+<div class="content-placer bigmid">
+    <div class="mid-content">
+        <div class="title_with_image">
+            <div class="title_with_header">
+                <partial name="/Views/Shared/_Header.cshtml" model="headerViewModel" />
             </div>
-            <form id="search_and_filter_form" asp-action="Index" method="get">
-                <partial name="/Views/Species/2021/List/partials/_Search.cshtml" />
-                <partial name="/Views/Species/2021/List/partials/_Filters.cshtml" />
-            </form>
-            <partial name="/Views/Shared/_CitationForList.cshtml" model="citationViewModel" />
+            <div class="title_with_ingress">
+                <img src="https://design.artsdatabanken.no/list-icons/rl2021-icon-small.png" alt="Bilde av en fisk">
+                <partial name="/Views/Shared/_Introduction.cshtml" model="introductionViewModel"/>
+            </div>
         </div>
+        <form id="search_and_filter_form" asp-action="Index" method="get">
+            <partial name="/Views/Species/2021/List/partials/_Search.cshtml" />
+            <partial name="/Views/Species/2021/List/partials/_Filters.cshtml" />
+        </form>
+        <partial name="/Views/Shared/_CitationForList.cshtml" model="citationViewModel" />
     </div>
 </div>
-
 
 
 <script>

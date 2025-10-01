@@ -5,7 +5,7 @@
 }
 
 /* HIGH CONTRAST THEME */
-.highcontrast .RE,
+/*.highcontrast .RE,
 .highcontrast .CR,
 .highcontrast .EN,
 .highcontrast .VU,
@@ -39,18 +39,18 @@
 
 .highcontrast .land, .sea {
     fill: white;
-}
+}*/
 /* PAD-SIZE 940px */
-@media only screen and (max-width: 940px) {
+/*@media only screen and (max-width: 940px) {
 
     .highcontrast  .side {
         background: none;
         border-top: 1px solid black;
     }
-}
+}*/
 
 /* MAP COLOURS */
-.highcontrast .extinct,
+/*.highcontrast .extinct,
 .highcontrast .sea.extinct {
     background: #fcbc78;
     fill: #fcbc78;
@@ -90,7 +90,7 @@
 
 .highcontrast .dark-theme .list-search input{
     color:black;
-}
+}*/
 /* 
     DARK THEME:
    FUN PROJECT NOT EVEN SLIGHTLY THERE
@@ -257,7 +257,7 @@
 .dark-theme .sidebarmenu li h3,
 .dark-theme .sidebarmenu .main_list_view h3 {
     color: inherit;
-    border-color: inherit;
+    /*border-color: inherit;*/
 }
 
 .dark-theme .sidebarmenu .alien-species h3 {
@@ -545,9 +545,9 @@
 /* DARK THEME */
 
 
-.dark-theme button {
+/*.dark-theme button {
     color: #faf1e4;
-}
+}*/
 
 .dark-theme .footer .some-container,
 .dark-theme .footer,

@@ -1,11 +1,7 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
 /* Fra RL 2021*/
 
-button {
+/*button {
     padding: 6px 12px;
     font-size: 15px;
     line-height: 1.42857143;
@@ -29,7 +25,7 @@ button {
     text-decoration: none;
     font-weight: bold;
     font-weight: normal;
-}
+}*/
 
 
 .secondary {
@@ -361,9 +357,9 @@ button:not(.icon-button).material-icons {
     display: block;
 }
 
-.mega-chips .name-text {
+/*.mega-chips .name-text {
     font-family: 'Space Mono', sans-serif;
-}
+}*/
 
 .mega-chips .chips-close-button {
     right:  16px;

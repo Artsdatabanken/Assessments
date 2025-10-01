@@ -1,5 +1,6 @@
 ﻿@{
 	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.SelectedMenuItem = "Arter";
 }
 
 @section Styles
@@ -16,21 +17,25 @@
 	<link rel="stylesheet" href="~/css/riskMatrix.css">
 	<link rel="stylesheet" href="~/css/feedbackForm.css">
 	<link rel="stylesheet" href="~/css/map.css">
+	@await RenderSectionAsync("Styles", required: false)
 }
-@await RenderSectionAsync("Styles", required: false)
 
-@await RenderSectionAsync("Breadcrumb", required: false)
-<div class="pagecontainer">
-	@await RenderSectionAsync("PageMenu", required: false)
-	@RenderBody()
-</div>
+@section Breadcrumb
+{
+	@await RenderSectionAsync("Breadcrumb", required: false)
+}
 
-<script src="~/js/search.js" async></script>
-<script src="~/js/toggleSwitch.js" async></script>
-<script src="~/js/toggleStatView.js" async></script>
-<script src="~/js/assessmentTabs.js" async></script>
-<script src="~/js/tableCollapse.js" async></script>
-<script src="~/js/tableOfContents.js" async></script>
-<script src="~/js/speciesImages.js" async></script>
+@await RenderSectionAsync("PageMenu", required: false)
 
-@await RenderSectionAsync("Scripts", required: false)
+@RenderBody()
+
+@section Scripts
+{
+	<script src="~/js/search.js" async></script>
+	<script src="~/js/toggleStatView.js" async></script>
+	<script src="~/js/assessmentTabs.js" async></script>
+	<script src="~/js/tableCollapse.js" async></script>
+	<script src="~/js/tableOfContents.js" async></script>
+	<script src="~/js/speciesImages.js" async></script>
+	@await RenderSectionAsync("Scripts", required: false)
+}

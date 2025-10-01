@@ -6,6 +6,9 @@
 @model AlienSpeciesListViewModel
 
 @{
+    Layout = "~/Views/AlienSpecies/_Layout.cshtml";
+    ViewData["Title"] = Localizer["list_title_year"];
+
     CitationForListViewModel citationViewModel = new CitationForListViewModel
     {
         CitationString = Constants.AlienSpecies2023CitationString
@@ -32,30 +35,29 @@
         PageMenuExpandButtonText = Constants.AlienSpecies2023PageManuExpandButtonText,
         PageMenuHeaderText = Constants.AlienSpecies2023PageMenuHeaderText
     };
-
-    ViewData["Title"] = Localizer["list_title_year"];
 }
 
-<div class="pagecontainer">
+@section PageMenu {
+
     <partial name="/Views/Shared/_PageMenu.cshtml" model="@pageMenuViewModel" />
+}
 
-    <div class="content-placer bigmid">
-        <div class="mid-content">
-            <div class="title_with_image">
-                <div class="title_with_header">
-                    <partial name="/Views/Shared/_Header.cshtml" model="@pageHeaderViewModel" />
-                </div>
-                <div class="title_with_ingress">
-                    <partial name="/Views/Shared/_Introduction.cshtml" model="@introductionViewModel" />
-                </div>
+<div class="content-placer bigmid">
+    <div class="mid-content">
+        <div class="title_with_image">
+            <div class="title_with_header">
+                <partial name="/Views/Shared/_Header.cshtml" model="@pageHeaderViewModel" />
             </div>
-
-            <form id="search_and_filter_form" aps-action="" method="get">
-                <partial name="/Views/AlienSpecies/2023/ListPartials/_Search.cshtml" />
-                <partial name="/Views/AlienSpecies/2023/ListPartials/_Filters.cshtml" />
-            </form>
-
-            <partial name="/Views/Shared/_CitationForList.cshtml" model="citationViewModel"/>
+            <div class="title_with_ingress">
+                <partial name="/Views/Shared/_Introduction.cshtml" model="@introductionViewModel" />
+            </div>
         </div>
+
+        <form id="search_and_filter_form" aps-action="" method="get">
+            <partial name="/Views/AlienSpecies/2023/ListPartials/_Search.cshtml" />
+            <partial name="/Views/AlienSpecies/2023/ListPartials/_Filters.cshtml" />
+        </form>
+
+        <partial name="/Views/Shared/_CitationForList.cshtml" model="citationViewModel"/>
     </div>
 </div>

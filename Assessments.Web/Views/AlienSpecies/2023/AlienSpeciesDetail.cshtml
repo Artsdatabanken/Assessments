@@ -1,8 +1,11 @@
 ﻿@model AlienSpeciesDetailViewModel
 @using Assessments.Mapping.AlienSpecies.Model.Enums
 @using Assessments.Web.Models.AlienSpecies
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject IStringLocalizer<SharedResourcesAlienSpecies> Localizer
+
+@{
+    Layout = "~/Views/AlienSpecies/_Layout.cshtml";
+}
 
 @{
     var assessment = Model.Assessment;
@@ -199,81 +202,84 @@
     };
 }
 
-<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Breadcrumb.cshtml" />
+@section Breadcrumb {
 
-<div class="pagecontainer">
+    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Breadcrumb.cshtml" />
+}
+
+@section PageMenu {
+
     <partial name="/Views/Shared/_PageMenu.cshtml" model="Model.PageMenuViewModel" />
+}
 
-    <div class="content-placer bigmid">
-        <div class="mid-content with_sidebar">
-            <partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
-            <div class="mobile_padding">
-                <div id="tableOfContentsOuter">
-                    <input type="checkbox" id="showTableOfContentList" class="button table-of-contents-small-screen-input">
-                    <label id="tableOfContentsLabel" for="showTableOfContentList" aria-label="Innholdsfortegnelse" class="button table-of-contents-small-screen-button table-of-contents-small-screen-button-hide">
-                        <span class="material-icons">
-                            list
-                        </span>
-                        <span>&nbsp;Innhold</span>
-                    </label>
-                    <div id="tableOfContentsSmallScreen" onclick="closeTableOfContents(event)">
-                        <partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
-                    </div>
-                </div>
-                <div is-visible="isNr">
-                    <partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel"/>
-                </div>
-                <div is-visible="!isNr">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ShortSummary.cshtml" />
-                </div>
-                <partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel"/>
-                <div is-visible="!isNr && !isEvaluatedAtAnotherLevel">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskMatrix.cshtml"/>
-                </div>
-                <div class="page_section" is-visible="showExpertStatement">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ExpertStatement.cshtml" model="Model.ExpertStatementViewModel" />
-                </div>
-                <div class="page-section" is-visible="showAssessmentReasoning">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_AssessmentReasoning.cshtml" model="Model.ExpertStatementViewModel" />
-                </div>
-                <div class="page-section" is-visible="showRiskCategoryExplanation">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskCategoryExplanation.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showCategoryChange">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_CategoryChange.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showClimateEffectsInvationpotential">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ClimateEffectsInvationpotential.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showGeographicVariationInCategory">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_GeographicVariationInCategory.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showRegionalSpread">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RegionalSpread.cshtml" model="Model.RegionalSpreadViewModel" />
-                </div>
-                <div class="page-section" is-visible="showImpactedNatureTypes">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ImpactedNatureTypes.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showSpreadWays">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_SpreadWays.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showKnowMore">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_KnowMore.cshtml" />
-                </div>
-                <div class="page-section" is-visible="showAttachments">
-                    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Attachments.cshtml" model="Model.AttachmentViewModel" />
-                </div>
-                <div class="page-section" is-visible="showReference">
-                    <partial name="/Views/Shared/_Reference.cshtml" model="Model.ReferenceViewModel" />
-                </div>
-                <div class="page-section" is-visible="showCitationForAssessment">
-                    <partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
+<div class="content-placer bigmid">
+    <div class="mid-content with_sidebar">
+        <partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
+        <div class="mobile_padding">
+            <div id="tableOfContentsOuter">
+                <input type="checkbox" id="showTableOfContentList" class="button table-of-contents-small-screen-input">
+                <label id="tableOfContentsLabel" for="showTableOfContentList" aria-label="Innholdsfortegnelse" class="button table-of-contents-small-screen-button table-of-contents-small-screen-button-hide">
+                    <span class="material-icons">
+                        list
+                    </span>
+                    <span>&nbsp;Innhold</span>
+                </label>
+                <div id="tableOfContentsSmallScreen" onclick="closeTableOfContents(event)">
+                    <partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
                 </div>
             </div>
-        </div>
-        <div class="side mobile_padding">
-            <partial name="/Views/Shared/_SidebarContent.cshtml" model="Model.SideBarContentViewModel" />
+            <div is-visible="isNr">
+                <partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel"/>
+            </div>
+            <div is-visible="!isNr">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ShortSummary.cshtml" />
+            </div>
+            <partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel"/>
+            <div is-visible="!isNr && !isEvaluatedAtAnotherLevel">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskMatrix.cshtml"/>
+            </div>
+            <div class="page_section" is-visible="showExpertStatement">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ExpertStatement.cshtml" model="Model.ExpertStatementViewModel" />
+            </div>
+            <div class="page-section" is-visible="showAssessmentReasoning">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_AssessmentReasoning.cshtml" model="Model.ExpertStatementViewModel" />
+            </div>
+            <div class="page-section" is-visible="showRiskCategoryExplanation">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskCategoryExplanation.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showCategoryChange">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_CategoryChange.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showClimateEffectsInvationpotential">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ClimateEffectsInvationpotential.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showGeographicVariationInCategory">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_GeographicVariationInCategory.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showRegionalSpread">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RegionalSpread.cshtml" model="Model.RegionalSpreadViewModel" />
+            </div>
+            <div class="page-section" is-visible="showImpactedNatureTypes">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ImpactedNatureTypes.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showSpreadWays">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_SpreadWays.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showKnowMore">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_KnowMore.cshtml" />
+            </div>
+            <div class="page-section" is-visible="showAttachments">
+                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Attachments.cshtml" model="Model.AttachmentViewModel" />
+            </div>
+            <div class="page-section" is-visible="showReference">
+                <partial name="/Views/Shared/_Reference.cshtml" model="Model.ReferenceViewModel" />
+            </div>
+            <div class="page-section" is-visible="showCitationForAssessment">
+                <partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
+            </div>
         </div>
     </div>
+    <div class="side mobile_padding">
+        <partial name="/Views/Shared/_SidebarContent.cshtml" model="Model.SideBarContentViewModel" />
+    </div>
 </div>
-

@@ -1,13 +1,11 @@
-export class MenuToggle {
+class MenuToggle {
     constructor(togglerId, menuId, options) {
-        // focus management
         this.cycleEls = [];
         this.trapFocus = (e) => {
             if (e.key !== 'Tab' || !this.cycleEls.length)
                 return;
             const active = document.activeElement;
             const idx = active ? this.cycleEls.indexOf(active) : -1;
-            // If focus is not in our cycle (e.g., user clicked into an allowed element that was rebuilt later), allow default.
             if (idx === -1)
                 return;
             e.preventDefault();
@@ -68,7 +66,6 @@ export class MenuToggle {
     }
     handleOutsideClick(e) {
         const target = e.target;
-        // Treat allowed-focus elements as "ignored" for outside-click close as well
         const ignoreIds = new Set([
             ...this.options.ignoreOutsideIds,
             ...this.options.allowFocusOutsideIds,
@@ -99,14 +96,11 @@ export class MenuToggle {
         this.deactivateFocusTrap();
         this.toggler.focus();
     }
-    // ---------- Focus Trap ----------
     activateFocusTrap() {
         if (!this.options.trapFocus)
             return;
         this.buildFocusCycle();
-        // Optional autofocus: first menu item if present (keep toggler focus otherwise)
         if (this.options.autoFocusMenu && this.cycleEls.length > 1) {
-            // cycleEls[0] is the toggler; focus the first menu item if it exists
             const firstMenuItem = this.cycleEls[1];
             if (firstMenuItem)
                 firstMenuItem.focus();
@@ -124,7 +118,6 @@ export class MenuToggle {
                 return false;
             if (!isVisible(el))
                 return false;
-            // If it has tabindex -1, skip
             const ti = el.getAttribute('tabindex');
             if (ti !== null && Number(ti) < 0)
                 return false;
@@ -135,9 +128,7 @@ export class MenuToggle {
         const allowedOutsideEls = this.options.allowFocusOutsideIds
             .map((id) => document.getElementById(id))
             .filter((el) => !!el && isFocusable(el));
-        // Build cycle: [toggler] -> [menu items…] -> [allowed outside…]
         const ordered = [this.toggler, ...menuEls, ...allowedOutsideEls];
-        // De-duplicate while preserving order
         const seen = new Set();
         this.cycleEls = ordered.filter((el) => {
             if (seen.has(el))
@@ -147,4 +138,12 @@ export class MenuToggle {
         });
     }
 }
-//# sourceMappingURL=menuToggle.js.map
+
+document.addEventListener('DOMContentLoaded', () => {
+    new MenuToggle('menu-toggler', 'main-nav-container', {
+        ignoreOutsideIds: ['search-form-wrapper'],
+        allowFocusOutsideIds: ['edit-search-api-fulltext', 'edit-submit-site-search', 'theme-switcher'],
+        trapFocus: true,
+        autoFocusMenu: false
+    });
+});

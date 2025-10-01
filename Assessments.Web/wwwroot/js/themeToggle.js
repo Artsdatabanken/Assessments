@@ -1,7 +1,4 @@
-/**
- * Initialize theme based on user preference or system settings.
- */
-export function initThemeToggle() {
+function initThemeToggle() {
     const root = document.documentElement;
     const themeSwitcher = document.getElementById('theme-switcher');
     if (!themeSwitcher)
@@ -39,4 +36,5 @@ export function initThemeToggle() {
         applyTheme(currentTheme);
     });
 }
-//# sourceMappingURL=themeToggle.js.map
+
+initThemeToggle();
