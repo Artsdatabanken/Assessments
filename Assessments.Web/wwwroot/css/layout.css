@@ -53,7 +53,8 @@ p {
 
 .main-content {
     background: white;
-    padding: 15px;
+    /*padding: 15px;*/
+    line-height: 1.25;
     /*padding-top: 30px;*/ /* Compensate for missing breadcrumbs*/
 }
 
@@ -131,6 +132,7 @@ p {
     line-height: 1.4;
     color: #4c4a48;
     padding-right: 20px;
+    margin: 0;
 }
 
     .ingress span {

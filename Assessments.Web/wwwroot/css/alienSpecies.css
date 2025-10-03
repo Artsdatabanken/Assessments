@@ -194,6 +194,7 @@ ul.submenu-list {
     border-right: 0;
     padding-right: 0;
     margin-left: 1em;
+    padding-left: 0;
 }
 
 .title_with_ingress{

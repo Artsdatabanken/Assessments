@@ -92,8 +92,12 @@ ul a:active,
 
 /* TEMPORARY CODE NEEDS TO BE THOUGHT ABOUT*/
 
-.front_page_links li{
-    display:block;
+.front_page_links {
+    padding: 0;
+}
+
+.front_page_links li {
+    display: block;
 }
 
 .front_page_links li a{
@@ -324,6 +328,10 @@ option {
     max-width: 100%;
     border-bottom: 0;
     margin-bottom: 0;
+}
+
+.page-header h1 {
+    margin-top: 0;
 }
 
 /*#dropdown-header-menu,

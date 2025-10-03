@@ -111,6 +111,10 @@ li.page-item a.page-link:hover {
 
 /* LIST PRESENTATION */
 
+.main_list_view {
+    padding: 0;
+}
+
 .main_list_view li a {
     line-height: 1;
     font-size: 12pt;
@@ -290,7 +294,7 @@ li a span.element_icon {
     overflow-wrap: break-word;
     font-size: 12px;
     max-width: inherit;
-    font-family: 'Roboto';
+    /*font-family: 'Roboto';*/
 }
 
 
