@@ -67,7 +67,7 @@ li.page-item a.page-link:hover {
 .PagedList-skipToNext .page-link {
     padding: 10px;
     border: 1px solid #4c4a48;
-    border-radius: 50px;
+    border-radius: 5px;
 }
 
 .PagedList-skipToPrevious .paginator-link-text {
