@@ -368,6 +368,10 @@ button.list_header {
         margin: 5px;
     }
 
+    li input {
+        margin-right: 4px;
+    }
+
     #navbar-mobile {
         z-index: 1;
     }
