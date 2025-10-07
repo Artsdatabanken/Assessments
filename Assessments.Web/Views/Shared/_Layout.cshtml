@@ -25,17 +25,17 @@
 	<a href="#main-content" class="visually-hidden focusable">
 		Hopp til hovedinnhold
 	</a>
-	<partial name="_LayoutHeader" />
+	<partial name="_Header" />
+	@await RenderSectionAsync("Breadcrumb", required: false)
 	<div id="main-content" class="main">
 		<div class="main-content width-adjuster">
-			@await RenderSectionAsync("Breadcrumb", required: false)
 			<div class="pagecontainer">
 				@await RenderSectionAsync("PageMenu", required: false)
 				@RenderBody()
 			</div>
 		</div>
 	</div>
-	<partial name="_LayoutFooter" />
+	<partial name="_Footer" />
 	<div class="body-overlay"></div>
 	<script src="~/js/menuToggle.js"></script>
 	<script src="~/js/themeToggle.js"></script>

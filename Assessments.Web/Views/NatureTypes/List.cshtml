@@ -3,6 +3,12 @@
 @{
     Layout = "_Layout.cshtml";
     ViewBag.Title = NatureTypesConstants.Title2025;
+
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Naturtyper", "https://artsdatabanken.no/naturtyper" },
+        { ViewBag.Title, Url.Action("List", "NatureTypes") }
+    };
 }
 
 @section Styles {
@@ -11,6 +17,11 @@
 
 @section Scripts {
     <script src="~/js/rln/autocomplete.js"></script>
+}
+
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu {
@@ -22,7 +33,7 @@
     <div class="mid-content">
         <div class="title_with_image">
             <div class="title_with_header">
-                <partial name="/Views/Shared/_Header.cshtml" for="PageHeaderViewModel" />
+                <partial name="/Views/Shared/_PageHeader.cshtml" for="PageHeaderViewModel" />
             </div>
             <div class="mobile_padding">
                 <partial name="/Views/Shared/_Introduction.cshtml" for="IntroductionViewModel" />

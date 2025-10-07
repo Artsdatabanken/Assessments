@@ -5,6 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = LocalizerShared["alien_species_list"];
     ViewBag.SelectedMenuItem = "Arter";
+
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Lister", Url.Action("Index", "Home") },
+        { LocalizerShared["alien_species_list"], string.Empty }
+    };
+}
+
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu {

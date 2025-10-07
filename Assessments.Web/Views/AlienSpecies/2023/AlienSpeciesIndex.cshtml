@@ -7,7 +7,13 @@
 
 @{
     Layout = "~/Views/AlienSpecies/_Layout.cshtml";
-    ViewData["Title"] = Localizer["list_title_year"];
+    ViewBag.Title = Localizer["list_title_year"];
+
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Arter", "https://artsdatabanken.no/arter" },
+        { ViewBag.Title, string.Empty }
+    };
 
     CitationForListViewModel citationViewModel = new CitationForListViewModel
     {
@@ -37,6 +43,11 @@
     };
 }
 
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
+}
+
 @section PageMenu {
 
     <partial name="/Views/Shared/_PageMenu.cshtml" model="@pageMenuViewModel" />
@@ -46,7 +57,7 @@
     <div class="mid-content">
         <div class="title_with_image">
             <div class="title_with_header">
-                <partial name="/Views/Shared/_Header.cshtml" model="@pageHeaderViewModel" />
+                <partial name="/Views/Shared/_PageHeader.cshtml" model="@pageHeaderViewModel" />
             </div>
             <div class="title_with_ingress">
                 <partial name="/Views/Shared/_Introduction.cshtml" model="@introductionViewModel" />

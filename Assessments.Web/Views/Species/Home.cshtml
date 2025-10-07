@@ -2,6 +2,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Rødlista for arter";
     ViewBag.SelectedMenuItem = "Arter";
+
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Lister", Url.Action("Index", "Home") },
+        { ViewBag.Title, string.Empty }
+    };
+}
+
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu {

@@ -5,6 +5,13 @@
 	var assessment = Model.Assessment;
 	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
 	Layout = "_Layout.cshtml";
+
+	var breadcrumbs = new Dictionary<string, string>
+	{
+		{ "Naturtyper", "https://artsdatabanken.no/naturtyper" },
+		{ NatureTypesConstants.Title2025, Url.Action("List", "NatureTypes") },
+		{ assessment.Name, string.Empty }
+	};
 }
 
 @section Styles {
@@ -23,7 +30,7 @@
 
 @section Breadcrumb {
 
-	<partial name="Partials/_Breadcrumb" for="Assessment" />
+	<partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu {

@@ -3,7 +3,18 @@
     ViewBag.Title = NatureTypesConstants.Title;
     ViewBag.SelectedMenuItem = "Naturtyper";
 
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Lister", Url.Action("Index", "Home") },
+        { ViewBag.Title, string.Empty }
+    };
+
     // TODO: endre tekst og lenker ved lansering av rødlista for naturtyper 2025
+}
+
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu{

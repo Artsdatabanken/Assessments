@@ -1,5 +1,15 @@
 ﻿@{
     ViewBag.Title = "Lister - Rødlista for natur og arter, Fremmedartslista";
+
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Lister", string.Empty }
+    };
+}
+
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu {

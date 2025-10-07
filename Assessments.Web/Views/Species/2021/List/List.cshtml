@@ -1,34 +1,44 @@
 ﻿@model SpeciesViewModel
-@using Assessments.Web.Infrastructure
 @using Assessments.Web.Models.Species
 
 @{
-    ViewData["Title"] = "Rødlista 2021";
+    ViewBag.Title = "Rødlista 2021";
     Layout = "~/Views/Species/_Layout.cshtml";
 
-    CitationForListViewModel citationViewModel = new CitationForListViewModel
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Arter", "https://artsdatabanken.no/arter" },
+        { AssessmentType.RedlistSpecies2021.DisplayName() , Url.Action("Index", "Species") }
+    };
+
+    var citationViewModel = new CitationForListViewModel
     {
         CitationString = Constants.RedlistSpecies2021CitationString
     };
 
-    PageHeaderViewModel headerViewModel = new PageHeaderViewModel
+    var headerViewModel = new PageHeaderViewModel
     {
         HeaderText = Constants.RedlistSpecies2021HeaderText,
         HeaderByline = Constants.RedlistSpecies2021HeaderByline
     };
 
-    IntroductionViewModel introductionViewModel = new IntroductionViewModel
+    var introductionViewModel = new IntroductionViewModel
     {
         Introduction = Constants.RedlistSpecies2021Introduction
     };
 
-    PageMenuViewModel pageMenuViewModel = new PageMenuViewModel
+    var pageMenuViewModel = new PageMenuViewModel
     {
-        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
+        AssessmentType = AssessmentType.RedlistSpecies2021,
         PageMenuContentId = Constants.RedlistSpecies2021PageMenuContentId,
         PageMenuExpandButtonText = Constants.RedlistSpecies2021PageMenuHeaderText,
         PageMenuHeaderText = Constants.RedlistSpecies2021PageMenuHeaderText
     };
+}
+
+@section Breadcrumb {
+
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
 
 @section PageMenu {
@@ -40,7 +50,7 @@
     <div class="mid-content">
         <div class="title_with_image">
             <div class="title_with_header">
-                <partial name="/Views/Shared/_Header.cshtml" model="headerViewModel" />
+                <partial name="/Views/Shared/_PageHeader.cshtml" model="headerViewModel" />
             </div>
             <div class="title_with_ingress">
                 <img src="https://design.artsdatabanken.no/list-icons/rl2021-icon-small.png" alt="Bilde av en fisk">

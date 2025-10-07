@@ -5,6 +5,13 @@
 
 @{
     Layout = "~/Views/AlienSpecies/_Layout.cshtml";
+
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Arter", "https://artsdatabanken.no/arter" },
+        { Constants.AlienSpecies2023PageMenuHeaderText, Url.Action("Index", "AlienSpecies") },
+        { Model.Assessment.ScientificName.ScientificName, string.Empty }
+    };
 }
 
 @{
@@ -204,9 +211,8 @@
 
 @section Breadcrumb {
 
-    <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Breadcrumb.cshtml" />
+    <partial name="_Breadcrumb" model="breadcrumbs" />
 }
-
 @section PageMenu {
 
     <partial name="/Views/Shared/_PageMenu.cshtml" model="Model.PageMenuViewModel" />

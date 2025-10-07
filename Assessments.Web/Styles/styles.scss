@@ -2,6 +2,7 @@
 @use "nano/layout/header";
 @use "nano/layout/footer";
 @use "nano/components/mega-menu";
+@use "nano/components/breadcrumb";
 
 .hidden {
     display: none;
