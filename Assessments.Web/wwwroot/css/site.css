@@ -217,7 +217,7 @@ option {
 
     .content-placer {
         padding-top: 33px;
-        width: calc(75%);
+        width: calc(100%);
         display: flex;
         flex-wrap: wrap;
     }

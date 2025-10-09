@@ -1,6 +1,7 @@
 ﻿@{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.SelectedMenuItem = "Arter";
+	IgnoreSection("PageMenu");
 }
 
 @section Styles
@@ -24,8 +25,6 @@
 {
 	@await RenderSectionAsync("Breadcrumb", required: false)
 }
-
-@await RenderSectionAsync("PageMenu", required: false)
 
 @RenderBody()
 
