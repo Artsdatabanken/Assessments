@@ -79,22 +79,89 @@
       gap: var(--spacing-xsm)
     }
   }
+
+  &__theme-and-search {
+    display: flex;
+    gap: var(--spacing-xsm);
+
+    .menu-open & {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      z-index: 11;
+      top: calc(100% + 1rem);
+      left: var(--spacing-md);
+      right: var(--spacing-md);
+
+      @media #{$media-lg-up} {
+        position: static;
+      }
+    }
+  }
+
+  &__theme-switcher {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: var(--spacing-2xsm);
+  }
 }
 
 .theme-switcher {
+  @include button-preset();
+
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  padding: var(--spacing-2xsm);
   display: none;
+  color: var(--surface-accent);
 
   @media #{$media-lg-up} {
     display: flex;
   }
 
+  svg {
+    display: block;
+  }
+
+  &::after {
+    content: none;
+  }
+
+  &:hover {
+    border-color: var(--surface-hover);
+  }
+
+  &:focus {
+    background-color: var(--surface-hover);
+    border-color: var(--surface-hover);
+    color: var(--text-invert);
+    outline: none;
+  }
+
+  .if-active {
+    display: none;
+  }
+
+  .if-inactive {
+    display: block;
+  }
+
+  &[aria-pressed="true"] {
+    .if-active {
+      display: block;
+    }
+
+    .if-inactive {
+      display: none;
+    }
+  }
+
   .menu-open & {
     display: flex;
-    position: absolute;
-    z-index: 11;
-    top: 100%;
-    left: var(--spacing-sm);
-
+    
     @media #{$media-lg-up} {
       position: static;
     }
@@ -107,10 +174,6 @@
   .menu-open & {
     display: flex;
     justify-content: center;
-    position: absolute;
-    z-index: 11;
-    top: calc(100% + 4.25rem);
-    inset-inline: 0;
     min-height: 3.125rem;
     align-items: center;
 
@@ -153,10 +216,21 @@
   }
 
   input {
-    width: 14.5rem;
+    width: 100%;
+    max-width: 14.5rem;
 
     @media #{$media-2xl-up} {
       width: 17.75rem;
+    }
+  }
+
+  .search-submit {
+    &:hover {
+      color: var(--text-invert);
+
+      @media #{$media-lg-up} {
+        color: var(--text-accent);
+      }
     }
   }
 }

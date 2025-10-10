@@ -6,16 +6,26 @@
 .page-hero-container {
   @include fallout-bg();
 
+
   .inner-container {
-    max-width: var(--content-width);
+    max-width: calc(var(--content-width) - var(--spacing-sm) * 2);
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
     gap: var(--spacing-2xl);
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-xl) var(--spacing-2xsm);
 
-    @media #{$media-lg-up} {
+    @media #{$media-sm-up} {
+      padding: var(--spacing-xl) var(--spacing-2xsm);
+    }
+
+    @media #{$media-xl-up} {
       padding: var(--spacing-2xl) 0;
+    }
+
+    .page-node-type-landing-page & {
+      max-width: var(--wide-hero-width);
     }
   }
 
@@ -23,37 +33,24 @@
     max-width: var(--wide-hero-width);
   }
 
-  &.species-guide-hero-container {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: var(--spacing-lg);
+  .hero-text {
+    grid-column: auto / span 8;
 
-    .hero-text {
-      grid-column: 1 / -1;
-      padding: var(--spacing-2xl) 0;
-
-      @media #{$media-lg-up} {
-        grid-column: 4 / span 8;
-      }
+    .page-node-type-landing-page & {
+      grid-column: auto / span 6;
     }
+
   }
 
-  .hero-text {
-    flex-grow: 1;
+  &.has-illustration {
+    .hero-text {
+      grid-column: auto / span 6;
+    }
   }
 
   h1 {
     font-size: var(--font-size-10);
     margin: 0;
-  }
-
-  hr {
-    width: 60px;
-    height: 4px;
-    background-color: var(--hero-icon-color);
-    border: none;
-    border-radius: 2px;
-    margin: var(--spacing-sm) 0;
   }
 
   p {
@@ -67,7 +64,7 @@
 
   .hero-icon {
     display: none;
-    flex-shrink: 0;
+    grid-column: auto / span 2;
 
     @media #{$media-lg-up} {
       display: flex;
@@ -88,4 +85,13 @@
 .page-hero-container,
 .region-breadcrumb {
   background-color: var(--hero-bg-color);
+}
+
+.hero-hr {
+  width: 60px;
+  height: 4px;
+  background-color: var(--hero-icon-color, var(--surface-brand-4b));
+  border: none;
+  border-radius: 2px;
+  margin: var(--spacing-sm) 0;
 }

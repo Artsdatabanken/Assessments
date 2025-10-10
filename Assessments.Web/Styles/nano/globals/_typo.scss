@@ -47,8 +47,8 @@
   }
 }
 
-/* spacious from 1920 and up */
-@media #{$media-2xl-up} {
+/* spacious from 2880 and up */
+@media #{$media-3xl-up} {
   :root {
     --font-size-6: 1.3125rem; /* 21px / 16px = 1.3125rem */
     --font-size-7: 1.5rem; /* 24px / 16px = 1.5rem */
@@ -264,7 +264,7 @@ h6 {
 }
 
 .heading {
-  color: var(--text-base-text-primary, #262F31);
+  color: var(--text-primary, #262F31);
   font-weight: 700;
   line-height: 120%; /* 48px */
 

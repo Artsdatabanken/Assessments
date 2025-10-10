@@ -2,9 +2,11 @@
 
 @mixin fallout-bg {
   width: 100vw;
-  margin-inline: -50vw;
   position: relative;
   left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   padding: 0 var(--spacing-md);
 }
 
@@ -13,13 +15,14 @@
   @include fallout-bg();
 
   .collection-content,
-  .collection-title {
+  .collection-title,
+  .inner-container {
     max-width: var(--content-width);
     width: 100%;
     margin: 0 auto;
 
     .node--type-landing-page & {
-      max-width: var(--landing-page-width);  
+      max-width: var(--landing-page-width);
     }
   }
 }

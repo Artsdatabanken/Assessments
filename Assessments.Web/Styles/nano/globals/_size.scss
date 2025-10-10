@@ -44,9 +44,9 @@
 
   // Widths
   --max-width: 120rem; // 1920px
-  --content-width: 58rem; // 928px
-  --wide-hero-width: 75rem; // 1200px
-  --landing-page-width: 78rem; // 1248px
+  --content-width: 60rem; // 960px (928 + padding 16 * 2)
+  --wide-hero-width: 78rem; // 1248px
+  --landing-page-width: 80rem; // 1280px (1248 + padding 16 * 2)
   --sidebar-width: 28rem; // 448px
 
   // Legacy
@@ -75,8 +75,8 @@
   }
 }
 
-/* spacious from 1920 and up */
-@media #{$media-2xl-up} {
+/* spacious from 2880 and up */
+@media #{$media-3xl-up} {
   :root {
     --spacing-md: var(--dimensions-6x);
     --spacing-lg: var(--dimensions-8x);

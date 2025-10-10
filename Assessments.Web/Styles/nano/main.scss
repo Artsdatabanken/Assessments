@@ -1,4 +1,5 @@
 @use "globals/colors" as *;
+@use "globals/illustrations" as *;
 @use "globals/typo" as *;
 @use "globals/size" as *;
 
@@ -10,6 +11,29 @@
 
 @use "components/search-input" as *;
 @use "components/search-submit" as *;
+
+/* Default light mode */
+:root {
+  @include light-mode-variables;
+  @include light-mode-illustrations;
+
+  @media (prefers-color-scheme: dark) {
+    @include dark-mode-variables;
+    @include dark-mode-illustrations;
+  }
+}
+
+/* Manual override via HTML class */
+.light-theme {
+  @include light-mode-variables;
+  @include light-mode-illustrations;
+}
+
+.dark-theme {
+  @include dark-mode-variables;
+  @include dark-mode-illustrations;
+}
+
 
 *, :after, :before {
   -webkit-box-sizing: inherit;
@@ -36,12 +60,18 @@ main[role="main"] {
   line-height: 1.7em;
 
   &.taxon,
-  .page-node-type-species-guide-subpage & {
+  .page-node-type-species-guide-subpage &,
+  .page-node-type-nin-description & {
     max-width: var(--max-width);
   }
 
   .page-node-type-landing-page & {
     max-width: var(--landing-page-width);
+  }
+
+  p {
+    max-width: 45rem; // 766px
+    line-height: 1.55em;
   }
 }
 
@@ -85,27 +115,6 @@ ul {
   flex-direction: column;
 }
 
-/* Default light mode */
-:root {
-  @include light-mode-variables;
-}
-
-/* System preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    @include dark-mode-variables;
-  }
-}
-
-/* Manual override via HTML class */
-.light-theme {
-  @include light-mode-variables;
-}
-
-.dark-theme {
-  @include dark-mode-variables;
-}
-
 [aria-expanded="true"] > .when-not-expanded {
   display: none;
 }
@@ -126,7 +135,7 @@ ul {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $neutrals-ocean-90;
+  background-color: var(--surface-subtle-active);
   opacity: 0.5;
   z-index: 10;
   display: none;
@@ -148,4 +157,32 @@ ul {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.fallback-avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background-color: var(--surface-tertiary);
+
+  svg {
+    width: 5.625rem;
+    height: 5.625rem;
+    color: var(--text-invert);
+  }
 }

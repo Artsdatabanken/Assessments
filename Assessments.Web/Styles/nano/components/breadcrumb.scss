@@ -62,13 +62,15 @@
     }
 
     a {
-      @include styled-link();
+      @include styled-link($external: false);
 
-      color: var(--text-accent);
-      display: inline-flex;
-      align-items: center;
-      position: relative;
-      line-height: 1.85em;
+      & {
+        color: var(--text-accent);
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        line-height: 1.85em;
+      }
 
       &:visited {
         color: var(--text-accent);

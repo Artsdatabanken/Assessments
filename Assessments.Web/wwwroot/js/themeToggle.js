@@ -3,11 +3,6 @@ function initThemeToggle() {
     const themeSwitcher = document.getElementById('theme-switcher');
     if (!themeSwitcher)
         return;
-    const label = themeSwitcher.querySelector('.theme-switcher__label');
-    if (!label)
-        return;
-    const activeText = themeSwitcher.getAttribute('data-active-text') || 'Light mode';
-    const inactiveText = themeSwitcher.getAttribute('data-inactive-text') || 'Dark mode';
     const THEMES = {
         DARK: 'dark-theme',
         LIGHT: 'light-theme',
@@ -18,7 +13,6 @@ function initThemeToggle() {
         root.classList.add(theme);
         localStorage.setItem('theme', theme);
         themeSwitcher.setAttribute('aria-pressed', theme === THEMES.DARK ? 'true' : 'false');
-        label.textContent = theme === THEMES.DARK ? activeText : inactiveText;
     };
     const getInitialTheme = () => {
         const saved = localStorage.getItem('theme');
@@ -36,5 +30,4 @@ function initThemeToggle() {
         applyTheme(currentTheme);
     });
 }
-
 initThemeToggle();

@@ -41,6 +41,12 @@
     & * {
       margin: 0;
     }
+
+    &--inline {
+      * {
+        display: inline;
+      }
+    }
   }
 
   &__none {

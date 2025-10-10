@@ -1,5 +1,6 @@
-.btn {
+@use "../globals/mixin_buttons" as *;
 
+.btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -116,4 +117,38 @@
       }
     }
   }
+}
+
+.tab-button {
+  border: none;
+  background: none;
+  border-bottom: 4px solid transparent;
+  &.active {
+    border-bottom-color: var(--border-accent);
+  }
+}
+
+.expand-btn {
+  @include expandable-section-button2();
+}
+
+.btn-icon--grid {
+  @include icon-button('grid');
+}
+.btn-icon--table {
+  @include icon-button('table');
+}
+
+.adb-select {
+  appearance: none;
+  padding: calc(var(--spacing-2xsm) * 1.5) calc(var(--spacing-xsm) * 1.5);
+  gap: var(--spacing-2xsm);
+  border-radius: var(--radius-3xl);
+  border: 2px solid var(--border-accent);
+  background: var(--surface-primary);
+  color: var(--text-accent);
+  font-size: var(--font-size-3);
+  line-height: 1em;
+  cursor: pointer;
+  margin-bottom: var(--spacing-xsm);
 }

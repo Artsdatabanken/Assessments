@@ -26,56 +26,69 @@
     font-size: $font-size;
     font-weight: 700;
     line-height: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
 
     // Redlist
     &.ne {
       background-color: var(--background-redlist-ne);
       color: var(--text-redlist-ne);
+      border-color: var(--border-redlist-ne);
     }
 
     &.dd {
       background-color: var(--background-redlist-dd);
       color: var(--text-redlist-dd);
+      border-color: var(--border-redlist-dd);
     }
 
     &.lc {
       background-color: var(--background-redlist-lc);
       color: var(--text-redlist-lc);
+      border-color: var(--border-redlist-lc);
     }
 
     &.nt {
       background-color: var(--background-redlist-nt);
       color: var(--text-redlist-nt);
+      border-color: var(--border-redlist-nt);
     }
 
     &.vu {
       background-color: var(--background-redlist-vu);
       color: var(--text-redlist-vu);
+      border-color: var(--border-redlist-vu);
     }
 
     &.en {
       background-color: var(--background-redlist-en);
       color: var(--text-redlist-en);
+      border-color: var(--border-redlist-en);
     }
 
     &.cr {
       background-color: var(--background-redlist-cr);
       color: var(--text-redlist-cr);
+      border-color: var(--border-redlist-cr);
     }
 
     &.ew {
       background-color: var(--background-redlist-ew);
       color: var(--text-redlist-ew);
+      border-color: var(--border-redlist-ew);
     }
 
     &.na {
       background-color: var(--background-redlist-na);
       color: var(--text-redlist-na);
+      border-color: var(--border-redlist-na);
     }
 
     &.re {
       background-color: var(--background-redlist-re);
       color: var(--text-redlist-re);
+      border-color: var(--border-redlist-re);
     }
 
     // Alien list
@@ -198,7 +211,7 @@
   }
 }
 
-@mixin styled-link() {
+@mixin styled-link($external: true) {
   position: relative;
   display: inline-block;
   white-space: normal;
@@ -232,7 +245,9 @@
   }
 
   &.is-external {
-    @include external-decoration();
+    @if ($external) {
+      @include external-decoration();
+    }
   }
 }
 
@@ -292,4 +307,11 @@
     background-position: 50%;
     background-size: cover;
   }
+}
+
+@mixin button-preset() {
+  background-color: transparent;
+  border: none;
+  appearance: none;
+  cursor: pointer;
 }

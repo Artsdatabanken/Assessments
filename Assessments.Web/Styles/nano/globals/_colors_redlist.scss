@@ -1,43 +1,45 @@
+@use "./primitives" as *;
+
 :root {
-  --background-redlist-ne: var(--surface-primary);
-  --background-redlist-na: var(--surface-primary);
-  --background-redlist-lc: #61A360;
-  --background-redlist-dd: #6C6C6C;
-  --background-redlist-nt: #E6C000;
-  --background-redlist-vu: #EB8107;
-  --background-redlist-en: #F34F39;
-  --background-redlist-cr: #D61900;
-  --background-redlist-re: var(--surface-invert);
+  --background-redlist-ne: #{$brand-white};
+  --background-redlist-na: #{$brand-white};
+  --background-redlist-lc: #{$special-60};
+  --background-redlist-dd: #{$special-70};
+  --background-redlist-nt: #{$special-80};
+  --background-redlist-vu: #{$special-90};
+  --background-redlist-en: #{$special-100};
+  --background-redlist-cr: #{$special-110};
+  --background-redlist-re: #{$neutrals-ocean-90};
   --background-redlist-ew: #939599;
   --background-redlist-ex: #939599;
 
-  --border-redlist-ne: #262F31;
-  --border-redlist-na: #939599;
-  --border-redlist-lc: #61A360;
-  --border-redlist-dd: #6C6C6C;
-  --border-redlist-nt: #E6C000;
-  --border-redlist-vu: #EB8107;
-  --border-redlist-en: #F34F39;
-  --border-redlist-cr: #D61900;
-  --border-redlist-re: #595b5d;
+  --border-redlist-ne: var(--border-strong);
+  --border-redlist-na: var(--border-strong);
+  --border-redlist-lc: #{$special-60};
+  --border-redlist-dd: #{$special-70};
+  --border-redlist-nt: #{$special-80};
+  --border-redlist-vu: #{$special-90};
+  --border-redlist-en: #{$special-100};
+  --border-redlist-cr: #{$special-110};
+  --border-redlist-re: var(--border-strong);
   --border-redlist-ew: #939599;
   --border-redlist-ex: #939599;
 
-  --text-redlist-ne: var(--text-primary);
-  --text-redlist-na: var(--text-primary);
-  --text-redlist-lc: var(--text-invert);
-  --text-redlist-dd: var(--text-invert);
-  --text-redlist-nt: var(--text-invert);
-  --text-redlist-vu: var(--text-invert);
-  --text-redlist-en: var(--text-invert);
-  --text-redlist-cr: var(--text-invert);
-  --text-redlist-re: var(--text-invert);
-  --text-redlist-ew: var(--text-invert);
-  --text-redlist-ex: var(--text-invert);
+  --text-redlist-ne: #{$neutrals-ocean-90};
+  --text-redlist-na: #{$neutrals-ocean-90};
+  --text-redlist-lc: #{$brand-white};
+  --text-redlist-dd: #{$brand-white};
+  --text-redlist-nt: #{$brand-white};
+  --text-redlist-vu: #{$brand-white};
+  --text-redlist-en: #{$brand-white};
+  --text-redlist-cr: #{$brand-white};
+  --text-redlist-re: #{$brand-white};
+  --text-redlist-ew: #{$brand-white};
+  --text-redlist-ex: #{$brand-white};
 
   // Alien list:
   --background-alien-list-nr: var(--surface-primary);
-  --border-alien-list-nr: #939599;
+  --border-alien-list-nr: var(--border-strong);
   --text-alien-list-nr: var(--text-primary);
 
   --background-alien-list-nk: #94A360;
