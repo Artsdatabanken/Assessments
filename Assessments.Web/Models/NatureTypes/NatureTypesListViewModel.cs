@@ -1,5 +1,4 @@
 ﻿using Assessments.Shared.Constants;
-using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Data.Models;
 using X.PagedList;
 
@@ -14,14 +13,7 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
     public List<CodeItem> CodeItems { get; init; }
 
     public ListViewViewModel ListViewViewModel { get; init; }
-
-    public PageMenuViewModel PageMenuViewModel => new()
-    {
-        PageMenuContentId = NatureTypesConstants.PageMenuContentId,
-        PageMenuExpandButtonText = NatureTypesConstants.Title2025,
-        AssessmentType = AssessmentType.NatureTypes2025
-    };
-
+    
     public PageHeaderViewModel PageHeaderViewModel => new()
     {
         HeaderText = NatureTypesConstants.Title2025,

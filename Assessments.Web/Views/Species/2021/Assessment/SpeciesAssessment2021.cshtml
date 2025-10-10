@@ -61,15 +61,7 @@
         YearPreviousAssessment = Model.YearPreviousAssessment,
         ExpertGroupMembers = expertCommitteeMembers.JoinAnd(", ", " og ")
     };
-
-    var pageMenuViewModel = new PageMenuViewModel
-    {
-        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
-        PageMenuContentId = Constants.RedlistSpecies2021PageMenuContentId,
-        PageMenuExpandButtonText = Constants.RedlistSpecies2021PageMenuHeaderText,
-        PageMenuHeaderText = Constants.RedlistSpecies2021PageMenuHeaderText
-    };
-
+    
     var sideBarContentViewModel = new SideBarContentViewModel()
     {
         AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
@@ -173,11 +165,6 @@
 @section Breadcrumb {
 
     <partial name="/Views/Species/2021/Assessment/partials/_Breadcrumb.cshtml" />
-}
-
-@section PageMenu {
-
-    <partial name="/Views/Shared/_PageMenu.cshtml" model="pageMenuViewModel" />
 }
 
 <div class="content-placer bigmid">

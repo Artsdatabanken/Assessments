@@ -26,24 +26,11 @@
     {
         Introduction = Constants.RedlistSpecies2021Introduction
     };
-
-    var pageMenuViewModel = new PageMenuViewModel
-    {
-        AssessmentType = AssessmentType.RedlistSpecies2021,
-        PageMenuContentId = Constants.RedlistSpecies2021PageMenuContentId,
-        PageMenuExpandButtonText = Constants.RedlistSpecies2021PageMenuHeaderText,
-        PageMenuHeaderText = Constants.RedlistSpecies2021PageMenuHeaderText
-    };
 }
 
 @section Breadcrumb {
 
     <partial name="_Breadcrumb" model="breadcrumbs" />
-}
-
-@section PageMenu {
-
-    <partial name="/Views/Shared/_PageMenu.cshtml" model="pageMenuViewModel" />
 }
 
 <div class="content-placer bigmid">

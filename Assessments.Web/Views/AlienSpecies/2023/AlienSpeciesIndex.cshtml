@@ -15,42 +15,26 @@
         { ViewBag.Title, string.Empty }
     };
 
-    CitationForListViewModel citationViewModel = new CitationForListViewModel
+    var citationViewModel = new CitationForListViewModel
     {
         CitationString = Constants.AlienSpecies2023CitationString
     };
 
-    PageHeaderViewModel pageHeaderViewModel = new PageHeaderViewModel
+    var pageHeaderViewModel = new PageHeaderViewModel
     {
         HeaderText = Localizer["list_title_year"],
         HeaderByline = Constants.AlienSpecies2023HeaderByline
     };
 
-    IntroductionViewModel introductionViewModel = new IntroductionViewModel
+    var introductionViewModel = new IntroductionViewModel
     {
         Introduction = Localizer["intro"]
-        //Introduction = Constants.AlienSpecies2023Introduction
-    };
-
-    PageMenuViewModel pageMenuViewModel = new PageMenuViewModel
-    {
-        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023,
-        ListOrAssessmentView = Assessments.Web.Infrastructure.Enums.ListOrAssessmentView.Index,
-        PageMenuContentId = Constants.AlienSpecies2023PageMenuContentId,
-        PageMenuSubContentId = Constants.AlienSpecies2023SubPageMenuContentId,
-        PageMenuExpandButtonText = Constants.AlienSpecies2023PageManuExpandButtonText,
-        PageMenuHeaderText = Constants.AlienSpecies2023PageMenuHeaderText
     };
 }
 
 @section Breadcrumb {
 
     <partial name="_Breadcrumb" model="breadcrumbs" />
-}
-
-@section PageMenu {
-
-    <partial name="/Views/Shared/_PageMenu.cshtml" model="@pageMenuViewModel" />
 }
 
 <div class="content-placer bigmid">
@@ -63,12 +47,10 @@
                 <partial name="/Views/Shared/_Introduction.cshtml" model="@introductionViewModel" />
             </div>
         </div>
-
         <form id="search_and_filter_form" aps-action="" method="get">
             <partial name="/Views/AlienSpecies/2023/ListPartials/_Search.cshtml" />
             <partial name="/Views/AlienSpecies/2023/ListPartials/_Filters.cshtml" />
         </form>
-
         <partial name="/Views/Shared/_CitationForList.cshtml" model="citationViewModel"/>
     </div>
 </div>
