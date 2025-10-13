@@ -1,0 +1,51 @@
+@use "../../globals/media" as *;
+@use "../../globals/mixins" as *;
+
+[data-type="text/adb-shortcut-group"] {
+  border: dotted 1px gray;
+  padding: var(--spacing);
+}
+
+.wp-block-text-adb-shortcut-group {
+  .wp-block-text-adb-shortcut-link {
+    display: block;
+  }
+}
+
+@media #{$media-tablet-desktop} {
+  .wp-block-text-adb-shortcut-group {
+    &.alignleft {
+      float: left;
+      margin-right: var(--spacing);
+      width: 40%;
+    }
+
+    &.alignright {
+      float: right;
+      margin-left: var(--spacing);
+      width: 40%;
+    }
+  }
+}
+
+.wp-block-text-adb-shortcut-link {
+  display: inline-block;
+  
+  a {
+    @include shortcut-link(medium);
+
+    .is-large & {
+      @include shortcut-link(large);
+
+      padding: var(--spacing-sm) 0;
+    }
+
+    .wp-block-text-adb-shortcut-group & {
+      justify-content: space-between;
+    }
+
+    &.is-external span {
+      @include external-decoration();
+    }
+  }
+}

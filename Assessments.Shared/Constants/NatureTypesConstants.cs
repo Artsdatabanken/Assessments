@@ -2,17 +2,13 @@
 
 public static class NatureTypesConstants
 {
-    public const string Title = "Rødlista for naturtyper";
-
     public const string Title2025 = "Norsk rødliste for naturtyper 2025";
     
     public static readonly DateTime PublishedDate = new(2025, 11, 27);
     
-    public const string Introduction = "Norsk rødliste for naturtyper 2025 viser hvilke naturtyper som har risiko for å gå tapt fra Norge. Rødlista er utarbeidet av Artsdatabanken i samarbeid med fageksperter.";
-   
     public const string CitationSummary = $"{Title2025}. Artsdatabanken.";
 
-    public const int PageMenuContentId = 376719;
+    //public const int PageMenuContentId = 376719;
 
     public static class Headings
     {

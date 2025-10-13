@@ -4,188 +4,175 @@
 @inject ExpertCommitteeMemberService ExpertCommitteeMemberService
 
 @{
-    ViewBag.Title = Model.ScientificName + " - Rødlista 2021";
-    Layout = "~/Views/Species/_Layout.cshtml";
+	ViewBag.Title = Model.ScientificName + " - Rødlista 2021";
+	Layout = "~/Views/Species/_Layout.cshtml";
 
-    Dictionary<string, Dictionary<string, string>> speciesGroups = ViewBag.speciesgroup.ToObject<Dictionary<string, Dictionary<string, string>>>();
+	Dictionary<string, Dictionary<string, string>> speciesGroups = ViewBag.speciesgroup.ToObject<Dictionary<string, Dictionary<string, string>>>();
 
-    string speciesGroupImageUrl = String.Empty;
+	var speciesGroupImageUrl = string.Empty;
 
-    if (speciesGroups.Keys.Contains(Model.SpeciesGroup))
-    {
-        speciesGroupImageUrl = speciesGroups[Model.SpeciesGroup]["image"];
-    }
+	if (speciesGroups.Keys.Contains(Model.SpeciesGroup))
+	{
+		speciesGroupImageUrl = speciesGroups[Model.SpeciesGroup]["image"];
+	}
 
-    var assessmentPageHeaderViewModel = new AssessmentPageHeaderViewModel()
-    {
-        AssessmentArea = Model.AssessmentArea == "S" ? "Svalbard" : "Norge",
-        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
-        ScientificNameViewModel = new ScientificNameViewModel()
-        {
-            PopularName = Model.PopularName,
-            ScientificName = Model.ScientificName,
-            ScientificNameAuthor = Model.ScientificNameAuthor,
-            ShowAssessmentOf = Model.Category != "NE" && Model.Category != "NA"
-        },
-        SpeciesGroupViewModel = new SpeciesGroupViewModel()
-        {
-            AssessmentYear = Model.AssessmentYear,
-            ExpertCommittee = Model.ExpertCommittee,
-            FirstPublishedDateString = "24.11.2021",
-            RevisionDate = Model.RevisionDate,
-            RevisionReason = Model.RevisionReason,
-            SpeciesGroup = Model.SpeciesGroup,
-            SpeciesGroupImageUrl = speciesGroupImageUrl,
-            SpeciesGroupInfoUrl = "https://artsdatabanken.no/rodlisteforarter2021/ekspertkomiteene",
-            PreviousAssessmentYear = Model.YearPreviousAssessment,
-        }
-    };
+	var assessmentPageHeaderViewModel = new AssessmentPageHeaderViewModel
+	{
+		AssessmentArea = Model.AssessmentArea == "S" ? "Svalbard" : "Norge",
+		AssessmentType = AssessmentType.RedlistSpecies2021,
+		ScientificNameViewModel = new ScientificNameViewModel
+		{
+			PopularName = Model.PopularName,
+			ScientificName = Model.ScientificName,
+			ScientificNameAuthor = Model.ScientificNameAuthor,
+			ShowAssessmentOf = Model.Category != "NE" && Model.Category != "NA"
+		},
+		SpeciesGroupViewModel = new SpeciesGroupViewModel
+		{
+			AssessmentYear = Model.AssessmentYear,
+			ExpertCommittee = Model.ExpertCommittee,
+			FirstPublishedDateString = "24.11.2021",
+			RevisionDate = Model.RevisionDate,
+			RevisionReason = Model.RevisionReason,
+			SpeciesGroup = Model.SpeciesGroup,
+			SpeciesGroupImageUrl = speciesGroupImageUrl,
+			SpeciesGroupInfoUrl = "https://artsdatabanken.no/rodlisteforarter2021/ekspertkomiteene",
+			PreviousAssessmentYear = Model.YearPreviousAssessment,
+		}
+	};
 
-    var assessmentName = Model.SpeciesGroup + @ViewBag.glossary["citation"]["articlename"];
-    assessmentName = assessmentName
-        .Replace("@species", $"{Model.PopularName} {Helpers.FormatScientificNameElement(Model.ScientificName)}")
-        .Replace("@area", $"{ViewBag.glossary["areas"][Model.AssessmentArea]["title"]}");
+	var assessmentName = Model.SpeciesGroup + ViewBag.glossary["citation"]["articlename"];
+	assessmentName = assessmentName
+		.Replace("@species", $"{Model.PopularName} {Helpers.FormatScientificNameElement(Model.ScientificName)}")
+		.Replace("@area", $"{ViewBag.glossary["areas"][Model.AssessmentArea]["title"]}");
 
-    var expertCommitteeMembers = await ExpertCommitteeMemberService.GetExpertCommitteeMembers(Model.ExpertCommittee, Model.AssessmentYear);
+	var expertCommitteeMembers = await ExpertCommitteeMemberService.GetExpertCommitteeMembers(Model.ExpertCommittee, Model.AssessmentYear);
 
-    var citationViewModel = new CitationForAssessmentViewModel
-    {
-        AssessmentName = assessmentName,
-        AssessmentYear = Model.AssessmentYear,
-        ExpertCommittee = Model.ExpertCommittee,
-        FirstPublished = Constants.RedlistSpecies2021FirstPublished,
-        HasBackToTopLink = false,
-        PublicationText = ViewBag.glossary["pagetitle"]["title"] + ". " + ViewBag.glossary["adb"] + ". ",
-        RevisionDate = Model.RevisionDate,
-        RevisionReason = Model.RevisionReason,
-        YearPreviousAssessment = Model.YearPreviousAssessment,
-        ExpertGroupMembers = expertCommitteeMembers.JoinAnd(", ", " og ")
-    };
-    
-    var sideBarContentViewModel = new SideBarContentViewModel()
-    {
-        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.RedlistSpecies2021,
-        AssessmentYear = Model.AssessmentYear,
-        Category = @ViewBag.categories[Model.Category.Substring(0, 2)]["presentationstring"],
-        CategoryShort = Model.Category,
-        PreviousAssessments = Model.PreviousAssessments.Select(x => new SideBarContentViewModel.SideBarPreviousAssessment()
-        {
-            Category = @ViewBag.categories[x.Category.Substring(0, 2)]["presentationstring"],
-            CategoryShort = x.Category,
-            Url = x.AssessmentUrl,
-            Year = x.Year
-        }).ToArray(),
-        ScientificName = Model.ScientificName,
-        ScientificNameId = Model.ScientificNameId,
-        TaxonRank = Enum.Parse<AlienSpeciesAssessment2023ScientificNameRank>(Model.TaxonRank),
-    };
+	var citationViewModel = new CitationForAssessmentViewModel
+	{
+		AssessmentName = assessmentName,
+		AssessmentYear = Model.AssessmentYear,
+		ExpertCommittee = Model.ExpertCommittee,
+		FirstPublished = Constants.RedlistSpecies2021FirstPublished,
+		HasBackToTopLink = false,
+		PublicationText = ViewBag.glossary["pagetitle"]["title"] + ". " + ViewBag.glossary["adb"] + ". ",
+		RevisionDate = Model.RevisionDate,
+		RevisionReason = Model.RevisionReason,
+		YearPreviousAssessment = Model.YearPreviousAssessment,
+		ExpertGroupMembers = expertCommitteeMembers.JoinAnd(", ", " og ")
+	};
 
-    var categoryDescriptionViewModel = new CategoryDescriptionViewModel()
-    {
-        CategoryShort = Model.Category,
-        CategoryBar = new CategoryBarListElement[]
-        {
-            new CategoryBarListElement
-            {
-                Name = "Regionalt utdødd",
-                NameShort = "RE"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Kritisk truet",
-                NameShort = "CR"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Sterkt truet",
-                NameShort = "EN"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Sårbar",
-                NameShort = "VU"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Nær truet",
-                NameShort = "NT"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Data- mangel",
-                NameShort = "DD"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Livs- kraftig",
-                NameShort = "LC"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Ikke egnet",
-                NameShort = "NA"
-            },
-            new CategoryBarListElement
-            {
-                Name = "Ikke vurdert",
-                NameShort = "NE"
-            },
-        },
-        MethodUrl = "https://artsdatabanken.no/rodlisteforarter2021/Metode#316483"
-    };
+	var sideBarContentViewModel = new SideBarContentViewModel
+	{
+		AssessmentType = AssessmentType.RedlistSpecies2021,
+		AssessmentYear = Model.AssessmentYear,
+		Category = ViewBag.categories[Model.Category[..2]]["presentationstring"],
+		CategoryShort = Model.Category,
+		PreviousAssessments = Model.PreviousAssessments.Select(x => new SideBarContentViewModel.SideBarPreviousAssessment()
+		{
+			Category = ViewBag.categories[x.Category[..2]]["presentationstring"],
+			CategoryShort = x.Category,
+			Url = x.AssessmentUrl,
+			Year = x.Year
+		}).ToArray(),
+		ScientificName = Model.ScientificName,
+		ScientificNameId = Model.ScientificNameId,
+		TaxonRank = Enum.Parse<AlienSpeciesAssessment2023ScientificNameRank>(Model.TaxonRank),
+	};
 
-    var naturtypehovedenhet = Model.MainHabitat;
-    string geografi = Model.AssessmentArea;
+	var categoryDescriptionViewModel = new CategoryDescriptionViewModel
+	{
+		CategoryShort = Model.Category,
+		CategoryBar =
+		[
+			new CategoryBarListElement
+			{
+				Name = "Regionalt utdødd",
+				NameShort = "RE"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Kritisk truet",
+				NameShort = "CR"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Sterkt truet",
+				NameShort = "EN"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Sårbar",
+				NameShort = "VU"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Nær truet",
+				NameShort = "NT"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Data- mangel",
+				NameShort = "DD"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Livs- kraftig",
+				NameShort = "LC"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Ikke egnet",
+				NameShort = "NA"
+			},
+			new CategoryBarListElement
+			{
+				Name = "Ikke vurdert",
+				NameShort = "NE"
+			}
+		],
+		MethodUrl = "https://artsdatabanken.no/rodlisteforarter2021/Metode#316483"
+	};
 
-    if (geografi == "N")
-    {
-        geografi = "Norge";
-    }
-    else if (geografi == "S")
-    {
-        geografi = "Svalbard";
-        if (@Model.ExpertCommittee == "Pattedyr (Svalbard)")
-        {
-            geografi = "Svalbard med kyst";
-        }
-    }
-
-    var referenceViewModel = new ReferenceViewModel
-    {
-        HasBackToTopLink = false,
-        References = Model.References.Select(x => new CommonSimpleReference
-        {
-            Type = x.Type,
-            ReferenceId = x.ReferenceId,
-            FormattedReference = x.FormattedReference
-        }).ToList()
-    };
+	var referenceViewModel = new ReferenceViewModel
+	{
+		HasBackToTopLink = false,
+		References = Model.References.Select(x => new CommonSimpleReference
+		{
+			Type = x.Type,
+			ReferenceId = x.ReferenceId,
+			FormattedReference = x.FormattedReference
+		}).ToList()
+	};
 }
 
-@section Breadcrumb {
+<partial name="/Views/Species/2021/Assessment/partials/_Breadcrumb.cshtml" />
 
-    <partial name="/Views/Species/2021/Assessment/partials/_Breadcrumb.cshtml" />
-}
-
-<div class="content-placer bigmid">
-    <partial name="/Views/Species/2021/Assessment/partials/_Archived.cshtml" />
-    <div class="mid-content with_sidebar">
-        <partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
-        <div class="mobile_padding">
-            <partial name="/Views/Species/2021/Assessment/partials/_Ingress.cshtml" />
-            <partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel" />
-            <partial name="/Views/Species/2021/Assessment/partials/_ExpertStatement.cshtml" />
-            <partial name="/Views/Species/2021/Assessment/partials/_Method.cshtml" />
-            <partial name="/Views/Species/2021/Assessment/partials/_ImpactFactors.cshtml" />
-            <partial name="/Views/Species/2021/Assessment/partials/_Regions.cshtml" />
-            <partial name="/Views/Species/2021/Assessment/partials/_Habitat.cshtml" />
-            <partial name="/Views/Species/2021/Assessment/partials/_SpeciesDetails.cshtml" />
-            <partial name="/Views/Shared/_Reference.cshtml" model="referenceViewModel"/>
-            <partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
-            <partial name="/Views/Species/2021/Assessment/partials/_Revision.cshtml" model="Model" />
-        </div>
-    </div>
-    <div class="side mobile_padding">
-        <partial name="/Views/Shared/_SidebarContent.cshtml" model="sideBarContentViewModel" />
-    </div>
+<div id="main-content" class="main">
+	<div class="main-content width-adjuster">
+		<div class="pagecontainer">
+			<div class="content-placer bigmid">
+				<partial name="/Views/Species/2021/Assessment/partials/_Archived.cshtml" />
+				<div class="mid-content with_sidebar">
+					<partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
+					<div class="mobile_padding">
+						<partial name="/Views/Species/2021/Assessment/partials/_Ingress.cshtml" />
+						<partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel" />
+						<partial name="/Views/Species/2021/Assessment/partials/_ExpertStatement.cshtml" />
+						<partial name="/Views/Species/2021/Assessment/partials/_Method.cshtml" />
+						<partial name="/Views/Species/2021/Assessment/partials/_ImpactFactors.cshtml" />
+						<partial name="/Views/Species/2021/Assessment/partials/_Regions.cshtml" />
+						<partial name="/Views/Species/2021/Assessment/partials/_Habitat.cshtml" />
+						<partial name="/Views/Species/2021/Assessment/partials/_SpeciesDetails.cshtml" />
+						<partial name="/Views/Shared/_Reference.cshtml" model="referenceViewModel" />
+						<partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
+						<partial name="/Views/Species/2021/Assessment/partials/_Revision.cshtml" model="Model" />
+					</div>
+				</div>
+				<div class="side mobile_padding">
+					<partial name="/Views/Shared/_SidebarContent.cshtml" model="sideBarContentViewModel" />
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

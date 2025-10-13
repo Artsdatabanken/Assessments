@@ -6,28 +6,26 @@
 }
 
 /* Container div for anything search*/
-.list-search {
+/*.list-search {
     padding: 10px 0;
     width: 100%;
     padding-bottom: 0;
     border-radius: 2px;
     border-top: 1px solid lightgray;
     padding-top: 20px;
-}
+}*/
 
-
-@media only screen and (min-width: 750px) {
-    .list-search {
+/*@media only screen and (min-width: 750px) {
+    .list-search {*/
         /*padding-left:220px; // testing chips*/
-    }
-}
+    /*}
+}*/
     
-
-.list-search h2 {
+/*.list-search h2 {
     color: #3d3b3a;
     padding:0;
     margin:5px;
-}
+}*/
 
 /* Container div for input + button*/
 .searchfield {
@@ -39,7 +37,7 @@
     height: 45px;
     width: 100%;
     max-width: 100%;
-    background: pink;
+    /*background: pink;*/
 }
 
 .search-help-text {
@@ -74,7 +72,6 @@
     max-width: 100%;
     padding-left: 5px;
 }
-
 
 .searchfield_and_button {
     display: flex;

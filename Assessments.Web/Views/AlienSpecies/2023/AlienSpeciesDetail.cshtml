@@ -4,284 +4,287 @@
 @inject IStringLocalizer<SharedResourcesAlienSpecies> Localizer
 
 @{
-    Layout = "~/Views/AlienSpecies/_Layout.cshtml";
+	Layout = "~/Views/AlienSpecies/_Layout.cshtml";
 
-    var breadcrumbs = new Dictionary<string, string>
-    {
-        { "Arter", "https://artsdatabanken.no/arter" },
-        { Constants.AlienSpecies2023PageMenuHeaderText, Url.Action("Index", "AlienSpecies") },
-        { Model.Assessment.ScientificName.ScientificName, string.Empty }
-    };
+	var breadcrumbs = new Dictionary<string, string>
+	{
+		{ "Arter", "https://artsdatabanken.no/arter" },
+		{ Constants.AlienSpecies2023PageMenuHeaderText, Url.Action("Index", "AlienSpecies") },
+		{ Model.Assessment.ScientificName.ScientificName, string.Empty }
+	};
 }
 
 @{
-    var assessment = Model.Assessment;
-    ViewData["Title"] = assessment.ScientificName.ScientificName + " - Fremmedartslista 2023";
-    var evaluationContextText = Model.Assessment.EvaluationContext == AlienSpeciesAssessment2023EvaluationContext.S ? "på Svalbard" : "i Norge";
-    var speciesGroup = AlienSpeciesHelpers.GetSpeciesGroup(assessment.SpeciesGroup.DisplayName());
-    var speciesGroupImageUrl = speciesGroup?.ImageUrl;
+	var assessment = Model.Assessment;
+	ViewData["Title"] = assessment.ScientificName.ScientificName + " - Fremmedartslista 2023";
+	var evaluationContextText = Model.Assessment.EvaluationContext == AlienSpeciesAssessment2023EvaluationContext.S ? "på Svalbard" : "i Norge";
+	var speciesGroup = AlienSpeciesHelpers.GetSpeciesGroup(assessment.SpeciesGroup.DisplayName());
+	var speciesGroupImageUrl = speciesGroup?.ImageUrl;
 
-    var assessmentPageHeaderViewModel = new AssessmentPageHeaderViewModel()
-    {
-        AlienSpeciesCategory = assessment.AlienSpeciesCategory,
-        AssessmentArea = assessment.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.RegionallyAlien ? Constants.AlienSpecies2023PageMenuAssessmentAreaText : assessment.EvaluationContext.DisplayName(),
-        AssessmentType = Assessments.Web.Infrastructure.Enums.AssessmentType.AlienSpecies2023,
-        Category = assessment.Category,
-        ConnectedTaxons = assessment.ConnectedTaxons,
-        EvaluationContext = assessment.EvaluationContext,
-        ParentAssessmentId = assessment.ParentAssessmentId,
-        ScientificNameRank = assessment.ScientificName.ScientificNameRank,
-        ScientificNameViewModel = new ScientificNameViewModel()
-        {
-            PopularName = assessment.VernacularName,
-            ScientificName = assessment.ScientificName.ScientificNameFormatted,
-            ScientificNameFormatted = true,
-            ScientificNameAuthor = assessment.ScientificName.ScientificNameAuthor,
-            ShowAssessmentOf = assessment.Category != AlienSpeciesAssessment2023Category.NR
-        },
-        SpeciesGroupViewModel = new SpeciesGroupViewModel()
-        {
-            AssessmentYear = 2023, // TODO: create this field in assessment model
-            ExpertCommittee = assessment.ExpertGroup,
-            FirstPublishedDateString = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment ? Constants.AlienSpecies2023FirstPublishedHorizonScanned :  Constants.AlienSpecies2023FirstPublished,
-            RevisionDate = assessment.RevisionDate, // TODO: check if this is revision date
-            RevisionReason = "", // TODO: create a field for this, if we need revisions at all for alien species
-            SpeciesGroup = assessment.SpeciesGroup.DisplayName(),
-            SpeciesGroupImageUrl = speciesGroupImageUrl,
-            SpeciesGroupInfoUrl = "https://artsdatabanken.no/Pages/328670/Ekspertkomiteene",
-            PreviousAssessmentYear = assessment.PreviousAssessments.Where(x => x.RevisionYear < 0).OrderByDescending(x => x.RevisionYear).Select(x => x.RevisionYear).FirstOrDefault()
-        },
-        SpeciesStatus = assessment.SpeciesStatus,
-        ScientificName = assessment.ScientificName
-    };
+	var assessmentPageHeaderViewModel = new AssessmentPageHeaderViewModel
+	{
+		AlienSpeciesCategory = assessment.AlienSpeciesCategory,
+		AssessmentArea = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.RegionallyAlien ? Constants.AlienSpecies2023PageMenuAssessmentAreaText : assessment.EvaluationContext.DisplayName(),
+		AssessmentType = AssessmentType.AlienSpecies2023,
+		Category = assessment.Category,
+		ConnectedTaxons = assessment.ConnectedTaxons,
+		EvaluationContext = assessment.EvaluationContext,
+		ParentAssessmentId = assessment.ParentAssessmentId,
+		ScientificNameRank = assessment.ScientificName.ScientificNameRank,
+		ScientificNameViewModel = new ScientificNameViewModel
+		{
+			PopularName = assessment.VernacularName,
+			ScientificName = assessment.ScientificName.ScientificNameFormatted,
+			ScientificNameFormatted = true,
+			ScientificNameAuthor = assessment.ScientificName.ScientificNameAuthor,
+			ShowAssessmentOf = assessment.Category != AlienSpeciesAssessment2023Category.NR
+		},
+		SpeciesGroupViewModel = new SpeciesGroupViewModel
+		{
+			AssessmentYear = 2023, // TODO: create this field in assessment model
+			ExpertCommittee = assessment.ExpertGroup,
+			FirstPublishedDateString = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment ? Constants.AlienSpecies2023FirstPublishedHorizonScanned : Constants.AlienSpecies2023FirstPublished,
+			RevisionDate = assessment.RevisionDate, // TODO: check if this is revision date
+			RevisionReason = "", // TODO: create a field for this, if we need revisions at all for alien species
+			SpeciesGroup = assessment.SpeciesGroup.DisplayName(),
+			SpeciesGroupImageUrl = speciesGroupImageUrl,
+			SpeciesGroupInfoUrl = "https://artsdatabanken.no/Pages/328670/Ekspertkomiteene",
+			PreviousAssessmentYear = assessment.PreviousAssessments.Where(x => x.RevisionYear < 0).OrderByDescending(x => x.RevisionYear).Select(x => x.RevisionYear).FirstOrDefault()
+		},
+		SpeciesStatus = assessment.SpeciesStatus,
+		ScientificName = assessment.ScientificName
+	};
 
-    var citationViewModel = new CitationForAssessmentViewModel
-    {
-        AssessmentName = $"{assessment.SpeciesGroup}: Vurdering av {assessment.VernacularName} {assessment.ScientificName.ScientificNameFormatted} for {assessment.EvaluationContext.DisplayName()}.",
-        AssessmentYear = 2023, // TODO: add year when it comes into model
-        ExpertCommittee = assessment.ExpertGroup,
-        FirstPublished = Constants.AlienSpecies2023FirstPublishedYear,
-        HasBackToTopLink = true,
-        PublicationText = $"{Constants.AlienSpecies2023PageMenuHeaderText}.  {Constants.Artsdatabanken}.",
-        RevisionDate = new DateTime(), // TODO: add if we handle revisions in this list
-        RevisionReason = string.Empty, // TODO: add if we handle revisions in this list
-        YearPreviousAssessment = assessment.PreviousAssessments?.Select(x => x.RevisionYear).OrderByDescending(x => x).FirstOrDefault() ?? 0,
-        ExpertGroupMembers = Model.ExpertGroupMembers.Select(x => $"{x.LastName} {x.FirstNameInitials}").JoinAnd(", ", " og ")
-    };
+	var citationViewModel = new CitationForAssessmentViewModel
+	{
+		AssessmentName = $"{assessment.SpeciesGroup}: Vurdering av {assessment.VernacularName} {assessment.ScientificName.ScientificNameFormatted} for {assessment.EvaluationContext.DisplayName()}.",
+		AssessmentYear = 2023, // TODO: add year when it comes into model
+		ExpertCommittee = assessment.ExpertGroup,
+		FirstPublished = Constants.AlienSpecies2023FirstPublishedYear,
+		HasBackToTopLink = true,
+		PublicationText = $"{Constants.AlienSpecies2023PageMenuHeaderText}.  {Constants.Artsdatabanken}.",
+		RevisionDate = new DateTime(), // TODO: add if we handle revisions in this list
+		RevisionReason = string.Empty, // TODO: add if we handle revisions in this list
+		YearPreviousAssessment = assessment.PreviousAssessments?.Select(x => x.RevisionYear).OrderByDescending(x => x).FirstOrDefault() ?? 0,
+		ExpertGroupMembers = Model.ExpertGroupMembers.Select(x => $"{x.LastName} {x.FirstNameInitials}").JoinAnd(", ", " og ")
+	};
 
-    var categoryDescriptionViewModel = new CategoryDescriptionViewModel()
-    {
-        CategoryShort = assessment.Category.ToString(),
-        CategoryBar = Enum.GetValues<AlienSpeciesAssessment2023Category>().Select(x => new CategoryBarListElement()
-        {
-            Name = x.DisplayName(),
-            NameShort = x.ToString()
-        }).Reverse().ToArray(),
-                MethodUrl = "https://artsdatabanken.no/Pages/342811"
-    };
+	var categoryDescriptionViewModel = new CategoryDescriptionViewModel
+	{
+		CategoryShort = assessment.Category.ToString(),
+		CategoryBar = Enum.GetValues<AlienSpeciesAssessment2023Category>().Select(x => new CategoryBarListElement
+		{
+			Name = x.DisplayName(),
+			NameShort = x.ToString()
+		}).Reverse().ToArray(),
+		MethodUrl = "https://artsdatabanken.no/Pages/342811"
+	};
 
-    var ingressViewModel = new IngressViewModel()
-    {
-        AlienSpeciesCategory = assessment.AlienSpeciesCategory,
-        Category = assessment.Category,
-        EvaluationContext = assessment.EvaluationContext,
-        ListName = Constants.AlienSpecies2023PageMenuHeaderText,
-        ParentAssessmentId = assessment.ParentAssessmentId,
-        SpeciesStatus = assessment.SpeciesStatus,
-        Status = assessment.EstablishmentCategory + assessment.AlienSpeciesCategory,
-        TaxonRank = assessment.ScientificName.ScientificNameRank,
-        ScientificName = assessment.ScientificName.ScientificName
-    };
+	var ingressViewModel = new IngressViewModel
+	{
+		AlienSpeciesCategory = assessment.AlienSpeciesCategory,
+		Category = assessment.Category,
+		EvaluationContext = assessment.EvaluationContext,
+		ListName = Constants.AlienSpecies2023PageMenuHeaderText,
+		ParentAssessmentId = assessment.ParentAssessmentId,
+		SpeciesStatus = assessment.SpeciesStatus,
+		Status = assessment.EstablishmentCategory + assessment.AlienSpeciesCategory,
+		TaxonRank = assessment.ScientificName.ScientificNameRank,
+		ScientificName = assessment.ScientificName.ScientificName
+	};
 
-    var isNr = assessment.Category == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciesAssessment2023Category.NR;
-    var has2018Assessmnet = assessment.PreviousAssessments?.Any(x => x.RevisionYear == 2018) ?? false;
-    var category2018 = has2018Assessmnet ? assessment.PreviousAssessments?.Where(x => x.RevisionYear == 2018).Select(x => x.Category).FirstOrDefault() : null;
-    var sameAs2018 = assessment.Category == category2018;
-    var isEvaluatedAtAnotherLevel = assessment.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.TaxonEvaluatedAtAnotherLevel;
-    var isMisidentified = assessment.AlienSpeciesCategory == Assessments.Mapping.AlienSpecies.Model.Enums.AlienSpeciecAssessment2023AlienSpeciesCategory.MisIdentified;
+	var isNr = assessment.Category == AlienSpeciesAssessment2023Category.NR;
+	var has2018Assessmnet = assessment.PreviousAssessments?.Any(x => x.RevisionYear == 2018) ?? false;
+	var category2018 = has2018Assessmnet ? assessment.PreviousAssessments?.Where(x => x.RevisionYear == 2018).Select(x => x.Category).FirstOrDefault() : null;
+	var sameAs2018 = assessment.Category == category2018;
+	var isEvaluatedAtAnotherLevel = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.TaxonEvaluatedAtAnotherLevel;
+	var isMisidentified = assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.MisIdentified;
 
-    var showExpertStatement = !isNr && !isEvaluatedAtAnotherLevel;
-    var isHorizonScanned = Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
-    var showAssessmentReasoning = isHorizonScanned || (isNr || isEvaluatedAtAnotherLevel) &&
-        (!string.IsNullOrEmpty(Model.ExpertStatementViewModel.MisidentifiedDescription) ||
-        !string.IsNullOrEmpty(Model.ExpertStatementViewModel.AllSubTaxaAssessedSeparately) ||
-        !string.IsNullOrEmpty(Model.ExpertStatementViewModel.HybridWithoutOwnRiskAssessmentDescription) ||
-        !string.IsNullOrEmpty(Model.ExpertStatementViewModel.AlienStatusExplanation) ||
-        !string.IsNullOrEmpty(Model.ExpertStatementViewModel.ChangedFromAlienDescription) ||
-        !string.IsNullOrEmpty(Model.ExpertStatementViewModel.ConnectedToHigherLowerTaxonDescription) ||
-        !string.IsNullOrEmpty(Model.ExpertStatementViewModel.UncertaintyEstablishmentTimeDescription));
-    var showRiskCategoryExplanation = !isNr && !isEvaluatedAtAnotherLevel;
-    var showCategoryChange = !((isNr && (sameAs2018 || !has2018Assessmnet)) || isEvaluatedAtAnotherLevel || isMisidentified || isHorizonScanned);
-    var showClimateEffectsInvationpotential = !isNr && !isEvaluatedAtAnotherLevel;
-    var showGeographicVariationInCategory = !isNr && !isEvaluatedAtAnotherLevel;
-    var showRegionalSpread = !isNr && !isEvaluatedAtAnotherLevel;
-    var showAttachments = !isEvaluatedAtAnotherLevel && assessment.Attachments != null && assessment.Attachments.Count() != 0;
-    var showImpactedNatureTypes = !isNr && !isEvaluatedAtAnotherLevel;
-    var showKnowMore = !(assessment.Category == AlienSpeciesAssessment2023Category.NR && (assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.NotAlienSpecie || Model.Assessment.SpeciesStatus == AlienSpeciesAssessment2023SpeciesStatus.NotIndicated || Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment));
-    var showReference = assessment.References != null && assessment.References.Count() > 0 && assessment.AlienSpeciesCategory != AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
-    var showSpreadWays = !isNr && !isEvaluatedAtAnotherLevel;
-    var showTableOfContents = assessment.Category != AlienSpeciesAssessment2023Category.NR;
-    var showCitationForAssessment = Model.ExpertGroupMembers.Any();
+	var showExpertStatement = !isNr && !isEvaluatedAtAnotherLevel;
+	var isHorizonScanned = Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
+	var showAssessmentReasoning = isHorizonScanned || (isNr || isEvaluatedAtAnotherLevel) &&
+		(!string.IsNullOrEmpty(Model.ExpertStatementViewModel.MisidentifiedDescription) ||
+		!string.IsNullOrEmpty(Model.ExpertStatementViewModel.AllSubTaxaAssessedSeparately) ||
+		!string.IsNullOrEmpty(Model.ExpertStatementViewModel.HybridWithoutOwnRiskAssessmentDescription) ||
+		!string.IsNullOrEmpty(Model.ExpertStatementViewModel.AlienStatusExplanation) ||
+		!string.IsNullOrEmpty(Model.ExpertStatementViewModel.ChangedFromAlienDescription) ||
+		!string.IsNullOrEmpty(Model.ExpertStatementViewModel.ConnectedToHigherLowerTaxonDescription) ||
+		!string.IsNullOrEmpty(Model.ExpertStatementViewModel.UncertaintyEstablishmentTimeDescription));
+	var showRiskCategoryExplanation = !isNr && !isEvaluatedAtAnotherLevel;
+	var showCategoryChange = !((isNr && (sameAs2018 || !has2018Assessmnet)) || isEvaluatedAtAnotherLevel || isMisidentified || isHorizonScanned);
+	var showClimateEffectsInvationpotential = !isNr && !isEvaluatedAtAnotherLevel;
+	var showGeographicVariationInCategory = !isNr && !isEvaluatedAtAnotherLevel;
+	var showRegionalSpread = !isNr && !isEvaluatedAtAnotherLevel;
+	var showAttachments = !isEvaluatedAtAnotherLevel && assessment.Attachments != null && assessment.Attachments.Count() != 0;
+	var showImpactedNatureTypes = !isNr && !isEvaluatedAtAnotherLevel;
+	var showKnowMore = !(assessment.Category == AlienSpeciesAssessment2023Category.NR && (assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.NotAlienSpecie || Model.Assessment.SpeciesStatus == AlienSpeciesAssessment2023SpeciesStatus.NotIndicated || Model.Assessment.AlienSpeciesCategory == AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment));
+	var showReference = assessment.References != null && assessment.References.Any() && assessment.AlienSpeciesCategory != AlienSpeciecAssessment2023AlienSpeciesCategory.HorizonScannedButNoRiskAssessment;
+	var showSpreadWays = !isNr && !isEvaluatedAtAnotherLevel;
+	var showTableOfContents = assessment.Category != AlienSpeciesAssessment2023Category.NR;
+	var showCitationForAssessment = Model.ExpertGroupMembers.Any();
 
-    Model.PageMenuViewModel.TableOfContentsViewModel = new TableOfContentsViewModel
-    {
-        Contents = new()
-        {
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.ExpertSummary),
-                Title = Constants.HeadingsNo.ExpertSummary,
-                ShouldShow = showExpertStatement
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.AssesmentReasoning),
-                Title = Constants.HeadingsNo.AssesmentReasoning,
-                ShouldShow = showAssessmentReasoning
-            },
-            new ()
-            {
-                ElementId = @Localizer["category_explaination_heading"].Name,
-                Title = @Localizer["category_explaination_heading"],
-                ShouldShow = showRiskCategoryExplanation
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.CategoryChange),
-                Title = Constants.HeadingsNo.CategoryChange,
-                ShouldShow = showCategoryChange
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.ClimateEffectsInvationpotential),
-                Title = Constants.HeadingsNo.ClimateEffectsInvationpotential,
-                ShouldShow = showClimateEffectsInvationpotential
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.GeographicVariationInCategory),
-                Title = Constants.HeadingsNo.GeographicVariationInCategory,
-                ShouldShow = showGeographicVariationInCategory
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.RegionalSpread),
-                Title = $"{Constants.HeadingsNo.RegionalSpread} {evaluationContextText}",
-                ShouldShow = showRegionalSpread
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.ImpactedNatureTypes),
-                Title = Constants.HeadingsNo.ImpactedNatureTypes,
-                ShouldShow = showImpactedNatureTypes
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.SpreadWays),
-                Title = Constants.HeadingsNo.SpreadWays,
-                ShouldShow = showSpreadWays
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.KnowMore),
-                Title = $"{Constants.HeadingsNo.KnowMore} {Helpers.FixSpeciesLevelWithTranslation("{arten}", assessment.ScientificName.ScientificNameRank, assessment.ScientificName.ScientificName)}",
-                ShouldShow = showKnowMore
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.Attachments),
-                Title = Constants.HeadingsNo.Attachments,
-                ShouldShow = showAttachments
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.References),
-                Title = Constants.HeadingsNo.References,
-                ShouldShow = showReference
-            },
-            new ()
-            {
-                ElementId = nameof(Constants.HeadingsNo.Citation),
-                Title = Constants.HeadingsNo.Citation,
-                ShouldShow = showCitationForAssessment
-            }
-        }
-    };
+	Model.PageMenuViewModel.TableOfContentsViewModel = new TableOfContentsViewModel
+	{
+		Contents = new()
+		{
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.ExpertSummary),
+				Title = Constants.HeadingsNo.ExpertSummary,
+				ShouldShow = showExpertStatement
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.AssesmentReasoning),
+				Title = Constants.HeadingsNo.AssesmentReasoning,
+				ShouldShow = showAssessmentReasoning
+			},
+			new ()
+			{
+				ElementId = @Localizer["category_explaination_heading"].Name,
+				Title = @Localizer["category_explaination_heading"],
+				ShouldShow = showRiskCategoryExplanation
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.CategoryChange),
+				Title = Constants.HeadingsNo.CategoryChange,
+				ShouldShow = showCategoryChange
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.ClimateEffectsInvationpotential),
+				Title = Constants.HeadingsNo.ClimateEffectsInvationpotential,
+				ShouldShow = showClimateEffectsInvationpotential
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.GeographicVariationInCategory),
+				Title = Constants.HeadingsNo.GeographicVariationInCategory,
+				ShouldShow = showGeographicVariationInCategory
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.RegionalSpread),
+				Title = $"{Constants.HeadingsNo.RegionalSpread} {evaluationContextText}",
+				ShouldShow = showRegionalSpread
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.ImpactedNatureTypes),
+				Title = Constants.HeadingsNo.ImpactedNatureTypes,
+				ShouldShow = showImpactedNatureTypes
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.SpreadWays),
+				Title = Constants.HeadingsNo.SpreadWays,
+				ShouldShow = showSpreadWays
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.KnowMore),
+				Title = $"{Constants.HeadingsNo.KnowMore} {FixSpeciesLevelWithTranslation("{arten}", assessment.ScientificName.ScientificNameRank, assessment.ScientificName.ScientificName)}",
+				ShouldShow = showKnowMore
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.Attachments),
+				Title = Constants.HeadingsNo.Attachments,
+				ShouldShow = showAttachments
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.References),
+				Title = Constants.HeadingsNo.References,
+				ShouldShow = showReference
+			},
+			new ()
+			{
+				ElementId = nameof(Constants.HeadingsNo.Citation),
+				Title = Constants.HeadingsNo.Citation,
+				ShouldShow = showCitationForAssessment
+			}
+		}
+	};
 }
 
-@section Breadcrumb {
+<partial name="_Breadcrumb" model="breadcrumbs" />
 
-    <partial name="_Breadcrumb" model="breadcrumbs" />
-}
-
-<div class="content-placer bigmid">
-    <div class="mid-content with_sidebar">
-        <partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
-        <div class="mobile_padding">
-            <div id="tableOfContentsOuter">
-                <input type="checkbox" id="showTableOfContentList" class="button table-of-contents-small-screen-input">
-                <label id="tableOfContentsLabel" for="showTableOfContentList" aria-label="Innholdsfortegnelse" class="button table-of-contents-small-screen-button table-of-contents-small-screen-button-hide">
-                    <span class="material-icons">
-                        list
-                    </span>
-                    <span>&nbsp;Innhold</span>
-                </label>
-                <div id="tableOfContentsSmallScreen" onclick="closeTableOfContents(event)">
-                    <partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
-                </div>
-            </div>
-            <div is-visible="isNr">
-                <partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel"/>
-            </div>
-            <div is-visible="!isNr">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ShortSummary.cshtml" />
-            </div>
-            <partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel"/>
-            <div is-visible="!isNr && !isEvaluatedAtAnotherLevel">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskMatrix.cshtml"/>
-            </div>
-            <div class="page_section" is-visible="showExpertStatement">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ExpertStatement.cshtml" model="Model.ExpertStatementViewModel" />
-            </div>
-            <div class="page-section" is-visible="showAssessmentReasoning">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_AssessmentReasoning.cshtml" model="Model.ExpertStatementViewModel" />
-            </div>
-            <div class="page-section" is-visible="showRiskCategoryExplanation">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskCategoryExplanation.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showCategoryChange">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_CategoryChange.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showClimateEffectsInvationpotential">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ClimateEffectsInvationpotential.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showGeographicVariationInCategory">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_GeographicVariationInCategory.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showRegionalSpread">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RegionalSpread.cshtml" model="Model.RegionalSpreadViewModel" />
-            </div>
-            <div class="page-section" is-visible="showImpactedNatureTypes">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ImpactedNatureTypes.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showSpreadWays">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_SpreadWays.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showKnowMore">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_KnowMore.cshtml" />
-            </div>
-            <div class="page-section" is-visible="showAttachments">
-                <partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Attachments.cshtml" model="Model.AttachmentViewModel" />
-            </div>
-            <div class="page-section" is-visible="showReference">
-                <partial name="/Views/Shared/_Reference.cshtml" model="Model.ReferenceViewModel" />
-            </div>
-            <div class="page-section" is-visible="showCitationForAssessment">
-                <partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
-            </div>
-        </div>
-    </div>
-    <div class="side mobile_padding">
-        <partial name="/Views/Shared/_SidebarContent.cshtml" model="Model.SideBarContentViewModel" />
-    </div>
+<div id="main-content" class="main">
+	<div class="main-content width-adjuster">
+		<div class="pagecontainer">
+			<div class="content-placer bigmid">
+				<div class="mid-content with_sidebar">
+					<partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
+					<div class="mobile_padding">
+						<div id="tableOfContentsOuter">
+							<input type="checkbox" id="showTableOfContentList" class="button table-of-contents-small-screen-input">
+							<label id="tableOfContentsLabel" for="showTableOfContentList" aria-label="Innholdsfortegnelse" class="button table-of-contents-small-screen-button table-of-contents-small-screen-button-hide">
+								<span class="material-icons">
+									list
+								</span>
+								<span>&nbsp;Innhold</span>
+							</label>
+							<div id="tableOfContentsSmallScreen" onclick="closeTableOfContents(event)">
+								<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
+							</div>
+						</div>
+						<div is-visible="isNr">
+							<partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel" />
+						</div>
+						<div is-visible="!isNr">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ShortSummary.cshtml" />
+						</div>
+						<partial name="/Views/Shared/_CategoryDescription.cshtml" model="categoryDescriptionViewModel" />
+						<div is-visible="!isNr && !isEvaluatedAtAnotherLevel">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskMatrix.cshtml" />
+						</div>
+						<div class="page_section" is-visible="showExpertStatement">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ExpertStatement.cshtml" model="Model.ExpertStatementViewModel" />
+						</div>
+						<div class="page-section" is-visible="showAssessmentReasoning">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_AssessmentReasoning.cshtml" model="Model.ExpertStatementViewModel" />
+						</div>
+						<div class="page-section" is-visible="showRiskCategoryExplanation">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskCategoryExplanation.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showCategoryChange">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_CategoryChange.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showClimateEffectsInvationpotential">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ClimateEffectsInvationpotential.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showGeographicVariationInCategory">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_GeographicVariationInCategory.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showRegionalSpread">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RegionalSpread.cshtml" model="Model.RegionalSpreadViewModel" />
+						</div>
+						<div class="page-section" is-visible="showImpactedNatureTypes">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ImpactedNatureTypes.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showSpreadWays">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_SpreadWays.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showKnowMore">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_KnowMore.cshtml" />
+						</div>
+						<div class="page-section" is-visible="showAttachments">
+							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_Attachments.cshtml" model="Model.AttachmentViewModel" />
+						</div>
+						<div class="page-section" is-visible="showReference">
+							<partial name="/Views/Shared/_Reference.cshtml" model="Model.ReferenceViewModel" />
+						</div>
+						<div class="page-section" is-visible="showCitationForAssessment">
+							<partial name="/Views/Shared/_CitationForAssessment.cshtml" model="citationViewModel" />
+						</div>
+					</div>
+				</div>
+				<div class="side mobile_padding">
+					<partial name="/Views/Shared/_SidebarContent.cshtml" model="Model.SideBarContentViewModel" />
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

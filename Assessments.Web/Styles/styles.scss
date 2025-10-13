@@ -3,6 +3,8 @@
 @use "nano/layout/footer";
 @use "nano/components/mega-menu";
 @use "nano/components/breadcrumb";
+@use "nano/components/gutenberg/block_shortcut_link_group";
+@use "nano/globals/page-hero";
 
 .hidden {
     display: none;
