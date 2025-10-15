@@ -154,67 +154,67 @@ li.active  .category_item.NR {
 
 
 .RE {
-    background: #5a5b5d;
+    background: #5a5b5d !important;
 }
 
 .CO {
-    background: #5a5b5d;
+    background: #5a5b5d !important;
 }
 
 .CR {
-    background: #99191a;
+    background: #99191a !important;
 }
 
 .EN {
-    background: #d80f27;
+    background: #d80f27 !important;
 }
 
 .VU {
-    background: #e94f33;
+    background: #e94f33 !important;
 }
 
 .NT {
-    background: #ed6c26;
+    background: #ed6c26 !important;
 }
 
 .DD {
-    background: #f7a520;
+    background: #f7a520 !important;
 }
 
 .LC {
-    background: #60beb2;
+    background: #60beb2 !important;
 }
 
 .NA {
-    background: #939598;
+    background: #939598 !important;
 }
 
 .NE {
-    background: #d1d3d4;
+    background: #d1d3d4 !important;
 }
 
 .SE {
-    background: #4F1052;
+    background: #4F1052 !important;
 }
 
 .HI {
-    background: #2E4073;
+    background: #2E4073 !important;
 }
 
 .PH {
-    background: #296473;
+    background: #296473 !important;
 }
 
 .LO {
-    background: #5c9c94;
+    background: #5c9c94 !important;
 }
 
 .NK {
-    background: #94A360;
+    background: #94A360 !important;
 }
 
 .NR {
-    background: #FFFFFF;
+    background: #FFFFFF !important;
 }
 
 .RE span,

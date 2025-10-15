@@ -160,6 +160,10 @@ option {
 
 /* OVERRIDE STYLES */
 
+.pagecontainer a {
+    text-decoration: underline;
+}
+
 .page_section h2{
     margin-top:40px;
 }

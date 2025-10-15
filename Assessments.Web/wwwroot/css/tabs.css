@@ -282,7 +282,12 @@ ul.second {
 .criteria-summary-list li {
     border: 0;
     padding: 0;
-    background: #f0f0f0;
+    /*background: #f0f0f0;*/
+}
+
+.dark-mode .criteria-summary-list li {
+   
+    background: #ccc;
 }
 
 .criteria-summary-list .collapsible {
