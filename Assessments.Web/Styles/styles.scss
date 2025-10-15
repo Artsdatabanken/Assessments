@@ -26,3 +26,12 @@
     width: auto;
     height: auto;
 }
+
+// TODO: lage nytt system eller bruke "gutenberg"..
+
+.hero-text p {
+    font-size: var(--font-size-6);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
