@@ -58,12 +58,12 @@ p {
     /*padding-top: 30px;*/ /* Compensate for missing breadcrumbs*/
 }
 
-@media only screen and (max-width: 527px) {
+/*@media only screen and (max-width: 527px) {
     .main-content {
         padding-left: 5px;
         padding-right: 5px;
     }
-}
+}*/
 
 @media only screen and (max-width: 400px) {
     .main-content {
@@ -75,27 +75,28 @@ p {
 /* Page max width  */
 
 .width-adjuster {
-    max-width: 1440px;
+    max-width: var(--wide-hero-width);
     margin: auto;
     height: 100%;
     position: relative;
 }
 
-@media only screen and (max-width: 940px) {
+/*@media only screen and (max-width: 940px) {
     .width-adjuster {
         width: 100%;
     }
-}
+}*/
 
 /* Places layout elements on page */
 
-.content-placer {
-    width: 85%;
-    margin-left: auto;
-    box-sizing: border-box;
-    padding-left: 15px;
-    padding-right: 15px;
-}
+/*.content-placer {*/
+    /*width: 85%;*/
+    /*margin-left: auto;
+    box-sizing: border-box;*/
+    /*    padding-left: 15px;
+    padding-right: 15px;*/
+    /*padding: 0 var(--spacing-md);
+}*/
 
 @media only screen and (max-width: 940px) {
     .content-placer {

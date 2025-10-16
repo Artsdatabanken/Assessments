@@ -310,6 +310,7 @@ button:not(.icon-button).material-icons {
     right: 12px;
     top: calc(14px - calc(calc(40px - 18px) / 2));
     color:inherit;
+    text-decoration: none;
 }
 
 .chips-text {
