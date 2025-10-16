@@ -141,7 +141,7 @@
 
 .category_displayer .isactive .category_item,
 .category_displayer .notactive .category_item {
-    background: white;
+    background: white !important;
     color: #4c4a48;
     border: 1px solid #4c4a48;
 }
