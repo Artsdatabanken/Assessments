@@ -68,6 +68,7 @@
 ul.fourth,
 ul.second {
     border-color: lightgrey;
+    padding-left: 0;
 }
 
 .tabbed_element_container ul p {

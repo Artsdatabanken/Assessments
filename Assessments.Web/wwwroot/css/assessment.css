@@ -129,12 +129,14 @@ li.region p {
 }
 
 .habitat_element {
-    max-width: 32%;
+    max-width: 24%;
+    width: 24%;
     margin-bottom: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
     background: #f5e7d3;
+    padding: 5px
 }
 
 .habitat .inactive{
