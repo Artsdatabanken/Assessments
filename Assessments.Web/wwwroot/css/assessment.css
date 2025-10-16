@@ -1056,14 +1056,19 @@ table caption.table-title {
     top: 20px;
 }
 
-.mobile_padding .table-of-contents {
+/*.mobile_padding .table-of-contents {
     border: 1px solid #000;
-    padding: 10px;
+    padding: 5px;
     background-color: #fff;
-}
+}*/
 
 .mobile_padding .table-of-contents ul {
     list-style: none;
+    padding-left: 1em;
+}
+
+.table-of-contents li {
+    margin: .25em;
 }
 
 .page-section table ul {

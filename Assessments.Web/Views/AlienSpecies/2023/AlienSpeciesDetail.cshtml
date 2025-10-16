@@ -218,18 +218,7 @@
 				<div class="mid-content with_sidebar">
 					<partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
 					<div class="mobile_padding">
-						<div id="tableOfContentsOuter">
-							<input type="checkbox" id="showTableOfContentList" class="button table-of-contents-small-screen-input">
-							<label id="tableOfContentsLabel" for="showTableOfContentList" aria-label="Innholdsfortegnelse" class="button table-of-contents-small-screen-button table-of-contents-small-screen-button-hide">
-								<span class="material-icons">
-									list
-								</span>
-								<span>&nbsp;Innhold</span>
-							</label>
-							<div id="tableOfContentsSmallScreen" onclick="closeTableOfContents(event)">
-								<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
-							</div>
-						</div>
+						<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
 						<div is-visible="isNr">
 							<partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel" />
 						</div>

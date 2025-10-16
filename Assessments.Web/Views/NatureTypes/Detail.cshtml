@@ -59,6 +59,7 @@
 						Gjelder for @assessment.Region.GetDescription()
 						<hr />
 						<div class="mobile_padding">
+							<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.TableOfContentsViewModel" />
 							<div class="page_section">
 								<p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
 									Endelig kategori og kriterium: @assessment.CategoryCriteria
