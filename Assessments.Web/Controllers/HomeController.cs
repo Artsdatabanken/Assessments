@@ -11,4 +11,12 @@ public class HomeController : BaseController<HomeController>
 
         return View();
     }
+
+    // videresend gamle landingssider
+
+    [Route("rodlisteforarter")]
+    public IActionResult Species() => new RedirectResult("https://artsdatabanken.no/arter/rodlista-arter/om-norsk-rodliste-arter", true);
+
+    [Route("fremmedartslista")]
+    public IActionResult AlienSpecies() => new RedirectResult("https://artsdatabanken.no/arter/om-fremmedartslista", true);
 }
