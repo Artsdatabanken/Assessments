@@ -1,0 +1,27 @@
+@use "../globals/media" as *;
+
+@media #{$media-tablet-desktop} {
+  .view-index-media {
+    .view-content {
+      display: grid;
+      grid-gap: var(--spacing);
+
+    }
+  }
+}
+
+@media #{$media-tablet} {
+  .view-index-media {
+    .view-content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media #{$media-desktop} {
+  .view-index-media {
+    .view-content {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

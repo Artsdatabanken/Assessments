@@ -86,6 +86,7 @@ builder.Services.AddSendGrid(options => options.ApiKey = applicationOptions.Get<
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddSassCompiler();
 }
 
 builder.Services.AddStaticRobotsTxt(options =>

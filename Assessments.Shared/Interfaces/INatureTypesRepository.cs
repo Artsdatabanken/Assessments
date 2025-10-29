@@ -9,9 +9,9 @@ public interface INatureTypesRepository
 
     Task<Assessment> GetAssessment(int id, CancellationToken cancellationToken = default);
 
-    Task<List<CodeItemDto>> GetAssessmentCodeItemModels(int id, CancellationToken cancellationToken = default);
+    Task<List<CodeItemNodeDto>> GetAssessmentCodeItemNodes(int assessmentId, CancellationToken cancellationToken = default);
 
-    Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken = default);
+    Task<List<CommitteeUser>> GetCommitteeUsers(CancellationToken cancellationToken = default);
 
     Task<List<Region>> GetRegions(CancellationToken cancellationToken = default);
 
@@ -20,4 +20,6 @@ public interface INatureTypesRepository
     Task<List<KeyValuePair<string, int>>> GetNinCodeTopicSuggestions(CancellationToken cancellationToken = default);
     
     Task<List<CodeItem>> GetCodeItems(CancellationToken cancellationToken = default);
+    
+    Task<List<CodeItem>> GetMainCodeItems(CancellationToken cancellationToken = default);
 }

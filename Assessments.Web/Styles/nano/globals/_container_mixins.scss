@@ -1,0 +1,16 @@
+@mixin container-query($percent, $direction) {
+
+  $width: 1880px * (calc($percent / 100));
+
+  @if $direction == up {
+    @container (min-width: #{$width}) {
+      @content;
+    }
+  }
+  @else if $direction == down {
+    @container (max-width: #{$width}) {
+      @content;
+    }
+  }
+
+}

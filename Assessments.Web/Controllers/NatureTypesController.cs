@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Assessments.Mapping.NatureTypes.Model;
+﻿using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
+using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
+using System.Linq.Expressions;
 using X.PagedList.Extensions;
 using static Assessments.Shared.Extensions.ExpressionExtensions;
 
@@ -29,9 +30,6 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     [HttpGet]
     public IActionResult Home(string key)
     {
-        if (string.IsNullOrEmpty(key))
-            return View();
-
         // midlertidig tilgangskontroll før lansering
         if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
             return NotFound();
@@ -46,7 +44,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page, bool export)
     {
         var query = repository.GetAssessments();
-        
+
         var regions = await repository.GetRegions();
         var topics = await repository.GetNinCodeTopics();
         var codeItems = await repository.GetCodeItems();
@@ -62,7 +60,10 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         if (export)
         {
-            var assessmentExports = Mapper.ProjectTo<NatureTypeAssessmentExport>(query);
+            var assessmentExports = Mapper.ProjectTo<NatureTypeAssessmentExport>(query, new
+            {
+                committeeUsers = await repository.GetCommitteeUsers()
+            });
 
             return new FileStreamResult(ExportHelper.GenerateNatureTypeAssessment2025Export(assessmentExports, Request.GetDisplayUrl()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
@@ -85,7 +86,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             IsCheck = parameters.IsCheck,
             Regions = regions,
             NinCodeTopics = topics,
-            CodeItems = codeItems,
+            CodeItems = await repository.GetMainCodeItems(),
             ListViewViewModel = new ListViewViewModel
             {
                 Results = pagedList.Select(_ => new ListViewViewModel.Result()),
@@ -109,31 +110,27 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         if (assessment == null)
             return NotFound();
 
-        var committeeUserDtos = await repository.GetCommitteeUsers();
-        var committeeUsers = committeeUserDtos.Where(x => x.CommitteeId == assessment.CommitteeId).ToList();
-
-        var codeItemModels = await repository.GetAssessmentCodeItemModels(assessment.Id);
+        var committeeUsers = await repository.GetCommitteeUsers();
+        var assessmentCodeItemNodes = await repository.GetAssessmentCodeItemNodes(assessment.Id);
 
         var viewModel = new NatureTypesDetailViewModel(assessment)
         {
-            Regions = await repository.GetRegions(),
-            CodeItemDtos = codeItemModels,
-            CategoryCriteriaTypes = NatureTypesHelper.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
+            CategoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria),
             CitationForAssessmentViewModel = new CitationForAssessmentViewModel
             {
-                AssessmentName = assessment.Name,
+                AssessmentName = $"{assessment.Committee.Name}: Vurdering av {assessment.Name}.",
+                PublicationText = NatureTypesConstants.CitationSummary,
                 AssessmentYear = 2025,
-                ExpertCommittee = assessment.Committee.Name,
-                FirstPublished = "2025",
-                YearPreviousAssessment = 2018,
-                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee.Name),
+                FirstPublished = NatureTypesConstants.PublishedDate.ToString("d.M.yyy"),
+                ExpertGroupMembers = committeeUsers.GetCitation(assessment.Committee, includeDetails: false),
                 HasBackToTopLink = true
-            }
+            },
+            CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
 
         return View(viewModel);
     }
-    
+
     [HttpGet]
     [Route("2025/[action]")]
     public async Task<IActionResult> Suggestions()
@@ -148,30 +145,29 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     {
         if (!string.IsNullOrEmpty(parameters.Name?.StripHtml().Trim()))
         {
-            var searchParameter = parameters.Name.StripHtml();
+            var searchParameter = parameters.Name.StripHtml().Trim();
+            searchParameter = new string([.. searchParameter.Take(175)]);
 
-            const string quotationMark = "\"";
+            var ninCodeTopicSuggestions = await repository.GetNinCodeTopicSuggestions();
+            var topic = ninCodeTopicSuggestions.FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
 
-            if (searchParameter.StartsWith(quotationMark) && searchParameter.EndsWith(quotationMark))
+            if (topic.Key == null)
             {
-                searchParameter = searchParameter.Replace(quotationMark, string.Empty);
-                query = query.Where(x => x.Name == searchParameter);
-            }
-            else
-            {
-                var ninCodeTopicSuggestions = await repository.GetNinCodeTopicSuggestions();
-                var topic = ninCodeTopicSuggestions.FirstOrDefault(x => x.Key.Equals(searchParameter, StringComparison.OrdinalIgnoreCase));
+                var words = searchParameter.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                if (topic.Key == null)
+                if (words.Length > 1)
                 {
-                    // "fritekstsøk"
-                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    query = query.Where(words.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.Name.Contains(keyword), CombineExpressionType.AndAlso)));
                 }
                 else
                 {
-                    // søk på valgt forslag for tema
-                    query = query.Where(x => x.NinCodeTopicId == topic.Value);
+                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
+            }
+            else
+            {
+                // søk på valgt forslag for tema
+                query = query.Where(x => x.NinCodeTopicId == topic.Value);
             }
 
             parameters.Name = searchParameter;
@@ -251,16 +247,41 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return query;
     }
 
-    private static async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(IQueryable<Assessment> assessments)
+    private async Task<NatureTypesStatisticsViewModel> SetupStatisticsViewModel(IQueryable<Assessment> assessments)
     {
         var viewModel = new NatureTypesStatisticsViewModel();
 
-        var categories = await assessments.GroupBy(x => x.Category).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
+        var categoryStats = await assessments.GroupBy(x => x.Category).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
 
         foreach (var category in Enum.GetValues<Category>().Where(x => x != Category.NA))
         {
-            var statistics = categories.FirstOrDefault(x => x.Key == category);
-            viewModel.Categories.Add(category, statistics?.Count ?? 0);
+            var stats = categoryStats.FirstOrDefault(x => x.Key == category);
+            viewModel.Categories.Add(category, stats?.Count ?? 0);
+        }
+
+        var regionStats = await assessments.SelectMany(x => x.Regions)
+            .GroupBy(y => y.Id).Select(x => new { x.Key, Count = x.Count() }).ToListAsync();
+
+        foreach (var region in await repository.GetRegions())
+        {
+            var stats = regionStats.FirstOrDefault(x => x.Key == region.Id);
+            viewModel.Regions.Add(region.Name, stats?.Count ?? 0);
+        }
+        
+        foreach (var categoryCriteriaType in Enum.GetValues<CategoryCriteriaType>())
+            viewModel.CategoryCriteriaType.Add(categoryCriteriaType, 0);
+
+        foreach (var assessment in assessments)
+        {
+            var categoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria);
+           
+            foreach (var categoryCriteriaType in categoryCriteriaTypes)
+                viewModel.CategoryCriteriaType[categoryCriteriaType] += 1;
+        }
+
+        foreach (var codeItem in await repository.GetMainCodeItems())
+        {
+            viewModel.CodeItems.Add(codeItem.Description, await assessments.CountAsync(x => x.CodeItems.Any(y => y.CodeItem.IdNr.StartsWith(codeItem.IdNr))));
         }
 
         return viewModel;

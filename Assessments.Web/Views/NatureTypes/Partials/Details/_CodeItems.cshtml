@@ -1,39 +1,60 @@
-﻿@model List<CodeItemDto>
+﻿@model IEnumerable<CodeItemNodeDto>
 
-<table class="big-data-table">
-    <thead>
-        <tr>
-            <th>
-                Påvirkningsfaktor
-            </th>
-            <th>
-                Tidspunkt
-            </th>
-            <th>
-                Omfang
-            </th>
-            <th>
-                Alvorlighetsgrad
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var codeItem in Model)
-        {
-            <tr>
-                <td>
-                    @codeItem.CodeItemDescription
-                </td>
-                <td>
-                    @codeItem.TimeOfIncident
-                </td>
-                <td>
-                    @codeItem.InfluenceFactor
-                </td>
-                <td>
-                    @codeItem.Magnitude
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@functions
+{
+	private void ShowNode(IEnumerable<CodeItemNodeDto> nodes)
+	{
+		<ul style="list-style-type: none;">
+			@foreach (var node in nodes)
+			{
+				var padding = node.ParentId == 0 ? 0 : 2;
+				<li style="padding-left: @(padding)em; @(node.Level == 2 ? "border-left: 1px solid lightgray" : string.Empty)">
+					<div>
+						<h4>
+							@node.Description
+						</h4>
+						@if (node.CodeItemDto != null)
+						{
+							<div style="padding-left: 2em; border-left: 1px solid lightgray">
+								<p>
+									<h5>
+										Omfang
+									</h5>
+									@node.CodeItemDto.InfluenceFactor
+								</p>
+								<p>
+									<h5>
+										Alvorlighetsgrad
+									</h5>
+									@node.CodeItemDto.Magnitude
+								</p>
+								<p>
+									<h5>
+										Tidsrom
+									</h5>
+									@node.CodeItemDto.TimeOfIncident
+								</p>
+							</div>
+						}
+						@if (node.Nodes.Any())
+						{
+							ShowNode(node.Nodes);
+						}
+					</div>
+				</li>
+			}
+		</ul>
+	}
+}
+
+<p>
+	Nedenfor listes det opp forskjellige påvirkningsfaktorer som kan gi utslag for rødlisting av naturtypen.
+	<br />
+	<a href="https://artsdatabanken.no/Files/59239/Metodeveileder_Norsk_r_dliste_for_naturtyper_2025">
+		Mer om karakterisering av påvirkningsfaktorer i metodeveilederen
+	</a>
+</p>
+
+@{
+	ShowNode(Model);
+}

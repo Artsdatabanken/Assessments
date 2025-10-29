@@ -3,6 +3,7 @@ using System.Data;
 using Assessments.Mapping.AlienSpecies.Model;
 using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Mapping.RedlistSpecies;
+using Assessments.Shared.Constants;
 using Assessments.Web.Infrastructure.Services;
 using ClosedXML.Excel;
 using ClosedXML.Graphics;
@@ -17,7 +18,7 @@ public static class ExportHelper
         LoadOptions.DefaultGraphicEngine = new DefaultGraphicEngine("carlito");
     }
 
-    public static MemoryStream GenerateSpeciesAssessment2021Export(IEnumerable<SpeciesAssessment2021Export> assessments,  IEnumerable<ExpertCommitteeMember> expertCommitteeMembers, string displayUrl)
+    public static MemoryStream GenerateSpeciesAssessment2021Export(IEnumerable<SpeciesAssessment2021Export> assessments, IEnumerable<ExpertCommitteeMember> expertCommitteeMembers, string displayUrl)
     {
         MemoryStream memoryStream;
         using (var workbook = new XLWorkbook())
@@ -51,7 +52,7 @@ public static class ExportHelper
 
             workbook.Worksheets.Add(table);
             workbook.Worksheet(2).Columns().AdjustToContents();
-                
+
             var expertCommitteeWorksheet = workbook.AddWorksheet("Ekspertkomitéer");
             expertCommitteeWorksheet.Cell(1, 1).InsertTable(expertCommitteeMembers
                 .OrderBy(x => x.ExpertCommittee).ThenBy(x => x.LastName).Select(x => new
@@ -65,7 +66,7 @@ public static class ExportHelper
 
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
             var referringUrl = new Uri(displayUrl);
-            citeAsWorksheet.Cell(1, 1).Value = $"Artsdatabanken (2021, 24. november). Norsk rødliste for arter 2021. Utvalg {referringUrl}. {referringUrl.GetLeftPart(UriPartial.Path)}";
+            citeAsWorksheet.Cell(1, 1).Value = $"Artsdatabanken (2021, 24. november). Norsk rødliste for arter 2021. Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
 
             foreach (var workbookWorksheet in workbook.Worksheets)
                 workbookWorksheet.SheetView.FreezeRows(1);
@@ -79,7 +80,7 @@ public static class ExportHelper
         return memoryStream;
     }
 
-    public static MemoryStream GenerateAlienSpeciesAssessment2023Export(IEnumerable<AlienSpeciesAssessment2023Export> assessments,  string displayUrl)
+    public static MemoryStream GenerateAlienSpeciesAssessment2023Export(IEnumerable<AlienSpeciesAssessment2023Export> assessments, string displayUrl)
     {
         MemoryStream memoryStream;
         using (var workbook = new XLWorkbook())
@@ -116,7 +117,7 @@ public static class ExportHelper
 
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
             var referringUrl = new Uri(displayUrl);
-            citeAsWorksheet.Cell(1, 1).Value = $"Artsdatabanken (2023). Fremmedartslista 2023. Utvalg {referringUrl}. {referringUrl.GetLeftPart(UriPartial.Path)}";
+            citeAsWorksheet.Cell(1, 1).Value = $"Artsdatabanken (2023). Fremmedartslista 2023. Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
 
             foreach (var workbookWorksheet in workbook.Worksheets)
                 workbookWorksheet.SheetView.FreezeRows(1);
@@ -139,8 +140,6 @@ public static class ExportHelper
 
             worksheet.FirstCell().InsertTable(assessments);
             worksheet.Cells().Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
-
-            // TODO: gjør om til gjenbrukbare metoder
 
             var exportColumns = typeof(NatureTypeAssessmentExport).GetProperties().Select(p => new
             {
@@ -169,7 +168,9 @@ public static class ExportHelper
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
             var referringUrl = new Uri(displayUrl);
             
-            citeAsWorksheet.FirstCell().Value = $"Artsdatabanken. Norsk rødliste for naturtyper 2025. Utvalg {referringUrl}. {referringUrl.GetLeftPart(UriPartial.Path)}";
+            var citation = $"{NatureTypesConstants.CitationSummary} Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
+            
+            citeAsWorksheet.FirstCell().Value = citation;
 
             foreach (var workbookWorksheet in workbook.Worksheets)
             {
@@ -185,4 +186,6 @@ public static class ExportHelper
 
         return memoryStream;
     }
+
+    private static string CleanQueryString(Uri uri) => uri.RemoveQueryStringKeys(["SortBy", "Meta", "IsCheck"]);
 }

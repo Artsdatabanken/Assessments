@@ -1,0 +1,28 @@
+@use "media" as *;
+
+@mixin fallout-bg {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0 var(--spacing-md);
+}
+
+
+.fallout-bg {
+  @include fallout-bg();
+
+  .collection-content,
+  .collection-title,
+  .inner-container {
+    max-width: var(--content-width);
+    width: 100%;
+    margin: 0 auto;
+
+    .node--type-landing-page & {
+      max-width: var(--landing-page-width);
+    }
+  }
+}

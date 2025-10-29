@@ -1,0 +1,120 @@
+@mixin light-mode-illustrations {
+    --logo-icon: url('/images/logo-light-icon.svg') no-repeat;
+  --logo-text: url('/images/logo-light-text.svg') no-repeat;
+  --icon-theme-switcher: url('/images/mode-dark.svg') no-repeat;
+
+  --page-hero-icon-species-guide: url('/images/icons-adb/page-hero-icon-species-guide-light.svg');
+
+  --page-hero-icon-gule-rike: url('/images/icons-adb/page-hero-icon-gule-riket-light.svg');
+  --page-hero-icon-gule-rike-brand1: url('/images/icons-adb/page-hero-icon-gule-riket-brand1-light.svg');
+  --page-hero-icon-gule-rike-brand2: url('/images/icons-adb/page-hero-icon-gule-riket-brand2-light.svg');
+  --page-hero-icon-gule-rike-subtle: url('/images/icons-adb/page-hero-icon-gule-riket-subtle-light.svg');
+
+  --page-hero-icon-livsmedium: url('/images/icons-adb/page-hero-icon-livsmedium-light.svg');
+  --page-hero-icon-livsmedium-brand1: url('/images/icons-adb/page-hero-icon-livsmedium-brand1-light.svg');
+  --page-hero-icon-livsmedium-brand2: url('/images/icons-adb/page-hero-icon-livsmedium-brand2-light.svg');
+  --page-hero-icon-livsmedium-subtle: url('/images/icons-adb/page-hero-icon-livsmedium-subtle-light.svg');
+
+  --page-hero-icon-kurs: url('/images/icons-adb/page-hero-icon-kurs-light.svg');
+  --page-hero-icon-kurs-brand1: url('/images/icons-adb/page-hero-icon-kurs-brand1-light.svg');
+  --page-hero-icon-kurs-brand2: url('/images/icons-adb/page-hero-icon-kurs-brand2-light.svg');
+  --page-hero-icon-kurs-subtle: url('/images/icons-adb/page-hero-icon-kurs-subtle-light.svg');
+
+  --page-hero-icon-vepser: url('/images/icons-adb/page-hero-icon-vepser-light.svg');
+  --page-hero-icon-vepser-brand1: url('/images/icons-adb/page-hero-icon-vepser-brand1-light.svg');
+  --page-hero-icon-vepser-brand2: url('/images/icons-adb/page-hero-icon-vepser-brand2-light.svg');
+  --page-hero-icon-vepser-subtle: url('/images/icons-adb/page-hero-icon-vepser-subtle-light.svg');
+
+  --page-hero-icon-tiur: url('/images/icons-adb/page-hero-icon-tiur-light.svg');
+  --page-hero-icon-tiur-brand1: url('/images/icons-adb/page-hero-icon-tiur-brand1-light.svg');
+  --page-hero-icon-tiur-brand2: url('/images/icons-adb/page-hero-icon-tiur-brand2-light.svg');
+  --page-hero-icon-tiur-subtle: url('/images/icons-adb/page-hero-icon-tiur-subtle-light.svg');
+
+  --page-hero-icon-fjellrevhode: url('/images/icons-adb/page-hero-icon-fjellrevhode-light.svg');
+  --page-hero-icon-fjellrevhode-brand1: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand1-light.svg');
+  --page-hero-icon-fjellrevhode-brand2: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand2-light.svg');
+  --page-hero-icon-fjellrevhode-subtle: url('/images/icons-adb/page-hero-icon-fjellrevhode-subtle-light.svg');
+
+  --page-hero-icon-smorblomst: url('/images/icons-adb/page-hero-icon-smorblomst-light.svg');
+  --page-hero-icon-smorblomst-brand1: url('/images/icons-adb/page-hero-icon-smorblomst-brand1-light.svg');
+  --page-hero-icon-smorblomst-brand2: url('/images/icons-adb/page-hero-icon-smorblomst-brand2-light.svg');
+  --page-hero-icon-smorblomst-subtle: url('/images/icons-adb/page-hero-icon-smorblomst-subtle-light.svg');
+
+  --page-hero-icon-skjell: url('/images/icons-adb/page-hero-icon-skjell-light.svg');
+  --page-hero-icon-skjell-brand1: url('/images/icons-adb/page-hero-icon-skjell-brand1-light.svg');
+  --page-hero-icon-skjell-brand2: url('/images/icons-adb/page-hero-icon-skjell-brand2-light.svg');
+  --page-hero-icon-skjell-subtle: url('/images/icons-adb/page-hero-icon-skjell-subtle-light.svg');
+
+  --page-hero-icon-artsprosjektet: url('/images/icons-adb/page-hero-icon-artsprosjektet-light.svg');
+  --page-hero-icon-artsprosjektet-brand1: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand1-light.svg');
+  --page-hero-icon-artsprosjektet-brand2: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand2-light.svg');
+  --page-hero-icon-artsprosjektet-subtle: url('/images/icons-adb/page-hero-icon-artsprosjektet-subtle-light.svg');
+
+  --page-hero-icon-navnslektskap: url('/images/icons-adb/page-hero-icon-navnslektskap-light.svg');
+  --page-hero-icon-navnslektskap-brand1: url('/images/icons-adb/page-hero-icon-navnslektskap-brand1-light.svg');
+  --page-hero-icon-navnslektskap-brand2: url('/images/icons-adb/page-hero-icon-navnslektskap-brand2-light.svg');
+  --page-hero-icon-navnslektskap-subtle: url('/images/icons-adb/page-hero-icon-navnslektskap-subtle-light.svg');
+}
+
+@mixin dark-mode-illustrations {
+    --logo-icon: url('/images/logo-dark-icon.svg') no-repeat;
+  --logo-text: url('/images/logo-dark-text.svg') no-repeat;
+  --icon-theme-switcher: url('/images/mode-light.svg') no-repeat;
+
+  //--page-hero-icon-default: url('/images/icons-adb/page-hero-icon-tertiary-dark.svg');
+  //--page-hero-icon-tertiary: url('/images/icons-adb/page-hero-icon-tertiary-dark.svg');
+  //--page-hero-icon-brand-1: url('/images/icons-adb/page-hero-icon-brand-1-dark.svg');
+  //--page-hero-icon-brand-2: url('/images/icons-adb/page-hero-icon-brand-2-dark.svg');
+  --page-hero-icon-species-guide: url('/images/icons-adb/page-hero-icon-species-guide-dark.svg');
+
+  --page-hero-icon-gule-rike: url('/images/icons-adb/page-hero-icon-gule-riket-dark.svg');
+  --page-hero-icon-gule-rike-brand1: url('/images/icons-adb/page-hero-icon-gule-riket-brand1-dark.svg');
+  --page-hero-icon-gule-rike-brand2: url('/images/icons-adb/page-hero-icon-gule-riket-brand2-dark.svg');
+  --page-hero-icon-gule-rike-subtle: url('/images/icons-adb/page-hero-icon-gule-riket-subtle-dark.svg');
+
+  --page-hero-icon-livsmedium: url('/images/icons-adb/page-hero-icon-livsmedium-dark.svg');
+  --page-hero-icon-livsmedium-brand1: url('/images/icons-adb/page-hero-icon-livsmedium-brand1-dark.svg');
+  --page-hero-icon-livsmedium-brand2: url('/images/icons-adb/page-hero-icon-livsmedium-brand2-dark.svg');
+  --page-hero-icon-livsmedium-subtle: url('/images/icons-adb/page-hero-icon-livsmedium-subtle-dark.svg');
+
+  --page-hero-icon-kurs: url('/images/icons-adb/page-hero-icon-kurs-dark.svg');
+  --page-hero-icon-kurs-brand1: url('/images/icons-adb/page-hero-icon-kurs-brand1-dark.svg');
+  --page-hero-icon-kurs-brand2: url('/images/icons-adb/page-hero-icon-kurs-brand2-dark.svg');
+  --page-hero-icon-kurs-subtle: url('/images/icons-adb/page-hero-icon-kurs-subtle-dark.svg');
+
+  --page-hero-icon-vepser: url('/images/icons-adb/page-hero-icon-vepser-dark.svg');
+  --page-hero-icon-vepser-brand1: url('/images/icons-adb/page-hero-icon-vepser-brand1-dark.svg');
+  --page-hero-icon-vepser-brand2: url('/images/icons-adb/page-hero-icon-vepser-brand2-dark.svg');
+  --page-hero-icon-vepser-subtle: url('/images/icons-adb/page-hero-icon-vepser-subtle-dark.svg');
+
+  --page-hero-icon-tiur: url('/images/icons-adb/page-hero-icon-tiur-dark.svg');
+  --page-hero-icon-tiur-brand1: url('/images/icons-adb/page-hero-icon-tiur-brand1-dark.svg');
+  --page-hero-icon-tiur-brand2: url('/images/icons-adb/page-hero-icon-tiur-brand2-dark.svg');
+  --page-hero-icon-tiur-brand2: url('/images/icons-adb/page-hero-icon-tiur-brand2-dark.svg');
+  --page-hero-icon-tiur-subtle: url('/images/icons-adb/page-hero-icon-tiur-subtle-dark.svg');
+
+  --page-hero-icon-fjellrevhode: url('/images/icons-adb/page-hero-icon-fjellrevhode-dark.svg');
+  --page-hero-icon-fjellrevhode-brand1: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand1-dark.svg');
+  --page-hero-icon-fjellrevhode-brand2: url('/images/icons-adb/page-hero-icon-fjellrevhode-brand2-dark.svg');
+  --page-hero-icon-fjellrevhode-subtle: url('/images/icons-adb/page-hero-icon-fjellrevhode-subtle-dark.svg');
+
+  --page-hero-icon-smorblomst: url('/images/icons-adb/page-hero-icon-smorblomst-dark.svg');
+  --page-hero-icon-smorblomst-brand1: url('/images/icons-adb/page-hero-icon-smorblomst-brand1-dark.svg');
+  --page-hero-icon-smorblomst-brand2: url('/images/icons-adb/page-hero-icon-smorblomst-brand2-dark.svg');
+  --page-hero-icon-smorblomst-subtle: url('/images/icons-adb/page-hero-icon-smorblomst-subtle-dark.svg');
+
+  --page-hero-icon-skjell: url('/images/icons-adb/page-hero-icon-skjell-dark.svg');
+  --page-hero-icon-skjell-brand1: url('/images/icons-adb/page-hero-icon-skjell-brand1-dark.svg');
+  --page-hero-icon-skjell-brand2: url('/images/icons-adb/page-hero-icon-skjell-brand2-dark.svg');
+  --page-hero-icon-skjell-subtle: url('/images/icons-adb/page-hero-icon-skjell-subtle-dark.svg');
+
+  --page-hero-icon-artsprosjektet: url('/images/icons-adb/page-hero-icon-artsprosjektet-dark.svg');
+  --page-hero-icon-artsprosjektet-brand1: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand1-dark.svg');
+  --page-hero-icon-artsprosjektet-brand2: url('/images/icons-adb/page-hero-icon-artsprosjektet-brand2-dark.svg');
+  --page-hero-icon-artsprosjektet-subtle: url('/images/icons-adb/page-hero-icon-artsprosjektet-subtle-dark.svg');
+
+  --page-hero-icon-navnslektskap: url('/images/icons-adb/page-hero-icon-navnslektskap-dark.svg');
+  --page-hero-icon-navnslektskap-brand1: url('/images/icons-adb/page-hero-icon-navnslektskap-brand1-dark.svg');
+  --page-hero-icon-navnslektskap-brand2: url('/images/icons-adb/page-hero-icon-navnslektskap-brand2-dark.svg');
+  --page-hero-icon-navnslektskap-subtle: url('/images/icons-adb/page-hero-icon-navnslektskap-subtle-dark.svg');
+}

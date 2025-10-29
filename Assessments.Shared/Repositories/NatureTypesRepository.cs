@@ -1,4 +1,5 @@
 ﻿using Assessments.Shared.DTOs.NatureTypes;
+using Assessments.Shared.Extensions;
 using Assessments.Shared.Interfaces;
 using LazyCache;
 using Microsoft.EntityFrameworkCore;
@@ -25,38 +26,60 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 
-    public async Task<List<CodeItemDto>> GetAssessmentCodeItemModels(int id, CancellationToken cancellationToken)
+    public async Task<List<CodeItemNodeDto>> GetAssessmentCodeItemNodes(int assessmentId, CancellationToken cancellationToken)
     {
-        var assessment = await dbContext.Assessments.Include(x => x.CodeItems).ThenInclude(x => x.CodeItemParamLevel).FirstAsync(x => x.Id == id, cancellationToken: cancellationToken);
+        var assessmentCodeItems = await dbContext.AssessmentCodeItems.Include(x => x.CodeItemParamLevel).Where(x => x.AssessmentId == assessmentId).ToListAsync(cancellationToken: cancellationToken);
 
-        var codeItemModels = new List<CodeItemDto>();
+        if (assessmentCodeItems.Count == 0)
+            return null;
 
-        codeItemModels.AddRange(assessment.CodeItems.GroupBy(x => new { x.CodeItemId, x.AssessmentId }).Select(group =>
-            new CodeItemDto
+        var codeItemModels = assessmentCodeItems.GetCodeItemModels();
+
+        var codeItems = await GetCodeItems(cancellationToken: cancellationToken);
+
+        foreach (var model in codeItemModels)
+        {
+            var codeItem = codeItems.First(x => x.Id == model.CodeItemId);
+
+            if (codeItem.ParentId == 0)
+                model.ParentCodeItems.Add(codeItem);
+
+            while (codeItem != null && codeItem.ParentId != 0)
             {
-                CodeItemDescription = group.First().CodeItemDescription,
-                TimeOfIncident = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 1).CodeItemParamLevel
-                    .Description,
-                InfluenceFactor = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 2).CodeItemParamLevel
-                    .Description,
-                Magnitude = group.First(x => x.CodeItemParamLevel.CodeItemParamTypeId == 3).CodeItemParamLevel
-                    .Description,
-            }));
+                var parent = codeItems.FirstOrDefault(a => a.Id == codeItem.ParentId);
+                if (parent != null)
+                    model.ParentCodeItems.Add(parent);
 
-        return codeItemModels;
+                if (model.ParentCodeItems.All(x => x.Id != codeItem.Id))
+                    model.ParentCodeItems.Add(codeItem);
+
+                codeItem = parent;
+            }
+
+            model.ParentCodeItems = model.ParentCodeItems.OrderBy(x => x.ParentId).ToList();
+        }
+
+        var lookup = codeItemModels.SelectMany(x => x.ParentCodeItems).Distinct().ToLookup(x => x.ParentId);
+
+        var nodes = Build(0).ToList();
+
+        return nodes;
+
+        IEnumerable<CodeItemNodeDto> Build(int? pid) => lookup[pid]
+            .Select(x => new CodeItemNodeDto
+            {
+                Id = x.Id,
+                ParentId = x.ParentId,
+                Level = x.IdNr.Split(".").Length - 1,
+                Description = x.Description,
+                Nodes = Build(x.Id),
+                CodeItemDto = codeItemModels.FirstOrDefault(y => y.CodeItemId == x.Id)
+            });
     }
 
-    public async Task<List<CommitteeUserDto>> GetCommitteeUsers(CancellationToken cancellationToken)
+    public async Task<List<CommitteeUser>> GetCommitteeUsers(CancellationToken cancellationToken)
     {
-        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => dbContext.CommitteeUsers.OrderBy(x => x.Committee.Name).Select(x => new CommitteeUserDto
-        {
-            CommitteeId = x.CommitteeId,
-            CommitteeName = x.Committee.Name,
-            Level = x.Level,
-            UserLastName = x.User.LastName,
-            UserFirstName = x.User.FirstName,
-            UserCitationName = x.User.CitationName
-        }).ToListAsync(cancellationToken: cancellationToken));
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCommitteeUsers)}", () => dbContext.CommitteeUsers.AsNoTracking().Include(x => x.User).OrderBy(x => x.Committee.Name).ToListAsync(cancellationToken: cancellationToken));
     }
 
     public async Task<List<Region>> GetRegions(CancellationToken cancellationToken)
@@ -86,5 +109,18 @@ public class NatureTypesRepository(IAppCache cache, RodlisteNaturtyperDbContext 
     public async Task<List<CodeItem>> GetCodeItems(CancellationToken cancellationToken)
     {
         return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetCodeItems)}", () => dbContext.CodeItems.ToListAsync(cancellationToken: cancellationToken));
+    }
+
+    public async Task<List<CodeItem>> GetMainCodeItems(CancellationToken cancellationToken)
+    {
+        // liste med id'er som bestemmer rekkefølge og hvilke påvirkningsfaktorer som skal vises på toppnivå (filter og statistikk)
+        int[] codeItemIds = [13, 14, 15, 16, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        return await cache.GetOrAddAsync($"{nameof(NatureTypesRepository)}-{nameof(GetMainCodeItems)}", async () =>
+        {
+            var topics = await dbContext.CodeItems.Where(x => codeItemIds.Contains(x.Id)).ToListAsync(cancellationToken: cancellationToken);
+
+            return topics.OrderBy(x => Array.IndexOf(codeItemIds, x.Id)).ToList();
+        });
     }
 }

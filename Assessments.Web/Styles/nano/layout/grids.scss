@@ -1,0 +1,24 @@
+@use "../globals/media" as *;
+
+.page-grid {
+  gap: var(--spacing-lg);
+
+  @media #{$media-lg-up} {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  div {
+    &.sidebar {
+      grid-column: 1 / span 3;
+    }
+    
+    &.node__content {
+      grid-column: 4 / span 6;
+    }
+
+    &.taxon_description_content {
+      grid-column: 4 / span 9;
+    }
+  }
+}

@@ -1,21 +1,34 @@
 /* CONTROL BUTTONS */
 
-
-
 /* View control bar */
 
+.controls button {
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    touch-action: manipulation;
+    cursor: pointer;
+    background: #f5e7d3;
+    display: inline-block;
+    border-radius: 2px;
+    margin: 2px;
+    border: 1px solid #a6a6a6;
+}
+
 .controls {
+    line-height: 1.25;
     border-bottom: 1px solid #7f726b;
 }
 
 @media only screen and (min-width: 751px) {
+
     .controls {
         margin-left: 260px;
     }
 
-    .empty_filters {
-        /*margin-left: 205px;*/
-    }
+    /*.empty_filters {
+        margin-left: 205px;
+    }*/
 
     button.submit_filters,
     button.close_filters {
@@ -53,18 +66,20 @@
     border-left-color: lightgray;
 }
 
+
+
 .empty_filters {
     padding-left: 15px;
 }
 
-.empty_filters .button {
-    margin: 0;
-}
+    .empty_filters .button {
+        margin: 0;
+    }
 
 .controls .list_actions {
     width: 150px;
     max-width: 150px;
-    height: 30px;    
+    height: 30px;
     text-align: center;
     margin: 0;
     position: relative;
@@ -89,13 +104,13 @@
 }
 
 .list_control_buttons {
-    display:inline-block;
-    float:right;
+    display: inline-block;
+    float: right;
 }
 
-.list_control_buttons span {
-    vertical-align: middle;
-}
+    .list_control_buttons span {
+        vertical-align: middle;
+    }
 
 .controls > span.desktop_hide {
     float: right;
@@ -103,12 +118,12 @@
     margin-right: 0px;
 }
 
-.controls > span.desktop_hide.hit-counter {
-    float: inherit;
-    margin-bottom: inherit;
-    margin-right: inherit;
-    padding-bottom: 8px;
-}
+    .controls > span.desktop_hide.hit-counter {
+        float: inherit;
+        margin-bottom: inherit;
+        margin-right: inherit;
+        padding-bottom: 8px;
+    }
 
 .list_control_buttons span.hit-counter {
     margin-right: 10px;
@@ -149,10 +164,10 @@
         text-align: right;
     }
 
-    .list_control_buttons span.hit-counter {
-        float: left;
-        padding: 5px 0px;
-    }
+        .list_control_buttons span.hit-counter {
+            float: left;
+            padding: 5px 0px;
+        }
 }
 
 
@@ -168,7 +183,7 @@
         font-size: 15pt;
     }
 
-    /* Filter button */  
+    /* Filter button */
 
     .empty_filters_mobile {
         display: flex;
@@ -179,17 +194,18 @@
         font-weight: bold;
     }
 
-    .empty_filters_mobile span {
-        font-size: 10pt;
-    }
+        .empty_filters_mobile span {
+            font-size: 10pt;
+        }
 
-    .empty_filters_mobile a.button {
-        display: flex;
-        justify-content: center;
-        margin-top: 15px;
-        padding-right: 2px;
-    }
+        .empty_filters_mobile a.button {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            padding-right: 2px;
+        }
 }
+
 @media only screen and (max-width: 500px) {
     .list_control_buttons {
         display: flex;
@@ -205,7 +221,7 @@
 
 /* MOBILE OPEN MODAL */
 
-.filter_background  {
+.filter_background {
     position: relative;
     width: auto;
     top: auto;
@@ -224,9 +240,9 @@
     z-index: 12;
 }
 
-.modal_background_open:hover{
-    cursor:pointer;
-}
+    .modal_background_open:hover {
+        cursor: pointer;
+    }
 
 /* CSS specific to iOS devices */
 @supports (-webkit-overflow-scrolling: touch) {
@@ -242,15 +258,15 @@
     background-color: #000;
 }
 
-.filtercontainer{
+.filtercontainer {
     box-sizing: border-box;
     max-width: 260px;
     width: 260px;
     padding-right: 10px;
     margin-top: -1px;
     flex: none;
-    padding-top:0;
-    padding-bottom:1px;
+    padding-top: 0;
+    padding-bottom: 1px;
 }
 
 .filter {
@@ -274,11 +290,11 @@ li.checkbox label {
     list-style-type: none;
 }
 
-.filter_groups ul.Alger_filters,
-.filter_groups ul.Insekter_filters,
-.filter_groups ul.Krepsdyr_filters {
-    padding-right: 0;
-}
+    .filter_groups ul.Alger_filters,
+    .filter_groups ul.Insekter_filters,
+    .filter_groups ul.Krepsdyr_filters {
+        padding-right: 0;
+    }
 
 div.filter_subgroup {
     margin-left: 15px;
@@ -313,7 +329,7 @@ button.list_header {
 }
 
 .list_header {
-  align-items: center;
+    align-items: center;
 }
 
 .filters_bottom {
@@ -325,8 +341,12 @@ button.list_header {
     margin-top: 0;
 }
 
-.filter_header .material-icons {
-    padding-right: 5px;
+    .filter_header .material-icons {
+        padding-right: 5px;
+    }
+
+.filter_scroll_area ul {
+    padding: 0;
 }
 
 @media only screen and (max-width: 750px) {
@@ -335,7 +355,7 @@ button.list_header {
         display: inline-block;
         width: 100%;
         text-align: center;
-        background:hotpink;
+        background: hotpink;
     }
 
     .toggle_filter {
@@ -346,6 +366,10 @@ button.list_header {
 
     li.checkbox {
         margin: 5px;
+    }
+
+    li input {
+        margin-right: 4px;
     }
 
     #navbar-mobile {
@@ -371,12 +395,11 @@ button.list_header {
         display: flex;
         justify-content: space-evenly;
         margin-top: 10px;
-
     }
 
-    .filters_bottom button {
-        margin: 5px;
-    }
+        .filters_bottom button {
+            margin: 5px;
+        }
 
     .filter_groups h3 {
         width: 100%;
@@ -387,7 +410,7 @@ button.list_header {
     .filter_subgroup {
         margin-bottom: 10px;
     }
-} 
+}
 
 .collapse_checkbox,
 .meta_checkbox {
@@ -399,8 +422,10 @@ button.list_header {
 .filter_info_text,
 .filter_group ul {
     padding: 5px;
-    padding-left:20px
+    padding-left: 20px
 }
+
+
 
 @media only screen and (max-width: 750px) {
 
@@ -436,13 +461,13 @@ button.list_header {
     font-weight: bold;
 }
 
-.filter_group button:hover,
-.filter_group button:focus, 
-.filter_group button:active {
-    cursor: pointer;
-    background: #7f726b;
-    color:#fff9f0;
-}
+    .filter_group button:hover,
+    .filter_group button:focus,
+    .filter_group button:active {
+        cursor: pointer;
+        background: #7f726b;
+        color: #fff9f0;
+    }
 
 
 /* FILTER NUMBER (count icon) */
@@ -463,9 +488,10 @@ button.list_header {
     color: #fff9f0;
     text-align: center;
     height: 20px;
-    display: inline-block;
+   /* display: inline-block;*/
     padding: 0 5px;
 }
+
 .filter_group button:hover .filternumber,
 .filter_group button:focus .filternumber,
 .filter_group button:active .filternumber {
@@ -477,10 +503,15 @@ button.list_header {
     display: none;
 }
 
-.filterbox{
-    display:block;
-    margin-top:10px;
+.filterbox {
+    display: block;
+    margin-top: 10px;
+    padding-left: 0;
 }
+
+    .filterbox ul {
+        padding-left: 0;
+    }
 
 /* AFTER REFACTOR: */
 
@@ -489,6 +520,7 @@ button.list_header {
         display: initial;
     }
 }
+
 @media only screen and (min-width: 751px) {
     #open_filter.only_mobile {
         display: none;
@@ -531,18 +563,18 @@ button.list_header {
     }
 
 
-.modal_background_open:hover{
-    cursor:pointer;
-}
+    .modal_background_open:hover {
+        cursor: pointer;
+    }
 
     .filter_modal_background,
     .filteX {
         display: block;
     }
 
-    .filteX.hide_on_smallscreen {
-        display: none;
-    }
+        .filteX.hide_on_smallscreen {
+            display: none;
+        }
 
 
     /* Filters for users without javascript */
@@ -553,8 +585,8 @@ button.list_header {
         display: none;
     }
 
-    .no_js #filter_modal_background{
-        position:relative;
+    .no_js #filter_modal_background {
+        position: relative;
     }
 
     .no_js .filter_background,

@@ -1,11 +1,6 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
 /* Fra RL 2021*/
 
-button {
+/*button {
     padding: 6px 12px;
     font-size: 15px;
     line-height: 1.42857143;
@@ -29,8 +24,20 @@ button {
     text-decoration: none;
     font-weight: bold;
     font-weight: normal;
-}
+}*/
 
+.changetab {
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    touch-action: manipulation;
+    cursor: pointer;
+    background: #f5e7d3;
+    display: inline-block;
+    border-radius: 2px;
+    margin: 2px;
+    border: 1px solid #a6a6a6;
+}
 
 .secondary {
     background: #CCDEE3;
@@ -259,25 +266,18 @@ button:not(.icon-button).material-icons {
 
 /* DARK THEME */
 
-.darktheme .primary,
-.darktheme .secondary,
-.darktheme .ghost,
-.darktheme .text-button {
+.dark-theme .primary,
+.dark-theme .secondary,
+.dark-theme .ghost,
+.dark-theme .text-button {
     color: inherit;
 }
 
-.darktheme .ghost,
-.darktheme .main button.ghost {
+.dark-theme .ghost,
+.dark-theme .main button.ghost {
     border-color: white;
     background: transparent;
 }
-
-
-
-
-
-
-
 
 /**
  * Chips are based on button-styles, and cannot be used without it.
@@ -301,11 +301,16 @@ button:not(.icon-button).material-icons {
     color: #262F31;
 }
 
+.chips .btn {
+    padding: 8px 8px;
+}
+
 .chips-close-button {
     position: absolute;
     right: 12px;
     top: calc(14px - calc(calc(40px - 18px) / 2));
     color:inherit;
+    text-decoration: none;
 }
 
 .chips-text {
@@ -361,9 +366,9 @@ button:not(.icon-button).material-icons {
     display: block;
 }
 
-.mega-chips .name-text {
+/*.mega-chips .name-text {
     font-family: 'Space Mono', sans-serif;
-}
+}*/
 
 .mega-chips .chips-close-button {
     right:  16px;

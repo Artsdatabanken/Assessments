@@ -10,11 +10,6 @@
     display: block;
     font-size: 20px;
 }
-.page-header h1 {
-    line-height: 1.3;
-    font-size: 33px;
-    margin-bottom: 20px;
-}
 
 .populationsize li {
     margin: 10px;
@@ -134,12 +129,14 @@ li.region p {
 }
 
 .habitat_element {
-    max-width: 32%;
+    max-width: 24%;
+    width: 24%;
     margin-bottom: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
     background: #f5e7d3;
+    padding: 5px
 }
 
 .habitat .inactive{
@@ -258,7 +255,7 @@ li.region p {
 
 span.material-icons.more,
 span.material-icons.less {
-    font-size: 20pt;
+    font-size: 16pt;
 }
 
 .expanded .more,
@@ -622,10 +619,6 @@ span.area i {
     margin-top: 5px;
 }
 
-.page-header h1 {
-    margin-top: 0;
-}
-
 .history_list li {
     font-size: 12pt;
     display: inline-block;
@@ -793,8 +786,8 @@ span.area i {
     border-bottom: 1px solid lightgrey;
 }
 
-.darktheme .collapsible_header,
-.darktheme .collapsible {
+.dark-theme .collapsible_header,
+.dark-theme .collapsible {
     border-color: white;
 }
 
@@ -814,7 +807,7 @@ span.area i {
 
 /* OVERRIDE P STYLING */
 
-.darktheme .tabbed_element_container ul p,
+.dark-theme .tabbed_element_container ul p,
 .tabbed_element_container ul p {
     border: 0;
     padding: 4px;
@@ -831,7 +824,7 @@ span.area i {
     border-top: 1px solid #f5e7d3;
 }
 
-.darktheme .collapsible .collapsible_content {
+.dark-theme .collapsible .collapsible_content {
     border-color: white;
 }
 
@@ -850,7 +843,7 @@ span.area i {
     margin-bottom: 20px;
 }
 
-.darktheme .big-data-table {
+.dark-theme .big-data-table {
     background: #201f1f;
 }
 
@@ -899,7 +892,7 @@ span.area i {
         margin-top: -1px;
     }
 
-    .darktheme .big-data-table td {
+    .dark-theme .big-data-table td {
         background: rgba(128, 128, 128,0.1);
         border-color: rgba(128, 128, 128,0.2);
     }
@@ -914,7 +907,7 @@ span.area i {
         color:#595959 
     }
 
-    .darktheme .big-data-table .only_mobile {
+    .dark-theme .big-data-table .only_mobile {
         color: #FFF9F0;
     }
 
@@ -1063,14 +1056,19 @@ table caption.table-title {
     top: 20px;
 }
 
-.mobile_padding .table-of-contents {
+/*.mobile_padding .table-of-contents {
     border: 1px solid #000;
-    padding: 10px;
+    padding: 5px;
     background-color: #fff;
-}
+}*/
 
 .mobile_padding .table-of-contents ul {
     list-style: none;
+    padding-left: 1em;
+}
+
+.table-of-contents li {
+    margin: .25em;
 }
 
 .page-section table ul {

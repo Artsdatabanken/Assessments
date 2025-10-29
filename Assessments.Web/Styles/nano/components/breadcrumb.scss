@@ -1,0 +1,85 @@
+@use "../globals/mixins" as *;
+@use "../globals/media" as *;
+
+.breadcrumb,
+.block-system-breadcrumb-block .breadcrumb {
+  padding: 0 var(--spacing-md);
+  max-width: var(--max-content-width);
+  margin: auto;
+  box-sizing: border-box;
+  width: 100%;
+
+  ul, ol {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: var(--spacing-xsm) 0;
+  }
+
+  li {
+    display: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-3);
+
+    @media #{$media-md-up} {
+      display: flex;
+    }
+
+    &:before {
+      content: "";
+      width: 8px;
+      margin-right: 6px;
+      color: var(--text-secondary);
+      background: url('/images/icons-adb/breadcrumb-arrow.svg') no-repeat 50%;
+    }
+
+    &:first-child {
+      &::before {
+        content: none;
+      }
+    }
+
+    &:only-child {
+      &::before {
+        content: "";
+        transform: rotate(180deg);
+      }
+    }
+
+    &:nth-last-child(2) {
+      display: flex;
+
+      &::before {
+        transform: rotate(180deg);
+
+        @media #{$media-md-up} {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    a {
+      @include styled-link($external: false);
+
+      & {
+        color: var(--text-accent);
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        line-height: 1.85em;
+      }
+
+      &:visited {
+        color: var(--text-accent);
+      }
+    }
+  }
+}
+
+[dir="rtl"] .breadcrumb ol {
+  /* This is required to win over specificity of [dir="rtl"] ol */
+  margin-right: 0;
+}

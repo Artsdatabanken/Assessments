@@ -1,0 +1,51 @@
+﻿@model CriteriaCategoryViewModel
+
+@{
+	var criteriaCategoryList = new List<CriteriaCategory> { CriteriaCategory.NT, CriteriaCategory.VU, CriteriaCategory.EN, CriteriaCategory.CR };
+	var criteriaCategorySingleResult = new List<CriteriaCategory> { CriteriaCategory.LC, CriteriaCategory.NE, CriteriaCategory.DD };
+}
+
+<li class="@(Model.IsActive && Model.Category != null && Model.Category != CriteriaCategory.NE ? "active opened_element" : "inactive")">
+	<div class="text_container">
+		<div class="text_collection">
+			<span class="title_field clickable" onclick="expandCriteria(this, 'opened_element')">
+				<span class="close_icon material-icons text_icon">
+					arrow_drop_down
+				</span>
+				<span class="open_icon material-icons text_icon">
+					arrow_right
+				</span>
+				<span class="text_text">
+					@Model.Description
+				</span>
+			</span>
+			<p class="description"></p>
+			<ul class="thresholdlist_container">
+				@{
+					var criteriaCategories = criteriaCategoryList;
+
+					if (Model.Category != null && criteriaCategorySingleResult.Contains((CriteriaCategory) Model.Category))
+					{
+						criteriaCategories = [(CriteriaCategory) Model.Category];
+					}
+
+					foreach (var criteriaCategory in criteriaCategories)
+					{
+						var criteriaCategoryClass = Model.Category == criteriaCategory ? "active opened_element" : "inactive";
+						<li class="thresholdlist @criteriaCategoryClass">
+							<span class="graphic_element @criteriaCategory">
+								@criteriaCategory
+							</span>
+							<span class="capitalized categorytext">
+								@(criteriaCategory.ConvertTo<NatureTypeCategoryDto>().DisplayName())
+							</span>
+							<span>
+								@criteriaCategory.GetDescription(Model.Type)
+							</span>
+						</li>
+					}
+				}
+			</ul>
+		</div>
+	</div>
+</li>

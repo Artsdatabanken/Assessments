@@ -1,0 +1,169 @@
+
+/* Colors */
+/* Likely not be used in actual CSS */
+$brand-white: #FFFFFF;
+
+/* Brand Coral Colors */
+$brand-coral-10: #FBBFB7;
+$brand-coral-20: #F8B0A3;
+$brand-coral-30: #F4A08F;
+$brand-coral-40: #F0907B;
+$brand-coral-50: #EA7C68;
+$brand-coral-60: #EF6A52;
+$brand-coral-70: #E55440;
+$brand-coral-80: #DB462C;
+$brand-coral-90: #CF3E1C;
+$brand-coral-100: #B83719;
+
+/* Brand Evergreen Colors */
+$brand-evergreen-10: #8DE2CD;
+$brand-evergreen-20: #74D8BB;
+$brand-evergreen-30: #5AC9A9;
+$brand-evergreen-40: #3FBD96;
+$brand-evergreen-50: #25B688;
+$brand-evergreen-60: #16A979;
+$brand-evergreen-70: #0C936B;
+$brand-evergreen-80: #068562;
+$brand-evergreen-90: #007759;
+$brand-evergreen-100: #005C45;
+
+/* Brand Sun Colors */
+$brand-sun-10: #F6DDB6;
+$brand-sun-20: #F5D59E;
+$brand-sun-30: #FBCD86;
+$brand-sun-40: #FBC56D;
+$brand-sun-50: #FBBD53;
+$brand-sun-60: #FAB636;
+$brand-sun-70: #F8AE00;
+$brand-sun-80: #D79211;
+$brand-sun-90: #B67717;
+$brand-sun-100: #9E6814;
+
+/* Brand Summer Grass Colors */
+$brand-summer-grass-10: #C9D4BA;
+$brand-summer-grass-20: #C3CF9D;
+$brand-summer-grass-30: #BCC485;
+$brand-summer-grass-40: #B5B66E;
+$brand-summer-grass-50: #ADE56E;
+$brand-summer-grass-60: #AA433E;
+$brand-summer-grass-70: #989921;
+$brand-summer-grass-80: #727B2A;
+$brand-summer-grass-90: #495E2E;
+$brand-summer-grass-100: #3B4B25;
+
+/* Brand Freshwater Blue Colors */
+$brand-freshwater-blue-10: #61D0EA;
+$brand-freshwater-blue-20: #52C0DA;
+$brand-freshwater-blue-30: #44AFCB;
+$brand-freshwater-blue-40: #379FBB;
+$brand-freshwater-blue-50: #298FAB;
+$brand-freshwater-blue-60: #0283A1;
+$brand-freshwater-blue-70: #11718A;
+$brand-freshwater-blue-80: #066279;
+$brand-freshwater-blue-90: #005A71;
+$brand-freshwater-blue-100: #004557;
+
+/* Neutrals Ocean Colors */
+$neutrals-ocean-10: #D2DDE0;
+$neutrals-ocean-20: #BAC5C8;
+$neutrals-ocean-30: #A3AEB0;
+$neutrals-ocean-40: #8C9799;
+$neutrals-ocean-50: #768083;
+$neutrals-ocean-60: #61686D;
+$neutrals-ocean-70: #4C5658;
+$neutrals-ocean-80: #394244;
+$neutrals-ocean-90: #262F31;
+$neutrals-ocean-100: #141D1F;
+
+/* Neutrals Grey Colors */
+$neutrals-grey-50: #E4E4E4;
+
+/* Neutrals Sand Colors */
+$neutrals-sand-10: #FFFCF7;
+$neutrals-sand-20: #FEF9F1;
+$neutrals-sand-30: #FFF7EB;
+$neutrals-sand-40: #FAF1E4;
+$neutrals-sand-50: #FAEFDF;
+$neutrals-sand-60: #FBECDA;
+$neutrals-sand-70: #F7E9D5;
+$neutrals-sand-80: #F5E7D3;
+$neutrals-sand-90: #F3E2CB;
+$neutrals-sand-100: #F2DFC5;
+
+/* Functional Red Colors */
+$functional-red-base: #FDEDEF;
+$functional-red-10: #FFB4C3;
+$functional-red-20: #FF9CA7;
+$functional-red-30: #FF7C8A;
+$functional-red-40: #FB5C6E;
+$functional-red-50: #E54359;
+$functional-red-60: #CE2B49;
+$functional-red-70: #B80738;
+$functional-red-80: #9A0024;
+$functional-red-90: #7C0010;
+$functional-red-100: #5E0000;
+
+/* Functional Yellow Colors */
+$functional-yellow-base: #FFF9EA;
+$functional-yellow-10: #FFDB48;
+$functional-yellow-20: #FBB823;
+$functional-yellow-30: #DDA300;
+$functional-yellow-40: #C28C00;
+$functional-yellow-50: #A77600;
+$functional-yellow-60: #8D6000;
+$functional-yellow-70: #744800;
+$functional-yellow-80: #5E3600;
+$functional-yellow-90: #492100;
+$functional-yellow-100: #397000;
+
+/* Functional Blue Colors */
+$functional-blue-base: #E5FAFD;
+$functional-blue-10: #6CFFFF;
+$functional-blue-20: #38E5FB;
+$functional-blue-30: #00CCE8;
+$functional-blue-40: #00B2CC;
+$functional-blue-50: #0098B2;
+$functional-blue-60: #007E99;
+$functional-blue-70: #006582;
+$functional-blue-80: #0056A4;
+$functional-blue-90: #003D54;
+$functional-blue-100: #00283E;
+
+/* Functional Green Colors */
+$functional-green-base: #EBFBF5;
+$functional-green-10: #77FFD1;
+$functional-green-20: #4FE7B0;
+$functional-green-30: #2CCF99;
+$functional-green-40: #00B682;
+$functional-green-50: #009C6A;
+$functional-green-60: #008454;
+$functional-green-70: #006C3F;
+$functional-green-80: #00552B;
+$functional-green-90: #003F18;
+$functional-green-100: #002A00;
+
+/* Functional Purple Colors */
+$functional-purple-base: #FFEBFF;
+$functional-purple-10: #FFCAFF;
+$functional-purple-20: #E2AEFE;
+$functional-purple-30: #C694F4;
+$functional-purple-40: #AD7CDA;
+$functional-purple-50: #9465C1;
+$functional-purple-60: #7C4FA8;
+$functional-purple-70: #64398F;
+$functional-purple-80: #4C2378;
+$functional-purple-90: #350D61;
+$functional-purple-100: #1A0047;
+
+/* Special */
+$special-10: #D2CF84;
+$special-20: #7CB1AC;
+$special-30: #286371;
+$special-40: #17467C;
+$special-50: #4E1A53;
+$special-60: #61A360;
+$special-70: #6C6C6C;
+$special-80: #E6C000;
+$special-90: #EB8107;
+$special-100: #F34F39;
+$special-110: #D61900;

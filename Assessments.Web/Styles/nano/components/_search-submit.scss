@@ -1,0 +1,48 @@
+@use "../globals/media" as *;
+
+.search-submit {
+  padding: var(--spacing-xsm) var(--spacing-sm);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border: 2px solid var(--border-accent);
+  background: var(--surface-primary);
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xsm);
+  color: var(--text-accent);
+  font-size: var(--font-size-3);
+  line-height: 1em;
+  cursor: pointer;
+
+  &--small {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  &:hover {
+    background-color: var(--surface-hover);
+    border-color: var(--surface-hover);
+    
+    @media #{$media-lg-up} {
+      box-shadow: inset 0 0 0 2px var(--border-accent);
+      background-color: var(--surface-primary);
+      border-color: var(--border-accent);
+    }
+  }
+  
+  &:focus {
+    border-color: var(--surface-invert);
+    background: var(--surface-invert);
+    color: var(--text-invert);
+    outline: none;
+    
+    @media #{$media-lg-up} {
+      border-color: var(--border-accent);
+      background: var(--surface-accent);
+    }
+  }
+  
+  svg {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+}

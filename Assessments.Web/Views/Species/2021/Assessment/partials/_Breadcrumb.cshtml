@@ -1,52 +1,48 @@
 ﻿@model SpeciesAssessment2021
-@* 
-   Breacrumb - specific for inner layer of Assessment *@
 
+<nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+	<h2 id="system-breadcrumb" class="visually-hidden">Navigasjonssti</h2>
+	<ol>
+		<li>
+			<a href="https://artsdatabanken.no/">
+				Forside
+			</a>
+		</li>
+		<li>
+			<a href="https://artsdatabanken.no/arter">
+				Arter
+			</a>
+		</li>
+		<li>
+			<a asp-controller="Species" asp-action="Index">
+				@ViewBag.glossary["pagetitle"]["title"]
+			</a>
+		</li>
+		@if (ViewBag.glossary["areas"].ContainsKey(Model.AssessmentArea))
+		{
+			<li>
+				<a asp-controller="Species" asp-action="Index" asp-route-Area="@Model.AssessmentArea">
+					@ViewBag.glossary["areas"][Model.AssessmentArea]["title"]
+				</a>
+			</li>
+		}
+		@if (ViewBag.revisionid > 0)
+		{
+			<li>
+				<a asp-action="Detail" asp-route-id="@Model.Id" asp-route-revisionid="">
+					@Model.ScientificName
+				</a>
+			</li>
 
-<div class="breadcrumbs">
-    <ol>
-        @{/*
-            <li class="lead in-breadcrumb">
-                <a asp-controller="Redlist" asp-action="rodlisteforarter">Rødlista for arter</a>
-                <span class="breadcrumbdivider">&gt; </span>
-            </li>
-            */
-        }
-
-        <li class="in-breadcrumb">
-            <a asp-controller="Species" asp-action="Index">@ViewBag.glossary["pagetitle"]["title"]</a>
-            <span class="breadcrumbdivider">&gt; </span>
-        </li>
-
-        @if (@ViewBag.glossary["areas"].ContainsKey(@Model.AssessmentArea))
-        {
-            <li class="in-breadcrumb">
-                <a asp-controller="Species" asp-action="Index" asp-route-Area="@Model.AssessmentArea">
-                    @ViewBag.glossary["areas"][@Model.AssessmentArea]["title"]
-                </a>
-                <span class="breadcrumbdivider">&gt; </span>
-            </li>
-        }
-
-        @if (@ViewBag.revisionid > 0)
-        {
-            <li class="in-breadcrumb">
-                <a asp-action="Detail" asp-route-id="@Model.Id" asp-route-revisionid="">
-                    @Model.ScientificName
-                </a>
-                <span class="breadcrumbdivider">&gt; </span>
-            </li>
-
-            <li class="in-breadcrumb currentcrumb">
-                @ViewBag.glossary["archived"]["version"] @ViewBag.revisionid
-            </li>
-        }
-        else
-        {
-            <li class="in-breadcrumb currentcrumb">
-                @Model.ScientificName
-            </li>
-        }
-
-    </ol>
-</div>
+			<li>
+				@ViewBag.glossary["archived"]["version"] @ViewBag.revisionid
+			</li>
+		}
+		else
+		{
+			<li>
+				@Model.ScientificName
+			</li>
+		}
+	</ol>
+</nav>

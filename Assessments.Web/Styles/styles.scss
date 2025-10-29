@@ -1,0 +1,37 @@
+﻿@use "nano/main";
+@use "nano/layout/header";
+@use "nano/layout/footer";
+@use "nano/components/mega-menu";
+@use "nano/components/breadcrumb";
+@use "nano/components/gutenberg/block_shortcut_link_group";
+@use "nano/globals/page-hero";
+
+.hidden {
+    display: none;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px,1px,1px,1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
+}
+
+.visually-hidden.focusable:active, .visually-hidden.focusable:focus-within {
+    position: static !important;
+    overflow: visible;
+    clip: auto;
+    width: auto;
+    height: auto;
+}
+
+// TODO: lage nytt system eller bruke "gutenberg"..
+
+.hero-text p {
+    font-size: var(--font-size-6);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}

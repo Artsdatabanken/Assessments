@@ -81,17 +81,13 @@ public static class NatureTypesFilterHelpers
 
     public static FilterAndMetaData CodeItems(List<CodeItem> codeItems)
     {
-        // liste med id'er som bestemmer rekkefølgen og hvilke påvirkningsfaktorer som skal vises 
-        int[] codeItemFilterIds = [13, 14, 15, 16, 3, 4, 5, 6, 7, 8, 9, 10];
-
         return new FilterAndMetaData
         {
             FilterButtonName = "faktorfiltre",
             FilterButtonText = "Påvirkningsfaktorer",
             Filters =
             [
-                .. codeItems.Where(x => codeItemFilterIds.Contains(x.Id))
-                    .OrderBy(x => Array.IndexOf(codeItemFilterIds, x.Id))
+                .. codeItems
                     .Select(x => new FilterItem
                     {
                         Name = x.Description,

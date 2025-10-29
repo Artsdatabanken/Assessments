@@ -1,0 +1,34 @@
+﻿@model Dictionary<string, string>
+
+<div class="region-breadcrumb">
+	<nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+		<h2 id="system-breadcrumb" class="visually-hidden">Navigasjonssti</h2>
+		<ol>
+			<li>
+				<a href="https://artsdatabanken.no/">
+					Forside
+				</a>
+			</li>
+			@if (Model != null)
+			{
+				foreach (var item in Model)   
+				{
+					if (Model[item.Key].Equals(Model.Last().Value))
+					{
+						<li>
+							@item.Key
+						</li>
+					}
+					else
+					{
+						<li>
+							<a href="@item.Value">
+								@item.Key
+							</a>
+						</li>
+					}
+				}
+			}
+		</ol>
+	</nav>
+</div>

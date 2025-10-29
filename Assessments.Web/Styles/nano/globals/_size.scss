@@ -1,0 +1,86 @@
+@use "media" as *;
+@use "dimensions" as *;
+
+// Grid is only used above mobile.
+@media #{$media-tablet-desktop} {
+  :root {
+    // Grid from design system
+    --grid-column: 128px;
+    --grid-gutter: 32px;
+    
+    --12-grid-width: calc(12 * var(--grid-column) + 11 * var(--grid-gutter));
+    --10-grid-width: calc(10 * var(--grid-column) + 9 * var(--grid-gutter));
+    --9-grid-width: calc(9 * var(--grid-column) + 8 * var(--grid-gutter));
+    --6-grid-width: calc(6 * var(--grid-column) + 5 * var(--grid-gutter));
+    --4-grid-width: calc(4 * var(--grid-column) + 3 * var(--grid-gutter));
+    --3-grid-width: calc(3 * var(--grid-column) + 2 * var(--grid-gutter));
+    --2-grid-width: calc(2 * var(--grid-column) + 1 * var(--grid-gutter));
+
+    --max-content-width: var(--12-grid-width);
+  }
+}
+
+/* Base size variables in compact / mobile mode. Adjusts up in comfortable / desktop mode */
+:root {
+
+  --spacing-none: var(--dimensions-0);
+  --spacing-3xsm: var(--dimensions-half-base);
+  --spacing-2xsm: var(--dimensions-base);
+  --spacing-1_5sm: var(--dimensions-1_5x);
+  --spacing-xsm: var(--dimensions-2x);
+  --spacing-sm: var(--dimensions-3x);
+  --spacing-md: var(--dimensions-4x);
+  --spacing-lg: var(--dimensions-6x);
+  --spacing-xl: var(--dimensions-8x);
+  --spacing-2xl: var(--dimensions-16x);
+
+  --radius-none: var(--dimensions-0);
+  --radius-sm: var(--dimensions-base);
+  --radius-md: var(--dimensions-2x);
+  --radius-lg: var(--dimensions-4x);
+  --radius-xl: var(--dimensions-8x);
+  --radius-2xl: var(--dimensions-32x);
+  --radius-3xl: var(--dimensions-90x);
+
+  // Widths
+  --max-width: 120rem; // 1920px
+  --content-width: 60rem; // 960px (928 + padding 16 * 2)
+  --wide-hero-width: 78rem; // 1248px
+  --landing-page-width: 80rem; // 1280px (1248 + padding 16 * 2)
+  --sidebar-width: 28rem; // 448px
+
+  // Legacy
+  --spacing: 8px;
+
+  // These vars are not really existing in the design system, but is used in the code
+  --spacing-xxl: 48px;
+
+}
+
+/* comfortable from 1024 and up */
+@media #{$media-lg-up} {
+  :root {
+
+    --spacing-sm: var(--dimensions-4x);
+    --spacing-md: var(--dimensions-5x);
+    --spacing-lg: var(--dimensions-7x);
+    --spacing-xl: var(--dimensions-10x);
+    --spacing-2xl: var(--dimensions-20x);
+
+    // Legacy
+    --spacing: 16px;
+
+    // These vars are not really existing in the design system, but is used in the code
+    --spacing-4x-lg: calc(var(--spacing-lg) * 4);
+  }
+}
+
+/* spacious from 2880 and up */
+@media #{$media-3xl-up} {
+  :root {
+    --spacing-md: var(--dimensions-6x);
+    --spacing-lg: var(--dimensions-8x);
+    --spacing-xl: var(--dimensions-12x);
+    --spacing-2xl: var(--dimensions-26x);
+  }
+}

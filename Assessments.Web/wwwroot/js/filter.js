@@ -161,7 +161,7 @@ if (filters) {
             removeId = headerId + "_more";
             addId = headerId + "_less";
             content = "arrow_drop_down";
-            classNames = "material-icons less";
+            classNames = "material-icons";
         } else {
             removeId = headerId + "_less";
             addId = headerId + "_more";

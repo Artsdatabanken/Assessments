@@ -1,0 +1,46 @@
+﻿@model CriteriaCategoryImpactViewModel
+
+<li class="@(Model.IsActive && Model.Category != CriteriaCategoryImpact.None ? "active opened_element" : "inactive")">
+	<div class="text_container">
+		<div class="text_collection">
+			<span class="title_field clickable" onclick="expandCriteria(this, 'opened_element')">
+				<span class="close_icon material-icons text_icon">arrow_drop_down</span>
+				<span class="open_icon material-icons text_icon">arrow_right</span>
+				<span class="text_text">
+					@Model.Description
+				</span>
+			</span>
+			@if (Model.Category == CriteriaCategoryImpact.None)
+			{
+				<ul>
+					<li>
+						Ikke valgt
+					</li>
+				</ul>
+			}
+			else
+			{
+				<ul>
+					@foreach (var value in Enum.GetValues<CriteriaCategoryImpact>().Where(x => x != CriteriaCategoryImpact.None))
+					{
+						var className = Model.Category == value ? "active opened_element" : "inactive";
+						<li class="listitem_criteria @className">
+							<span class="text_container">
+								<span class="text_collection">
+									<span class="text_text " onclick="expandCriteria(this, 'opened_element')">
+										<span class="material-icons circle text_icon">
+											circle
+										</span>
+										@value.DisplayName().ToLower()
+									</span>
+								</span>
+							</span>
+						</li>
+					}
+				</ul>
+			}
+
+			
+		</div>
+	</div>
+</li>

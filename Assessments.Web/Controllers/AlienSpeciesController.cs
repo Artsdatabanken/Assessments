@@ -15,8 +15,6 @@ namespace Assessments.Web.Controllers;
 public class AlienSpeciesController(AttachmentRepository attachmentRepository, ArtskartApiService artskartApiService, IStringLocalizer<AlienSpeciesController> localizer)
     : BaseController<AlienSpeciesController>
 {
-    public IActionResult Home() => View("AlienSpeciesHome");
-
     [Route("2023")]
     public async Task<IActionResult> Index(AlienSpeciesListViewModel viewModel, int? page, bool export)
     {
