@@ -15,8 +15,6 @@ namespace Assessments.Web.Controllers;
 [Route("rodlisteforarter")]
 public class SpeciesController(ArtskartApiService artskartApiService, IAppCache appCache) : BaseController<SpeciesController>
 {
-    public IActionResult RodlisteForArter() => View("Home");
-    
     [Route("2021")]
     public async Task<IActionResult> Index([FromQuery] SpeciesViewModel viewModel, int? page, bool export)
     {

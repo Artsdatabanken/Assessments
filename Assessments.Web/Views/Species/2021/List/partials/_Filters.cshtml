@@ -148,9 +148,9 @@
                     {
                         string searchstring = "Viser treff for " + '"' + RedlistSpeciesFilterHelpers.GetActiveSelection(Model) + '"';
                         <span>@searchstring</span>
-                        <button class="button tinybutton tertiary search_related" name="remove_search" value="true">
+                        <a href="@Context.Request.QueryString.RemoveParameters([nameof(SpeciesViewModel.Name), nameof(Model.Name), "Page"])" class="button tinybutton tertiary search_related">
                             <span class="material-icons">close</span>Fjern søk
-                        </button>
+                        </a>
                     }
                 </span>
                 <div class="filterbox">
@@ -168,16 +168,9 @@
                             MakeFilterChips(new string[]{ Model.PresumedExtinct.ToString()}, allPresumedExtinct.Filters);
                             }
                     </ul>
-                    @{
-                        string buttontext = RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) + " filter";
-                    }
-                    @if (RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) > 1)
-                    {
-                        buttontext.Replace("filter", "filtre");
-                        <button class="button tinybutton tertiary search_related" name="remove_filters" value="true">
-                            <span class="material-icons">close</span>Fjern alle filter
-                        </button>
-                    }        
+                    <a is-visible="RedlistSpeciesFilterHelpers.GetActiveSelectionCount(Model) > 1" href="@Context.Request.QueryString.RemoveParametersExcept([nameof(Model.Name), nameof(Model.View)])" class="button tinybutton tertiary search_related">
+                        <span class="material-icons">close</span>Fjern alle filter
+                    </a>
                 </div>
             }
         </span>

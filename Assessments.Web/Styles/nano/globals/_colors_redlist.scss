@@ -1,0 +1,66 @@
+@use "./primitives" as *;
+
+:root {
+  --background-redlist-ne: #{$brand-white};
+  --background-redlist-na: #{$brand-white};
+  --background-redlist-lc: #{$special-60};
+  --background-redlist-dd: #{$special-70};
+  --background-redlist-nt: #{$special-80};
+  --background-redlist-vu: #{$special-90};
+  --background-redlist-en: #{$special-100};
+  --background-redlist-cr: #{$special-110};
+  --background-redlist-re: #{$neutrals-ocean-90};
+  --background-redlist-ew: #939599;
+  --background-redlist-ex: #939599;
+
+  --border-redlist-ne: var(--border-strong);
+  --border-redlist-na: var(--border-strong);
+  --border-redlist-lc: #{$special-60};
+  --border-redlist-dd: #{$special-70};
+  --border-redlist-nt: #{$special-80};
+  --border-redlist-vu: #{$special-90};
+  --border-redlist-en: #{$special-100};
+  --border-redlist-cr: #{$special-110};
+  --border-redlist-re: var(--border-strong);
+  --border-redlist-ew: #939599;
+  --border-redlist-ex: #939599;
+
+  --text-redlist-ne: #{$neutrals-ocean-90};
+  --text-redlist-na: #{$neutrals-ocean-90};
+  --text-redlist-lc: #{$brand-white};
+  --text-redlist-dd: #{$brand-white};
+  --text-redlist-nt: #{$brand-white};
+  --text-redlist-vu: #{$brand-white};
+  --text-redlist-en: #{$brand-white};
+  --text-redlist-cr: #{$brand-white};
+  --text-redlist-re: #{$brand-white};
+  --text-redlist-ew: #{$brand-white};
+  --text-redlist-ex: #{$brand-white};
+
+  // Alien list:
+  --background-alien-list-nr: var(--surface-primary);
+  --border-alien-list-nr: var(--border-strong);
+  --text-alien-list-nr: var(--text-primary);
+
+  --background-alien-list-nk: #94A360;
+  --border-alien-list-nk: #94A360;
+  --text-alien-list-nk: var(--text-primary);
+
+  --background-alien-list-lo: #5C9C94;
+  --border-alien-list-lo: #5C9C94;
+  --text-alien-list-lo: var(--text-invert);
+
+  --background-alien-list-ph: #296473;
+  --border-alien-list-ph: #296473;
+  --text-alien-list-ph: var(--text-invert);
+
+  --background-alien-list-hi: #2E4073;
+  --border-alien-list-hi: #2E4073;
+  --text-alien-list-hi: var(--text-invert);
+
+  --background-alien-list-se: #4F1052;
+  --border-alien-list-se: #4F1052;
+  --text-alien-list-se: var(--text-invert);
+
+}
+

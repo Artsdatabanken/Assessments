@@ -30,9 +30,6 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     [HttpGet]
     public IActionResult Home(string key)
     {
-        if (string.IsNullOrEmpty(key))
-            return View();
-
         // midlertidig tilgangskontroll før lansering
         if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
             return NotFound();

@@ -12,15 +12,11 @@ namespace Assessments.Web.Models.NatureTypes;
 public record NatureTypesDetailViewModel(Assessment Assessment)
 {
     public IEnumerable<CodeItemNodeDto> CodeItemNodeDtos { get; init; }
-    
-    public PageMenuViewModel PageMenuViewModel => new()
+
+
+    public TableOfContentsViewModel TableOfContentsViewModel => new()
     {
-        PageMenuContentId = NatureTypesConstants.PageMenuContentId,
-        PageMenuExpandButtonText = NatureTypesConstants.Title2025,
-        AssessmentType = AssessmentType.NatureTypes2025,
-        TableOfContentsViewModel = new TableOfContentsViewModel
-        {
-            Contents =
+        Contents =
             [
                 new TableOfContentsViewModel.Content
                 {
@@ -71,9 +67,8 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
                     ShouldShow = true
                 }
             ]
-        }
     };
-    
+
     public CitationForAssessmentViewModel CitationForAssessmentViewModel { get; init; }
     
     public CategoryDescriptionViewModel CategoryDescriptionViewModel = new()

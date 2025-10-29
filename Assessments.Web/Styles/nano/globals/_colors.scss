@@ -1,0 +1,154 @@
+@use "./primitives" as *;
+
+// Commented out vars are not used in the theme yet
+@mixin light-mode-variables {
+  --background-default: #{$neutrals-sand-10};
+  --background-subtle: #{$neutrals-sand-30};
+
+  --background-light: #FFFFFF;
+  --background-light-hover: #FFFFFF; // set to same color for now
+
+  //--background-warning: #98331e;
+  --background-accent: #005A71;
+
+  --surface-primary: #{$brand-white};
+  --surface-secondary: #FAEFDF;
+  --surface-accent: #{$brand-freshwater-blue-90};
+  --surface-accent-hover: #{$brand-freshwater-blue-100};
+  --surface-subtle: #{$neutrals-ocean-10};
+  --surface-subtle-hover: #{$neutrals-ocean-20};
+  --surface-subtle-active: #{$neutrals-ocean-30};
+  --surface-invert: #{$neutrals-ocean-90};
+  --surface-hover: #004557;
+
+  --surface-tertiary: #F1F3F4;
+
+  --surface-brand-1: #FFE9E6;
+  --surface-brand-1a: #{$brand-coral-90};
+  --surface-brand-1b: #{$brand-coral-70};
+
+  --surface-brand-2-base: #E4F6F2;
+  --surface-brand-2: var(--surface-brand-2-base);
+  --surface-brand-2a: #{$brand-evergreen-90};
+  --surface-brand-2b: #{$brand-evergreen-60};
+  --surface-brand-2c: #{$brand-evergreen-10};
+
+  --surface-brand-3: #E6EEDD;
+  --surface-brand-3a: #{$brand-summer-grass-90};
+  --surface-brand-3b: #{$brand-summer-grass-70};
+  --surface-brand-3c: #{$brand-summer-grass-10};
+
+  --surface-brand-4: #FFF1DB;
+  --surface-brand-4a: #{$brand-sun-90};
+  --surface-brand-4b: #{$brand-sun-70};
+  --surface-brand-4c: #{$brand-sun-10};
+
+  --surface-brand-5: #E6F1F4;
+  --surface-brand-5a: #{$brand-freshwater-blue-90};
+  --surface-brand-5b: #{$brand-freshwater-blue-60};
+  --surface-brand-5c: #{$brand-freshwater-blue-10};
+
+  --text-primary: #{$neutrals-ocean-90};
+  --text-invert: #{$brand-white};
+  --text-visited: #616B6D;
+  --text-secondary: #{$neutrals-ocean-60};
+  --text-accent: #{$brand-freshwater-blue-90};
+  --text-hover: #{$brand-freshwater-blue-100};
+  //--text-brand1: #CF3E1C;
+  //--text-warning: #fff;
+
+  --border-primary: #F2DFC5;
+  //--border-secondary: #768083;
+  --border-accent: #{$brand-freshwater-blue-90};
+
+  --border-strong: #768083;
+  --border-default: #{$neutrals-sand-100};
+  --border-subtle: #D2DDE0;
+  //--border-brand-1: #{$brand-coral-70};
+  //--border-brand-2: #{$brand-evergreen-60};
+  //--border-brand-3: #{$brand-summer-grass-70};
+  --border-hover: #{$brand-freshwater-blue-100};
+  //--border--accordion: #{$neutrals-sand-100};
+
+  //--infocard-background: #FFFFFF;
+
+  --focus-outer: var(--surface-invert);
+
+  --background-strong: #{$neutrals-sand-90};
+}
+
+@mixin dark-mode-variables {
+  --background-default: #{$neutrals-ocean-90};
+  --background-subtle: #{$neutrals-ocean-80};
+
+  --background-light: #262F31;
+  --background-light-hover: #262F31; // set to same color for now
+  
+  
+
+  //--background-warning: #98331e;
+  --background-accent: #005A71; // same as light now
+
+  --surface-primary: #141D1F;
+  --surface-secondary: #4C5658;
+  --surface-accent: #52C0DA;
+  --surface-accent-hover: #52C0DA; // same as parent now
+  --surface-subtle: #394244;
+  --surface-subtle-hover: #394244; // same as parent now
+  --surface-invert: #FFFFFF;
+  --surface-hover: #61D0EA;
+  --surface-subtle-active: #{$neutrals-ocean-90};
+
+  --text-primary: #FFFFFF;
+  --text-invert: #262F31;
+  --text-visited: #A3AEB0;
+  --text-secondary: #D2DDE0;
+  --text-accent: #61D0EA;
+  --text-hover: #{$brand-freshwater-blue-10};
+  //--text-brand1: #E55440;
+
+  --border-primary: #141D1F;
+  //--border-secondary: #768083;
+  --border-accent: #{$brand-freshwater-blue-90};
+
+  --border-strong: #8C9799;
+  --border-default: #{$neutrals-ocean-100};
+  //--border-subtle: #{$neutrals-ocean-80};
+  //--border-brand-1: #{$brand-coral-50};
+  //--border-brand-2: #{$brand-evergreen-50};
+  //--border-brand-3: #{$brand-summer-grass-50};
+  //--border-brand-4: #{$brand-sun-50};
+  //--border-hover: #{$brand-freshwater-blue-100};
+  //
+  //--infocard-background: #1c2122;
+
+  --surface-tertiary: #{$neutrals-ocean-100};
+
+  --surface-brand-1: #381E19;
+  --surface-brand-1a: #F4A08F;
+  --surface-brand-2-base: #133A30;
+  --surface-brand-2: #5AC9A9;
+  --surface-brand-2a: #5AC9A9;
+  --surface-brand-3: #273B0D;
+  --surface-brand-4: #392A13;
+  --surface-brand-4a: #FBCD86;
+  --surface-brand-4b: #FBBD53;
+  --surface-brand-5: #1C3840;
+
+  --background-strong: #{$neutrals-ocean-50};
+}
+
+
+:root {
+  --hero-bg-transparent: transparent;
+  --hero-bg-brand_1: var(--surface-brand-1);
+  --hero-bg-brand_2: var(--surface-brand-2-base);
+  --hero-bg-tertiary: var(--surface-tertiary);
+  --hero-bg-background_subtle: var(--background-subtle);
+
+  --hero-bg-transparent-icon-color: var(--surface-invert);
+  --hero-bg-brand_1-icon-color: var(--surface-brand-1a);
+  --hero-bg-brand_2-icon-color: var(--surface-brand-2a);
+  --hero-bg-tertiary-icon-color: var(--surface-invert);
+  --hero-bg-background_subtle-icon-color: var(--surface-brand-4a);
+}

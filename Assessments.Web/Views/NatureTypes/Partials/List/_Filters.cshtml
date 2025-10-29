@@ -35,9 +35,12 @@
         InputTag(action, "collapse_checkbox", "IsCheck", Model.IsCheck, filterName);
         <button name="@buttonname" class="list_header" id="@id" onclick="collapse('@action')" type="button">
             @buttonText
-            <span class="filternumber">
-                @Context.Request.Query[filterName].Count
-            </span>
+            @if (Context.Request.Query[filterName].Count > 0)
+            {
+                <span class="filternumber">
+                    @Context.Request.Query[filterName].Count
+                </span>
+            }
         </button>
     }
 
@@ -157,7 +160,7 @@
         {
             <span class="mobile_hide hit-counter">Viser @Model.Assessments.FirstItemOnPage til @Model.Assessments.LastItemOnPage av totalt @Model.Assessments.TotalItemCount treff.</span>
             <span class="mobile_hide">Sorter etter: </span>
-            <select asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByEnum>()" id="sort_results" class="sort_by list_actions" onchange="this.form.submit()"></select>
+            <select asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByEnum>()" id="sort_results" class="list_actions" onchange="this.form.submit()"></select>
         }
     </div>
     <partial name="/Views/Shared/_ControlButtons.cshtml" model="new ControlButtonsViewModel { View = Model.ListViewViewModel.View }" />

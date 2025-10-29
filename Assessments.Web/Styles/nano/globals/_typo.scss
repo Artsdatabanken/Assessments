@@ -1,0 +1,300 @@
+@use "media" as *;
+
+:root {
+  --font-default-family: 'Chivo', sans-serif;
+  --font-secondary-family: 'Space Mono', monospace;
+
+  --font-size-base: 16px; /* This is your base font size in px */
+  --font-size-small: 0.75rem; /* 12px / 16px = 0.75rem */
+
+  --font-size-1: 0.6875rem; /* 11px / 16px = 0.6875rem */
+  --font-size-2: 0.75rem; /* 12px / 16px = 0.75rem */
+  --font-size-3: 0.8125rem; /* 13px / 16px = 0.8125rem */
+  --font-size-4: 0.875rem; /* 14px / 16px = 0.875rem */
+  --font-size-5: 1rem; /* 16px / 16px = 1rem */
+  --font-size-6: 1.125rem; /* 18px / 16px = 1.125rem */
+  --font-size-7: 1.3125rem; /* 21px / 16px = 1.3125rem */
+  --font-size-8: 1.5rem; /* 24px / 16px = 1.5rem */
+  --font-size-9: 1.75rem; /* 28px / 16px = 1.75rem */
+  --font-size-10: 2rem; /* 32px / 16px = 2rem */
+  --font-size-11: 2.25rem; /* 36px / 16px = 2.25rem */
+  --font-size-12: 2.5rem; /* 40px / 16px = 2.5rem */
+
+  --font-line-height: 1.55;
+
+  --border-radius-xs: 3px;
+  --border-radius-sm: 5px;
+  --border-radius: 10px;
+  --border-radius-lg: 15px;
+  --border-radius-xl: 20px;
+}
+
+/* comfortable from 1024 and up */
+@media #{$media-lg-up} {
+  :root {
+    --font-size-1: 0.75rem; /* 12px / 16px = 0.75rem */
+    --font-size-2: 0.8125rem; /* 13px / 16px = 0.8125rem */
+    --font-size-3: 0.875rem; /* 14px / 16px = 0.875rem */
+    --font-size-4: 1rem; /* 16px / 16px = 1rem */
+    --font-size-5: 1.125rem; /* 18px / 16px = 1.125rem */
+    --font-size-6: 1.25rem; /* 20px / 16px = 1.25rem */
+    --font-size-7: 1.375rem; /* 22px / 16px = 1.375rem */
+    --font-size-8: 1.625rem; /* 26px / 16px = 1.625rem */
+    --font-size-9: 2rem; /* 32px / 16px = 2rem */
+    --font-size-10: 2.25rem; /* 36px / 16px = 2.25rem */
+    --font-size-11: 2.5rem; /* 40px / 16px = 2.5rem */
+    --font-size-12: 3rem; /* 48px / 16px = 3rem */
+  }
+}
+
+/* spacious from 2880 and up */
+@media #{$media-3xl-up} {
+  :root {
+    --font-size-6: 1.3125rem; /* 21px / 16px = 1.3125rem */
+    --font-size-7: 1.5rem; /* 24px / 16px = 1.5rem */
+    --font-size-8: 1.875rem; /* 30px / 16px = 1.875rem */
+    --font-size-9: 2.25rem; /* 36px / 16px = 2.25rem */
+    --font-size-10: 2.5rem; /* 40px / 16px = 2.5rem */
+    --font-size-11: 3rem; /* 48px / 16px = 3rem */
+    --font-size-12: 3.5rem; /* 56px / 16px = 3.5rem */
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 120%;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing);
+}
+
+h1 {
+  font-size: var(--font-size-10);
+}
+
+h2 {
+  font-size: var(--font-size-8);
+}
+
+h3 {
+  font-size: var(--font-size-7);
+}
+
+h4 {
+  font-size: var(--font-size-6);
+}
+
+h5 {
+  font-size: var(--font-size-4);
+  text-transform: uppercase;
+}
+
+h6 {
+  font-size: var(--font-size-4);
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('/fonts/SpaceMono-Regular.woff2') format('woff2'),
+  url('/fonts/SpaceMono-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-BlackItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-ThinItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-LightItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Bold.woff2') format('woff2'),
+  url('/fonts/Chivo-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-SemiBoldItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-SemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Thin.woff2') format('woff2'),
+  url('/fonts/Chivo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Medium.woff2') format('woff2'),
+  url('/fonts/Chivo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Italic.woff2') format('woff2'),
+  url('/fonts/Chivo-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-MediumItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-ExtraBoldItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-ExtraBoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-ExtraLight.woff2') format('woff2'),
+  url('/fonts/Chivo-ExtraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-ExtraLightItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-ExtraLightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-ExtraBold.woff2') format('woff2'),
+  url('/fonts/Chivo-ExtraBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Light.woff2') format('woff2'),
+  url('/fonts/Chivo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Black.woff2') format('woff2'),
+  url('/fonts/Chivo-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-Regular.woff2') format('woff2'),
+  url('/fonts/Chivo-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-SemiBold.woff2') format('woff2'),
+  url('/fonts/Chivo-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chivo';
+  src: url('/fonts/Chivo-BoldItalic.woff2') format('woff2'),
+  url('/fonts/Chivo-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+.heading {
+  color: var(--text-primary, #262F31);
+  font-weight: 700;
+  line-height: 120%; /* 48px */
+
+  &.xxlarge {
+    font-size: var(--font-size-12, 56px);
+    line-height: 115.5%; /* 64.68px */
+  }
+
+  &.xlarge {
+    font-size: var(--font-size-10, 40px);
+  }
+
+  &.large {
+    font-size: var(--font-size-8, 30px);
+  }
+
+  &.medium {
+    font-size: var(--font-size-7, 24px);
+  }
+
+  &.small {
+    font-size: var(--font-size-6, 21px);
+  }
+
+  &.xsmall {
+    font-size: var(--font-size-4, 16px);
+    text-transform: uppercase;
+  }
+
+  &.xxsmall {
+    font-size: var(--font-size-4, 16px);
+  }
+}

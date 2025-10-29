@@ -1,4 +1,4 @@
-﻿html {
+﻿/*html {
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -45,7 +45,7 @@ span,
     z-index: 12;
 }
 
-.darktheme .heyCookie {
+.dark-theme .heyCookie {
     position: fixed;
     width: 100%;
     background: #2b2b2b;
@@ -54,7 +54,7 @@ span,
     text-align: center;
     color: #fff9f0;
     border-color: #f5e7d3;
-}
+}*/
 
 /* 
     Graphic profile colours for reference - classes are not in use as is 
@@ -67,7 +67,7 @@ span,
     background: #fffcf7;
 }
 
-h1 {
+/*h1 {
     margin-bottom: 0;
 }
 
@@ -81,19 +81,23 @@ ul a:active,
 .header-logo:active,
 .header-logo:focus {
     border:2px solid blue;
-}
+}*/
 
 
 /* PAGE CRUMB*/
-.breadcrumbs li.currentcrumb {
+/*.breadcrumbs li.currentcrumb {
     text-decoration: none;
     color: #555555;
-}
+}*/
 
 /* TEMPORARY CODE NEEDS TO BE THOUGHT ABOUT*/
+/*
+.front_page_links {
+    padding: 0;
+}
 
-.front_page_links li{
-    display:block;
+.front_page_links li {
+    display: block;
 }
 
 .front_page_links li a{
@@ -130,25 +134,25 @@ ul a:active,
 
 .material-icons.bigarrow {
     font-size: 80px;
-}
+}*/
 
 option {
     background-color: #fff;
     color: #262F31;
 }
 
-@media only screen and (max-width: 750px) {
+/*@media only screen and (max-width: 750px) {
     .sort_by_container {
         max-width: 30%;
         margin-top: 20px;
     }
-}
+}*/
 
-@media only screen and (min-width: 940px) {
+/*@media only screen and (min-width: 940px) {
     .front_page_links li a {
         font-size: 30px;
     }
-}
+}*/
 /* SHOULD MOVE TO THE GRAPHIC PROFILE PROJECT */
 .ingress p {
     font-size: 22.5px;
@@ -156,17 +160,22 @@ option {
 
 /* OVERRIDE STYLES */
 
+.pagecontainer a {
+    text-decoration: underline;
+}
+
+
 .page_section h2{
     margin-top:40px;
 }
 
-.breadcrumbs {
+/*.breadcrumbs {
     max-width: 100%;
-}
+}*/
 
-.bigmid .mid {
+/*.bigmid .mid {
     width: 100%;
-}
+}*/
 
 .center-horizontal {
     text-align: center;
@@ -177,11 +186,27 @@ option {
     flex-direction: row;
 }
 
+@media only screen and (max-width: 1248px) {
+
+    .content-placer {
+        padding-left: var(--spacing-md);
+        padding-right: var(--spacing-md);
+    }
+}
+
 /* FULLSCREEN above 940px*/
 @media only screen and (min-width: 941px) {
-    .mid-content {
+    /*.mid-content {
         padding-left: 10px;
         padding-right: 10px;
+    }*/
+
+    .content-placer {
+        /*width: 85%;*/
+        margin-left: auto;
+        box-sizing: border-box;
+/*        padding-left: 0px;
+        padding-right: 0px;*/
     }
 
     /* Page setup */
@@ -213,7 +238,7 @@ option {
 
     .content-placer {
         padding-top: 33px;
-        width: calc(75%);
+        width: var(--wide-hero-width);
         display: flex;
         flex-wrap: wrap;
     }
@@ -251,9 +276,9 @@ option {
         padding-bottom:0;
     }
 
-    footer{
+    /*footer{
         margin-top:0;
-    }
+    }*/
 
     .sidebarmenu {
         display: inline-block;
@@ -326,7 +351,11 @@ option {
     margin-bottom: 0;
 }
 
-#dropdown-header-menu,
+.page-header h1 {
+    margin-top: 0;
+}
+
+/*#dropdown-header-menu,
 #themeselectordropdown {
     z-index: 1000;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -404,7 +433,7 @@ option {
 
 #adb_header_search {
     z-index: 1000;
-}
+}*/
 
 /* 
     other stuff
@@ -595,7 +624,7 @@ option {
 
 /* FRONT PAGE TITLE AREA */
 
-.title_with_image{
+/*.title_with_image{
     padding-bottom:10px;
     position:relative;
     min-height:190px;
@@ -644,9 +673,9 @@ option {
         width: 130px;
     }
        
-}
+}*/
 
-@media only screen and (max-width: 409px) {
+/*@media only screen and (max-width: 409px) {
     .title_with_image img {
         width: 100px;
         position:relative;
@@ -660,10 +689,10 @@ option {
         width:100%;
     }
 }
+*/
 
 
-
-@media only screen and (max-width: 750px) {
+/*@media only screen and (max-width: 750px) {
 
     .side,
     .content-placer,
@@ -685,7 +714,7 @@ option {
         padding-right: 15px;
         margin: 0px;
     }
-}
+}*/
 
 .pad-top {
     padding-top: 3px;
@@ -744,7 +773,7 @@ option {
     margin-bottom: 20px;
 }
 
-.darktheme .archive a,
+.dark-theme .archive a,
 .archive a {
     color: #850808;
 }
@@ -768,7 +797,7 @@ option {
 
 /* FOOTER */
 
-footer a {
+/*footer a {
     color: #017590;
 }
 
@@ -783,13 +812,13 @@ a,
 .breadcrumbs li a,
 footer a {
     color: #017590;
-}
+}*/
 
 .sidebarmenu li a.active-menuitem {
     background-color: #f5e7d3;
 }
 
-ul a:hover,
+.sidebarmenu ul a:hover,
 .sidebarmenu li a.active-menuitem:hover {
     background-color: #f5e7d3;cursor: pointer;
 }

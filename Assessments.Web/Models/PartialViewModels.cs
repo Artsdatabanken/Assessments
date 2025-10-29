@@ -354,34 +354,6 @@ namespace Assessments.Web.Models
         public string FormattedReference { get; set; }
     }
 
-    public class HeaderViewModel
-    {
-        public string Title { get; set; }
-
-        public string TitleShort { get; set; }
-    }
-
-    public class PageHeaderViewModel
-    {
-        public string HeaderText { get; set; }
-
-        public string HeaderByline { get; set; }
-    }
-
-    public class IntroductionViewModel
-    {
-        public IntroductionViewModel()
-        {
-        }
-
-        public IntroductionViewModel(string introduction)
-        {
-            Introduction = introduction;
-        }
-
-        public string Introduction { get; set; }
-    }
-
     public class ScientificNameViewModel
     {
         public string PopularName { get; set; }
@@ -393,15 +365,6 @@ namespace Assessments.Web.Models
         public bool ScientificNameFormatted { get; set; } = false;
 
         public bool ShowAssessmentOf { get; set; } = true;
-    }
-
-    public class SidebarContentViewModel
-    {
-        public string ScientificName { get; set; }
-
-        public int ScientificNameId { get; set; }
-
-        public string TaxonRank { get; set; }
     }
 
     public class SpeciesGroupViewModel

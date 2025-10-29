@@ -1,0 +1,317 @@
+@use "colors_redlist" as *;
+
+@mixin hr-after($color: 'invert') {
+  &:after {
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    bottom: calc(var(--spacing) * -1);
+    left: 0;
+    content: "";
+    background-color: var(--surface-#{$color});
+    border-radius: 2px;
+  }
+}
+
+// This could maybe rather be a library?
+@mixin assessment-code-text($width: 48px, $height: 48px, $font-size: 24px) {
+  .circle {
+    width: $width;
+    height: $height;
+    border-radius: 50%;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $font-size;
+    font-weight: 700;
+    line-height: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+
+    // Redlist
+    &.ne {
+      background-color: var(--background-redlist-ne);
+      color: var(--text-redlist-ne);
+      border-color: var(--border-redlist-ne);
+    }
+
+    &.dd {
+      background-color: var(--background-redlist-dd);
+      color: var(--text-redlist-dd);
+      border-color: var(--border-redlist-dd);
+    }
+
+    &.lc {
+      background-color: var(--background-redlist-lc);
+      color: var(--text-redlist-lc);
+      border-color: var(--border-redlist-lc);
+    }
+
+    &.nt {
+      background-color: var(--background-redlist-nt);
+      color: var(--text-redlist-nt);
+      border-color: var(--border-redlist-nt);
+    }
+
+    &.vu {
+      background-color: var(--background-redlist-vu);
+      color: var(--text-redlist-vu);
+      border-color: var(--border-redlist-vu);
+    }
+
+    &.en {
+      background-color: var(--background-redlist-en);
+      color: var(--text-redlist-en);
+      border-color: var(--border-redlist-en);
+    }
+
+    &.cr {
+      background-color: var(--background-redlist-cr);
+      color: var(--text-redlist-cr);
+      border-color: var(--border-redlist-cr);
+    }
+
+    &.ew {
+      background-color: var(--background-redlist-ew);
+      color: var(--text-redlist-ew);
+      border-color: var(--border-redlist-ew);
+    }
+
+    &.na {
+      background-color: var(--background-redlist-na);
+      color: var(--text-redlist-na);
+      border-color: var(--border-redlist-na);
+    }
+
+    &.re {
+      background-color: var(--background-redlist-re);
+      color: var(--text-redlist-re);
+      border-color: var(--border-redlist-re);
+    }
+
+    // Alien list
+    &.nr {
+      background-color: var(--background-alien-list-nr);
+      color: var(--text-alien-list-nr);
+    }
+    &.nk {
+      background-color: var(--background-alien-list-nk);
+      color: var(--text-alien-list-nk);
+    }
+    &.lo {
+      background-color: var(--background-alien-list-lo);
+      color: var(--text-alien-list-lo);
+    }
+    &.ph {
+      background-color: var(--background-alien-list-ph);
+      color: var(--text-alien-list-ph);
+    }
+    &.hi {
+      background-color: var(--background-alien-list-hi);
+      color: var(--text-alien-list-hi);
+    }
+    &.se {
+      background-color: var(--background-alien-list-se);
+      color: var(--text-alien-list-se);
+    }
+  }
+}
+
+@mixin base-menu-link() {
+  color: var(--text-primary);
+  text-decoration: none;
+  display: flex;
+  padding: var(--spacing-lg) var(--spacing-sm);
+  position: relative;
+  line-height: 1.5em;
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    height: 4px;
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+  }
+
+  &.is-active {
+    font-weight: 700;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+
+  &.is-active:not(:hover):not(:focus) {
+    &::after {
+      height: 2px;
+      background-color: var(--surface-accent);
+    }
+  }
+
+  &.is-active:focus:hover {
+    color: var(--text-invert);
+  }
+
+  &:hover {
+    color: var(--text-hover);
+
+    &::after {
+      background-color: var(--surface-hover);
+    }
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:focus {
+    color: var(--text-invert);
+    background-color: var(--surface-accent);
+    outline: none;
+
+    &::after {
+      background-color: var(--surface-hover);
+    }
+
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin placeholder {
+  &::placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin external-decoration() {
+  &::after {
+    content: "";
+    display: inline-block;
+    margin-left: var(--spacing-2xsm);
+    transform: translateY(var(--spacing-2xsm));
+    width: 1.14em;
+    height: 1.14em;
+    background-color: currentColor;
+    -webkit-mask: url('/svg/open-in-new.svg') no-repeat center / contain;
+    mask: url('/svg/open-in-new.svg') no-repeat center / contain;
+  }
+}
+
+@mixin styled-link($external: true) {
+  position: relative;
+  display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: currentColor;
+  }
+
+  &:hover, &:active {
+    &::before {
+      box-shadow: 0 -2px currentColor;
+    }
+  }
+  
+  &:visited {
+    color: var(--text-visited);
+  }
+
+  &:focus,
+  &:active {
+    background-color: var(--surface-subtle);
+    outline: none;
+  }
+
+  &.is-external {
+    @if ($external) {
+      @include external-decoration();
+    }
+  }
+}
+
+// Fat link with red arrow icon
+@mixin shortcut-link($size: medium) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xsm);
+  padding: var(--spacing-xsm) 0;
+  position: relative;
+
+  @if $size == small {
+    font-size: var(--font-size-3);
+    line-height: 1.6em;
+  }
+
+  @if $size == medium {
+    font-size: var(--font-size-5);
+    line-height: 1.7em;
+  }
+  
+  @if $size == large {
+    font-size: var(--font-size-6);
+    line-height: 1.7em;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: currentColor;
+  }
+
+  &:hover, &:active {
+    &::before {
+      box-shadow: 0 -2px currentColor;
+    }
+  }
+
+  &:active,
+  &:focus {
+    background-color: var(--surface-subtle);
+    outline: none;
+  }
+
+  &:after {
+    content: "";
+    height: calc(1em * 1.6);
+    width: calc(1em * 1.6);
+    display: block;
+    background-image: url('/svg/special-chevron-right-24.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+  }
+}
+
+@mixin button-preset() {
+  background-color: transparent;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+}

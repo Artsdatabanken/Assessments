@@ -1,0 +1,74 @@
+@use "../globals/media" as *;
+@use "../globals/mixins" as *;
+
+.menu-toggler {
+    @include base-menu-link();
+    @include button-preset();
+
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2xsm);
+    color: var(--text-accent);
+
+    &__text {
+        min-width: 2.75rem;
+
+        &--menu {
+            [aria-expanded="true"] & {
+                display: none;
+            }
+        }
+
+        &--close {
+            [aria-expanded="false"] & {
+                display: none;
+            }
+        }
+    }
+
+    &__icon {
+      display: flex;
+      align-items: center;
+
+      &--open {
+        [aria-expanded="true"] & {
+          display: none;
+        }
+      }
+
+      &--open-mobile {
+        [aria-expanded="true"] & {
+          display: none;
+        }
+
+        @media #{$media-desktop} {
+          display: none;
+        }
+      }
+
+      &--open-desktop {
+        [aria-expanded="true"] & {
+          display: none;
+        }
+
+        display: none;
+
+        @media #{$media-desktop} {
+          display: flex;
+        }
+      }
+
+      &--close {
+        display: none;
+
+        [aria-expanded="true"] & {
+          display: flex;
+        }
+      }
+    }
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }

@@ -34,13 +34,14 @@ const renderSpeciesImage = (targetElement, element) => {
     img.style.height = 'auto';
     img.style.width = '200px';
     img.style.padding = '0';
+    img.style.display = 'block';
     imagewrapper.style['margin-bottom'] = '20px';
 
     const metaData = updateMetaData(element.children[1].children[0])
     
     imagewrapper.appendChild(img);
     imagewrapper.appendChild(element.children[1].children[0]);
-    console.log('\nmeta', imagewrapper)
+    //console.log('\nmeta', imagewrapper)
     targetElement.appendChild(imagewrapper);
 }
 

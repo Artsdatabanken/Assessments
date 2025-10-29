@@ -1,0 +1,314 @@
+﻿/*@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&display=swap");
+*/
+/*body {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}*/
+
+/* GENERIC STYLING */
+
+/*h1,
+h2,
+h3,
+h4 {*/
+    /*color: #777368;*/
+    /*font-family: "Roboto Condensed", sans-serif;
+    display: block;
+}
+
+h1,
+h2,
+h3 {*/
+    /*color: #777368;*/
+    /*font-family: "Roboto Condensed", sans-serif;
+    font-weight: 700;
+    padding-bottom: 10px;
+    margin-top: 21px;
+    margin-bottom: 10.5px;
+}
+
+h2 {
+    font-size: 27px;
+}
+
+h3 {
+    font-size: 19px;
+}
+
+p {
+    font-size: 12pt;
+    margin-bottom: 15px;*/
+    /*color: black;*/
+/*}*/
+
+/* LAYOUT */
+
+/* 990 px: PADDE: articles fullwidth */
+/* 768 px: MOBILE: articles max collapse */
+/* 527 px: SMALL MOBILE */
+/* 400 px: Super-tiny */
+/* Outer container and its background */
+.main {
+    background: #f9f9f9;
+}
+
+.main-content {
+    background: white;
+    /*padding: 15px;*/
+    line-height: 1.25;
+    /*padding-top: 30px;*/ /* Compensate for missing breadcrumbs*/
+}
+
+/*@media only screen and (max-width: 527px) {
+    .main-content {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}*/
+
+@media only screen and (max-width: 400px) {
+    .main-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+/* Page max width  */
+
+.width-adjuster {
+    max-width: var(--wide-hero-width);
+    margin: auto;
+    height: 100%;
+    position: relative;
+}
+
+/*@media only screen and (max-width: 940px) {
+    .width-adjuster {
+        width: 100%;
+    }
+}*/
+
+/* Places layout elements on page */
+
+/*.content-placer {*/
+    /*width: 85%;*/
+    /*margin-left: auto;
+    box-sizing: border-box;*/
+    /*    padding-left: 15px;
+    padding-right: 15px;*/
+    /*padding: 0 var(--spacing-md);
+}*/
+
+@media only screen and (max-width: 940px) {
+    .content-placer {
+        width: 100%;
+        margin-left: auto;
+    }
+}
+
+/* sections */
+
+.section {
+    /*padding-top:10px;
+     // There's so much pad on other objects, skip it?*/
+    padding-bottom: 10px;
+    font-size: 12pt;
+    display: block;
+    padding-right: 20px;
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 740px) {
+    .section {
+        padding-right: 0px;
+    }
+}
+
+/* INGRESS */
+
+/*.ingress {
+    font-size: 22.5px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: #4c4a48;
+    padding-right: 20px;
+    margin: 0;
+}
+
+    .ingress span {
+        color: black;
+    }
+
+*/
+
+.byline {
+    box-sizing: border-box;
+    color: rgb(76, 74, 72);
+    font-size: 12.5px;
+    line-height: 17.85px;
+    text-align: left;
+}
+
+/* Sidebar left side*/
+    .sidebarmenu {
+    margin-left: 0px;
+    max-width: 25%;
+    margin-top: 15px;
+    left: 0px;
+    width: 25%;
+    top: 0px;
+    font-size: 12pt;
+    height: 100%;
+    padding: 15px;
+    padding-top: 0;
+    display: none;
+}
+
+    .sidebarmenu li.lead {
+        font-size: 22.5px;
+        padding-left: 0px;
+        border-top: 0;
+    }
+
+    .sidebarmenu li a {
+        text-decoration: none;
+        color: #4c4a48;
+    }
+
+    .sidebarmenu ul {
+        /*font-family: "Roboto Condensed";*/
+        padding-right: 1em;
+        border-right: 1px solid #cecfd1;
+    }
+
+    .sidebarmenu li {
+        display: block;
+        width: 100%;
+        padding: 0.5em 0 0.5em 1em;
+        border-top: 1px solid #e4e3e2;
+        /*font-family: "Roboto Condensed";*/
+    }
+
+@media only screen and (max-width: 940px) {
+    .sidebarmenu {
+        display: none;
+    }
+}
+
+/* MID FIELD */
+
+.mid {
+    width: calc(100% - 260px);
+    display: inline-block;
+    padding-right: 20px;
+}
+
+@media only screen and (max-width: 740px) {
+    .mid {
+        width: 100%;
+        max-width: 100%;
+        padding-right: 0px;
+    }
+}
+
+.mid div,
+.mid table {
+    font-size: 12pt;
+}
+
+/* SIDEBAR Right side (grey boxes) */
+
+.sidebar {
+    max-width: 260px;
+    display: block;
+    float: right;
+}
+
+@media only screen and (max-width: 740px) {
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.sidebar .section {
+    width: 100%;
+    margin-bottom: 10px;
+    background: lightgrey;
+    display: block;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e2e3e4;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    word-wrap: break-word;
+}
+
+.sidebar h3 {
+    padding-bottom: 0px;
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+/* BREADCRUMBS*/
+
+.breadcrumbs {
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0;
+    padding: 0px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+}
+
+    .breadcrumbs ul {
+        /*font-family: "Roboto Condensed";*/
+        padding-right: 1em;
+    }
+
+    .breadcrumbs li {
+        display: inline-block;
+        padding: 0.5em 0 0.5em 1em;
+        /*font-family: "Roboto Condensed";*/
+        font-size: 12pt;
+        text-decoration: underline;
+        color: #1b57a9;
+        padding: 0px;
+    }
+
+        .breadcrumbs li a {
+            color: inherit;
+        }
+
+.breadcrumbdivider {
+    display: inline;
+    padding: 0 5px;
+    color: #ccc;
+    border-bottom: none;
+}
+
+.pre {
+    font-size: 10pt;
+    color: white;
+    background: #4c4a48;
+    width: 100%;
+    overflow: scroll;
+}
+
+.MuiSvgIcon-root {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    -moz-user-select: none;
+}
