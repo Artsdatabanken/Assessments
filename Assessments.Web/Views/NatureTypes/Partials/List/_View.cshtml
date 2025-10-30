@@ -26,7 +26,7 @@
                     <li class="list">
                         <a asp-action="Detail" asp-route-id="@assessment.Id" style="grid-template-columns: 4fr auto auto">
                             <span class="list_cell">
-                                @assessment.Name
+                                @(!string.IsNullOrEmpty(assessment.PopularName) ? assessment.PopularName : assessment.Name)
                                 @if (topic != null)
                                 {
                                     <br />

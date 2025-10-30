@@ -54,8 +54,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         query = parameters.SortBy switch
         {
             SortByEnum.Category => query.OrderBy(x => x.Category),
-            SortByEnum.Name => query.OrderBy(x => x.Name),
-            _ => query.OrderBy(x => x.NinCodeTopic.ShortCode)
+            SortByEnum.NinCode => query.OrderBy(x => x.NinCodeTopic.ShortCode),
+            _ => query.OrderBy(x => string.IsNullOrEmpty(x.PopularName)).ThenBy(x => x.PopularName).ThenBy(x => x.Name)
         };
 
         if (export)
@@ -267,14 +267,14 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var stats = regionStats.FirstOrDefault(x => x.Key == region.Id);
             viewModel.Regions.Add(region.Name, stats?.Count ?? 0);
         }
-        
+
         foreach (var categoryCriteriaType in Enum.GetValues<CategoryCriteriaType>())
             viewModel.CategoryCriteriaType.Add(categoryCriteriaType, 0);
 
         foreach (var assessment in assessments)
         {
             var categoryCriteriaTypes = NatureTypesExtensions.GetCategoryCriteriaTypes(assessment.CategoryCriteria);
-           
+
             foreach (var categoryCriteriaType in categoryCriteriaTypes)
                 viewModel.CategoryCriteriaType[categoryCriteriaType] += 1;
         }
