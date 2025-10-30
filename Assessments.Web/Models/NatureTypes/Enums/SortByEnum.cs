@@ -4,11 +4,11 @@ namespace Assessments.Web.Models.NatureTypes.Enums;
 
 public enum SortByEnum
 {
-    [Display(Name = "NiN")]
-    NinCode,
-
     [Display(Name = "Naturtype")]
-    Name,
+    PopularName,
+
+    [Display(Name = "NiN-kode")]
+    NinCode,
     
     [Display(Name = "Kategori")]
     Category
