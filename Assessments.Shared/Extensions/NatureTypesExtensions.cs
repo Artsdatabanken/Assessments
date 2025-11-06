@@ -15,15 +15,15 @@ public static class NatureTypesExtensions
     {
         return category switch
         {
-            Category.CO => "#262F31",
-            Category.CR => "#D61900",
-            Category.EN => "#F34F39",
-            Category.VU => "#EB8107",
-            Category.NT => "#E6C000",
-            Category.DD => "#6C6C6C",
-            Category.LC => "#61A360",
-            Category.NA => "",
-            Category.NE => "",
+            Category.CO => "#5a5b5d",
+            Category.CR => "#99191a",
+            Category.EN => "#d80f27",
+            Category.VU => "#e94f33",
+            Category.NT => "#ed6c26",
+            Category.DD => "#f7a520",
+            Category.LC => "#60beb2",
+            Category.NA => "#939598",
+            Category.NE => "#d1d3d4",
             _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
         };
     }

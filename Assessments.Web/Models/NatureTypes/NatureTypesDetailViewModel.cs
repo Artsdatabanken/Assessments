@@ -82,6 +82,4 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
     };
 
     public List<CategoryCriteriaType> CategoryCriteriaTypes { get; init; } = [];
-
-    public NatureTypeChangesViewModel ChangesViewModel { get; set; }
 }

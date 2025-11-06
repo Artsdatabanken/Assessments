@@ -128,39 +128,9 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
 
-        var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
-
-        var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
-
-        if (lookup != null)
-        {
-            var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
-            var assessmentIds = changes.Select(y => y.Id2025).ToList();
-
-            var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
-            {
-                x.Id,
-                x.Name,
-                CategoryDescription = x.Category.GetDescription().ToString()
-            }).ToList();
-
-            var sankeyViewModel = new NatureTypeChangesViewModel
-            {
-                Name = lookup.Name2018,
-                Description = lookup.Category2018,
-                Models = [.. changes.Select(x => new NatureTypeChangesModel
-                {
-                    Name = assessmentsWithChanges.First(y => y.Id == x.Id2025).Name,
-                    Description = assessmentsWithChanges.First(y => y.Id == x.Id2025).CategoryDescription
-                })]
-            };
-
-            viewModel.ChangesViewModel = sankeyViewModel;
-        }
-
         return View(viewModel);
     }
-    
+
     [HttpGet]
     [Route("2025/[action]")]
     public async Task<IActionResult> Suggestions()
@@ -183,61 +153,56 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
         var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
 
-        if (lookup != null)
+        if (lookup == null)
+            return Json(null);
+
+        var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
+        var assessmentIds = changes.Select(y => y.Id2025).ToList();
+
+        var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
         {
-            var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
-            var assessmentIds = changes.Select(y => y.Id2025).ToList();
+            x.PopularName,
+            x.Category
+        }).ToList();
 
-            var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
-            {
-                x.PopularName,
-                x.Category
-            }).ToList();
+        var categoryDescription2018 = lookup.Category2018.ToEnum(Category.NA).GetDescription();
 
-            var nodes = new List<Node> { new()
-            {
-                Name = lookup.Name2018, 
-                Color = "#D61900",
-                Category = lookup.Category2018
-            } };
-            
-            nodes.AddRange(assessmentsWithChanges.Select(x => new Node
-            {
-                Name = x.PopularName, 
-                Color = x.Category.GetColor(),
-                Category = x.Category.ToString()
-            }));
+        // LC i 2018 har beskrivelsen "intakt"
+        if (lookup.Category2018 == "LC")
+            categoryDescription2018 = "Intakt";
 
-            var target = 1;
-            var data = new
-            {
-                Nodes = nodes,
-                Links = assessmentsWithChanges.Select(x => new Link
-                {
-                    Source = 0, 
-                    Target = target++, 
-                    Value = 4
-                })
+        var nodes = new[] { new
+        {
+            Name = lookup.Name2018, 
+            Color = lookup.Category2018.ToEnum(Category.NA).GetColor(), 
+            Category = lookup.Category2018,
+            CategoryDescription = categoryDescription2018
+        }}.ToList();
 
-            };
-            return Json(data);
+        foreach (var assessmentsWithChange in assessmentsWithChanges)
+        {
+            nodes.Add(new
+            {
+                Name = assessmentsWithChange.PopularName,
+                Color = assessmentsWithChange.Category.GetColor(),
+                Category = assessmentsWithChange.Category.ToString(),
+                CategoryDescription = assessmentsWithChange.Category.GetDescription()
+            });
         }
 
-        return Json(null);
-    }
+        var target = 1;
+        var data = new
+        {
+            Nodes = nodes,
+            Links = assessmentsWithChanges.Select(_ => new
+            {
+                Source = 0,
+                Target = target++,
+                Value = 4
+            })
+        };
 
-    public class Node
-    {
-        public string Name { get; set; }
-        public string Color { get; set; }
-        public string Category { get; set; }
-    }
-
-    public class Link
-    {
-        public int Source { get; set; }
-        public int Target { get; set; }
-        public int Value { get; set; }
+        return Json(data);
     }
 
     private static async Task<IQueryable<Assessment>> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> query, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
