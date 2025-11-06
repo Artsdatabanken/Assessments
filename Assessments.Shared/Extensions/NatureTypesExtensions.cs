@@ -11,6 +11,23 @@ public static class NatureTypesExtensions
 {
     public static string GetDescription(this Category category) => category.ConvertTo<NatureTypeCategoryDto>().DisplayName();
 
+    public static string GetColor(this Category category)
+    {
+        return category switch
+        {
+            Category.CO => "#262F31",
+            Category.CR => "#D61900",
+            Category.EN => "#F34F39",
+            Category.VU => "#EB8107",
+            Category.NT => "#E6C000",
+            Category.DD => "#6C6C6C",
+            Category.LC => "#61A360",
+            Category.NA => "",
+            Category.NE => "",
+            _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
+        };
+    }
+
     public static string GetDescription(this AssessmentRegion region) => region.ConvertTo<AssessmentRegionDto>().DisplayName();
 
     public static string GetCitation(this List<CommitteeUser> committeeUsers, Committee committee, bool includeDetails)

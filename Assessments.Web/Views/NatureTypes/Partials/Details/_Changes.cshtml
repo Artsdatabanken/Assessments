@@ -1,107 +1,92 @@
-﻿@model NatureTypeSankeyViewModel
+﻿@model int
 
-@{
-	if (Model != null)
-	{
-		<text>
-			@Model.Name @Model.Description
+<div id="sankey-target"></div>
 
-			@foreach (var item in Model.Models)
-			{
-				<p>
-					@item.Name @item.Description
-				</p>
-			}
+<script>
 
-			<div id="sankey-target"></div>
+	document.addEventListener("DOMContentLoaded", () => {
 
-			<script>
+		fetch("@Url.Action("Changes", new { Id = Model })").then(response => {
+			return response.json();
+		}).then(data => {
 
-				const width = 950;
-				const height = 200;
+			if (data === null)
+				return;
 
-				const graphData = {
-					nodes: [
-						{ name: "Kystlynghei", color: "#D61900" },
-						{ name: "Kalkfattig bakli-hei og kystlynghei", color: "#6C6C6C" },
-						{ name: "Intermediær til litt kalkrik bakli-hei og kystlynghei", color: "#6C6C6C" },
-						{ name: "Sterkt kalkrik kystlynghei i boreonemoral og sørboreal sone", color: "#EB8107" },
-						{ name: "Sterkt kalkrik kystlynghei i mellom- og nordboreal sone", color: "#D61900" }
-					],
-					links: [
-						{ source: 0, target: 1, value: 4 },
-						{ source: 0, target: 2, value: 4 },
-						{ source: 0, target: 3, value: 4 },
-						{ source: 0, target: 4, value: 4 }
-					]
-				};
+			const width = 950;
+			const height = 500;
 
-				document.addEventListener("DOMContentLoaded", () => {
+			const sankey = d3.sankey()
+				.size([width, height])
+				.nodeWidth(30);
 
-					const svg = d3.select("#sankey-target")
-						.append("svg")
-						.attr("width", width)
-						.attr("height", height)
-						.attr("viewBox", [0, 0, width, height])
-						.attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+			const { nodes, links } = sankey({
+				nodes: data.nodes,
+				links: data.links
+			});
 
-					const sankey = d3.sankey()
-						.size([width, height])
-						.nodeWidth(30);
+			const svg = d3.select("#sankey-target")
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height)
+				.attr("viewBox", [0, 0, width, height])
+				.attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
-					const { nodes, links } = sankey({
-						nodes: graphData.nodes,
-						links: graphData.links
-					});
+			const nodeGroup = svg
+				.append("g")
+				.attr("stroke", 20)
+				.attr("stroke-width", 20)
+				.attr("stroke-opacity", 1);
 
-					const nodeGroup = svg
-						.append("g")
-						.attr("stroke", 20)
-						.attr("stroke-width", 20)
-						.attr("stroke-opacity", 1);
-
-					nodeGroup
-						.selectAll("rect")
-						.data(nodes)
-						.join("rect")
-						.attr("class", "node")
-						.attr("x", (d) => d.x0)
-						.attr("y", (d) => d.y0)
-						.attr("height", (d) => d.y1 - d.y0)
-						.attr("width", (d) => d.x1 - d.x0)
-						.style("fill", (d) => d.color);
-
-					nodeGroup
-						.selectAll("text")
-						.data(nodes)
-						.join("text")
-						.attr("class", "sankey-node-text")
-						.attr("x", d => d.x0 < width / 2 ? d.x1 + 5 : d.x0 - 5)
-						.attr("y", d => (d.y1 + d.y0) / 2)
-						.attr("dy", "0.35em")
-						.attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
-						.text((d) => d.name);
-
-					const linkGroup = svg
-						.append("g")
-						.attr("fill", "none")
-						.attr("stroke-opacity", 0.6);
-
-					linkGroup
-						.selectAll("g")
-						.data(links)
-						.join("g")
-						.style("mix-blend-mode", "multiply")
-						.attr("class", "sankey-link")
-						.append("path")
-						.attr("d", d3.sankeyLinkHorizontal())
-						.style("fill", "none")
-						.style("stroke", "#ccc")
-						.style("stroke-width", ({ width }) => Math.max(1, width));
+			nodeGroup
+				.selectAll("rect")
+				.data(nodes)
+				.join("rect")
+				.attr("class", "node")
+				.attr("x", (d) => d.x0)
+				.attr("y", (d) => d.y0)
+				.attr("height", (d) => d.y1 - d.y0)
+				.attr("width", (d) => d.x1 - d.x0)
+				.style("fill", (d) => d.color)
+			
+				// Add hover text
+				.append("title")
+				.text(function(d) {
+				  return d.name + "\n" + d.category
 				});
 
-			</script>
-		</text>
-	}
-}
+				;
 
+			nodeGroup
+				.selectAll("text")
+				.data(nodes)
+				.join("text")
+				.attr("class", "sankey-node-text")
+				.attr("x", d => d.x0 < width / 2 ? d.x1 + 5 : d.x0 - 5)
+				.attr("y", d => (d.y1 + d.y0) / 2)
+				.attr("dy", "0.35em")
+				.attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
+				.text((d) => d.name);
+
+			const linkGroup = svg
+				.append("g")
+				.attr("fill", "none")
+				.attr("stroke-opacity", 0.6)
+				.selectAll("g")
+				.data(links)
+				.join("g")
+				.style("mix-blend-mode", "multiply")
+				.attr("class", "sankey-link")
+				.append("path")
+				.attr("d", d3.sankeyLinkHorizontal())
+				.style("fill", "none")
+				.style("stroke", "#ccc")
+				.style("stroke-width", ({ width }) => Math.max(1, width));
+
+		}).catch(err => {
+			console.warn(err);
+		});
+
+	});
+
+</script>
