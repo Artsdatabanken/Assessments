@@ -1,4 +1,5 @@
-﻿using Assessments.Mapping.NatureTypes.Model;
+﻿using System.Linq.Expressions;
+using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
@@ -17,7 +18,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
-using System.Linq.Expressions;
 using X.PagedList.Extensions;
 using static Assessments.Shared.Extensions.ExpressionExtensions;
 
@@ -128,9 +128,39 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
 
+        var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
+
+        var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
+
+        if (lookup != null)
+        {
+            var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
+            var assessmentIds = changes.Select(y => y.Id2025).ToList();
+
+            var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
+            {
+                x.Id,
+                x.Name,
+                CategoryDescription = x.Category.GetDescription().ToString()
+            }).ToList();
+
+            var sankeyViewModel = new NatureTypeSankeyViewModel
+            {
+                Name = lookup.Name2018,
+                Description = lookup.Category2018,
+                Models = [.. changes.Select(x => new NatureTypeSankeyModel
+                {
+                    Name = assessmentsWithChanges.First(y => y.Id == x.Id2025).Name,
+                    Description = assessmentsWithChanges.First(y => y.Id == x.Id2025).CategoryDescription
+                })]
+            };
+
+            viewModel.SankeyViewModel = sankeyViewModel;
+        }
+
         return View(viewModel);
     }
-
+    
     [HttpGet]
     [Route("2025/[action]")]
     public async Task<IActionResult> Suggestions()
@@ -157,11 +187,11 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
                 if (words.Length > 1)
                 {
-                    query = query.Where(words.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.Name.Contains(keyword), CombineExpressionType.AndAlso)));
+                    query = query.Where(words.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.PopularName.Contains(keyword), CombineExpressionType.AndAlso)));
                 }
                 else
                 {
-                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    query = query.Where(x => x.PopularName.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
             }
             else

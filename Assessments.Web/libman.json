@@ -1,34 +1,42 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": [
-    {
-      "library": "jquery@3.6.3",
-      "destination": "wwwroot/js/lib/",
-      "files": [
-        "jquery.slim.min.js"
-      ]
-    },
-    {
-      "library": "jquery-validate@1.19.5",
-      "destination": "wwwroot/js/lib/",
-      "files": [
-        "jquery.validate.min.js"
-      ]
-    },
-    {
-      "library": "jquery-validation-unobtrusive@4.0.0",
-      "destination": "wwwroot/js/lib/",
-      "files": [
-        "jquery.validate.unobtrusive.min.js"
-      ]
-    },
-    {
-      "library": "d3@7.9.0",
-      "destination": "wwwroot/js/lib/d3/",
-      "files": [
-        "d3.min.js"
-      ]
-    }
-  ]
+    "libraries": [
+        {
+            "library": "jquery@3.6.3",
+            "destination": "wwwroot/js/lib/",
+            "files": [
+                "jquery.slim.min.js"
+            ]
+        },
+        {
+            "library": "jquery-validate@1.19.5",
+            "destination": "wwwroot/js/lib/",
+            "files": [
+                "jquery.validate.min.js"
+            ]
+        },
+        {
+            "library": "jquery-validation-unobtrusive@4.0.0",
+            "destination": "wwwroot/js/lib/",
+            "files": [
+                "jquery.validate.unobtrusive.min.js"
+            ]
+        },
+        {
+            "library": "d3@7.9.0",
+            "destination": "wwwroot/js/lib/",
+            "files": [
+                "d3.min.js"
+            ]
+        },
+        {
+            "provider": "cdnjs",
+            "library": "d3-sankey@0.12.3",
+            "destination": "wwwroot/js/lib/",
+            "files": [
+                "d3-sankey.min.js"
+            ]
+        }
+    ]
 }

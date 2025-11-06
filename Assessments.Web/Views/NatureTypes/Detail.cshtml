@@ -20,7 +20,9 @@
 }
 
 @section Scripts {
-	<script src="~/js/lib/d3/d3.min.js"></script>
+
+	<script src="~/js/lib/d3.min.js"></script>
+	<script src="~/js/lib/d3-sankey.min.js"></script>
 	<script src="~/js/rln/regionmap.js"></script>
 	<script src="~/js/assessmentTabs.js"></script>
 	<script is-visible="assessment.Category is Category.LC or Category.NE">
@@ -58,6 +60,10 @@
 						</div>
 						Gjelder for @assessment.Region.GetDescription()
 						<hr />
+
+						<partial name="Partials/Details/_Changes.cshtml" for="SankeyViewModel" />
+
+						<hr/>
 						<div class="mobile_padding">
 							<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.TableOfContentsViewModel" />
 							<div class="page_section">
