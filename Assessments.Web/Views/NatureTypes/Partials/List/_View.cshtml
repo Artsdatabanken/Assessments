@@ -8,9 +8,12 @@
     else
     {
         <ul class="main_list_view">
-            <li class="listheader" style="grid-template-columns: 2fr auto">
+            <li class="listheader" style="grid-template-columns: 1fr 5fr 1fr">
                 <span class="list_cell">
-                    Vurderingsenhet
+                    NiN-kode
+                </span>
+                <span class="list_cell">
+                    Naturtype
                     <br/>
                 </span>
                 <span class="list_cell">
@@ -24,14 +27,17 @@
                     var topic = Model.NinCodeTopics.FirstOrDefault(x => x.Id == assessment.NinCodeTopicId);
 
                     <li class="list">
-                        <a asp-action="Detail" asp-route-id="@assessment.Id" style="grid-template-columns: 4fr auto auto">
+                        <a asp-action="Detail" asp-route-id="@assessment.Id" style="grid-template-columns: 1fr 5fr auto auto">
+                            <span class="list_cell">
+                                @assessment.ShortCode
+                            </span>
                             <span class="list_cell">
                                 @(!string.IsNullOrEmpty(assessment.PopularName) ? assessment.PopularName : assessment.Name)
                                 @if (topic != null)
                                 {
                                     <br />
                                     <span style="color: grey">
-                                        @topic.ShortCode @topic.Name (@topic.Description)
+                                        @topic.Name (@topic.Description)
                                     </span>
                                 }
                             </span>
