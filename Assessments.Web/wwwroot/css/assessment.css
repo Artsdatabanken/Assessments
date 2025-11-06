@@ -1165,3 +1165,12 @@ tr.water-area-hide,
 .side ul {
     list-style-type: none;
 }
+
+//* TODO: Fjernes eller flyttes */
+.jquery-modal .modal {
+    max-width: max-content
+}
+
+.jquery-modal.current:hover {
+    filter: brightness()
+}
