@@ -169,7 +169,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         // LC i 2018 har beskrivelsen "intakt"
         if (lookup.Category2018 == "LC")
-            categoryDescription2018 = "Intakt";
+            categoryDescription2018 = "intakt";
 
         var nodes = new[] { new
         {
