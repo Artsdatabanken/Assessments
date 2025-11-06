@@ -1166,7 +1166,7 @@ tr.water-area-hide,
     list-style-type: none;
 }
 
-//* TODO: Fjernes eller flyttes */
+/* TODO: Fjernes eller flyttes */
 .jquery-modal .modal {
     max-width: max-content
 }
