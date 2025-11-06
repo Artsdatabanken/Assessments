@@ -157,11 +157,11 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
                 if (words.Length > 1)
                 {
-                    query = query.Where(words.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.Name.Contains(keyword), CombineExpressionType.AndAlso)));
+                    query = query.Where(words.Aggregate<string, Expression<Func<Assessment, bool>>>(null, (current, keyword) => Combine(current, c => c.PopularName.Contains(keyword), CombineExpressionType.AndAlso)));
                 }
                 else
                 {
-                    query = query.Where(x => x.Name.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
+                    query = query.Where(x => x.PopularName.Contains(searchParameter) || x.ShortCode.Contains(searchParameter) || x.LongCode == searchParameter);
                 }
             }
             else
