@@ -64,9 +64,6 @@
 						</div>
 						Gjelder for @assessment.Region.GetDescription()
 						<hr />
-						<div id="changes" class="modal" is-visible="Model.HasChanges">
-							<partial name="Partials/Details/_Changes.cshtml" for="Assessment.Id" />
-						</div>
 						<div class="mobile_padding">
 							<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.TableOfContentsViewModel" />
 							<div class="page_section">
@@ -219,6 +216,9 @@
 								Denne naturtypen har vært gjennom en større revisjon.
 								<p><a class="adb-button" style="text-decoration: none" href="#changes" rel="modal:open">Endring og historikk</a></p>
 							</text>
+							<div id="changes" class="modal">
+								<partial name="Partials/Details/_Changes.cshtml" for="Assessment.Id" />
+							</div>
 						}
 						<vc:variable-names applied-variables="@assessment.AppliedVariables" />
 						<partial name="Partials/Details/_Images" model="assessment.LongCode" />
