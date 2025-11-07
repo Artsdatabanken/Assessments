@@ -128,6 +128,11 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
 
+        var (lookups, lookup) = await GetChangeLookup(assessment);
+
+        if (lookup != null && lookups.Any(x => x.Id2018 == lookup.Id2018))
+            viewModel.HasChanges = true;
+
         return View(viewModel);
     }
 
@@ -150,8 +155,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         if (assessment == null)
             return BadRequest();
 
-        var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
-        var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
+        var (lookups, lookup) = await GetChangeLookup(assessment);
 
         if (lookup == null)
             return Json(null);
@@ -349,5 +353,12 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         }
 
         return viewModel;
+    }
+
+    private async Task<(IQueryable<NatureTypes2018To2025Lookup> lookups, NatureTypes2018To2025Lookup lookup)> GetChangeLookup(Assessment assessment)
+    {
+        var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
+        var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
+        return (lookups, lookup);
     }
 }

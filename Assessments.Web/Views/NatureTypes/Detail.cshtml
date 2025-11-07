@@ -15,22 +15,20 @@
 }
 
 @section Styles {
-	@* TODO: Om vi går for denne kan vi vurdere å kopiere akkurat det vi trenger til en egen fil i dette prosjektet *@
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 	<link rel="stylesheet" href="~/css/assessment.css" />
 	<link rel="stylesheet" href="~/css/rln/criteriaMatrix.css">
+	<link rel="stylesheet" href="~/lib/jquery-modal/jquery.modal.min.css">
 }
 
 @section Scripts {
 
-	<script src="~/js/lib/d3.min.js"></script>
-	<script src="~/js/lib/d3-sankey.min.js"></script>
+	<script src="~/lib/d3/d3.min.js"></script>
+	<script src="~/lib/d3-sankey/d3-sankey.min.js"></script>
+	<script src="~/lib/jquery/jquery.slim.min.js"></script>
+	<script src="~/lib/jquery-modal/jquery.modal.min.js"></script>
 	<script src="~/js/rln/regionmap.js"></script>
-	<script src="~/js/rln/changes.js"></script>
 	<script src="~/js/assessmentTabs.js"></script>
-	@* TODO: Om dette blir løsningen, flytt jquery-modal til wwwroot/js/lib, bruk jquery som allerede ligger der *@
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<script is-visible="Model.HasChanges" src="~/js/rln/changes.js"></script>
 	<script is-visible="assessment.Category is Category.LC or Category.NE">
 		criterialist('full_list', document.getElementById('full_list_criteria'));
 	</script>
@@ -66,7 +64,7 @@
 						</div>
 						Gjelder for @assessment.Region.GetDescription()
 						<hr />
-						<div id="changes" class="modal">
+						<div id="changes" class="modal" is-visible="Model.HasChanges">
 							<partial name="Partials/Details/_Changes.cshtml" for="Assessment.Id" />
 						</div>
 						<div class="mobile_padding">
@@ -214,9 +212,14 @@
 						<a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
 							@assessment.ShortCode
 						</a>
-						<h3>Utvikling</h3>
-						Denne naturtypen har (ikke nødvendigvis) vært gjennom en større revisjon.
-						<p><a class="adb-button" style="text-decoration: none" href="#changes" rel="modal:open">Endring og historikk</a></p>
+						@if (Model.HasChanges)
+						{
+							<text>
+								<h3>Utvikling</h3>
+								Denne naturtypen har vært gjennom en større revisjon.
+								<p><a class="adb-button" style="text-decoration: none" href="#changes" rel="modal:open">Endring og historikk</a></p>
+							</text>
+						}
 						<vc:variable-names applied-variables="@assessment.AppliedVariables" />
 						<partial name="Partials/Details/_Images" model="assessment.LongCode" />
 					</div>
