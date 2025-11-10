@@ -9,22 +9,21 @@ fetch(dataUrl).then(response => {
 
     var width = 950;
     var height = 500;
-
-    var sankey = d3.sankey()
-        .size([width, height])
-        .nodeWidth(30);
-
-    var { nodes, links } = sankey({
-        nodes: data.nodes,
-        links: data.links
-    });
-
+    
     var svg = d3.select("#sankey-target")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [0, 0, width, height])
-        .attr("style", "max-width: 100%; height: auto;");
+        .append("g");
+
+    var sankey = d3.sankey()
+        .extent([[1, 1], [width - 1, height - 6]])
+        .nodeWidth(30);
+    
+    var { nodes, links } = sankey({
+        nodes: data.nodes,
+        links: data.links
+    });
 
     var nodeGroup = svg
         .append("g")
@@ -43,9 +42,7 @@ fetch(dataUrl).then(response => {
         .attr("width", (d) => d.x1 - d.x0)
         .style("fill", (d) => d.color)
         .append("title")
-        .text(function (d) {
-            return `${d.name}\n${d.category} ${d.categoryDescription}`;
-        });
+        .text((d) => `${d.name}\n${d.category} ${d.categoryDescription}`);
 
     nodeGroup
         .selectAll("text")
@@ -71,7 +68,7 @@ fetch(dataUrl).then(response => {
         .attr("d", d3.sankeyLinkHorizontal())
         .style("fill", "none")
         .style("stroke", "#ccc")
-        .style("stroke-width", ({ width }) => Math.max(1, width));
+        .style("stroke-width", d => d.width);
 
 }).catch(err => {
     console.warn(err);
