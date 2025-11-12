@@ -347,38 +347,5 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             viewModel.HasChanges = true;
             viewModel.Changes = JsonSerializer.Serialize(data, JsonSerializerOptions.Web);
         }
-        else
-        {
-
-            //TODO: fjern, siden må kunne laste uten feil
-            var nodes = new[] { new
-            {
-                Name = "Ikke vurdert",
-                Color = Category.NE.GetColor(),
-                Category = string.Empty,
-                CategoryDescription = string.Empty
-            },
-                new
-                {
-                    Name = assessment.PopularName,
-                    Color = assessment.Category.GetColor(),
-                    Category = assessment.Category.ToString(),
-                    CategoryDescription = assessment.Category.GetDescription()
-                }
-            };
-
-            var data = new
-            {
-                Nodes = nodes,
-                Links = new[] { new
-                {
-                    Source = 0,
-                    Target = 1,
-                    Value = 1
-                }}
-            };
-
-            viewModel.Changes = JsonSerializer.Serialize(data, JsonSerializerOptions.Web);
-        }
     }
 }
