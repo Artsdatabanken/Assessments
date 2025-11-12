@@ -112,6 +112,7 @@
 
 .rln-cell-shortcode {
     font-size: var(--font-size-3);
+    color: var(--text-primary);
 }
 
 .rln-cell-naturetype {
@@ -151,4 +152,5 @@
 .rln-category-label {
     padding-left: 10px;
     font-size: var(--font-size-3);
+    color: var(--text-primary);
 }
