@@ -58,3 +58,7 @@
     mix-blend-mode: soft-light;
     stroke: white;
 }
+
+.sankey-link:hover {
+    stroke-opacity: 1
+}
