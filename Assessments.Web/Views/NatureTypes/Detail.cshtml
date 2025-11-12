@@ -3,14 +3,14 @@
 
 @{
 	var assessment = Model.Assessment;
-	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
+	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.PopularName}";
 	Layout = "_Layout.cshtml";
 
 	var breadcrumbs = new Dictionary<string, string>
 	{
 		{ "Naturtyper", "https://artsdatabanken.no/naturtyper" },
 		{ NatureTypesConstants.Title2025, Url.Action("List", "NatureTypes") },
-		{ assessment.Name, string.Empty }
+		{ assessment.PopularName, string.Empty }
 	};
 }
 
@@ -42,7 +42,7 @@
 				<div class="mid-content with_sidebar">
 					<div class="page-header">
 						<h1>
-							@assessment.Name
+							@assessment.PopularName
 							@if (assessment.NinCodeTopic != null)
 							{
 								<span style="color: grey; font-size: medium; display: block">
