@@ -63,20 +63,6 @@
     stroke-opacity: 1
 }
 
-.rln-map-icon {
-    width: 18px;
-    height: 18px;
-}
-
-.rln-map-icon > path {
-    fill: var(--surface-invert);
-}
-
-.rln-row-svalbard {
-    font-size: var(--font-size-3);
-    display: flex;
-    gap: var(--spacing-2xsm);
-}
 /* 'Midlertidige' klasser for å unngå å rote til for de andre listene, kan på kort sikt vurdere å ha dette i en egen css-fil. Splitte opp i rln-detail og rln-list eller noe slikt? */
 .rln-list-header {
     grid-template-columns: 2fr 7fr 3fr 2fr;
@@ -130,6 +116,22 @@
 .rln-cell-naturetype span:last-child {
     font-size: var(--font-size-5);
     color: var(--text-secondary);
+}
+
+.rln-cell-svalbard {
+    font-size: var(--font-size-3);
+    display: flex;
+    gap: var(--spacing-2xsm);
+    color: var(--text-primary);
+}
+
+.rln-map-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.rln-map-icon > path {
+    fill: var(--surface-invert);
 }
 
 .rln-category-container {
