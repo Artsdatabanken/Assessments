@@ -56,7 +56,6 @@
         .selectAll("g")
         .data(links)
         .join("g")
-        .style("mix-blend-mode", "multiply")
         .attr("class", "sankey-link")
         .append("path")
         .attr("d", d3.sankeyLinkHorizontal())
