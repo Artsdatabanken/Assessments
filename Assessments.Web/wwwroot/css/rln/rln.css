@@ -62,3 +62,46 @@
 .sankey-link:hover {
     stroke-opacity: 1
 }
+
+
+/* 'Midlertidige' klasser for å unngå å rote til for de andre listene, kan på kort sikt vurdere å ha dette i en egen css-fil. Splitte opp i rln-detail og rln-list eller noe slikt? */
+.rln-list-header {
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.rln-list-row > a {
+    grid-template-columns: 1fr 4fr 1fr !important;
+}
+
+.rln-list-row:nth-child(even) {
+    background-color: var(--background-subtle);
+}
+
+.rln-list-row > a:hover {
+    background-color: var(--surface-secondary);
+}
+
+.rln-list-header span:last-child {
+    text-align: left;
+}
+
+.rln-category-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.rln-category-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.rln-category-tag-label {
+    font-size: 14px;
+    line-height: 32px;
+}
+
+.rln-category-label {
+    padding-left: 10px;
+}

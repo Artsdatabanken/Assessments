@@ -8,7 +8,7 @@
     else
     {
         <ul class="main_list_view">
-            <li class="listheader" style="grid-template-columns: 1fr 5fr 1fr">
+            <li class="listheader rln-list-header">
                 <span class="list_cell">
                     NiN-kode
                 </span>
@@ -26,8 +26,8 @@
                 {
                     var topic = Model.NinCodeTopics.FirstOrDefault(x => x.Id == assessment.NinCodeTopicId);
 
-                    <li class="list">
-                        <a asp-action="Detail" asp-route-id="@assessment.Id" style="grid-template-columns: 1fr 5fr auto auto">
+                    <li class="list rln-list-row">
+                        <a asp-action="Detail" asp-route-id="@assessment.Id">
                             <span class="list_cell">
                                 @assessment.ShortCode
                             </span>
@@ -41,12 +41,14 @@
                                     </span>
                                 }
                             </span>
-                            <span class="list_cell categoryname capitalized">
-                                @assessment.Category.GetDescription()
-                            </span>
-                            <span class="@assessment.Category category_tag">
-                                <span class="category_tag_label">@assessment.Category</span>
-                            </span>
+                            <div class="rln-category-container">
+                                <span class="@assessment.Category rln-category-circle">
+                                    <span class="category_tag_label rln-category-tag-label">@assessment.Category</span>
+                                </span>
+                                <span class="categoryname capitalized rln-category-label">
+                                    @assessment.Category.GetDescription()
+                                </span>
+                            </div>
                         </a>
                     </li>
                 }
