@@ -289,7 +289,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         return viewModel;
     }
-
+    
     private async Task GetChanges(Assessment assessment, NatureTypesDetailViewModel viewModel)
     {
         var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
@@ -303,45 +303,74 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
             var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
             {
+                x.Id,
                 x.PopularName,
                 x.Category
             }).ToList();
 
-            var categoryDescription2018 = lookup.Category2018.ToEnum(Category.NA).GetDescription();
-
-            // LC i 2018 har beskrivelsen "intakt"
-            if (lookup.Category2018 == "LC")
-                categoryDescription2018 = "intakt";
-
-            var nodes = new[] { new
+            var groups = lookups.Where(x => assessmentsWithChanges.Select(y => y.Id).Contains(x.Id2025)).GroupBy(x => new { x.Name2018, x.Category2018 });
+            
+            var nodes = groups.ToList().Select(group => new Node
             {
-                Name = lookup.Name2018,
-                Color = lookup.Category2018.ToEnum(Category.NA).GetColor(),
-                Category = lookup.Category2018,
-                CategoryDescription = categoryDescription2018
-            }}.ToList();
+                Name = group.Key.Name2018,
+                Color = group.Key.Category2018.ToEnum(Category.NA).GetColor(),
+                Category = group.Key.Category2018,
+                Type = "Source"
+            }).ToList();
 
-            foreach (var assessmentsWithChange in assessmentsWithChanges)
+            var source = 0;
+            var target = nodes.Count;
+            var links = new List<Link>();
+
+            foreach (var group in groups.ToList())
             {
-                nodes.Add(new
+                foreach (var node in group.Select(x => x))
                 {
-                    Name = assessmentsWithChange.PopularName,
-                    Color = assessmentsWithChange.Category.GetColor(),
-                    Category = assessmentsWithChange.Category.ToString(),
-                    CategoryDescription = assessmentsWithChange.Category.GetDescription()
-                });
+                    var assessmentWithChange = assessmentsWithChanges.First(x => x.Id == node.Id2025);
+                    var existingNode = nodes.FirstOrDefault(x => x.Id == assessmentWithChange.Id);
+
+                    if (existingNode == null)
+                    {
+                        var i = target++;
+
+                        nodes.Add(new Node
+                        {
+                            Id = assessmentWithChange.Id,
+                            Name = assessmentWithChange.PopularName,
+                            Color = assessmentWithChange.Category.GetColor(),
+                            Category = assessmentWithChange.Category.ToString(),
+                            Type = "Target",
+                            Source = source,
+                            Target = i,
+                        });
+
+                        links.Add(new Link
+                        {
+                            Id = assessmentWithChange.Id,
+                            Source = source,
+                            Target = i,
+                            Value = 1
+                        });
+                    }
+                    else
+                    {
+                        links.Add(new Link
+                        {
+                            Id = existingNode.Id,
+                            Source = source,
+                            Target = existingNode.Target,
+                            Value = 1
+                        });
+                    }
+                }
+
+                source++;
             }
 
-            var target = 1;
             var data = new
             {
                 Nodes = nodes,
-                Links = assessmentsWithChanges.Select(_ => new
-                {
-                    Source = 0,
-                    Target = target++,
-                    Value = 1
-                })
+                Links = links
             };
 
             viewModel.HasChanges = true;
