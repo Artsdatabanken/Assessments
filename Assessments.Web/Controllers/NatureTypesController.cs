@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Text.Json;
 using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
@@ -128,10 +129,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
 
-        var (lookups, lookup) = await GetChangeLookup(assessment);
-
-        if (lookup != null && lookups.Any(x => x.Id2018 == lookup.Id2018))
-            viewModel.HasChanges = true;
+        await GetChanges(assessment, viewModel);
 
         return View(viewModel);
     }
@@ -144,69 +142,6 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         var ninCodeTopics = ninCodeTopicSuggestions.Select(x => x.Key).OrderBy(x => x);
 
         return Json(ninCodeTopics);
-    }
-
-    [HttpGet]
-    [Route("2025/{id:int}/[action]")]
-    public async Task<IActionResult> Changes(int id)
-    {
-        var assessment = await repository.GetAssessment(id);
-
-        if (assessment == null)
-            return BadRequest();
-
-        var (lookups, lookup) = await GetChangeLookup(assessment);
-
-        if (lookup == null)
-            return Json(null);
-
-        var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
-        var assessmentIds = changes.Select(y => y.Id2025).ToList();
-
-        var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
-        {
-            x.PopularName,
-            x.Category
-        }).ToList();
-
-        var categoryDescription2018 = lookup.Category2018.ToEnum(Category.NA).GetDescription();
-
-        // LC i 2018 har beskrivelsen "intakt"
-        if (lookup.Category2018 == "LC")
-            categoryDescription2018 = "intakt";
-
-        var nodes = new[] { new
-        {
-            Name = lookup.Name2018, 
-            Color = lookup.Category2018.ToEnum(Category.NA).GetColor(), 
-            Category = lookup.Category2018,
-            CategoryDescription = categoryDescription2018
-        }}.ToList();
-
-        foreach (var assessmentsWithChange in assessmentsWithChanges)
-        {
-            nodes.Add(new
-            {
-                Name = assessmentsWithChange.PopularName,
-                Color = assessmentsWithChange.Category.GetColor(),
-                Category = assessmentsWithChange.Category.ToString(),
-                CategoryDescription = assessmentsWithChange.Category.GetDescription()
-            });
-        }
-
-        var target = 1;
-        var data = new
-        {
-            Nodes = nodes,
-            Links = assessmentsWithChanges.Select(_ => new
-            {
-                Source = 0,
-                Target = target++,
-                Value = 4
-            })
-        };
-
-        return Json(data);
     }
 
     private static async Task<IQueryable<Assessment>> ApplyParametersToList(NatureTypesListParameters parameters, IQueryable<Assessment> query, List<Region> regions, List<CodeItem> codeItems, INatureTypesRepository repository)
@@ -355,10 +290,95 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return viewModel;
     }
 
-    private async Task<(IQueryable<NatureTypes2018To2025Lookup> lookups, NatureTypes2018To2025Lookup lookup)> GetChangeLookup(Assessment assessment)
+    private async Task GetChanges(Assessment assessment, NatureTypesDetailViewModel viewModel)
     {
         var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
+
         var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
-        return (lookups, lookup);
+
+        if (lookup != null && lookups.Any(x => x.Id2018 == lookup.Id2018))
+        {
+            var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
+            var assessmentIds = changes.Select(y => y.Id2025).ToList();
+
+            var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
+            {
+                x.PopularName,
+                x.Category
+            }).ToList();
+
+            var categoryDescription2018 = lookup.Category2018.ToEnum(Category.NA).GetDescription();
+
+            // LC i 2018 har beskrivelsen "intakt"
+            if (lookup.Category2018 == "LC")
+                categoryDescription2018 = "intakt";
+
+            var nodes = new[] { new
+            {
+                Name = lookup.Name2018,
+                Color = lookup.Category2018.ToEnum(Category.NA).GetColor(),
+                Category = lookup.Category2018,
+                CategoryDescription = categoryDescription2018
+            }}.ToList();
+
+            foreach (var assessmentsWithChange in assessmentsWithChanges)
+            {
+                nodes.Add(new
+                {
+                    Name = assessmentsWithChange.PopularName,
+                    Color = assessmentsWithChange.Category.GetColor(),
+                    Category = assessmentsWithChange.Category.ToString(),
+                    CategoryDescription = assessmentsWithChange.Category.GetDescription()
+                });
+            }
+
+            var target = 1;
+            var data = new
+            {
+                Nodes = nodes,
+                Links = assessmentsWithChanges.Select(_ => new
+                {
+                    Source = 0,
+                    Target = target++,
+                    Value = 1
+                })
+            };
+
+            viewModel.HasChanges = true;
+            viewModel.Changes = JsonSerializer.Serialize(data, JsonSerializerOptions.Web);
+        }
+        else
+        {
+
+            //TODO: fjern, siden må kunne laste uten feil
+            var nodes = new[] { new
+            {
+                Name = "Ikke vurdert",
+                Color = Category.NE.GetColor(),
+                Category = string.Empty,
+                CategoryDescription = string.Empty
+            },
+                new
+                {
+                    Name = assessment.PopularName,
+                    Color = assessment.Category.GetColor(),
+                    Category = assessment.Category.ToString(),
+                    CategoryDescription = assessment.Category.GetDescription()
+                }
+            };
+
+            var data = new
+            {
+                Nodes = nodes,
+                Links = new[] { new
+                {
+                    Source = 0,
+                    Target = 1,
+                    Value = 1
+                }}
+            };
+
+            viewModel.Changes = JsonSerializer.Serialize(data, JsonSerializerOptions.Web);
+        }
     }
 }

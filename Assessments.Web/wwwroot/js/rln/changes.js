@@ -1,15 +1,9 @@
-﻿var dataUrl = document.getElementById("sankey-target").getAttribute("data-url");
-
-fetch(dataUrl).then(response => {
-    return response.json();
-}).then(data => {
-
-    if (data === null)
-        return;
+﻿document.addEventListener("DOMContentLoaded", () => {
+    var data = JSON.parse(document.getElementById('changes-data').innerHTML);
 
     var width = 950;
-    var height = 500;
-    
+    var height = 470 + (data.nodes.length * 15);
+
     var svg = d3.select("#sankey-target")
         .append("svg")
         .attr("width", width)
@@ -19,7 +13,7 @@ fetch(dataUrl).then(response => {
     var sankey = d3.sankey()
         .extent([[1, 1], [width - 1, height - 6]])
         .nodeWidth(30);
-    
+
     var { nodes, links } = sankey({
         nodes: data.nodes,
         links: data.links
@@ -42,7 +36,7 @@ fetch(dataUrl).then(response => {
         .attr("width", (d) => d.x1 - d.x0)
         .style("fill", (d) => d.color)
         .append("title")
-        .text((d) => `${d.name}\n${d.category} ${d.categoryDescription}`);
+        .text((d) => `${d.name} ${d.category}`);
 
     nodeGroup
         .selectAll("text")
@@ -53,7 +47,7 @@ fetch(dataUrl).then(response => {
         .attr("y", d => (d.y1 + d.y0) / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
-        .text((d) => d.name);
+        .text((d) => d.name + ' ' + d.category);
 
     var linkGroup = svg
         .append("g")
@@ -67,9 +61,5 @@ fetch(dataUrl).then(response => {
         .append("path")
         .attr("d", d3.sankeyLinkHorizontal())
         .style("fill", "none")
-        .style("stroke", "#ccc")
         .style("stroke-width", d => d.width);
-
-}).catch(err => {
-    console.warn(err);
 });

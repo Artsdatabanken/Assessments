@@ -9,6 +9,10 @@
     text-align: end;
 }
 
+.dark-theme .criteria-matrix .legend {
+    color: white;
+}
+
 .criteria-matrix .horizontal-legend {
     text-align: center;
     writing-mode: vertical-rl;
@@ -36,3 +40,15 @@
 .criteria-matrix .vu { background: #E86037 }
 
 .criteria-matrix .nt { background: #E17734 }
+
+.dark-theme .sankey-node-text {
+    fill: white;
+}
+
+.sankey-link {
+    stroke: #ccc;
+}
+
+.dark-theme .sankey-link {
+    stroke: white;
+}

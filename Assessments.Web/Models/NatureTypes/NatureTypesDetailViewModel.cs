@@ -82,6 +82,8 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
     };
 
     public List<CategoryCriteriaType> CategoryCriteriaTypes { get; init; } = [];
+    
+    public string Changes { get; set; }
 
-    public bool HasChanges { get; set; }
+    public bool HasChanges { get; set; } // ble vurdert i forrige revisjon
 }

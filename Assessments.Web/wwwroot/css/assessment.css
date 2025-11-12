@@ -1167,7 +1167,11 @@ tr.water-area-hide,
 }
 
 .jquery-modal .modal {
-    max-width: max-content
+    max-width: max-content;
+}
+
+.jquery-modal {
+    z-index: 13;
 }
 
 .jquery-modal.current:hover {

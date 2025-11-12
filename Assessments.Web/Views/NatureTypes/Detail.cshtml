@@ -15,19 +15,18 @@
 }
 
 @section Styles {
-	<link rel="stylesheet" href="~/css/assessment.css" />
-	<link rel="stylesheet" href="~/css/rln/criteriaMatrix.css">
 	<link rel="stylesheet" href="~/lib/jquery-modal/jquery.modal.min.css">
+	<link rel="stylesheet" href="~/css/assessment.css" />
+	<link rel="stylesheet" href="~/css/rln/rln.css">
 }
 
 @section Scripts {
-
+	<script src="~/js/assessmentTabs.js"></script>
 	<script src="~/lib/d3/d3.min.js"></script>
 	<script src="~/lib/d3-sankey/d3-sankey.min.js"></script>
 	<script src="~/lib/jquery/jquery.slim.min.js"></script>
 	<script src="~/lib/jquery-modal/jquery.modal.min.js"></script>
 	<script src="~/js/rln/regionmap.js"></script>
-	<script src="~/js/assessmentTabs.js"></script>
 	<script is-visible="Model.HasChanges" src="~/js/rln/changes.js"></script>
 	<script is-visible="assessment.Category is Category.LC or Category.NE">
 		criterialist('full_list', document.getElementById('full_list_criteria'));
@@ -209,19 +208,8 @@
 						<a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
 							@assessment.ShortCode
 						</a>
-						@if (Model.HasChanges)
-						{
-							<text>
-								<h3>Utvikling</h3>
-								Denne naturtypen har vært gjennom en større revisjon.
-								<p><a class="adb-button" style="text-decoration: none" href="#changes" rel="modal:open">Endring og historikk</a></p>
-							</text>
-							<div id="changes" class="modal">
-								<partial name="Partials/Details/_Changes.cshtml" for="Assessment.Id" />
-							</div>
-						}
+						<partial name="Partials/Details/_Changes" model="Model" />
 						<vc:variable-names applied-variables="@assessment.AppliedVariables" />
-						<partial name="Partials/Details/_Images" model="assessment.LongCode" />
 					</div>
 				</div>
 			</div>
