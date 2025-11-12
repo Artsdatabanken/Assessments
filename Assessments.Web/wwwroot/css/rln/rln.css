@@ -41,14 +41,20 @@
 
 .criteria-matrix .nt { background: #E17734 }
 
+.sankey-node-text {
+    fill: black;
+}
+
 .dark-theme .sankey-node-text {
     fill: white;
 }
 
 .sankey-link {
+    mix-blend-mode: multiply;
     stroke: #ccc;
 }
 
 .dark-theme .sankey-link {
+    mix-blend-mode: soft-light;
     stroke: white;
 }
