@@ -15,14 +15,19 @@
 }
 
 @section Styles {
+	<link rel="stylesheet" href="~/lib/jquery-modal/jquery.modal.min.css">
 	<link rel="stylesheet" href="~/css/assessment.css" />
-	<link rel="stylesheet" href="~/css/rln/criteriaMatrix.css">
+	<link rel="stylesheet" href="~/css/rln/rln.css">
 }
 
 @section Scripts {
-	<script src="~/js/lib/d3/d3.min.js"></script>
-	<script src="~/js/rln/regionmap.js"></script>
 	<script src="~/js/assessmentTabs.js"></script>
+	<script src="~/lib/d3/d3.min.js"></script>
+	<script src="~/lib/d3-sankey/d3-sankey.min.js"></script>
+	<script src="~/lib/jquery/jquery.slim.min.js"></script>
+	<script src="~/lib/jquery-modal/jquery.modal.min.js"></script>
+	<script src="~/js/rln/regionmap.js"></script>
+	<script is-visible="Model.HasChanges" src="~/js/rln/changes.js"></script>
 	<script is-visible="assessment.Category is Category.LC or Category.NE">
 		criterialist('full_list', document.getElementById('full_list_criteria'));
 	</script>
@@ -203,14 +208,11 @@
 						<a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
 							@assessment.ShortCode
 						</a>
+						<partial name="Partials/Details/_Changes" model="Model" />
 						<vc:variable-names applied-variables="@assessment.AppliedVariables" />
-						<partial name="Partials/Details/_Images" model="assessment.LongCode" />
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
-
-

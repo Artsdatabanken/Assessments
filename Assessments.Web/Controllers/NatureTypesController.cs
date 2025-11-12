@@ -1,4 +1,6 @@
-﻿using Assessments.Mapping.NatureTypes.Model;
+﻿using System.Linq.Expressions;
+using System.Text.Json;
+using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
@@ -17,7 +19,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
-using System.Linq.Expressions;
 using X.PagedList.Extensions;
 using static Assessments.Shared.Extensions.ExpressionExtensions;
 
@@ -127,6 +128,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             },
             CodeItemNodeDtos = assessmentCodeItemNodes ?? []
         };
+
+        await GetChanges(assessment, viewModel);
 
         return View(viewModel);
     }
@@ -285,5 +288,93 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         }
 
         return viewModel;
+    }
+    
+    private async Task GetChanges(Assessment assessment, NatureTypesDetailViewModel viewModel)
+    {
+        var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
+
+        var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
+
+        if (lookup != null && lookups.Any(x => x.Id2018 == lookup.Id2018))
+        {
+            var changes = lookups.Where(x => x.Id2018 == lookup.Id2018);
+            var assessmentIds = changes.Select(y => y.Id2025).ToList();
+
+            var assessmentsWithChanges = repository.GetAssessments().Where(x => assessmentIds.Contains(x.Id)).Select(x => new
+            {
+                x.Id,
+                x.PopularName,
+                x.Category
+            }).ToList();
+
+            var groups = lookups.Where(x => assessmentsWithChanges.Select(y => y.Id).Contains(x.Id2025)).GroupBy(x => new { x.Name2018, x.Category2018 });
+            
+            var nodes = groups.ToList().Select(group => new Node
+            {
+                Name = group.Key.Name2018,
+                Color = group.Key.Category2018.ToEnum(Category.NA).GetColor(),
+                Category = group.Key.Category2018,
+                Type = "Source"
+            }).ToList();
+
+            var source = 0;
+            var target = nodes.Count;
+            var links = new List<Link>();
+
+            foreach (var group in groups.ToList())
+            {
+                foreach (var node in group.Select(x => x))
+                {
+                    var assessmentWithChange = assessmentsWithChanges.First(x => x.Id == node.Id2025);
+                    var existingNode = nodes.FirstOrDefault(x => x.Id == assessmentWithChange.Id);
+
+                    if (existingNode == null)
+                    {
+                        var i = target++;
+
+                        nodes.Add(new Node
+                        {
+                            Id = assessmentWithChange.Id,
+                            Name = assessmentWithChange.PopularName,
+                            Color = assessmentWithChange.Category.GetColor(),
+                            Category = assessmentWithChange.Category.ToString(),
+                            Type = "Target",
+                            Source = source,
+                            Target = i,
+                        });
+
+                        links.Add(new Link
+                        {
+                            Id = assessmentWithChange.Id,
+                            Source = source,
+                            Target = i,
+                            Value = 1
+                        });
+                    }
+                    else
+                    {
+                        links.Add(new Link
+                        {
+                            Id = existingNode.Id,
+                            Source = source,
+                            Target = existingNode.Target,
+                            Value = 1
+                        });
+                    }
+                }
+
+                source++;
+            }
+
+            var data = new
+            {
+                Nodes = nodes,
+                Links = links
+            };
+
+            viewModel.HasChanges = true;
+            viewModel.Changes = JsonSerializer.Serialize(data, JsonSerializerOptions.Web);
+        }
     }
 }

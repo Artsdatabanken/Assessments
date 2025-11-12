@@ -1165,3 +1165,20 @@ tr.water-area-hide,
 .side ul {
     list-style-type: none;
 }
+
+.jquery-modal .modal {
+    max-width: max-content;
+}
+
+.jquery-modal {
+    z-index: 13;
+}
+
+.jquery-modal.current:hover {
+    filter: brightness()
+}
+
+.dark-theme .current > #changes {
+    stroke: none;
+    background: var(--background-default);
+}
