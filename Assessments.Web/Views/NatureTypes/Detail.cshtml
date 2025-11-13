@@ -3,21 +3,20 @@
 
 @{
 	var assessment = Model.Assessment;
-	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
+	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.PopularName}";
 	Layout = "_Layout.cshtml";
 
 	var breadcrumbs = new Dictionary<string, string>
 	{
 		{ "Naturtyper", "https://artsdatabanken.no/naturtyper" },
 		{ NatureTypesConstants.Title2025, Url.Action("List", "NatureTypes") },
-		{ assessment.Name, string.Empty }
+		{ assessment.PopularName, string.Empty }
 	};
 }
 
 @section Styles {
 	<link rel="stylesheet" href="~/lib/jquery-modal/jquery.modal.min.css">
 	<link rel="stylesheet" href="~/css/assessment.css" />
-	<link rel="stylesheet" href="~/css/rln/rln.css">
 }
 
 @section Scripts {
@@ -42,7 +41,7 @@
 				<div class="mid-content with_sidebar">
 					<div class="page-header">
 						<h1>
-							@assessment.Name
+							@assessment.PopularName
 							@if (assessment.NinCodeTopic != null)
 							{
 								<span style="color: grey; font-size: medium; display: block">
@@ -205,7 +204,7 @@
 				<div class="side mobile_padding">
 					<div class="sidebar_image_info">
 						NiN-kode:<br />
-						<a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
+						<a href="https://artsdatabanken.no/naturtyper/natur-i-norge/@assessment.LongCode">
 							@assessment.ShortCode
 						</a>
 						<partial name="Partials/Details/_Changes" model="Model" />

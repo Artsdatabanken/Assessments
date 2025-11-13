@@ -8,7 +8,7 @@
     else
     {
         <ul class="main_list_view">
-            <li class="listheader" style="grid-template-columns: 1fr 5fr 1fr">
+            <li class="listheader rln-list-header">
                 <span class="list_cell">
                     NiN-kode
                 </span>
@@ -16,6 +16,7 @@
                     Naturtype
                     <br/>
                 </span>
+                <span> </span>
                 <span class="list_cell">
                     Kategori
                 </span>
@@ -26,27 +27,46 @@
                 {
                     var topic = Model.NinCodeTopics.FirstOrDefault(x => x.Id == assessment.NinCodeTopicId);
 
-                    <li class="list">
-                        <a asp-action="Detail" asp-route-id="@assessment.Id" style="grid-template-columns: 1fr 5fr auto auto">
-                            <span class="list_cell">
+                    <li class="list rln-list-row">
+                        <a asp-action="Detail" asp-route-id="@assessment.Id">
+                            <span class="list_cell rln-cell-shortcode">
                                 @assessment.ShortCode
                             </span>
-                            <span class="list_cell">
-                                @(!string.IsNullOrEmpty(assessment.PopularName) ? assessment.PopularName : assessment.Name)
+                            <span class="list_cell rln-cell-naturetype">
+                                <span>
+                                    @assessment.PopularName
+                                </span>
                                 @if (topic != null)
                                 {
                                     <br />
-                                    <span style="color: grey">
+                                    <span>
                                         @topic.Name (@topic.Description)
                                     </span>
                                 }
                             </span>
-                            <span class="list_cell categoryname capitalized">
-                                @assessment.Category.GetDescription()
-                            </span>
-                            <span class="@assessment.Category category_tag">
-                                <span class="category_tag_label">@assessment.Category</span>
-                            </span>
+                            
+                            @if (assessment.Region.Equals(AssessmentRegion.Svalbard))
+                            {
+                                <div class="rln-cell-svalbard">
+                                    <svg class="rln-map-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 18L6 15.9L1.35 17.7C1.01667 17.8333 0.708333 17.7958 0.425 17.5875C0.141667 17.3792 0 17.1 0 16.75V2.75C0 2.53333 0.0625 2.34167 0.1875 2.175C0.3125 2.00833 0.483333 1.88333 0.7 1.8L6 0L12 2.1L16.65 0.3C16.9833 0.166667 17.2917 0.204167 17.575 0.4125C17.8583 0.620833 18 0.9 18 1.25V15.25C18 15.4667 17.9375 15.6583 17.8125 15.825C17.6875 15.9917 17.5167 16.1167 17.3 16.2L12 18ZM11 15.55V3.85L7 2.45V14.15L11 15.55ZM13 15.55L16 14.55V2.7L13 3.85V15.55ZM2 15.3L5 14.15V2.45L2 3.45V15.3Z" fill="#262F31" />
+                                    </svg>
+                                    <text>Gjelder Svalbard</text>
+                                </div>
+                            }
+                            else
+                            {
+                                <span> </span>
+                            }
+
+                            <div class="rln-category-container">
+                                <span class="@assessment.Category rln-category-circle">
+                                    <span class="category_tag_label rln-category-tag-label">@assessment.Category</span>
+                                </span>
+                                <span class="categoryname capitalized rln-category-label">
+                                    @assessment.Category.GetDescription()
+                                </span>
+                            </div>
                         </a>
                     </li>
                 }
