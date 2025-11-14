@@ -24,10 +24,12 @@ using static Assessments.Shared.Extensions.ExpressionExtensions;
 
 namespace Assessments.Web.Controllers;
 
-[FeatureGate(FeatureManagementConstants.EnableNatureTypes)]
+[FeatureGate(FeatureManagementConstants.EnableNatureTypes)] // TODO: rln fjern etter lansering
+
 [Route("naturtyper")]
 public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
 {
+    // TODO: rln fjern etter lansering
     [HttpGet]
     public IActionResult Home(string key)
     {
