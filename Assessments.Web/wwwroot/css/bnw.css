@@ -266,11 +266,7 @@
 }
 
 /* Blackish color */
-.dark-theme .list a:hover,
-.dark-theme .list a:focus,
-.dark-theme .list a:active,
 .dark-theme .sidebarmenu li a:hover,
-.dark-theme .list:hover .element_popular_name,
 .dark-theme .list-search input,
 .dark-theme .tabbed_element_container .thresholdlist.active {
     color: #262f31;
