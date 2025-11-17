@@ -448,7 +448,7 @@ only screen and (min-width:941px) and (max-width:1150px){
         top: -1px;
         font-size: var(--font-size-3);
         font-weight: 400;
-        color: var(--text-accent);
+        color: var(--text-primary);
         text-align: left;
     }
 

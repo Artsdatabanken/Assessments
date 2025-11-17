@@ -142,6 +142,7 @@
 .rln-cell-svalbard {
     font-size: var(--font-size-3);
     display: flex;
+    align-items: center;
     gap: var(--spacing-2xsm);
     color: var(--text-primary);
 }
