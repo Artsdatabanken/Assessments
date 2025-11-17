@@ -3,14 +3,10 @@
 .criteria-matrix table { border-spacing: 2px }
 
 .criteria-matrix .legend {
-    color: black;
+    color: var(--text-primary);
     font-weight: normal;
     font-size: smaller;
     text-align: end;
-}
-
-.dark-theme .criteria-matrix .legend {
-    color: white;
 }
 
 .criteria-matrix .horizontal-legend {
@@ -23,7 +19,7 @@
 
 .criteria-matrix .selected {
     box-sizing: border-box;
-    border: 5px solid yellow;
+    border: 5px solid var(--text-primary);
 }
 
 .criteria-matrix table th {
@@ -33,13 +29,61 @@
     text-align: center;
 }
 
-.criteria-matrix .cr { background: #99191a }
+.criteria-matrix .cr {
+    background: var(--background-redlist-cr);
+    color: var(--text-redlist-cr);
+}
 
-.criteria-matrix .en { background: #C4322D }
+.criteria-matrix .en {
+    background: var(--background-redlist-en);
+    color: var(--text-redlist-en);
+}
 
-.criteria-matrix .vu { background: #E86037 }
+.criteria-matrix .vu {
+    background: var(--background-redlist-vu);
+    color: var(--text-redlist-vu);
+}
 
-.criteria-matrix .nt { background: #E17734 }
+.criteria-matrix .nt {
+    background: var(--background-redlist-nt);
+    color: var(--text-redlist-nt);
+}
+
+.node.CO {
+    fill: var(--background-redlist-co);
+}
+
+.node.CR {
+    fill: var(--background-redlist-cr);
+}
+
+.node.EN {
+    fill: var(--background-redlist-en);
+}
+
+.node.VU {
+    fill: var(--background-redlist-vu);
+}
+
+.node.NT {
+    fill: var(--background-redlist-nt);
+}
+
+.node.DD {
+    fill: var(--background-redlist-dd);
+}
+
+.node.LC {
+    fill: var(--background-redlist-lc);
+}
+
+.node.NA {
+    fill: var(--background-redlist-na);
+}
+
+.node.NE {
+    fill: var(--background-redlist-ne);
+}
 
 .sankey-node-text {
     fill: black;

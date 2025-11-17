@@ -29,12 +29,11 @@
         .selectAll("rect")
         .data(nodes)
         .join("rect")
-        .attr("class", "node")
+        .attr("class", (d) => "node " + d.category)
         .attr("x", (d) => d.x0)
         .attr("y", (d) => d.y0)
         .attr("height", (d) => d.y1 - d.y0)
         .attr("width", (d) => d.x1 - d.x0)
-        .style("fill", (d) => d.color)
         .append("title")
         .text((d) => `${d.name} ${d.category}`);
 
