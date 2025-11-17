@@ -9,7 +9,7 @@
         @foreach (var variableName in Model.VariableNames)
         {
             <li>
-                <a href="https://naturinorge.artsdatabanken.no/Variabler/@variableName.LongCode">
+                <a href=@($"{NatureTypesConstants.NiNHomepage}/{variableName.LongCode}")>
                     @variableName.Name @variableName.ShortCode
                 </a>
 

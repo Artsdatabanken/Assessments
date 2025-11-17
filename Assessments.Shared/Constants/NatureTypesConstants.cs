@@ -8,6 +8,8 @@ public static class NatureTypesConstants
     
     public const string CitationSummary = $"{Title2025}. Artsdatabanken.";
 
+    public const string NiNHomepage = "https://artsdatabanken.no/naturtyper/natur-i-norge";
+
     public static class Headings
     {
         public static readonly string Description = "Beskrivelse av naturtypen";
