@@ -6,6 +6,8 @@
 @use "nano/components/gutenberg/block_shortcut_link_group";
 @use "nano/globals/page-hero";
 
+@use "shared/riskcategory";
+
 .hidden {
     display: none;
 }
