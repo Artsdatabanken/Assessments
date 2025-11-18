@@ -227,11 +227,19 @@
                 }
 
                 <li class="thresholdlist @className">
-                    <span class="graphic_element @labels @box_class">@labels</span>
-                     @{categoryDescription(labels);}
-                    <span class="threshold_element">
-                        @comparator @Html.Raw(catval_corrected) @Html.Raw(unit)
-                    </span>
+                    <div class="risk-category-container ">
+                        <div class="@labels @box_class risk-category-circle">
+                            <span class="risk-category-tag-label">
+                                @labels
+                            </span>
+                        </div>
+                        <span class="capitalized risk-category-label">
+                            @{categoryDescription(labels);}
+                        </span>
+                        <span>
+                            @comparator @Html.Raw(catval_corrected) @Html.Raw(unit)
+                        </span>
+                    </div>
                 </li>
             }
         </ul>
@@ -553,11 +561,8 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
                                                             </li>
                                                         }
                                                     </ul>
-
-
                                                 }
                                             }
-
                                         </span>
                                     </span>
 
@@ -587,11 +592,14 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
                                                     c_category = Model.CategoryAdjustedFrom;
                                                 }
                                             }
-                                            <p>
                                                 @if (activeC == "active")
                                                 {
-                                                    <span class="b_summary">
-                                                        <span class="graphic_element @c_category">@c_category</span>
+                                                    <div class="b_summary risk-category-container">
+                                                        <span class="risk-category-circle @c_category">
+                                                            <span class="risk-category-tag-label">
+                                                                @c_category
+                                                            </span>
+                                                        </span>
                                                         <span>
                                                             Kombinasjon av populasjonsstørrelsen og underkriteriene gir til sammen kategori
                                                             @if (c_comparison)
@@ -603,13 +611,12 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
                                                                 <partial name="/Views/Shared/_Category.cshtml" />
                                                             }
                                                         </span>
-                                                    </span>
+                                                    </div>
                                                 }
                                                 else
                                                 {
                                                     <span>C-kriteriet er ikke gjeldende</span>
                                                 }
-                                            </p>
                                         </span>
                                     </span>
                                 </li>
@@ -728,29 +735,31 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
                                                 b_category = Model.CategoryAdjustedFrom;
                                             }
                                         }
-                                        <p>
-                                            @if (activeB == "active")
-                                            {
-                                                <span class="b_summary">
-                                                    <span class="graphic_element @b_category">@b_category</span>
-                                                    <span>
-                                                        Kombinasjon av B1/B2 og underkriteriene gir til sammen kategori
-                                                        @if (b_comparison)
-                                                        {
-                                                            @b_category
-                                                        }
-                                                        else
-                                                        {
-                                                            <partial name="/Views/Shared/_Category.cshtml" />
-                                                        }
+                                        @if (activeB == "active")
+                                        {
+                                            <div class="b_summary risk-category-container">
+                                                <span class="@b_category risk-category-circle">
+                                                    <span class="risk-category-tag-label">
+                                                        @b_category
                                                     </span>
                                                 </span>
-                                            }
-                                            else
-                                            {
-                                                <span>B-kriteriet er ikke gjeldende</span>
-                                            }
-                                        </p>
+                                                <span>
+                                                    Kombinasjon av B1/B2 og underkriteriene gir til sammen kategori
+                                                    @if (b_comparison)
+                                                    {
+                                                        @b_category
+                                                    }
+                                                    else
+                                                    {
+                                                        <partial name="/Views/Shared/_Category.cshtml" />
+                                                    }
+                                                </span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span>B-kriteriet er ikke gjeldende</span>
+                                        }
                                     </span>
                                 </span>
                             </li>
