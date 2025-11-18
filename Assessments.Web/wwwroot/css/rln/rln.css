@@ -1,4 +1,42 @@
-.criteria-matrix { padding-top: 5px }
+h1 + .hr-compact {
+    background-color: var(--surface-brand-5b);
+}
+
+.hr-compact {
+    background-color: var(--surface-brand-1a);
+    border: none;
+    max-width: 60px;
+    margin-left: 0;
+    height: 4px;
+}
+
+.spacious {
+    font-family: var(--font-secondary-family);
+}
+
+.rln-assessment-area {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2xsm);
+    font-size: var(--font-size-3);
+}
+
+.intro-card {
+    background-color: var(--surface-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    & > p {
+           font-size: var(--font-size-5);
+           line-height: 172%;
+       }
+}
+
+.criteria-matrix {
+    padding-top: 5px
+}
 
 .criteria-matrix table { border-spacing: 2px }
 
@@ -155,3 +193,47 @@
 .rln-map-icon > path {
     fill: var(--surface-invert);
 }
+
+/* Temp. classes for remaking table of contents */
+
+.toc-list {
+    margin: var(--spacing-md) 0;
+    padding: 0;
+}
+
+.toc-list-item {
+    min-height: 40px;
+    border-left: 4px solid var(--surface-subtle);
+    align-content: center;
+    &:hover {
+        border-left: 4px solid var(--surface-hover);
+        background-color: var(--surface-subtle);
+    }
+    &a {
+        min-height: 40px;
+    }
+}
+
+.toc-list .toc-link {
+    text-decoration: none !important;
+}
+
+/*.toc-list .toc-link::before {
+    background-color: var(--surface-subtle);
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    height: 100%;
+    max-height: 100vh;
+    margin-top: 0;
+    position: absolute;
+    width: 4px;
+    text-decoration: none !important;
+}
+
+
+.table-of-contents .toc-link:hover::before {
+    background-color: var(--surface-hover);
+    box-shadow: none;
+}*/
