@@ -22,12 +22,16 @@
 					<div is-visible="!displayMatrix">
 						<ul class="thresholdlist_container">
 							<li class="thresholdlist active opened_element">
-								<span class="graphic_element @Model.Criteria">
-									@Model.Criteria
-								</span>
-								<span class="capitalized categorytext">
-									@Model.Criteria.GetDisplayName()
-								</span>
+								<div class="risk-category-container ">
+									<div class="@Model.Criteria risk-category-circle">
+										<span class="risk-category-tag-label">
+											@Model.Criteria
+										</span>
+									</div>
+									<span class="capitalized risk-category-label">
+										@Model.Criteria.GetDisplayName()
+									</span>
+								</div>
 							</li>
 						</ul>
 					</div>

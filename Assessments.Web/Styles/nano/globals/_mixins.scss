@@ -1,4 +1,4 @@
-@use "colors_redlist" as *;
+@use "risk_categories" as *;
 
 @mixin hr-after($color: 'invert') {
   &:after {
