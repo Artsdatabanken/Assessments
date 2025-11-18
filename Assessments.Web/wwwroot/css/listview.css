@@ -203,6 +203,7 @@ li a span.element_icon {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: var(--spacing-2xsm);
 }
 
 .risk-category-circle {
@@ -222,7 +223,6 @@ li a span.element_icon {
 }
 
 .risk-category-label {
-    padding-left: 10px;
     font-size: var(--font-size-3);
     color: var(--text-primary);
 }

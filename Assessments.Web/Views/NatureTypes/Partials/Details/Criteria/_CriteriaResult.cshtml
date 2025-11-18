@@ -17,11 +17,13 @@
 				</span>
 				<p>
 					<span class="b_summary">
-						<span class="graphic_element @Model.Category">
-							@Model.Category
-						</span>
-						<span>
-							<span>
+						<span class="risk-category-container ">
+							<span class="@Model.Category risk-category-circle">
+								<span class="risk-category-tag-label">
+									@Model.Category
+								</span>
+							</span>
+							<span class="capitalized risk-category-label">
 								<i>@(Model.Category.ConvertTo<NatureTypeCategoryDto>().DisplayName()) </i>
 							</span>
 						</span>

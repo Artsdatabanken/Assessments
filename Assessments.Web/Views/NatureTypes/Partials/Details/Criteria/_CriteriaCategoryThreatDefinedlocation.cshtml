@@ -15,15 +15,19 @@
 				{
 					var criteriaCategoryClass = Model.Category == value ? "active opened_element" : "inactive";
 					<li class="thresholdlist @criteriaCategoryClass">
-						<span class="graphic_element @value">
-							@value
-						</span>
-						<span class="capitalized categorytext">
-							@(value.ConvertTo<NatureTypeCategoryDto>().DisplayName())
-						</span>
-						<span>
-							@value.GetDescription()
-						</span>
+						<div class="risk-category-container ">
+							<div class="@value risk-category-circle">
+								<span class="risk-category-tag-label">
+									@value
+								</span>
+							</div>
+							<span class="capitalized risk-category-label">
+								@(value.ConvertTo<NatureTypeCategoryDto>().DisplayName())
+							</span>
+							<span>
+								@value.GetDescription()
+							</span>
+						</div>
 					</li>
 				}
 			</ul>
