@@ -296,6 +296,8 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     {
         var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
 
+        lookups = lookups.OrderByDescending(x => x.Id2025 == assessment.Id);
+
         var lookup = lookups.FirstOrDefault(x => x.Id2025 == assessment.Id);
 
         if (lookup != null && lookups.Any(x => x.Id2018 == lookup.Id2018))
@@ -343,7 +345,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
                             Category = assessmentWithChange.Category.ToString(),
                             Type = "Target",
                             Source = source,
-                            Target = i,
+                            Target = i
                         });
 
                         links.Add(new Link
