@@ -5,23 +5,23 @@
     <h3>
         Anvendte variabler
     </h3>
-    <ul>
+    <div class="applied-variables-container">
         @foreach (var variableName in Model.VariableNames)
         {
-            <li>
+            <div>
                 <a href=@($"{NatureTypesConstants.NiNHomepage}/{variableName.LongCode}")>
                     @variableName.Name @variableName.ShortCode
                 </a>
 
-                <ul is-visible="variableName.Steps.Any()">
+                <div is-visible="variableName.Steps.Any()">
                     @foreach (var step in variableName.Steps)
                     {
-                        <li>
+                        <div>
                             @step.Description
-                        </li>
+                        </div>
                     }
-                </ul>
-            </li>
+                </div>
+            </div>
         }
-    </ul>
+    </div>
 </div>

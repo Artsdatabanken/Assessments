@@ -146,6 +146,13 @@ h1 + .hr-compact {
 }
 
 /* 'Midlertidige' klasser for å unngå å rote til for de andre listene, kan på kort sikt vurdere å ha dette i en egen css-fil. Splitte opp i rln-detail og rln-list eller noe slikt? */
+.applied-variables-container,
+.changes-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
 .rln-list-header {
     grid-template-columns: 2fr 7fr 3fr 2fr;
 }
