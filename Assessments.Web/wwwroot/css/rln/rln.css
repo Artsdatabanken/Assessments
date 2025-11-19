@@ -87,6 +87,10 @@
     outline: thin solid var(--border-redlist-ne);
 }
 
+#sankey-target {
+    isolation: isolate;
+}
+
 .sankey-node-text {
     fill: black;
 }
@@ -96,11 +100,13 @@
 }
 
 .sankey-link {
+    mix-blend-mode: multiply;
     stroke: lightgray;
 }
 
 .dark-theme .sankey-link {
-   stroke: grey
+    mix-blend-mode: normal;
+    stroke: grey
 }
 
 .sankey-link:hover {
