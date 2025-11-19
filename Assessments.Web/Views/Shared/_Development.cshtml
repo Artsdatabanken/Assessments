@@ -6,19 +6,34 @@
     @if (Model.AssessmentYear == 2021)
     {
         <li>
-            <b class="text_content"> 2021: </b>
-            <span class="graphic_element @Model.CategoryShort.Substring(0,2)">@Model.CategoryShort</span>
-            <span class="capitalized"> @Model.Category</span>
-
+            <div class="risk-category-container">
+                <b class="text_content"> 2021: </b>
+                <div class="@Model.CategoryShort.Substring(0, 2) risk-category-circle-small">
+                    <span class="risk-category-tag-label-small">
+                        @Model.CategoryShort
+                    </span>
+                </div>
+                <span class="capitalized risk-category-label">
+                    @Model.Category
+                </span>
+            </div>
         </li>
     }
 
     @foreach (var prev in Model.PreviousAssessments) // tidligere vurderinger
     {
         <li>
-            <b class="text_content"> @prev.Year: </b>
-            <span class="graphic_element @prev.CategoryShort?.Substring(0,2)">@prev.CategoryShort</span>
-            <span class="capitalized"> @prev.Category</span>
+            <div class="risk-category-container">
+                <b class="text_content"> @prev.Year: </b>
+                <div class="@prev.CategoryShort?.Substring(0, 2) risk-category-circle-small">
+                    <span class="risk-category-tag-label-small">
+                        @prev.CategoryShort
+                    </span>
+                </div>
+                <span class="capitalized risk-category-label">
+                    @prev.Category
+                </span>
+            </div>
         </li>
     }
 </ul>

@@ -26,3 +26,19 @@
     font-size: var(--font-size-3);
     color: var(--text-primary);
 }
+
+.risk-category-circle-small {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.risk-category-tag-label-small {
+    font-size: 12px;
+    line-height: 24px;
+    margin: auto;
+    display: block;
+    text-align: center;
+}

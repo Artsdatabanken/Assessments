@@ -26,6 +26,24 @@
     font-weight: normal;
 }*/
 
+.button-tertiary {
+    padding: var(--spacing-xsm);
+    border-radius: var(--radius-3xl);
+    border: 2px solid var(--border-accent);
+    color: var(--text-accent);
+    font-size: var(--font-size-3);
+    line-height: 1em;
+    cursor: pointer;
+    background: var(--surface-subtle);
+    border-color: var(--surface-subtle);
+
+    &:hover {
+        color: var(--text-accent-hover);
+        background: var(--surface-subtle-hover);
+        border-color: var(--surface-subtle-hover);
+    }
+}
+
 .changetab {
     padding: 6px 12px;
     font-size: 15px;
