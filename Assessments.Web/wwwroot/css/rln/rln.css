@@ -79,10 +79,17 @@
 
 .node.NA {
     fill: var(--background-redlist-na);
+    outline: thin solid var(--border-redlist-na);
 }
 
 .node.NE {
     fill: var(--background-redlist-ne);
+    outline: thin solid var(--border-redlist-ne);
+}
+
+#sankey-target {
+    isolation: isolate;
+    position: relative;
 }
 
 .sankey-node-text {
@@ -94,13 +101,11 @@
 }
 
 .sankey-link {
-    mix-blend-mode: multiply;
-    stroke: #ccc;
+    stroke: lightgray;
 }
 
 .dark-theme .sankey-link {
-    mix-blend-mode: soft-light;
-    stroke: white;
+   stroke: grey
 }
 
 .sankey-link:hover {
