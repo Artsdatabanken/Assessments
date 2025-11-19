@@ -42,7 +42,7 @@
 					<div class="page-header">
 						<h1>
 							@assessment.PopularName
-							
+
 						</h1>
 						<hr class="hr-compact" />
 						<p class="spacious">
@@ -51,12 +51,9 @@
 								Les mer om naturtypen
 							</a>
 						</p>
-						@if (assessment.NinCodeTopic != null)
-						{
-							<p class="spacious">
-								@assessment.NinCodeTopic.Name (@assessment.NinCodeTopic.Description)
-							</p>
-						}
+						<p class="spacious">
+							@assessment.Name (@assessment.NinCodeTopic.Description)
+						</p>
 						<div class="intro-card">
 							<div class="rln-assessment-area">
 								<svg class="rln-map-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +65,7 @@
 								Endelig kategori og kriterium: @assessment.CategoryCriteria
 								<br />
 								Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
-								<br/>
+								<br />
 								<span is-visible="Model.CategoryCriteriaTypes.Any()">
 									Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName().ToLower()).JoinAnd(", ", " og ").
 								</span>
@@ -78,7 +75,7 @@
 							</a>
 						</div>
 						<div class="mobile_padding">
-								<partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />							
+							<partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
 						</div>
 						<div class="speciesgroup_container">
 							<p class="published">
@@ -91,7 +88,7 @@
 								</span>
 							</p>
 						</div>
-						<hr class="hr-compact"/>
+						<hr class="hr-compact" />
 						<div class="mobile_padding">
 							<partial name="/Views/NatureTypes/Partials/Details/_TableOfContents.cshtml" model="Model.TableOfContentsViewModel" />
 						</div>
