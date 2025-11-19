@@ -87,11 +87,6 @@
     outline: thin solid var(--border-redlist-ne);
 }
 
-#sankey-target {
-    isolation: isolate;
-    position: relative;
-}
-
 .sankey-node-text {
     fill: black;
 }
