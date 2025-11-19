@@ -8,8 +8,8 @@
         <li>
             <div class="risk-category-container">
                 <b class="text_content"> 2021: </b>
-                <div class="@Model.CategoryShort.Substring(0, 2) risk-category-circle">
-                    <span class="risk-category-tag-label">
+                <div class="@Model.CategoryShort.Substring(0, 2) risk-category-circle-small">
+                    <span class="risk-category-tag-label-small">
                         @Model.CategoryShort
                     </span>
                 </div>
@@ -25,8 +25,8 @@
         <li>
             <div class="risk-category-container">
                 <b class="text_content"> @prev.Year: </b>
-                <div class="@prev.CategoryShort?.Substring(0, 2) risk-category-circle">
-                    <span class="risk-category-tag-label">
+                <div class="@prev.CategoryShort?.Substring(0, 2) risk-category-circle-small">
+                    <span class="risk-category-tag-label-small">
                         @prev.CategoryShort
                     </span>
                 </div>
