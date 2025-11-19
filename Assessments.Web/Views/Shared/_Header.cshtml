@@ -1,4 +1,9 @@
-﻿<header class="body-header" role="banner">
+﻿@{
+	var selectedMenuItem = ViewData[ViewDataConstants.SelectedMenuItem]?.ToString();
+	var selectedMegaMenuItem = ViewData[ViewDataConstants.SelectedMegaMenuItem]?.ToString();
+}
+
+<header class="body-header" role="banner">
 	<div class="body-header__top">
 		<a href="https://artsdatabanken.no/" class="body-header__logo" title="Til startsiden">
 			<svg class="logomark" xmlns="http://www.w3.org/2000/svg" width="159" height="20" fill="none">
@@ -11,12 +16,12 @@
 			<nav aria-label="Focused menu">
 				<ul class="menu">
 					<li class="menu-item">
-						<a href="https://artsdatabanken.no/node/660953" condition-class-is-active="@(ViewBag.SelectedMenuItem == "Arter")">
+						<a href="https://artsdatabanken.no/node/660953" condition-class-is-active="@(selectedMenuItem == "Arter")">
 							Arter
 						</a>
 					</li>
 					<li class="menu-item">
-						<a href="https://artsdatabanken.no/node/660954" condition-class-is-active="@(ViewBag.SelectedMenuItem == "Naturtyper")">
+						<a href="https://artsdatabanken.no/node/660954" condition-class-is-active="@(selectedMenuItem == "Naturtyper")">
 							Naturtyper
 						</a>
 					</li>
@@ -95,12 +100,12 @@
 				</a>
 				<ul class="mega-menu__list--level-2">
 					<li>
-						<a href="https://lister.artsdatabanken.no/rodlisteforarter/2021/">
+						<a href="https://lister.artsdatabanken.no/rodlisteforarter/2021/" condition-class-is-active="@(selectedMegaMenuItem == "Species")">
 							Norsk rødliste for arter
 						</a>
 					</li>
 					<li>
-						<a href="https://lister.artsdatabanken.no/fremmedartslista/2023">
+						<a href="https://lister.artsdatabanken.no/fremmedartslista/2023" condition-class-is-active="@(selectedMegaMenuItem == "AlienSpecies")">
 							Fremmedartslista
 						</a>
 					</li>
@@ -137,7 +142,7 @@
 				</a>
 				<ul class="mega-menu__list--level-2">
 					<li>
-						<a href="https://artsdatabanken.no/rodlistefornaturtyper">
+						<a href="https://artsdatabanken.no/rodlistefornaturtyper" condition-class-is-active="@(selectedMegaMenuItem == "NatureTypes")">
 							Norsk rødliste for naturtyper
 						</a>
 					</li>
