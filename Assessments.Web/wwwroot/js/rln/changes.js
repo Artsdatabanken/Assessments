@@ -19,6 +19,19 @@
         links: data.links
     });
 
+    var linkGroup = svg
+        .append("g")
+        .attr("stroke-opacity", 0.6);
+
+    linkGroup.selectAll("g")
+        .data(links)
+        .join("g")
+        .attr("class", "sankey-link")
+        .append("path")
+        .attr("d", d3.sankeyLinkHorizontal())
+        .style("fill", "none")
+        .style("stroke-width", d => d.width)
+
     var nodeGroup = svg
         .append("g")
         .attr("stroke", 20)
@@ -46,18 +59,5 @@
         .attr("y", d => (d.y1 + d.y0) / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
-        .text((d) => d.name + ' ' + d.category);
-
-    var linkGroup = svg
-        .append("g")
-        .attr("fill", "none")
-        .attr("stroke-opacity", 0.6)
-        .selectAll("g")
-        .data(links)
-        .join("g")
-        .attr("class", "sankey-link")
-        .append("path")
-        .attr("d", d3.sankeyLinkHorizontal())
-        .style("fill", "none")
-        .style("stroke-width", d => d.width);
+        .text((d) => d.name + ' ' + d.category);    
 });
