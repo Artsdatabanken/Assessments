@@ -109,51 +109,6 @@ div.risk-level-category {
 }
 
 /* colours */
-.risk-matrix .nk {
-    background: #94A360;
-    color: #201f1f
-}
-
-.risk-matrix .nk span {
-    color: #201f1f;
-}
-
-.risk-matrix .lo {
-    background: #5c9c94;
-    color: #201f1f
-}
-
-.risk-matrix .lo span {
-    color: #201f1f
-}
-
-.risk-matrix .ph {
-    background: #296473;
-    color: #faf1e4;
-}
-
-.risk-matrix .ph span {
-    color: white;
-}
-
-.risk-matrix .hi {
-    background: #2E4073;
-    color: #faf1e4;
-}
-
-.risk-matrix .hi span {
-    color: white;
-}
-
-.risk-matrix .se {
-    background: #4F1052;
-    color: #faf1e4;
-}
-
-.risk-matrix .se span {
-    color: white;
-}
-
 .risk-matrix-container {
     width: 100%;
     display: flex;
