@@ -8,10 +8,11 @@
     font-size: 0;
     max-width: 100%;
     position: relative;
-    overflow-x: visible;
+    overflow-x: auto;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    padding-left: 0;
 }
 
 .category_displayer li {
@@ -72,36 +73,46 @@
 
 .category_displayer li.active .category_item span {
     line-height: 84px;
-    font-size: 24pt;
+    font-size: 40px;
 }
 
-@media only screen and (max-width: 510px) {
+@media only screen and (max-width: 575px) {
     .category_displayer::before {       
         top: 34px;
     }
 
-    .category_displayer li {
-        width: 25px;
-        padding-top:20px;
-    }
     .category_displayer .category_item {
-        width: 25px;
-        height: 25px;
+        width: 32px;
+        height: 32px;
     }
     .category_displayer .category_item span {
         font-size: 12pt;
-        line-height: 25px;
+        line-height: 20px;
     }
-    .category_displayer .notactive .tag{
-       display:none;
+    
+    .category_displayer .active .tag {
+        font-size: 12pt;
     }
 
+    .category_displayer li.active .category_item {
+        height: 48px;
+        width: 48px;
+    }
+
+    .category_displayer li.active .category_item span {
+        line-height: 40px;
+        font-size: 24px;
+    }
 }
 
-@media only screen and (max-width: 345px) {
+@media only screen and (max-width: 400px) {
 
     .category_displayer::before {
         top: 30px;
+    }
+
+    .category_displayer .notactive .tag {
+        display: none;
     }
 
     .category_displayer li{
@@ -109,23 +120,23 @@
     }
 
     .category_displayer li.active .category_item {
-        height: 50px;
-        width: 50px;
+        width: 32px;
+        height: 32px;
     }
 
     .category_displayer li.active .category_item span {
-        line-height: 40px;
-        font-size: 18pt;
+        font-size: 12pt;
+        line-height: 24px;
     }
 
     .category_displayer .category_item {
-        width: 19px;
-        height: 19px;
+        width: 24px;
+        height: 24px;
     }
 
     .category_displayer .category_item span {
-        font-size: 9pt;
-        line-height: 19px;
+        font-size: 12px;
+        line-height: 14px;
     }
 }
 
