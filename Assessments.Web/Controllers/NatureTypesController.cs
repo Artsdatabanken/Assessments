@@ -317,7 +317,6 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             var nodes = groups.ToList().Select(group => new Node
             {
                 Name = group.Key.Name2018,
-                Color = group.Key.Category2018.ToEnum(Category.NA).GetColor(),
                 Category = group.Key.Category2018,
                 Type = "Source"
             }).ToList();
@@ -341,7 +340,6 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
                         {
                             Id = assessmentWithChange.Id,
                             Name = assessmentWithChange.PopularName,
-                            Color = assessmentWithChange.Category.GetColor(),
                             Category = assessmentWithChange.Category.ToString(),
                             Type = "Target",
                             Source = source,
