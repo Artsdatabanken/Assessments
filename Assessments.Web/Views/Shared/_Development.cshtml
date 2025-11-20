@@ -6,8 +6,8 @@
     @if (Model.AssessmentYear == 2021)
     {
         <li>
+            <b class="text_content"> 2021: </b>
             <div class="risk-category-container">
-                <b class="text_content"> 2021: </b>
                 <div class="@Model.CategoryShort.Substring(0, 2) risk-category-circle-small">
                     <span class="risk-category-tag-label-small">
                         @Model.CategoryShort
@@ -23,8 +23,9 @@
     @foreach (var prev in Model.PreviousAssessments) // tidligere vurderinger
     {
         <li>
+            <b class="text_content"> @prev.Year: </b>
             <div class="risk-category-container">
-                <b class="text_content"> @prev.Year: </b>
+                
                 <div class="@prev.CategoryShort?.Substring(0, 2) risk-category-circle-small">
                     <span class="risk-category-tag-label-small">
                         @prev.CategoryShort
