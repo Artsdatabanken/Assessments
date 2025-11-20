@@ -14,22 +14,22 @@
 
   --border-redlist-ne: var(--border-strong);
   --border-redlist-na: var(--border-strong);
-  --border-redlist-lc: #{$special-60};
-  --border-redlist-dd: #{$special-70};
-  --border-redlist-nt: #{$special-80};
-  --border-redlist-vu: #{$special-90};
-  --border-redlist-en: #{$special-100};
-  --border-redlist-cr: #{$special-110};
+  --border-redlist-lc: var(--border-strong);
+  --border-redlist-dd: var(--border-strong);
+  --border-redlist-nt: var(--border-strong);
+  --border-redlist-vu: var(--border-strong);
+  --border-redlist-en: var(--border-strong);
+  --border-redlist-cr: var(--border-strong);
   --border-redlist-re: var(--border-strong);
   --border-redlist-co: var(--border-strong);
 
   --text-redlist-ne: var(--text-riskcategory-invert);
   --text-redlist-na: var(--text-riskcategory-invert);
-  --text-redlist-lc: var(--text-riskcategory-invert);
+  --text-redlist-lc: var(--text-riskcategory-primary);
   --text-redlist-dd: var(--text-riskcategory-primary);
-  --text-redlist-nt: var(--text-riskcategory-invert);
-  --text-redlist-vu: var(--text-riskcategory-invert);
-  --text-redlist-en: var(--text-riskcategory-invert);
+  --text-redlist-nt: var(--text-riskcategory-primary);
+  --text-redlist-vu: var(--text-riskcategory-primary);
+  --text-redlist-en: var(--text-riskcategory-primary);
   --text-redlist-cr: var(--text-riskcategory-primary);
   --text-redlist-re: var(--text-riskcategory-primary);
   --text-redlist-co: var(--text-riskcategory-primary);

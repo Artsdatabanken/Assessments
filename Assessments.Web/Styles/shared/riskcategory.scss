@@ -4,6 +4,7 @@
     flex-direction: row;
     align-items: center;
     gap: var(--spacing-2xsm);
+    min-width: 110px;
 }
 
 .risk-category-circle {
