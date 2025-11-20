@@ -288,7 +288,7 @@
             classN = "active";            
         }
 
-        return "risk-level " + GetCategoryFromUncertaintyNumber(current_x, current_y).ToString().ToLowerInvariant() + " " + classN;
+        return "risk-level " + GetCategoryFromUncertaintyNumber(current_x, current_y).ToString() + " " + classN;
     }
 
     string findStatus(int current_x, int current_y, int place_x, int place_y,int highestUncertainty_y, int lowestUncertainty_y,int highestUncertainty_x, int lowestUncertainty_x){
@@ -349,10 +349,10 @@
             <b class="non-css-only"><br>y = 1</b>
             <ul class="bottom-border">
                 <li class="description"><span class="non-css-only">@Constants.yAxisLabel: </span><span>1</span>@AlienSpeciesAssessment2023MatrixAxisScore.EcologicalEffect.NotKnown.DisplayName().ToLowerInvariant()</li>
-                <li class="nk @className(1, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 1: kategori </span><span>NK</span><span class="non-css-only"> er verdien: @findStatus(1, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
-                <li class="lo @className(2, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 2: kategori </span><span>LO</span><span class="non-css-only"> er verdien: @findStatus(2, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
-                <li class="lo @className(3, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 3: kategori </span><span>LO</span><span class="non-css-only"> er verdien: @findStatus(3, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
-                <li class="ph @className(4, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 4: kategori </span><span>PH</span><span class="non-css-only"> er verdien: @findStatus(4, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
+                <li class="@className(1, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 1: kategori </span><span>NK</span><span class="non-css-only"> er verdien: @findStatus(1, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
+                <li class="@className(2, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 2: kategori </span><span>LO</span><span class="non-css-only"> er verdien: @findStatus(2, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
+                <li class="@className(3, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 3: kategori </span><span>LO</span><span class="non-css-only"> er verdien: @findStatus(3, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
+                <li class="@className(4, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty )"><span class="non-css-only">For @Constants.xAxisLabel (x-aksen) = 4: kategori </span><span>PH</span><span class="non-css-only"> er verdien: @findStatus(4, 1, x, y, yHigherUncertainty, yLowerUncertainty, xHigherUncertainty, xLowerUncertainty ) </span></li>
             </ul>
             <b class="non-css-only"><br>Tallforklaring for x-aksen:</b>
             <ul class="bottom-legend">
