@@ -14,12 +14,12 @@
 
   --border-redlist-ne: var(--border-strong);
   --border-redlist-na: var(--border-strong);
-  --border-redlist-lc: var(--border-strong);
-  --border-redlist-dd: var(--border-strong);
-  --border-redlist-nt: var(--border-strong);
-  --border-redlist-vu: var(--border-strong);
-  --border-redlist-en: var(--border-strong);
-  --border-redlist-cr: var(--border-strong);
+  --border-redlist-lc: #{$special-60};
+  --border-redlist-dd: #{$special-70};
+  --border-redlist-nt: #{$special-80};
+  --border-redlist-vu: #{$special-90};
+  --border-redlist-en: #{$special-100};
+  --border-redlist-cr: #{$special-110};
   --border-redlist-re: var(--border-strong);
   --border-redlist-co: var(--border-strong);
 
