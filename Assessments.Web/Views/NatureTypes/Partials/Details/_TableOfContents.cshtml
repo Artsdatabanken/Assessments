@@ -7,7 +7,7 @@
         {
             <li is-visible="heading.ShouldShow" class="toc-list-item">
                 <a class="toc-link" href="#@heading.ElementId">
-                    @heading.Title
+                    <span>@heading.Title</span>
                 </a>
                 @if (heading.SubContents != null && heading.SubContents.Count() != 0)
                 {

@@ -209,44 +209,29 @@ h1 + .hr-compact {
 
 /* Temp. classes for remaking table of contents */
 
-.toc-list {
+.table-of-contents ul.toc-list {
     margin: var(--spacing-md) 0;
-    padding: 0;
+    padding-left: 0 !important;
+    
 }
 
-.toc-list-item {
+.toc-list .toc-list-item {
     min-height: 40px;
     border-left: 4px solid var(--surface-subtle);
     align-content: center;
+    margin: 0;
+    max-width: 260px;
     &:hover {
         border-left: 4px solid var(--surface-hover);
-        background-color: var(--surface-subtle);
-    }
-    &a {
-        min-height: 40px;
     }
 }
 
 .toc-list .toc-link {
-    text-decoration: none !important;
+    display: flex;
+    padding: var(--spacing-spacing-xsm, 8px) var(--spacing-spacing-md, 24px);
+    min-height: 40px;
+    text-decoration: none;
+    &:hover {
+        background-color: var(--surface-subtle);
+    }
 }
-
-/*.toc-list .toc-link::before {
-    background-color: var(--surface-subtle);
-    content: "";
-    display: block;
-    left: 0;
-    top: 0;
-    height: 100%;
-    max-height: 100vh;
-    margin-top: 0;
-    position: absolute;
-    width: 4px;
-    text-decoration: none !important;
-}
-
-
-.table-of-contents .toc-link:hover::before {
-    background-color: var(--surface-hover);
-    box-shadow: none;
-}*/
