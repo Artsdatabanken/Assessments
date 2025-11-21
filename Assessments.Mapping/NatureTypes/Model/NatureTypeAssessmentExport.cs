@@ -12,7 +12,7 @@ public class NatureTypeAssessmentExport
     [Description("Navn på naturtypen")]
     public string Name { get; set; }
 
-    [DisplayName("Populærnavn")]
+    [DisplayName("Kortnavn")]
     [Description("Kortnavn for naturtypen")]
     public string PopularName { get; set; }
 
