@@ -1,13 +1,12 @@
 ﻿@model NatureTypesDetailViewModel
 
-
 <h3>
 	Utvikling
 </h3>
 <div class="changes-container">
 	@(Model.HasChanges ? "Naturtypens utvikling fra forrige revisjon." : "Denne naturtypen har ikke vært vurdert tidligere.")
-	<button is-visible="Model.HasChanges" class="btn btn-tertiary">
-		<a style="text-decoration: none" href="#changes" rel="modal:open">Endring og historikk</a>
+	<button id="modal-opener" is-visible="Model.HasChanges" class="btn btn-tertiary">
+		<span>Endring og historikk</span>
 	</button>
 </div>
 <div id="changes" class="modal">

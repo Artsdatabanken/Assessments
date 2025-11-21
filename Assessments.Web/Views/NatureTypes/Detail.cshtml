@@ -30,6 +30,11 @@
 	<script is-visible="assessment.Category is Category.LC or Category.NE">
 		criterialist('full_list', document.getElementById('full_list_criteria'));
 	</script>
+	<script>
+		$("#modal-opener").on("click", function() {
+			$("#changes").modal();
+		});
+	</script>
 }
 
 <partial name="_Breadcrumb" model="breadcrumbs" />
