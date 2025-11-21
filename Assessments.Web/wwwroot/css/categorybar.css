@@ -37,6 +37,14 @@
     margin:auto;
 }
 
+.category_displayer .notactive .category_item {
+    &.LC, &.DD, &.NT, &.VU, &.EN, &.CR, &.RE, &.CO {
+        background: var(--background-redlist-na);
+        color: var(--text-redlist-na);
+        border-color: var(--border-redlist-na);
+    }
+}
+
 .category_displayer span {
     font-size: 8pt;
     display: block;
