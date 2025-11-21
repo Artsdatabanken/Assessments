@@ -218,7 +218,6 @@
 				<div class="mid-content with_sidebar">
 					<partial name="/Views/Shared/_AssessmentPageHeader.cshtml" model="assessmentPageHeaderViewModel" />
 					<div class="mobile_padding">
-						<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
 						<div is-visible="isNr">
 							<partial name="/Views/Shared/_Ingress.cshtml" model="ingressViewModel" />
 						</div>
@@ -229,6 +228,7 @@
 						<div is-visible="!isNr && !isEvaluatedAtAnotherLevel">
 							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_RiskMatrix.cshtml" />
 						</div>
+						<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.PageMenuViewModel.TableOfContentsViewModel" />
 						<div class="page_section" is-visible="showExpertStatement">
 							<partial name="/Views/AlienSpecies/2023/AssessmentPartials/_ExpertStatement.cshtml" model="Model.ExpertStatementViewModel" />
 						</div>
