@@ -1,5 +1,7 @@
 
 .table-of-contents ul.toc-list {
+    display: inline-flex;
+    flex-direction: column;
     margin: var(--spacing-md) 0;
     padding-left: 0 !important;
 }
@@ -9,7 +11,6 @@
     border-left: 4px solid var(--surface-subtle);
     align-content: center;
     margin: 0;
-    max-width: 315px;
 
     &:hover {
         border-left: 4px solid var(--surface-hover);
