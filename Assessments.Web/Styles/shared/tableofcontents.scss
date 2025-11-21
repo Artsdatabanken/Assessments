@@ -1,0 +1,28 @@
+
+.table-of-contents ul.toc-list {
+    display: inline-flex;
+    flex-direction: column;
+    margin: var(--spacing-md) 0;
+    padding-left: 0 !important;
+}
+
+.toc-list .toc-list-item {
+    min-height: 40px;
+    border-left: 4px solid var(--surface-subtle);
+    align-content: center;
+    margin: 0;
+
+    &:hover {
+        border-left: 4px solid var(--surface-hover);
+    }
+}
+
+.toc-list .toc-link {
+    display: flex;
+    padding: var(--spacing-spacing-xsm, 8px) var(--spacing-spacing-md, 24px);
+    min-height: 40px;
+    text-decoration: none;
+    &:hover {
+        background-color: var(--surface-subtle);
+    }
+}

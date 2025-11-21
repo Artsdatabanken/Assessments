@@ -151,6 +151,15 @@ h1 + .hr-compact {
     stroke-opacity: 1
 }
 
+.jquery-modal .modal a.close-modal {
+    top: 40px;
+    right: 40px;
+    width: 24px;
+    height: 24px;
+    color: var(--surface-accent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z' fill='%23005A71'/%3E%3C/svg%3E");
+}
+
 /* 'Midlertidige' klasser for å unngå å rote til for de andre listene, kan på kort sikt vurdere å ha dette i en egen css-fil. Splitte opp i rln-detail og rln-list eller noe slikt? */
 .applied-variables-container,
 .changes-container {
@@ -205,33 +214,4 @@ h1 + .hr-compact {
 
 .rln-map-icon > path {
     fill: var(--surface-invert);
-}
-
-/* Temp. classes for remaking table of contents */
-
-.table-of-contents ul.toc-list {
-    margin: var(--spacing-md) 0;
-    padding-left: 0 !important;
-    
-}
-
-.toc-list .toc-list-item {
-    min-height: 40px;
-    border-left: 4px solid var(--surface-subtle);
-    align-content: center;
-    margin: 0;
-    max-width: 260px;
-    &:hover {
-        border-left: 4px solid var(--surface-hover);
-    }
-}
-
-.toc-list .toc-link {
-    display: flex;
-    padding: var(--spacing-spacing-xsm, 8px) var(--spacing-spacing-md, 24px);
-    min-height: 40px;
-    text-decoration: none;
-    &:hover {
-        background-color: var(--surface-subtle);
-    }
 }

@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    padding-top: var(--spacing-md);
     padding-left: 0;
 }
 

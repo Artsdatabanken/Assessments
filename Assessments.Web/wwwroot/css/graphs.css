@@ -48,12 +48,12 @@
 .graph .heightbar_blank,
 .graph .heightbar_indicator {
     height: 200px;
+    justify-content: center; 
 }
 
 .heightbar_blank,
 .heightbar_indicator {
     display: flex;
-    /*justify-content: center; */
     position: relative;
     width: 100%;
 }
@@ -127,8 +127,7 @@
 }
 
 .down_graph .heightbar_indicator {
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
+    border: 1px solid var(--text-primary);
 }
 
 .down_graph .statelement .heightbar_blank {
