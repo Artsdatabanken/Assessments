@@ -172,9 +172,15 @@ h1 + .hr-compact {
     grid-template-columns: 2fr 7fr 3fr 2fr;
 }
 
-.rln-list-row > a {
+li.list.rln-list-row > a {
     padding: var(--spacing-sm) var(--spacing-none) var(--spacing-sm) var(--spacing-xsm) !important;
-    grid-template-columns: 2fr 7fr 3fr 2fr !important;
+    grid-template-columns: 2fr 7fr 3fr 2fr;
+    @media (max-width: 650px) {
+        display: inline-block;
+        & > span {
+            padding: var(--spacing-xsm) 0;
+        }
+    }
 }
 
 .rln-cell-shortcode {
