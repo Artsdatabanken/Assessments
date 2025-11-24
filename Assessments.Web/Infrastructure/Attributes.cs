@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Assessments.Shared.Constants;
 using Assessments.Shared.Options;
 using Microsoft.Extensions.Options;
 using static Microsoft.AspNetCore.Http.StatusCodes;
@@ -27,7 +26,7 @@ public class NotReadyForProduction : Attribute, IResourceFilter
 }
 
 /// <summary>
-/// Midlertidig tilgangskontroll for naturtyper i testmiljøet
+/// Midlertidig tilgangskontroll
 /// </summary>
 [AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
 public class CookieRequiredAttribute : Attribute, IAsyncActionFilter
@@ -42,10 +41,11 @@ public class CookieRequiredAttribute : Attribute, IAsyncActionFilter
 
         var options = context.HttpContext.RequestServices.GetRequiredService<IOptions<ApplicationOptions>>();
 
-        var temporaryAccessCookie = context.HttpContext.Request.Cookies[NatureTypesConstants.TemporaryAccessCookieName];
+        // TODO: flytt navn på cookie til constant når brukes flere plasser
+        var temporaryAccessCookie = context.HttpContext.Request.Cookies["adb.req.temporaryaccess"];
 
         if (string.IsNullOrEmpty(temporaryAccessCookie)
-            || !temporaryAccessCookie.Equals(options.Value.NatureTypes.TemporaryAccessKey))
+            || !temporaryAccessCookie.Equals(options.Value.TemporaryAccessKey))
         {
             context.Result = new UnauthorizedResult();
             return;
