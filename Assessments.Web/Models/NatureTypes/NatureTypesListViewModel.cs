@@ -14,12 +14,6 @@ public record NatureTypesListViewModel(IPagedList<Assessment> Assessments) : Nat
 
     public ListViewViewModel ListViewViewModel { get; init; }
     
-    //public PageHeaderViewModel PageHeaderViewModel => new()
-    //{
-    //    HeaderText = NatureTypesConstants.Title2025,
-    //    HeaderByline = $"Publisert: {NatureTypesConstants.PublishedDate:d. MMMM yyy}"
-    //};
-
     public CitationForListViewModel CitationForListViewModel => new(citationString: $"Artsdatabanken ({NatureTypesConstants.PublishedDate:yyyy, d. MMMM}). {NatureTypesConstants.Title2025}.");
 
     public NatureTypesStatisticsViewModel NatureTypesStatisticsViewModel { get; set; }

@@ -1,0 +1,24 @@
+﻿@model NatureTypesDetailViewModel
+
+<h3>
+	Utvikling
+</h3>
+<div class="changes-container">
+	@(Model.HasChanges ? "Naturtypens utvikling fra forrige revisjon." : "Denne naturtypen har ikke vært vurdert tidligere.")
+	<button id="modal-opener" is-visible="Model.HasChanges" class="btn btn-tertiary">
+		<span>Endring og historikk</span>
+	</button>
+</div>
+<div id="changes" class="modal">
+	<h3>Utvikling</h3>
+	<hr />
+	<div style="display: flex; justify-content: space-between;">
+		<h4>2018</h4>
+		<h4>2025</h4>
+	</div>
+	<div id="sankey-target"></div>
+</div>
+
+<script type="application/json" id="changes-data">
+	@Html.Raw(Model.Changes)
+</script>

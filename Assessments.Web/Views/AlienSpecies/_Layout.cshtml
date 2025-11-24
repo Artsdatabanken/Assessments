@@ -1,6 +1,7 @@
 ﻿@{
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	ViewBag.SelectedMenuItem = "Arter";
+	ViewData[ViewDataConstants.SelectedMenuItem] = "Arter";
+	ViewData[ViewDataConstants.SelectedMegaMenuItem] = "AlienSpecies";
 }
 
 @section Styles
@@ -28,6 +29,5 @@
 	<script src="~/js/toggleStatView.js" async></script>
 	<script src="~/js/assessmentTabs.js" async></script>
 	<script src="~/js/tableCollapse.js" async></script>
-	<script src="~/js/speciesImages.js" async></script>
 	@await RenderSectionAsync("Scripts", required: false)
 }

@@ -3,28 +3,37 @@
 
 @{
 	var assessment = Model.Assessment;
-	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.Name}";
+	ViewBag.Title = $"{NatureTypesConstants.Title2025} {assessment.PopularName}";
 	Layout = "_Layout.cshtml";
 
 	var breadcrumbs = new Dictionary<string, string>
 	{
 		{ "Naturtyper", "https://artsdatabanken.no/naturtyper" },
 		{ NatureTypesConstants.Title2025, Url.Action("List", "NatureTypes") },
-		{ assessment.Name, string.Empty }
+		{ assessment.PopularName, string.Empty }
 	};
 }
 
 @section Styles {
+	<link rel="stylesheet" href="~/lib/jquery-modal/jquery.modal.min.css">
 	<link rel="stylesheet" href="~/css/assessment.css" />
-	<link rel="stylesheet" href="~/css/rln/criteriaMatrix.css">
 }
 
 @section Scripts {
-	<script src="~/js/lib/d3/d3.min.js"></script>
-	<script src="~/js/rln/regionmap.js"></script>
 	<script src="~/js/assessmentTabs.js"></script>
+	<script src="~/lib/d3/d3.min.js"></script>
+	<script src="~/lib/d3-sankey/d3-sankey.min.js"></script>
+	<script src="~/lib/jquery/jquery.slim.min.js"></script>
+	<script src="~/lib/jquery-modal/jquery.modal.min.js"></script>
+	<script src="~/js/rln/regionmap.js"></script>
+	<script is-visible="Model.HasChanges" src="~/js/rln/changes.js"></script>
 	<script is-visible="assessment.Category is Category.LC or Category.NE">
 		criterialist('full_list', document.getElementById('full_list_criteria'));
+	</script>
+	<script>
+		$("#modal-opener").on("click", function() {
+			$("#changes").modal();
+		});
 	</script>
 }
 
@@ -37,18 +46,45 @@
 				<div class="mid-content with_sidebar">
 					<div class="page-header">
 						<h1>
-							@assessment.Name
-							@if (assessment.NinCodeTopic != null)
-							{
-								<span style="color: grey; font-size: medium; display: block">
-									@assessment.NinCodeTopic.Name (@assessment.NinCodeTopic.Description)
-								</span>
-							}
+							@assessment.PopularName
 						</h1>
+						<hr class="hr-compact" />
+						<p class="spacious">
+							NiN-kode @assessment.ShortCode
+							<a href="@($"{NatureTypesConstants.NiNHomepage}/{assessment.LongCode}")">
+								Les mer om naturtypen
+							</a>
+						</p>
+						<p class="spacious">
+							@assessment.Name (@assessment.NinCodeTopic.Description)
+						</p>
+						<div class="intro-card">
+							<div class="rln-assessment-area">
+								<svg class="rln-map-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12 18L6 15.9L1.35 17.7C1.01667 17.8333 0.708333 17.7958 0.425 17.5875C0.141667 17.3792 0 17.1 0 16.75V2.75C0 2.53333 0.0625 2.34167 0.1875 2.175C0.3125 2.00833 0.483333 1.88333 0.7 1.8L6 0L12 2.1L16.65 0.3C16.9833 0.166667 17.2917 0.204167 17.575 0.4125C17.8583 0.620833 18 0.9 18 1.25V15.25C18 15.4667 17.9375 15.6583 17.8125 15.825C17.6875 15.9917 17.5167 16.1167 17.3 16.2L12 18ZM11 15.55V3.85L7 2.45V14.15L11 15.55ZM13 15.55L16 14.55V2.7L13 3.85V15.55ZM2 15.3L5 14.15V2.45L2 3.45V15.3Z" fill="#262F31" />
+								</svg>
+								Gjelder @assessment.Region.GetDescription()
+							</div>
+							<p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
+								Endelig kategori og kriterium: @assessment.CategoryCriteria
+								<br />
+								Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
+								<br />
+								<span is-visible="Model.CategoryCriteriaTypes.Any()">
+									Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName().ToLower()).JoinAnd(", ", " og ").
+								</span>
+							</p>
+							<a href="https://artsdatabanken.no/node/917961/" class="link-styled">
+								Kategorier og kriterier for vurderingen
+							</a>
+						</div>
+						<div class="mobile_padding">
+							<partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
+						</div>
 						<div class="speciesgroup_container">
 							<p class="published">
 								<span>
-									Utført av <a href="https://artsdatabanken.no/pages/370736">ekspertkomité for @assessment.Committee.Name</a>
+									Utført av <a href="https://artsdatabanken.no/node/917960/">ekspertkomité for @assessment.Committee.Name</a>
 								</span>
 								<br />
 								<span class="datestring">
@@ -56,21 +92,9 @@
 								</span>
 							</p>
 						</div>
-						Gjelder for @assessment.Region.GetDescription()
-						<hr />
+						<hr class="hr-compact" />
 						<div class="mobile_padding">
 							<partial name="/Views/Shared/_TableOfContents.cshtml" model="Model.TableOfContentsViewModel" />
-							<div class="page_section">
-								<p is-visible="!string.IsNullOrEmpty(assessment.CategoryCriteria)">
-									Endelig kategori og kriterium: @assessment.CategoryCriteria
-									<br />
-									Naturtypen er vurdert til @assessment.Category.GetDescription() @assessment.Category for Norsk rødliste for naturtyper 2025.
-									<span is-visible="Model.CategoryCriteriaTypes.Any()">
-										Kategorien kommer av @Model.CategoryCriteriaTypes.Select(x => x.DisplayName().ToLower()).JoinAnd(", ", " og ").
-									</span>
-								</p>
-							</div>
-							<partial name="/Views/Shared/_CategoryDescription.cshtml" for="CategoryDescriptionViewModel" />
 						</div>
 						<div class="page_section">
 							<div id="@nameof(NatureTypesConstants.Headings.Description)">
@@ -199,18 +223,12 @@
 				</div>
 				<div class="side mobile_padding">
 					<div class="sidebar_image_info">
-						NiN-kode:<br />
-						<a href="https://naturinorge.artsdatabanken.no/@assessment.LongCode">
-							@assessment.ShortCode
-						</a>
+						<partial name="Partials/Details/_Changes" model="Model" />
 						<vc:variable-names applied-variables="@assessment.AppliedVariables" />
 						<partial name="Partials/Details/_Images" model="assessment.LongCode" />
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
-
-

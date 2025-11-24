@@ -621,7 +621,9 @@ span.area i {
 
 .history_list li {
     font-size: 12pt;
-    display: inline-block;
+    display: flex;
+    gap: var(--spacing-2xsm);
+    align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
     width: 100%;   
@@ -1164,4 +1166,21 @@ tr.water-area-hide,
 
 .side ul {
     list-style-type: none;
+}
+
+.jquery-modal .modal {
+    max-width: max-content;
+}
+
+.jquery-modal {
+    z-index: 13;
+}
+
+.jquery-modal.current:hover {
+    filter: brightness()
+}
+
+.dark-theme .current > #changes {
+    stroke: none;
+    background: var(--background-default);
 }

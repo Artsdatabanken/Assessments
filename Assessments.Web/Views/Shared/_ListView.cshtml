@@ -49,19 +49,18 @@
                         </span>
                     </span>
 
-                    <span class="list_cell categoryname capitalized">
-                        @if (!string.IsNullOrEmpty(item.Category))
-                        {
-                            @item.Category
-                            <span class="degrees">@Helpers.FindDegrees(item.CategoryShort, false)</span>
-                        }
-                    </span>
-
-                    <span class="list_cell categorytag">
-                        <span class="@item.CategoryShort[..2] category_tag">
-                            <span class="category_tag_label">@item.CategoryShort</span>
+                    <div class="risk-category-container">
+                        <div class="@item.CategoryShort[..2] risk-category-circle">
+                            <span class="risk-category-tag-label">@item.CategoryShort</span>
+                        </div>
+                        <span class="capitalized risk-category-label">
+                            @if (!string.IsNullOrEmpty(item.Category))
+                            {
+                                @item.Category
+                                <span class="degrees">@Helpers.FindDegrees(item.CategoryShort, false)</span>
+                            }
                         </span>
-                    </span>
+                    </div>
                 </a>
             </li>
         }

@@ -127,17 +127,20 @@ li.page-item a.page-link:hover {
     box-sizing: border-box;
 }
 
-.main_list_view li {
+.main_list_view .list {
     width: 100%;
     list-style-type: none;
     max-width: 100%;
-    border-bottom: 1px solid #f5e7d3;
+    border-top: 1px solid var(--border-default);
+    &:nth-child(even) {
+        background-color: var(--background-subtle);
+    }
 }
 
 .list a:hover,
 .list a:focus,
 .list a:active {
-    background-color: #f5e7d3;
+    background-color: var(--surface-secondary);
 }
 
 li a span.element_icon {
@@ -181,24 +184,19 @@ li a span.element_icon {
 }
 
 .listheader {
-    grid-template-columns: 1fr 2fr 2fr 153px;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
 }
 
 .listheader.door_knocker {
-    grid-template-columns: 1fr 2fr auto 2fr 153px;
+    grid-template-columns: 2fr 4fr 4fr 2fr 3fr;
 }
 
 .main_list_view li a {
-    grid-template-columns: 1fr 4fr 105px 53px;
+    grid-template-columns: 1fr 4fr 1fr;
 }
 
 .main_list_view li.door_knocker a {
-    grid-template-columns: 1fr 4fr 54px 100px 53px;
-}
-
-.categoryname {
-    text-align: right;
-    padding-right: 5px;
+    grid-template-columns: 2fr 8fr 2fr 3fr;
 }
 
 .categorytag {
@@ -209,14 +207,6 @@ li a span.element_icon {
     width: 41px;
     display: block;
     height: 41px;
-}
-
-.category_tag_label {
-    margin: auto;
-    display: block;
-    text-align: center;
-    font-size: 20px;
-    line-height: 41px;
 }
 
 .list_cell {
@@ -428,17 +418,16 @@ only screen and (min-width:941px) and (max-width:1150px){
         position: -webkit-sticky;
         z-index: 1;
         top: -1px;
-        background-color: #fff9f0;
-        font-weight: bold;
+        font-size: var(--font-size-3);
+        font-weight: 400;
+        color: var(--text-primary);
+        background-color: var(--background-default);
+        border-bottom: 1px solid var(--border-default);
         text-align: left;
     }
 
-        .listheader span:last-child {
-            text-align: right;
-        }
 
     .main_list_view .listheader {
-        border-bottom: 1px solid #4c4a48;
         padding-bottom: 5px;
         padding-right: 5px;
     }
@@ -458,7 +447,6 @@ only screen and (min-width:941px) and (max-width:1150px){
             padding-top: 0;
             border: 0;
         }
-
 
         .listwrapper {
             flex-direction: column;

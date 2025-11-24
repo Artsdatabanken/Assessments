@@ -1,31 +1,26 @@
 ﻿@model CategoryDescriptionViewModel
 
 @{
-    var active = "active";
-    var notActive = "notactive";
-    string GetActiveElement(string currentCaterogy)
-    {
-        if (Model.CategoryShort.Substring(0,2) == currentCaterogy)
-            return active;
-        return notActive;
-    }
+    string GetActiveElement(string currentCategory) => Model.CategoryShort[..2] == currentCategory ? "active" : "notactive";
 }
 
 <div class="page_section">
     <div class="page_section">
         <ul class="category_displayer">
-                @foreach (var category in Model.CategoryBar)
-                {
-                    <li class="@GetActiveElement(category.NameShort)">
-                        <div class="category_item  @category.NameShort">
-                        <span>@(GetActiveElement(category.NameShort) == active ? Model.CategoryShort : category.NameShort)</span>
-                        </div>
-                        <span class="tag">@category.Name</span>
-                    </li>
-                }
+            @foreach (var category in Model.CategoryBar)
+            {
+                <li class="@GetActiveElement(category.NameShort)">
+                    <div class="category_item  @category.NameShort">
+                        <span>
+                            @(GetActiveElement(category.NameShort) == "active" ? Model.CategoryShort : category.NameShort)
+                        </span>
+                    </div>
+                    <span class="tag">@category.Name</span>
+                </li>
+            }
         </ul>
     </div>
-    <a href="@Model.MethodUrl" class="link-styled">
+    <a is-visible="!string.IsNullOrEmpty(Model.MethodUrl)" href="@Model.MethodUrl" class="link-styled">
         @Model.MethodText
     </a>
 </div>

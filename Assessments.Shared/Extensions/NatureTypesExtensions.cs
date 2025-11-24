@@ -10,7 +10,7 @@ namespace Assessments.Shared.Extensions;
 public static class NatureTypesExtensions
 {
     public static string GetDescription(this Category category) => category.ConvertTo<NatureTypeCategoryDto>().DisplayName();
-
+    
     public static string GetDescription(this AssessmentRegion region) => region.ConvertTo<AssessmentRegionDto>().DisplayName();
 
     public static string GetCitation(this List<CommitteeUser> committeeUsers, Committee committee, bool includeDetails)

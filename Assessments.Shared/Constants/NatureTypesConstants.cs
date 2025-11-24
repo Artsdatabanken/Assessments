@@ -4,11 +4,11 @@ public static class NatureTypesConstants
 {
     public const string Title2025 = "Norsk rødliste for naturtyper 2025";
     
-    public static readonly DateTime PublishedDate = new(2025, 11, 27);
+    public static readonly DateTime PublishedDate = new(2025, 11, 26);
     
     public const string CitationSummary = $"{Title2025}. Artsdatabanken.";
 
-    //public const int PageMenuContentId = 376719;
+    public const string NiNHomepage = "https://artsdatabanken.no/naturtyper/natur-i-norge";
 
     public static class Headings
     {
@@ -21,5 +21,6 @@ public static class NatureTypesConstants
         public static readonly string References = "Referanser";
     }
 
+    // TODO: rln fjern etter lansering
     public const string TemporaryAccessCookieName = "adb.req.enablenaturetypes";
 }

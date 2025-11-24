@@ -3,7 +3,6 @@ using Assessments.Shared.DTOs.NatureTypes;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Web.Infrastructure;
-using Assessments.Web.Infrastructure.Enums;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 
@@ -12,8 +11,7 @@ namespace Assessments.Web.Models.NatureTypes;
 public record NatureTypesDetailViewModel(Assessment Assessment)
 {
     public IEnumerable<CodeItemNodeDto> CodeItemNodeDtos { get; init; }
-
-
+    
     public TableOfContentsViewModel TableOfContentsViewModel => new()
     {
         Contents =
@@ -78,10 +76,12 @@ public record NatureTypesDetailViewModel(Assessment Assessment)
         {
             Name = x.GetDescription(),
             NameShort = x.ToString()
-        }).Reverse()],
-        MethodUrl = "https://artsdatabanken.no/pages/376752",
-        MethodText = "Forklaring av kategoriene og kriteriene"
+        }).Reverse()]
     };
 
     public List<CategoryCriteriaType> CategoryCriteriaTypes { get; init; } = [];
+    
+    public string Changes { get; set; }
+
+    public bool HasChanges { get; set; } // ble vurdert i forrige revisjon
 }

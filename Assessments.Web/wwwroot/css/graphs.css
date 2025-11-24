@@ -48,12 +48,12 @@
 .graph .heightbar_blank,
 .graph .heightbar_indicator {
     height: 200px;
+    justify-content: center; 
 }
 
 .heightbar_blank,
 .heightbar_indicator {
     display: flex;
-    /*justify-content: center; */
     position: relative;
     width: 100%;
 }
@@ -66,12 +66,8 @@
     margin-top: auto;
     position: absolute;
     margin-bottom: 2px;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-}
-
-.heightbar_indicator {
-    background: grey;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .greyscale .statelement:nth-child(even) .heightbar_indicator {
@@ -131,8 +127,7 @@
 }
 
 .down_graph .heightbar_indicator {
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
+    border: 1px solid var(--text-primary);
 }
 
 .down_graph .statelement .heightbar_blank {

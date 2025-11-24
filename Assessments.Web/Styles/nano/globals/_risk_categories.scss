@@ -1,0 +1,61 @@
+@use "./primitives" as *;
+
+:root {
+  --background-redlist-ne: #{$brand-white};
+  --background-redlist-na: #{$brand-white};
+  --background-redlist-lc: #{$special-60};
+  --background-redlist-dd: #{$special-70};
+  --background-redlist-nt: #{$special-80};
+  --background-redlist-vu: #{$special-90};
+  --background-redlist-en: #{$special-100};
+  --background-redlist-cr: #{$special-110};
+  --background-redlist-re: #{$neutrals-ocean-90};
+  --background-redlist-co: #{$neutrals-ocean-90};
+
+  --border-redlist-ne: var(--border-strong);
+  --border-redlist-na: var(--border-strong);
+  --border-redlist-lc: #{$special-60};
+  --border-redlist-dd: #{$special-70};
+  --border-redlist-nt: #{$special-80};
+  --border-redlist-vu: #{$special-90};
+  --border-redlist-en: #{$special-100};
+  --border-redlist-cr: #{$special-110};
+  --border-redlist-re: var(--border-strong);
+  --border-redlist-co: var(--border-strong);
+
+  --text-redlist-ne: var(--text-riskcategory-invert);
+  --text-redlist-na: var(--text-riskcategory-invert);
+  --text-redlist-lc: var(--text-riskcategory-primary);
+  --text-redlist-dd: var(--text-riskcategory-primary);
+  --text-redlist-nt: var(--text-riskcategory-primary);
+  --text-redlist-vu: var(--text-riskcategory-primary);
+  --text-redlist-en: var(--text-riskcategory-primary);
+  --text-redlist-cr: var(--text-riskcategory-primary);
+  --text-redlist-re: var(--text-riskcategory-primary);
+  --text-redlist-co: var(--text-riskcategory-primary);
+
+  // Alien list:
+  --background-alien-list-nr: #{$brand-white};
+  --border-alien-list-nr: var(--border-strong);
+  --text-alien-list-nr: var(--text-riskcategory-invert);
+
+  --background-alien-list-nk: #{$special-10};
+  --border-alien-list-nk: #{$special-10};
+  --text-alien-list-nk: var(--text-riskcategory-invert);
+
+  --background-alien-list-lo: #{$special-20};
+  --border-alien-list-lo: #{$special-20};
+  --text-alien-list-lo: var(--text-riskcategory-invert);
+
+  --background-alien-list-ph: #{$special-30};
+  --border-alien-list-ph: #{$special-30};
+  --text-alien-list-ph: var(--text-riskcategory-primary);
+
+  --background-alien-list-hi: #{$special-40};
+  --border-alien-list-hi: #{$special-40};
+  --text-alien-list-hi: var(--text-riskcategory-primary);
+
+  --background-alien-list-se: #{$special-50};
+  --border-alien-list-se: #{$special-50};
+  --text-alien-list-se: var(--text-riskcategory-primary);
+}

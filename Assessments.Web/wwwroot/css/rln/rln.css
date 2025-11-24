@@ -1,0 +1,223 @@
+h1 + .hr-compact {
+    background-color: var(--surface-brand-5b);
+}
+
+.hr-compact {
+    background-color: var(--surface-brand-1a);
+    border: none;
+    max-width: 60px;
+    margin-left: 0;
+    height: 4px;
+}
+
+.spacious {
+    font-family: var(--font-secondary-family);
+}
+
+.rln-assessment-area {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2xsm);
+    font-size: var(--font-size-3);
+}
+
+.intro-card {
+    background-color: var(--surface-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    & > p {
+           font-size: var(--font-size-5);
+           line-height: 172%;
+       }
+}
+
+.criteria-matrix {
+    padding-top: 5px
+}
+
+.criteria-matrix table { border-spacing: 2px }
+
+.criteria-matrix .legend {
+    color: var(--text-primary);
+    font-weight: normal;
+    font-size: smaller;
+    text-align: end;
+}
+
+.criteria-matrix .horizontal-legend {
+    text-align: center;
+    writing-mode: vertical-rl;
+    transform: scale(-1, -1);
+    font-weight: normal;
+    font-size: smaller;
+}
+
+.criteria-matrix .selected {
+    box-sizing: border-box;
+    border: 5px solid var(--text-primary);
+}
+
+.criteria-matrix table th {
+    width: 50px;
+    height: 50px;
+    color: white;
+    text-align: center;
+}
+
+.criteria-matrix .cr {
+    background: var(--background-redlist-cr);
+    color: var(--text-redlist-cr);
+}
+
+.criteria-matrix .en {
+    background: var(--background-redlist-en);
+    color: var(--text-redlist-en);
+}
+
+.criteria-matrix .vu {
+    background: var(--background-redlist-vu);
+    color: var(--text-redlist-vu);
+}
+
+.criteria-matrix .nt {
+    background: var(--background-redlist-nt);
+    color: var(--text-redlist-nt);
+}
+
+.node.CO {
+    fill: var(--background-redlist-co);
+}
+
+.node.CR {
+    fill: var(--background-redlist-cr);
+}
+
+.node.EN {
+    fill: var(--background-redlist-en);
+}
+
+.node.VU {
+    fill: var(--background-redlist-vu);
+}
+
+.node.NT {
+    fill: var(--background-redlist-nt);
+}
+
+.node.DD {
+    fill: var(--background-redlist-dd);
+}
+
+.node.LC {
+    fill: var(--background-redlist-lc);
+}
+
+.node.NA {
+    fill: var(--background-redlist-na);
+    outline: thin solid var(--border-redlist-na);
+}
+
+.node.NE {
+    fill: var(--background-redlist-ne);
+    outline: thin solid var(--border-redlist-ne);
+}
+
+#sankey-target {
+    isolation: isolate;
+}
+
+.sankey-node-text {
+    fill: black;
+}
+
+.dark-theme .sankey-node-text {
+    fill: white;
+}
+
+.sankey-link {
+    mix-blend-mode: multiply;
+    stroke: lightgray;
+}
+
+.dark-theme .sankey-link {
+    mix-blend-mode: normal;
+    stroke: grey
+}
+
+.sankey-link:hover {
+    stroke-opacity: 1
+}
+
+.jquery-modal .modal a.close-modal {
+    top: 40px;
+    right: 40px;
+    width: 24px;
+    height: 24px;
+    color: var(--surface-accent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z' fill='%23005A71'/%3E%3C/svg%3E");
+}
+
+/* 'Midlertidige' klasser for å unngå å rote til for de andre listene, kan på kort sikt vurdere å ha dette i en egen css-fil. Splitte opp i rln-detail og rln-list eller noe slikt? */
+.applied-variables-container,
+.changes-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.rln-list-header {
+    grid-template-columns: 2fr 7fr 3fr 2fr;
+}
+
+li.list.rln-list-row > a {
+    padding: var(--spacing-sm) var(--spacing-none) var(--spacing-sm) var(--spacing-xsm) !important;
+    grid-template-columns: 2fr 7fr 3fr 2fr;
+    @media (max-width: 650px) {
+        display: inline-block;
+        & > span {
+            padding: var(--spacing-xsm) 0;
+        }
+    }
+}
+
+.rln-cell-shortcode {
+    font-size: var(--font-size-3);
+    color: var(--text-primary);
+}
+
+.rln-cell-naturetype {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xsm);
+}
+
+.rln-cell-naturetype span:first-child {
+    font-size: var(--font-size-6);
+    color: var(--text-accent);
+    font-weight: 700;
+}
+
+.rln-cell-naturetype span:last-child {
+    font-size: var(--font-size-5);
+    color: var(--text-secondary);
+}
+
+.rln-cell-svalbard {
+    font-size: var(--font-size-3);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2xsm);
+    color: var(--text-primary);
+}
+
+.rln-map-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.rln-map-icon > path {
+    fill: var(--surface-invert);
+}
