@@ -171,7 +171,7 @@ const createList = (json,searchstring) => {
                         if (cat.length > 2) {
                             cat = cat.substring(0, 2) + " degraded";
                         }
-                        category = `<span class="search_category graphic_element ${cat}">${assessments[i].category}</span >`;
+                        category = `<span class="search_category risk-category-circle-small ${cat}"><span class="risk-category-tag-label-small">${assessments[i].category}</span></span >`;
                     }
                     if (assessments[i].speciesGroup) {
                         speciesGroup = '<span class="search_speciesgroup">' + assessments[i].speciesGroup.toLowerCase() + '</span >';

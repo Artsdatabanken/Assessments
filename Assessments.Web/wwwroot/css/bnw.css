@@ -167,7 +167,6 @@
 .dark-theme .main .filter_group button,
 .dark-theme .button.tertiary,
 .dark-theme .main button.tertiary,
-.dark-theme .habitat_element,
 .dark-theme .filter_group button {
     background: transparent;
 }
@@ -352,8 +351,7 @@
 }
 
 /* SPECIAL STUFF */
-.dark-theme .S .speciesgroup_name,
-.dark-theme .main_list_view li.S {
+.dark-theme .S .speciesgroup_name {
     background: #0f122d;
 }
 
@@ -378,10 +376,6 @@
 .dark-theme input:checked ~ .slider_container .slider,
 .dark-theme .slider {
     border-color: white;
-}
-
-.dark-theme .svalbard-heading {
-    color: #55b2df
 }
 
 /* HIGH CONTRAST + DARK THEME */

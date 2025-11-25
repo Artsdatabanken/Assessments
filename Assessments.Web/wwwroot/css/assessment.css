@@ -125,18 +125,19 @@ li.region p {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
-    justify-content: space-between;
 }
 
 .habitat_element {
-    max-width: 24%;
-    width: 24%;
+    max-width: calc(24% - 10px);
+    width: calc(24% - 10px);
     margin-bottom: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    background: #f5e7d3;
-    padding: 5px
+    margin: 5px;
+    background-color: var(--surface-primary);
+    border: solid 1px var(--border-default);
+    border-radius: var(--radius-md);
 }
 
 .habitat .inactive{
@@ -166,6 +167,7 @@ li.region p {
     height: 100%;
     object-fit: cover;
     overflow: hidden;
+    border-radius: var(--radius-md);
 }
 
 .habitat_element b {
@@ -235,7 +237,7 @@ li.region p {
 }
 
 .habitat_element p, .habitat_element a {
-    color: #262F31;
+    /*color: #262F31;*/
     font-size: 8pt;
 }
 

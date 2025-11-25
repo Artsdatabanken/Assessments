@@ -231,11 +231,6 @@ li a span.element_icon {
     min-height: 74px;
 }
 
-.main_list_view li.S {
-    background: #E6EFF1;
-    border-color: #99BDC6;
-}
-
 .svalbarcontainer {
     display: none;
 }
