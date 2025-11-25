@@ -16,7 +16,7 @@ public static class ODataHelper
         modelBuilder.EntitySet<SpeciesAssessment2021>(nameof(SpeciesAssessment2021));
         modelBuilder.EntitySet<AlienSpeciesAssessment2023>(nameof(AlienSpeciesAssessment2023));
         
-        var rodlisteNaturtyperAssessment = modelBuilder.EntitySet<RodlisteNaturtyper.Data.Models.Assessment>("NatureTypeAssessment2025");
+        var rodlisteNaturtyperAssessment = modelBuilder.EntitySet<RodlisteNaturtyper.Data.Models.Assessment>("NatureTypesAssessment2025");
 
         rodlisteNaturtyperAssessment.EntityType.Ignore(m => m.State);
         rodlisteNaturtyperAssessment.EntityType.Ignore(m => m.CreatedOn);
