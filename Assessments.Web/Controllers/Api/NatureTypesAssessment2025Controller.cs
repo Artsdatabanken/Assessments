@@ -14,7 +14,7 @@ namespace Assessments.Web.Controllers.Api;
 [ApiKeyRequired] // TODO: rln fjern etter lansering
 [EnableCors(nameof(CorsConstants.AllowAny))]
 [Produces("application/json")]
-public class NatureTypeAssessment2025Controller(RodlisteNaturtyperDbContext dbContext) : ODataController
+public class NatureTypesAssessment2025Controller(RodlisteNaturtyperDbContext dbContext) : ODataController
 {
     [EnableQuery(PageSize = 100)]
     public IQueryable<Assessment> Get() => dbContext.Assessments.Where(x => x.Category != Category.NA).AsQueryable();
