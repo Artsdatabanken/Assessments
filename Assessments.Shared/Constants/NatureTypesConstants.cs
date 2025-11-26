@@ -20,7 +20,4 @@ public static class NatureTypesConstants
         public static readonly string Regions = "Regioner og havområder";
         public static readonly string References = "Referanser";
     }
-
-    // TODO: rln fjern etter lansering
-    public const string TemporaryAccessCookieName = "adb.req.enablenaturetypes";
 }
