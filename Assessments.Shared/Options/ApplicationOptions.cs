@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Options;
 
 namespace Assessments.Shared.Options;
 
@@ -20,9 +19,9 @@ public class ApplicationOptions // configured in appsettings.*.json
     public string ApiKey { get; set; }
 
     [Required]
-    [ValidateObjectMembers]
-    public NatureTypesOptions NatureTypes { get; set; }
-
-    [Required]
     public Uri NinKodeApiUrl { get; set; }
+
+    // TODO: må få nytt navn i keyvault før tas i bruk (etter lansering rln)
+    // gammelt navn: "ApplicationOptions--NatureTypes--TemporaryAccessKey", flyttes til "ApplicationOptions--TemporaryAccessKey"?
+    public string TemporaryAccessKey { get; set; }
 }

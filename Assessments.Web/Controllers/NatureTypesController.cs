@@ -6,7 +6,6 @@ using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
-using Assessments.Shared.Options;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
 using Assessments.Web.Models;
@@ -15,8 +14,6 @@ using Assessments.Web.Models.NatureTypes.Enums;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.FeatureManagement.Mvc;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
 using X.PagedList.Extensions;
@@ -24,26 +21,9 @@ using static Assessments.Shared.Extensions.ExpressionExtensions;
 
 namespace Assessments.Web.Controllers;
 
-[FeatureGate(FeatureManagementConstants.EnableNatureTypes)] // TODO: rln fjern etter lansering
-
-[Route("naturtyper")]
-public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
+[Route("naturtyper/2025")]
+public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
 {
-    // TODO: rln fjern etter lansering
-    [HttpGet]
-    public IActionResult Home(string key)
-    {
-        // midlertidig tilgangskontroll før lansering
-        if (options.Value.NatureTypes.TemporaryAccessKey == null || key != options.Value.NatureTypes.TemporaryAccessKey)
-            return NotFound();
-
-        HttpContext.Response.Cookies.Append(NatureTypesConstants.TemporaryAccessCookieName, options.Value.NatureTypes.TemporaryAccessKey, new CookieOptions { Expires = DateTime.Now.AddDays(90) });
-
-        return RedirectToAction("List");
-    }
-
-    [CookieRequired]
-    [Route("2025")]
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page, bool export)
     {
         var query = repository.GetAssessments();
@@ -104,8 +84,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
         return View(viewModel);
     }
 
-    [CookieRequired]
-    [Route("2025/{id:int}")]
+    [Route("{id:int}")]
     public async Task<IActionResult> Detail(int id)
     {
         var assessment = await repository.GetAssessment(id);
@@ -137,7 +116,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
     }
 
     [HttpGet]
-    [Route("2025/[action]")]
+    [Route("[action]")]
     public async Task<IActionResult> Suggestions()
     {
         var ninCodeTopicSuggestions = await repository.GetNinCodeTopicSuggestions();
@@ -291,7 +270,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
 
         return viewModel;
     }
-    
+
     private async Task GetChanges(Assessment assessment, NatureTypesDetailViewModel viewModel)
     {
         var lookups = await DataRepository.GetData<NatureTypes2018To2025Lookup>(DataFilenames.NatureTypes2018To2025);
@@ -313,7 +292,7 @@ public class NatureTypesController(INatureTypesRepository repository, IOptions<A
             }).ToList();
 
             var groups = lookups.Where(x => assessmentsWithChanges.Select(y => y.Id).Contains(x.Id2025)).GroupBy(x => new { x.Name2018, x.Category2018 });
-            
+
             var nodes = groups.ToList().Select(group => new Node
             {
                 Name = group.Key.Name2018,
