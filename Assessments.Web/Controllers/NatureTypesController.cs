@@ -1,11 +1,10 @@
-﻿using System.Linq.Expressions;
-using System.Text.Json;
-using Assessments.Mapping.NatureTypes.Model;
+﻿using Assessments.Mapping.NatureTypes.Model;
 using Assessments.Shared.Constants;
 using Assessments.Shared.DTOs.NatureTypes.Enums;
 using Assessments.Shared.Extensions;
 using Assessments.Shared.Helpers;
 using Assessments.Shared.Interfaces;
+using Assessments.Shared.Options;
 using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.Enums;
 using Assessments.Web.Models;
@@ -14,15 +13,18 @@ using Assessments.Web.Models.NatureTypes.Enums;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RodlisteNaturtyper.Data.Models;
 using RodlisteNaturtyper.Data.Models.Enums;
+using System.Linq.Expressions;
+using System.Text.Json;
 using X.PagedList.Extensions;
 using static Assessments.Shared.Extensions.ExpressionExtensions;
 
 namespace Assessments.Web.Controllers;
 
 [Route("naturtyper/2025")]
-public class NatureTypesController(INatureTypesRepository repository) : BaseController<NatureTypesController>
+public class NatureTypesController(INatureTypesRepository repository, IOptions<ApplicationOptions> options) : BaseController<NatureTypesController>
 {
     public async Task<IActionResult> List(NatureTypesListParameters parameters, int? page, bool export)
     {
@@ -48,7 +50,7 @@ public class NatureTypesController(INatureTypesRepository repository) : BaseCont
                 committeeUsers = await repository.GetCommitteeUsers()
             });
 
-            return new FileStreamResult(ExportHelper.GenerateNatureTypeAssessment2025Export(assessmentExports, Request.GetDisplayUrl()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            return new FileStreamResult(ExportHelper.GenerateNatureTypeAssessment2025Export(assessmentExports, new Uri(options.Value.BaseUrl, Request.GetEncodedPathAndQuery())), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
                 FileDownloadName = "rødlista-naturtyper-2025.xlsx"
             };

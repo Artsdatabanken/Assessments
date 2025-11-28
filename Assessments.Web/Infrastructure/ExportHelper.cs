@@ -18,7 +18,7 @@ public static class ExportHelper
         LoadOptions.DefaultGraphicEngine = new DefaultGraphicEngine("carlito");
     }
 
-    public static MemoryStream GenerateSpeciesAssessment2021Export(IEnumerable<SpeciesAssessment2021Export> assessments, IEnumerable<ExpertCommitteeMember> expertCommitteeMembers, string displayUrl)
+    public static MemoryStream GenerateSpeciesAssessment2021Export(IEnumerable<SpeciesAssessment2021Export> assessments, IEnumerable<ExpertCommitteeMember> expertCommitteeMembers, Uri referringUrl)
     {
         MemoryStream memoryStream;
         using (var workbook = new XLWorkbook())
@@ -65,7 +65,7 @@ public static class ExportHelper
             workbook.Worksheet(3).Columns().AdjustToContents();
 
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
-            var referringUrl = new Uri(displayUrl);
+            
             citeAsWorksheet.Cell(1, 1).Value = $"Artsdatabanken (2021, 24. november). Norsk rødliste for arter 2021. Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
 
             foreach (var workbookWorksheet in workbook.Worksheets)
@@ -80,7 +80,7 @@ public static class ExportHelper
         return memoryStream;
     }
 
-    public static MemoryStream GenerateAlienSpeciesAssessment2023Export(IEnumerable<AlienSpeciesAssessment2023Export> assessments, string displayUrl)
+    public static MemoryStream GenerateAlienSpeciesAssessment2023Export(IEnumerable<AlienSpeciesAssessment2023Export> assessments, Uri referringUrl)
     {
         MemoryStream memoryStream;
         using (var workbook = new XLWorkbook())
@@ -116,7 +116,7 @@ public static class ExportHelper
             workbook.Worksheet(2).Columns().AdjustToContents();
 
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
-            var referringUrl = new Uri(displayUrl);
+            
             citeAsWorksheet.Cell(1, 1).Value = $"Artsdatabanken (2023). Fremmedartslista 2023. Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
 
             foreach (var workbookWorksheet in workbook.Worksheets)
@@ -131,7 +131,7 @@ public static class ExportHelper
         return memoryStream;
     }
 
-    public static MemoryStream GenerateNatureTypeAssessment2025Export(IEnumerable<NatureTypeAssessmentExport> assessments, string displayUrl)
+    public static MemoryStream GenerateNatureTypeAssessment2025Export(IEnumerable<NatureTypeAssessmentExport> assessments, Uri referringUrl)
     {
         MemoryStream memoryStream;
         using (var workbook = new XLWorkbook())
@@ -166,7 +166,6 @@ public static class ExportHelper
             workbook.Worksheets.Add(table);
 
             var citeAsWorksheet = workbook.AddWorksheet("Siteres som");
-            var referringUrl = new Uri(displayUrl);
             
             var citation = $"{NatureTypesConstants.CitationSummary} Utvalg {CleanQueryString(referringUrl)}. {referringUrl.GetLeftPart(UriPartial.Path)}";
             

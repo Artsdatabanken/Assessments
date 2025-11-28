@@ -1,18 +1,20 @@
-﻿using Assessments.Web.Infrastructure;
+﻿using Assessments.Mapping.AlienSpecies.Model;
+using Assessments.Shared.Helpers;
+using Assessments.Shared.Options;
+using Assessments.Web.Infrastructure;
 using Assessments.Web.Infrastructure.AlienSpecies;
 using Assessments.Web.Infrastructure.Services;
-using Assessments.Mapping.AlienSpecies.Model;
-using Assessments.Shared.Helpers;
+using Assessments.Web.Models.AlienSpecies;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using X.PagedList.Extensions;
-using Assessments.Web.Models.AlienSpecies;
 
 namespace Assessments.Web.Controllers;
 
 [Route("fremmedartslista")]
-public class AlienSpeciesController(AttachmentRepository attachmentRepository, ArtskartApiService artskartApiService, IStringLocalizer<AlienSpeciesController> localizer)
+public class AlienSpeciesController(AttachmentRepository attachmentRepository, ArtskartApiService artskartApiService, IStringLocalizer<AlienSpeciesController> localizer, IOptions<ApplicationOptions> options)
     : BaseController<AlienSpeciesController>
 {
     [Route("2023")]
@@ -97,11 +99,11 @@ public class AlienSpeciesController(AttachmentRepository attachmentRepository, A
         };
     }
 
-    private IActionResult GetExport(IEnumerable<AlienSpeciesAssessment2023> query)
+    private FileStreamResult GetExport(IEnumerable<AlienSpeciesAssessment2023> query)
     {
         var assessmentsForExport = Mapper.Map<IEnumerable<AlienSpeciesAssessment2023Export>>(query.ToList());
 
-        return new FileStreamResult(ExportHelper.GenerateAlienSpeciesAssessment2023Export(assessmentsForExport, Request.GetDisplayUrl()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        return new FileStreamResult(ExportHelper.GenerateAlienSpeciesAssessment2023Export(assessmentsForExport, new Uri(options.Value.BaseUrl, Request.GetEncodedPathAndQuery())), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         {
             FileDownloadName = "fremmedartslista-2023.xlsx"
         };

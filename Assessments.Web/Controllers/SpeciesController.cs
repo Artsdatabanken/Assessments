@@ -1,19 +1,21 @@
-using Assessments.Web.Infrastructure;
-using Assessments.Web.Infrastructure.Services;
 using Assessments.Mapping.RedlistSpecies;
 using Assessments.Shared.Helpers;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using System.Web;
-using X.PagedList.Extensions;
+using Assessments.Web.Infrastructure;
+using Assessments.Web.Infrastructure.Services;
 using Assessments.Web.Models.Species;
 using LazyCache;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using System.Web;
+using Assessments.Shared.Options;
+using X.PagedList.Extensions;
 
 namespace Assessments.Web.Controllers;
 
 [Route("rodlisteforarter")]
-public class SpeciesController(ArtskartApiService artskartApiService, IAppCache appCache) : BaseController<SpeciesController>
+public class SpeciesController(ArtskartApiService artskartApiService, IAppCache appCache, IOptions<ApplicationOptions> options) : BaseController<SpeciesController>
 {
     [Route("2021")]
     public async Task<IActionResult> Index([FromQuery] SpeciesViewModel viewModel, int? page, bool export)
@@ -145,7 +147,7 @@ public class SpeciesController(ArtskartApiService artskartApiService, IAppCache 
             var expertCommitteeMembers = await DataRepository.GetData<ExpertCommitteeMember>(DataFilenames.SpeciesExpertCommitteeMembers);
             expertCommitteeMembers = expertCommitteeMembers.Where(x => x.Year == 2021);
 
-            return new FileStreamResult(ExportHelper.GenerateSpeciesAssessment2021Export(assessmentsForExport, expertCommitteeMembers.ToList(), Request.GetDisplayUrl()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            return new FileStreamResult(ExportHelper.GenerateSpeciesAssessment2021Export(assessmentsForExport, expertCommitteeMembers.ToList(), new Uri(options.Value.BaseUrl, Request.GetEncodedPathAndQuery())), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
                 FileDownloadName = "rødliste-2021.xlsx"
             };
