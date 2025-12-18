@@ -1,5 +1,19 @@
 ﻿@model SideBarContentViewModel
 
+@if (Model.AssessmentType == AssessmentType.RedlistSpecies2021)
+{
+    // erstatter døde lenker i rødlista for arter
+    foreach (var assessment in Model.PreviousAssessments)
+    {
+        assessment.Url = assessment.Year switch
+        {
+            2010 => "https://artsdatabanken.no/Pages/201625/Norsk_roedliste_for_arter_2010",
+            2015 => "https://artsdatabanken.no/Pages/201612/Norsk_roedliste_for_arter_2015",
+            _ => assessment.Url
+        };
+    }
+}
+
 @functions{
     public string categoryDescription(string category)
     {
@@ -15,6 +29,7 @@
 <h3>Videre lesning</h3>
 
 <ul class="history_list">
+    
     @foreach (var prev in Model.PreviousAssessments.Where(x => x.Year != 2012)) // tidligere vurderinger
     {
         <li>
