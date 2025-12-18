@@ -445,15 +445,15 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
         <p>
             @Html.Raw(description)
             <br>
-            <a href="https://artsdatabanken.no/Pages/314252/Metode#316484" class="link-styled">Gå til metode</a>
+            <a href="https://artsdatabanken.no/Arter/Rodlista-arter/Om-rodlista/Metode-kategorier-og-kriterier#kriteriene">
+                Mer om kriteriene
+            </a>
         </p>
        
         <h4>@ViewBag.glossary["criteria"]["subheading"]</h4>
-        <p>@Model.CriteriaSummarized
-        <br>
-         <a href="https://artsdatabanken.no/rodlisteforarter2021/Metode#316490" class="link-styled">Gå til ordliste</a>
+        <p>
+            @Model.CriteriaSummarized
         </p>
-        
     </div>
 
     <!-- CONTROL BUTTONS -->
@@ -592,31 +592,31 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
                                                     c_category = Model.CategoryAdjustedFrom;
                                                 }
                                             }
-                                                @if (activeC == "active")
-                                                {
-                                                    <div class="b_summary risk-category-container">
-                                                        <span class="risk-category-circle @c_category">
-                                                            <span class="risk-category-tag-label">
-                                                                @c_category
-                                                            </span>
+                                            @if (activeC == "active")
+                                            {
+                                                <div class="b_summary risk-category-container">
+                                                    <span class="risk-category-circle @c_category">
+                                                        <span class="risk-category-tag-label">
+                                                            @c_category
                                                         </span>
-                                                        <span>
-                                                            Kombinasjon av populasjonsstørrelsen og underkriteriene gir til sammen kategori
-                                                            @if (c_comparison)
-                                                            {
-                                                                @c_category
-                                                            }
-                                                            else
-                                                            {
-                                                                <partial name="/Views/Shared/_Category.cshtml" />
-                                                            }
-                                                        </span>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <span>C-kriteriet er ikke gjeldende</span>
-                                                }
+                                                    </span>
+                                                    <span>
+                                                        Kombinasjon av populasjonsstørrelsen og underkriteriene gir til sammen kategori
+                                                        @if (c_comparison)
+                                                        {
+                                                            @c_category
+                                                        }
+                                                        else
+                                                        {
+                                                            <partial name="/Views/Shared/_Category.cshtml" />
+                                                        }
+                                                    </span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <span>C-kriteriet er ikke gjeldende</span>
+                                            }
                                         </span>
                                     </span>
                                 </li>
@@ -769,6 +769,10 @@ Model.Category.Contains("VU") || Model.Category.Contains("NT")))
             }
         </ul>
     </div>
+    <br/>
+    <a href="https://artsdatabanken.no/Arter/Rodlista-arter/Om-rodlista/Metode-kategorier-og-kriterier#viktige-begrep">
+        Gå til viktige begrep
+    </a>
 </div>
 }
 else
