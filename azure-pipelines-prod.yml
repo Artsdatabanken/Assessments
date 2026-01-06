@@ -15,7 +15,12 @@ variables:
   solutionPath: '**/Assessments.Web.csproj'
 
 steps:
-    
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '10.x'
+
   - task: DotNetCoreCLI@2
     displayName: 'Build'
     inputs:
