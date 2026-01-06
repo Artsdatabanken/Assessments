@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using RodlisteNaturtyper.Data.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -63,23 +63,13 @@ public static class SwaggerConfiguration
             if (!apiKeyIsRequired)
                 return;
 
-            operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
+            operation.Responses?.Add("401", new OpenApiResponse { Description = "Unauthorized" });
 
             operation.Security =
             [
                 new OpenApiSecurityRequirement
                 {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Id = SecurityName,
-                                Type = ReferenceType.SecurityScheme
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
+                    { new OpenApiSecuritySchemeReference(SecurityName, context.Document), [] }
                 }
             ];
         }
@@ -87,8 +77,11 @@ public static class SwaggerConfiguration
 
     private class SwaggerIgnoreFilter : ISchemaFilter
     {
-        public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+        public void Apply(IOpenApiSchema schema, SchemaFilterContext context)
         {
+            if (schema.Properties == null)
+                return;
+
             foreach (var schemaProperty in schema.Properties)
                 schemaProperty.Value.Description = string.Empty;
 

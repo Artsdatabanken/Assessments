@@ -18,8 +18,5 @@ public class NatureTypesAssessment2025Controller(RodlisteNaturtyperDbContext dbC
     public IQueryable<Assessment> Get() => dbContext.Assessments.Where(x => x.Category != Category.NA).AsQueryable();
 
     [EnableQuery]
-    public IActionResult Get(int key)
-    {
-        return Ok(SingleResult.Create(dbContext.Assessments.Where(x => x.Id == key && x.Category != Category.NA)));
-    }
+    public IActionResult Get(int key) => Ok(SingleResult.Create(dbContext.Assessments.Where(x => x.Id == key && x.Category != Category.NA)));
 }
